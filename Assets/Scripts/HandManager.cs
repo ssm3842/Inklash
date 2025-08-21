@@ -1,50 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandManager : MonoBehaviour
 {
-    // Hierarchy에 있는 5개의 핸드 슬롯(Hand_1 ~ Hand_5)을 순서대로 여기에 할당.
-    public List<GameObject> handSlots;
+    // 생성할 카드 프리팹
+    public GameObject cardPrefab;
 
-    // 현재 활성화된 카드의 개수를 추적하는 변수
-    private int currentCardCount = 0;
+    // 카드들이 생성될 위치 (Hand Panel)
+    public Transform handTransform;
+
+    // HandLayout을 참조할 변수 추가
+    private HandLayout handLayout;
 
     void Start()
     {
-        InitializeHand();
+        // handTransform (Hand Panel)에 붙어있는 HandLayout을 가져옴
+        handLayout = handTransform.GetComponent<HandLayout>();
+
+        InitializeGame();
     }
 
-    // 핸드를 초기 상태로 설정하는 함수
-    void InitializeHand()
+    void InitializeGame()
     {
-        // 1. 시작할 때 모든 핸드 슬롯을 비활성화하여 숨김.
-        foreach (GameObject slot in handSlots)
-        {
-            slot.SetActive(false);
-        }
-        
-        // 2. 5초마다 카드를 '나타나게' 하는 코루틴을 시작.
-        StartCoroutine(RevealCardCoroutine());
+        StartCoroutine(DrawCardCoroutine());
     }
 
-    // 5초마다 카드를 하나씩 활성화하는 코루틴
-    IEnumerator RevealCardCoroutine()
+    IEnumerator DrawCardCoroutine()
     {
-        // currentCardCount가 최대 슬롯 개수보다 적을 때까지 반복.
-        while (currentCardCount < handSlots.Count)
+        // 핸드에 카드가 5장 미만일 때까지 반복
+        while (handTransform.childCount < 5)
         {
-            // 5초를 기다림.
-            yield return new WaitForSeconds(5f);
-
-            // 다음 슬롯을 활성화.
-            handSlots[currentCardCount].SetActive(true);
-
-            // 활성화된 카드 개수를 1 증가.
-            currentCardCount++;
+            yield return new WaitForSeconds(3f); // 3초 대기
+            DrawCard();
         }
-        
-        // 모든 카드가 다 채워지면 코루틴이 종료.
         Debug.Log("핸드가 가득 찼습니다.");
+    }
+
+    void DrawCard()
+    {
+        // 1. 카드 프리팹을 handTransform의 자식으로 하여 생성
+        GameObject newCard = Instantiate(cardPrefab, handTransform);
+
+        // 2. 생성된 카드를 HandLayout에 등록하여 정렬을 요청
+        if (handLayout != null)
+        {
+            handLayout.AddCardToHand(newCard);
+        }
     }
 }
