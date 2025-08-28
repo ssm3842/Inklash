@@ -15,10 +15,10 @@ MonoBehaviour:
   cardContents:
   - name: Red
     cost: 2
-    unit: {fileID: 4394079330182411486, guid: af842d8b8d3686e44af0f100ad0c8ba1, type: 3}
+    unit: {fileID: 4394079330182411486, guid: 91b70b55607affb4a95ae72f56f838d8, type: 3}
   - name: Green
     cost: 3
-    unit: {fileID: 4394079330182411486, guid: de9a67bf1e72c2a4ea649d7659c934f1, type: 3}
+    unit: {fileID: 4394079330182411486, guid: 59fdf1cfc0d3ab34ab27cc68eb8ed910, type: 3}
   - name: Blue
     cost: 4
-    unit: {fileID: 4394079330182411486, guid: 743dd2225b5cf314eb5cc34184b4bf0a, type: 3}
+    unit: {fileID: 4394079330182411486, guid: 34979a43f8218194bb807720a1903bc8, type: 3}

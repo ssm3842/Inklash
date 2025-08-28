@@ -38,10 +38,10 @@ public class CostManager : MonoBehaviour
         {
             time += Time.deltaTime;
 
-            if (time > 3.0f)
+            if (time > GameRule.COST_GENERATE_SECOND)
             {
                 currentCost++;
-                time -= 3.0f;
+                time = 0f;
                 IndicateCost();
             }
         }
