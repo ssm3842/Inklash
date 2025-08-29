@@ -1,29 +1,24 @@
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
-public class Units : MonoBehaviour
+public class Units : Entity
 {
-    private float MaxHP = 10f;
-    private float CurHP;
-    private float ATK = 6f;
-    private float MoveSPD = 0.5f;
+    [SerializeField] private float ATK = 6f;
+    private float MoveSPD = 1.5f;
     private float AtkSPD = 1f;
 
-    private bool canAttack;
-    private float canAttackTimer;
-
-    public bool isPlayers;
+    [SerializeField]private bool canAttack;
+    [SerializeField]private float canAttackTimer;
 
     Rigidbody2D RB;
 
-    Units target;
+    Entity target;
 
     void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(bool players)
+    override public void Init(bool players)
     {
         CurHP = MaxHP;
         canAttack = true;
@@ -43,9 +38,9 @@ public class Units : MonoBehaviour
         {
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider.CompareTag("Units") && (hit.collider.GetComponent<Units>().isPlayers != isPlayers))
+                if (hit.collider.CompareTag("Units") && (hit.collider.GetComponent<Entity>().isPlayers != isPlayers))
                 {
-                    target = hit.collider.GetComponent<Units>();
+                    target = hit.collider.GetComponent<Entity>();
                     break;
                 }
             }
@@ -60,14 +55,14 @@ public class Units : MonoBehaviour
         if (canAttack && target) AttackEnemy(target);
     }
 
-    void AttackEnemy(Units enemy)
+    void AttackEnemy(Entity enemy)
     {
         enemy.TakeDamage(ATK);
         canAttackTimer = 0f;
         canAttack = false;
     }
 
-    public void TakeDamage(float amount)
+    override public void TakeDamage(float amount)
     {
         if (CurHP < amount) Destroy(this.gameObject);
         else

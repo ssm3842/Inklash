@@ -9,25 +9,27 @@ public class UnitManager : MonoBehaviour
 
     [SerializeField] GameObject enemyUnit;
 
-    [SerializeField] Transform unitSpawnPoint;
-    [SerializeField] Transform enemySpawnPoint;
+    [SerializeField] GameObject unitSpawnPoint;
+    [SerializeField] GameObject enemySpawnPoint;
 
     public void SpawnUnit(CardContent cardContent)
     {
-        GameObject newUnit = Instantiate(cardContent.unit, unitSpawnPoint.position, quaternion.identity);
+        GameObject newUnit = Instantiate(cardContent.unit, unitSpawnPoint.transform.position, quaternion.identity);
         newUnit.GetComponent<Units>().Init(true);
     }
 
     void Start()
     {
         StartCoroutine(SpawnEnemyCoroutine());
+        unitSpawnPoint.GetComponent<Entity>().Init(true);
+        enemySpawnPoint.GetComponent<Entity>().Init(false);
     }
 
     IEnumerator SpawnEnemyCoroutine()
     {
         while (true)
         {
-            GameObject newUnit = Instantiate(enemyUnit, enemySpawnPoint.position, quaternion.identity);
+            GameObject newUnit = Instantiate(enemyUnit, enemySpawnPoint.transform.position, quaternion.identity);
             newUnit.GetComponent<Units>().Init(false);
             yield return new WaitForSeconds(5f);
         }
