@@ -64,6 +64,7 @@ void LoadCsvData()
                 targetCard.name = columns[1];
                 targetCard.type = columns[2];
                 targetCard.size = columns[3];
+                targetCard.description = columns[11];
 
                 targetCard.stats.cost = int.Parse(columns[4]);
                 targetCard.stats.hp = float.Parse(columns[5]);

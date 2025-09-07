@@ -9,6 +9,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] TMP_Text costText;
     [SerializeField] TMP_Text nameText;
+    [SerializeField] TMP_Text descriptionText;
     [SerializeField] Renderer[] subObjectsRenderers;
 
     public void OnPointerClick(PointerEventData eventData)
@@ -31,6 +32,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
         costText.text = content.stats.cost.ToString();
         nameText.text = content.name;
+        descriptionText.text = content.description;
     }
 
     public void SetOrderInLayer(int order)

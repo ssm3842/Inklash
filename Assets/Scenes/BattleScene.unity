@@ -1449,7 +1449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06f1cc51d422c549a0f81ead8e46428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardContentSO: {fileID: 0}
+  cardContentSO: {fileID: 11400000, guid: 957476bedb0c4de418f054d82d3be62f, type: 2}
   csvFiles:
   - {fileID: 4900000, guid: 0a7760054db935f478fdda72c398bfab, type: 3}
   - {fileID: 4900000, guid: 99a39a8105fc36349ad97cc18585a050, type: 3}
