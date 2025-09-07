@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,11 +25,13 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        List<CardContent> playerCardPool = DataManager.Inst.playerCardDatas.Values.ToList();
+
         //임시코드
         playerDeck = new List<CardContent>(10);
         for (int i = 0; i < 10; i++)
         {
-            playerDeck.Add(cardContentSO.cardContents[Random.Range(0, cardContentSO.cardContents.Length)]);
+            playerDeck.Add(cardContentSO.cardContents[Random.Range(0,playerCardPool.Count)]);
         }
 
         handLayout = handTransform.GetComponent<HandLayout>();
@@ -92,7 +95,7 @@ public class CardManager : MonoBehaviour
         }
         else //카드가 손에 있을 때 좌클릭 하면 사용.
         {
-            if (!CostManager.Inst.UseCost(card.cardContent.cost)) return;
+            if (!CostManager.Inst.UseCost(card.cardContent.stats.cost)) return;
 
             isDraggingCard = false;
             UnitManager.Inst.SpawnUnit(draggingCard.cardContent);

@@ -1,12 +1,14 @@
+using TMPro;
 using UnityEngine;
 
 public class Units : Entity
 {
-    [SerializeField] private float ATK = 6f;
-    private float MoveSPD = 1.5f;
-    private float AtkSPD = 1f;
+    [SerializeField] private float ATK;
+    private float MoveSPD;
+    private float AtkSPD;
+    private float Range;
 
-    [SerializeField]private bool canAttack;
+    [SerializeField] private bool canAttack;
     [SerializeField]private float canAttackTimer;
 
     Rigidbody2D RB;
@@ -18,12 +20,17 @@ public class Units : Entity
         RB = GetComponent<Rigidbody2D>();
     }
 
-    override public void Init(bool players)
+    override public void Init(bool players, CardContent card)
     {
-        CurHP = MaxHP;
+        this.ATK = card.stats.atk;
+        this.MoveSPD = card.stats.spd;
+        this.AtkSPD = card.stats.atkSpd;
+        this.Range = card.stats.range;
+
         canAttack = true;
         canAttackTimer = 0f;
-
+        base.Init(players, card);
+        
         isPlayers = players;
     }
 
@@ -32,7 +39,7 @@ public class Units : Entity
         if (!target) RB.linearVelocityX = isPlayers ? MoveSPD : -MoveSPD; //목표가 없으면 이동.
         else RB.linearVelocityX = 0f;   //목표가 있으면 정지
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, isPlayers ? Vector3.right : Vector3.left, 0.3f); //레이캐스트로 타겟 검사
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, isPlayers ? Vector3.right : Vector3.left, Range); //레이캐스트로 타겟 검사
         if (hits.Length == 0) target = null;
         else
         {
@@ -64,7 +71,7 @@ public class Units : Entity
 
     override public void TakeDamage(float amount)
     {
-        if (CurHP < amount) Destroy(this.gameObject);
+        if (CurHP <= amount) Destroy(this.gameObject);
         else
         {
             CurHP -= amount;

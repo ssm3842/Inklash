@@ -1,0 +1,4 @@
+Card_ID,Card_Name,Type,Size,Cost,HP,ATK,ATK_SPD,Range,SPD,Effect_ID,Description
+P_001,Warrior,Unit,Small,2,20,1,1,1,1,E_000,일단 비워놓기
+P_002,Archer,Unit,Small,3,10,1,2,3,1,E_001,일단 비워놓기
+E_003,Enemy,Unit,Small,2,10,1,1,1,1,E_002,일단 비워놓기

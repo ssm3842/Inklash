@@ -29,7 +29,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
     {
         cardContent = content;
 
-        costText.text = content.cost.ToString();
+        costText.text = content.stats.cost.ToString();
         nameText.text = content.name;
     }
 

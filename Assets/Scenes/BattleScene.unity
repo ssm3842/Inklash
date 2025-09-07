@@ -1420,6 +1420,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307023526}
   m_CullTransparentMesh: 1
+--- !u!1 &1308273235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308273237}
+  - component: {fileID: 1308273236}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1308273236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308273235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06f1cc51d422c549a0f81ead8e46428, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardContentSO: {fileID: 0}
+  csvFiles:
+  - {fileID: 4900000, guid: 0a7760054db935f478fdda72c398bfab, type: 3}
+  - {fileID: 4900000, guid: 99a39a8105fc36349ad97cc18585a050, type: 3}
+--- !u!4 &1308273237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308273235}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.1361437, y: -1.1025033, z: -0.011578525}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1513275824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,7 +2188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a1dfb199282f648a5d89347dce4ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyUnit: {fileID: 4394079330182411486, guid: 1d717834eecfcaa4785504fd25b0de54, type: 3}
   unitSpawnPoint: {fileID: 1041127018}
   enemySpawnPoint: {fileID: 597376420}
 --- !u!4 &2087044754
@@ -2171,3 +2218,4 @@ SceneRoots:
   - {fileID: 1061190629}
   - {fileID: 1993453016}
   - {fileID: 2087044754}
+  - {fileID: 1308273237}
