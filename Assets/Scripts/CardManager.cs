@@ -40,18 +40,9 @@ public class CardManager : MonoBehaviour
 
     void SetupGame()
     {
-        for (int i = 0; i < 4; i++) DrawCard();
-        StartCoroutine(DrawCardCoroutine());
+        for (int i = 0; i < 5; i++) DrawCard();
     }
 
-    IEnumerator DrawCardCoroutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(5f);
-            DrawCard();
-        }
-    }
     void DrawCard()
     {
         Debug.Log("try draw");
@@ -88,6 +79,8 @@ public class CardManager : MonoBehaviour
     {
         if (!isDraggingCard) //카드가 손에 없을 때 좌클릭 되면 마우스 따라 이동.
         {
+            if (!CostManager.Inst.UseCost(card.cardContent.stats.cost)) return; //코스트 사용 가능 체크
+
             isDraggingCard = true;
             draggingCard = card;
             draggingCardRectTransform = card.GetComponent<RectTransform>();
@@ -95,17 +88,18 @@ public class CardManager : MonoBehaviour
         }
         else //카드가 손에 있을 때 좌클릭 하면 사용.
         {
-            if (!CostManager.Inst.UseCost(card.cardContent.stats.cost)) return;
-
             isDraggingCard = false;
             UnitManager.Inst.SpawnUnit(draggingCard.cardContent);
 
             card.slot.isEmpty = true;
 
             playerHands.Remove(draggingCard);
+            playerDeck.Add(draggingCard.cardContent);
             Card temp = draggingCard;
             draggingCard = null;
             Destroy(temp.gameObject);
+
+            DrawCard();
         }
     }
 

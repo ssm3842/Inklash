@@ -20,7 +20,7 @@ public class Units : Entity
         RB = GetComponent<Rigidbody2D>();
     }
 
-    override public void Init(bool players, CardContent card)
+    override public void Init(bool isplayers, CardContent card)
     {
         this.ATK = card.stats.atk;
         this.MoveSPD = card.stats.spd;
@@ -29,9 +29,9 @@ public class Units : Entity
 
         canAttack = true;
         canAttackTimer = 0f;
-        base.Init(players, card);
+        base.Init(isplayers, card);
         
-        isPlayers = players;
+        isPlayers = isplayers;
     }
 
     void Update()

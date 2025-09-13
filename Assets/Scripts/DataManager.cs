@@ -21,7 +21,7 @@ public class DataManager : MonoBehaviour
 
 void LoadCsvData()
     {
-         Dictionary<string, CardContent> allCardTemplates = new Dictionary<string, CardContent>();
+        Dictionary<string, CardContent> allCardTemplates = new Dictionary<string, CardContent>();
         foreach (CardContent card in cardContentSO.cardContents)
         {
             if (!allCardTemplates.ContainsKey(card.name))
@@ -42,7 +42,7 @@ void LoadCsvData()
             }
         }
     }
-    void ParseUnitData(TextAsset csvFile,Dictionary<string, CardContent> templates)
+    void ParseUnitData(TextAsset csvFile, Dictionary<string, CardContent> templates)
     {
         string[] lines = csvFile.text.Split('\n');
 
