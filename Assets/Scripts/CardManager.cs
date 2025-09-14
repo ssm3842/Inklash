@@ -79,7 +79,7 @@ public class CardManager : MonoBehaviour
     {
         if (!isDraggingCard) //카드가 손에 없을 때 좌클릭 되면 마우스 따라 이동.
         {
-            if (!CostManager.Inst.UseCost(card.cardContent.stats.cost)) return; //코스트 사용 가능 체크
+            if (CostManager.Inst.currentCost < card.cardContent.stats.cost) return; //코스트 부족 시 드래그 불가.
 
             isDraggingCard = true;
             draggingCard = card;
@@ -88,6 +88,8 @@ public class CardManager : MonoBehaviour
         }
         else //카드가 손에 있을 때 좌클릭 하면 사용.
         {
+            CostManager.Inst.UseCost(card.cardContent.stats.cost); //실제로 코스트 사용.
+
             isDraggingCard = false;
             UnitManager.Inst.SpawnUnit(draggingCard.cardContent);
 

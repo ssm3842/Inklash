@@ -51,14 +51,14 @@ public class CostManager : MonoBehaviour
         }
     }
     //space바 사용시 cost 1 감소
-    public bool UseCost(int amount)
+    public void UseCost(int amount)
     {
-        if (amount > currentCost) return false;
+        if (amount > currentCost) return;
         else
         {
             currentCost -= amount;
             IndicateCost();
-            return true;
+            return;
         }
     }
 
