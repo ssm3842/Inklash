@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour
+public class MapDataGenerator : MonoBehaviour
 {
-    const int X_DIST = 30;
-    const int Y_DIST = 25;
-    const int PLACEMENT_RANDOMNESS = 5;
+    const int X_DIST = 100;
+    const int Y_DIST = 100;
+    const int PLACEMENT_RANDOMNESS = 25;
     const int FLOORS = 15;
     const int MAP_WIDTH = 7;
     const int PATHS = 6;
@@ -23,12 +23,7 @@ public class MapGenerator : MonoBehaviour
     float randomRoomTypeTotalWeight = 0f;
     [SerializeField] List<List<RoomContent>> mapData;
 
-    void Start()
-    {
-        GenerateMap();
-    }
-
-    List<List<RoomContent>> GenerateMap()
+    public List<List<RoomContent>> GenerateMap()
     {
         mapData = GenerateInitialGrid();    //15*7 사이즈의 맵 그리드 데이터 생성 
         List<int> startingPoints = GetRandomStartingPoints(); // 랜덤한 스타팅 포인트 생성, 최소 2개, 최대 6개 
@@ -100,9 +95,9 @@ public class MapGenerator : MonoBehaviour
         RoomContent nextRoom = null;
         RoomContent currentRoom = mapData[row][column];
 
-        while (nextRoom != null || WouldCrossExistingPath(row, column, nextRoom))
+        while (nextRoom == null || WouldCrossExistingPath(row, column, nextRoom))
         {
-            int randomJ = Mathf.Clamp(Random.Range(column - 1, column + 1), 0, MAP_WIDTH - 1);
+            int randomJ = Mathf.Clamp(Random.Range(column - 1, column + 2), 0, MAP_WIDTH - 1); //양쪽 끝에서는 확률 이상할 수 있음. 이후 수정.
             nextRoom = mapData[row + 1][randomJ];
         }
         currentRoom.nextRooms.Add(nextRoom);
@@ -129,7 +124,7 @@ public class MapGenerator : MonoBehaviour
 
         if (leftNeighbor != null && nextRoom.column < column)
         {
-            foreach (RoomContent leftsNextRoom in leftNeighbor.nextRooms) //오른쪽 노드의 다음 방이 자신의 다음 방과 교차되는지 검사.
+            foreach (RoomContent leftsNextRoom in leftNeighbor.nextRooms) //왼쪽 노드의 다음 방이 자신의 다음 방과 교차되는지 검사.
             {
                 if (leftsNextRoom.column > nextRoom.column)
                     return true;
@@ -146,10 +141,9 @@ public class MapGenerator : MonoBehaviour
         for (int column = 0; column < MAP_WIDTH; column++)
         {
             RoomContent currentRoom = mapData[FLOORS - 2][column];
-            if (currentRoom.nextRooms != null)
+            if (currentRoom.nextRooms.Count > 0)
             {
-                currentRoom.nextRooms = new List<RoomContent>();
-                currentRoom.nextRooms.Add(bossRoom);
+                currentRoom.nextRooms = new List<RoomContent> { bossRoom };
             }
         }
         bossRoom.roomType = RoomType.BOSS;
@@ -175,7 +169,7 @@ public class MapGenerator : MonoBehaviour
             if (room.nextRooms.Count > 0) room.roomType = RoomType.TREASURE;
         }
 
-        foreach (RoomContent room in mapData[13]) //13번째(보스 전)는 항상 상자방.
+        foreach (RoomContent room in mapData[13]) //13번째(보스 전)는 항상 휴식.
         {
             if (room.nextRooms.Count > 0) room.roomType = RoomType.CAMPFIRE;
         }
@@ -186,7 +180,8 @@ public class MapGenerator : MonoBehaviour
             {
                 foreach (RoomContent nextRoom in room.nextRooms)
                 {
-                    if (nextRoom.roomType == RoomType.NOT_ASSIGNED) SetRoomRandomly(nextRoom);
+                    if (nextRoom.roomType == RoomType.NOT_ASSIGNED)
+                        SetRoomRandomly(nextRoom);
                 }
             }
         }
