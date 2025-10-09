@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6665485786468077925, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2.048
+      value: 20.48
       objectReference: {fileID: 0}
     - target: {fileID: 6665485786468077925, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.048
+      value: 20.48
       objectReference: {fileID: 0}
     - target: {fileID: 6726480520644841500, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_LocalPosition.x
