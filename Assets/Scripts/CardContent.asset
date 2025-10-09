@@ -13,59 +13,59 @@ MonoBehaviour:
   m_Name: CardContent
   m_EditorClassIdentifier: 
   cardContents:
-  - id: 
+  - id: P_001
     name: Warrior
-    type: 
-    size: 
+    type: Unit
+    size: Small
     effectID: 
-    description: 
+    description: "\uFFFD\u03F4\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
     stats:
-      cost: 0
-      hp: 0
-      atk: 0
-      atkSpd: 0
-      range: 0
-      spd: 0
-    unit: {fileID: 4394079330182411486, guid: 91b70b55607affb4a95ae72f56f838d8, type: 3}
-  - id: 
+      cost: 2
+      hp: 20
+      atk: 1
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_002
     name: Archer
-    type: 
-    size: 
+    type: Unit
+    size: Small
     effectID: 
-    description: 
+    description: "\uFFFD\u03F4\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
     stats:
-      cost: 0
-      hp: 0
-      atk: 0
-      atkSpd: 0
-      range: 0
-      spd: 0
-    unit: {fileID: 4394079330182411486, guid: 59fdf1cfc0d3ab34ab27cc68eb8ed910, type: 3}
-  - id: 
+      cost: 3
+      hp: 10
+      atk: 1
+      atkSpd: 1
+      range: 3
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
+  - id: P_001
     name: FireBall
-    type: 
-    size: 
+    type: Spell
+    size: '-'
     effectID: 
     description: 
     stats:
-      cost: 0
-      hp: 0
-      atk: 0
-      atkSpd: 0
-      range: 0
-      spd: 0
-    unit: {fileID: 4394079330182411486, guid: 34979a43f8218194bb807720a1903bc8, type: 3}
-  - id: 
+      cost: 3
+      hp: 1
+      atk: 3
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: E_003
     name: Enemy
-    type: 
-    size: 
+    type: Unit
+    size: Small
     effectID: 
-    description: 
+    description: "\uFFFD\u03F4\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
     stats:
-      cost: 0
-      hp: 0
-      atk: 0
-      atkSpd: 0
-      range: 0
-      spd: 0
-    unit: {fileID: 4394079330182411486, guid: 1d717834eecfcaa4785504fd25b0de54, type: 3}
+      cost: 2
+      hp: 10
+      atk: 1
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 7067957278874566163, guid: d29aa64291dd8a244944e1a4c58d095f, type: 3}

@@ -25,7 +25,7 @@ public class MapButton : MonoBehaviour
     public void SetRoom(RoomContent roomData)
     {
         room = roomData;
-        transform.position = room.position;
+        transform.localPosition = room.position + new Vector2(100, 0);
         GetComponent<Image>().sprite = roomIcons[room.roomType];
     }
 

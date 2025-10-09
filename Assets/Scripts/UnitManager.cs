@@ -10,7 +10,7 @@ public class UnitManager : MonoBehaviour
 
     [SerializeField] GameObject unitSpawnPoint;
     [SerializeField] GameObject enemySpawnPoint;
-     private List<CardContent> availableEnemies;
+    private List<CardContent> availableEnemies;
 
     public void SpawnUnit(CardContent playerUnit)
     {
@@ -21,9 +21,9 @@ public class UnitManager : MonoBehaviour
     void Start()
     {
         availableEnemies = new List<CardContent>(DataManager.Inst.enemyUnitDatas.Values);
-        StartCoroutine(SpawnEnemyCoroutine());
         unitSpawnPoint.GetComponent<Entity>().Init(true);
         enemySpawnPoint.GetComponent<Entity>().Init(false);
+        StartCoroutine(SpawnEnemyCoroutine());
     }
 
     IEnumerator SpawnEnemyCoroutine()
@@ -33,10 +33,10 @@ public class UnitManager : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, availableEnemies.Count);
             CardContent enemyUnit = availableEnemies[randomIndex];
 
-            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position, quaternion.identity);
+            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position - new Vector3(1, 0, 0), quaternion.identity);
             newUnit.GetComponent<Units>().Init(false, enemyUnit);
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
         }
     }
 }

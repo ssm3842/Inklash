@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MapVisualGenerator : MonoBehaviour
 {
@@ -55,7 +54,7 @@ public class MapVisualGenerator : MonoBehaviour
 
     void SpawnRoom(RoomContent room)
     {
-        MapButton NewMapButton = Instantiate(mapButton, this.transform);
+        MapButton NewMapButton = Instantiate(mapButton, this.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0));
         NewMapButton.SetRoom(room);
 
         ConnectLines(room);
@@ -67,9 +66,9 @@ public class MapVisualGenerator : MonoBehaviour
 
         foreach (RoomContent next in room.nextRooms)
         {
-            GameObject newMapLine = Instantiate(mapLine, this.transform);
+            GameObject newMapLine = Instantiate(mapLine, this.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0));
 
-            newMapLine.transform.position = (next.position + room.position) / 2f;
+            newMapLine.transform.localPosition = (next.position + room.position) / 2f  + new Vector2(150, 50);
 
             Vector2 direction = next.position - room.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

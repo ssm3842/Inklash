@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class MapDataGenerator : MonoBehaviour
 {
-    const int X_DIST = 100;
-    const int Y_DIST = 100;
+    const int X_DIST = 150;
+    const int Y_DIST = 150;
     const int PLACEMENT_RANDOMNESS = 25;
     const int FLOORS = 15;
     const int MAP_WIDTH = 7;
@@ -57,7 +57,7 @@ public class MapDataGenerator : MonoBehaviour
                 RoomContent roomContent = new RoomContent();
                 Vector2 offset = new Vector2(Random.Range(0, 1f), Random.Range(0, 1f)) * PLACEMENT_RANDOMNESS;
 
-                roomContent.position = new Vector2(j * X_DIST, i * Y_DIST) + offset;
+                roomContent.position = new Vector2(j * X_DIST, i * Y_DIST) + offset ;
                 roomContent.row = i;
                 roomContent.column = j;
 
