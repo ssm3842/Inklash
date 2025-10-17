@@ -14,7 +14,8 @@ public class MapButton : MonoBehaviour
         roomIcons = new Dictionary<RoomType, Sprite>
         {
             { RoomType.NOT_ASSIGNED, null },
-            { RoomType.MONSTER, icons[0] },
+            { RoomType.BATTLE, icons[0] },
+            { RoomType.RANDOM_EVENT, icons[4] },
             { RoomType.TREASURE, icons[1] },
             { RoomType.CAMPFIRE, icons[2] },
             { RoomType.SHOP, icons[3] },
@@ -31,7 +32,37 @@ public class MapButton : MonoBehaviour
 
     public void OnButtonClicked()
     {
-        Debug.Log("Button Clicked");
+        if (!room.isInteractable) return;
+        switch (room.roomType)
+        {
+            case RoomType.BATTLE:
+                Debug.Log("Battle Clicked");
+                break;
+            case RoomType.RANDOM_EVENT:
+                Debug.Log("RANDOM_EVENT Clicked");
+                break;
+            case RoomType.TREASURE:
+                Debug.Log("TREASURE Clicked");
+                break;
+            case RoomType.CAMPFIRE:
+                Debug.Log("CAMPFIRE Clicked");
+                break;
+            case RoomType.SHOP:
+                Debug.Log("SHOP Clicked");
+                break;
+            case RoomType.BOSS:
+                Debug.Log("BOSS Clicked");
+                break;
+            default:
+                Debug.Log("Bug Occured");
+                break;
+        }
+
+        MapManager.Inst.LockSameFloor();
+        MapManager.Inst.lastRoom = room;
+
+        MapManager.Inst.floorClimbed++;
+        MapManager.Inst.UnlockFloor(MapManager.Inst.floorClimbed);
     }
 }
 
@@ -42,10 +73,11 @@ public class RoomContent
     public int column;
     public Vector2 position;
     public List<RoomContent> nextRooms = new List<RoomContent>();
-    public bool selected = false;
+    public bool isInteractable = false;
+    public bool isCleared = false;
 }
 
 public enum RoomType
 {
-    NOT_ASSIGNED, MONSTER, TREASURE, CAMPFIRE, SHOP, BOSS,
+    NOT_ASSIGNED, BATTLE, RANDOM_EVENT, TREASURE, CAMPFIRE, SHOP, BOSS,
 }

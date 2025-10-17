@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +13,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnUnit(CardContent playerUnit)
     {
-        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position, quaternion.identity);
+        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
         newUnit.GetComponent<Units>().Init(true, playerUnit);
     }
 
@@ -33,7 +32,7 @@ public class UnitManager : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, availableEnemies.Count);
             CardContent enemyUnit = availableEnemies[randomIndex];
 
-            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position - new Vector3(1, 0, 0), quaternion.identity);
+            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position - new Vector3(1, Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
             newUnit.GetComponent<Units>().Init(false, enemyUnit);
 
             yield return new WaitForSeconds(3f);

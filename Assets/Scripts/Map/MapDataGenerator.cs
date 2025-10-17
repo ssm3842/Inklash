@@ -9,13 +9,15 @@ public class MapDataGenerator : MonoBehaviour
     const int FLOORS = 15;
     const int MAP_WIDTH = 7;
     const int PATHS = 6;
-    const float MONSTER_ROOM_WEIGHT = 10;
+    const float BATTLE_ROOM_WEIGHT = 10;
+    const float RANDOM_EVENT_ROOM_WEIGHT = 7.5f;
     const float SHOP_ROOM_WEIGHT = 2.5f;
     const float CAMPFIRE_ROOM_WEIGHT = 4f;
 
     Dictionary<RoomType, float> randomRoomTypeWeights = new Dictionary<RoomType, float>
     {
-        { RoomType.MONSTER, 0f },
+        { RoomType.BATTLE, 0f },
+        { RoomType.RANDOM_EVENT, 0f },
         { RoomType.CAMPFIRE, 0f },
         { RoomType.SHOP, 0f}
     };
@@ -33,13 +35,13 @@ public class MapDataGenerator : MonoBehaviour
             int currentJ = j;
             for (int i = 0; i < FLOORS - 1; i++)
             {
-                currentJ = SetupConnection(i, currentJ);
+                currentJ = SetupConnection(i, currentJ); //맵 노드끼리 연결 생성.
             }
         }
 
-        SetupBossRoom();
-        SetupRandomRoomWeights();
-        SetupRoomTypes();
+        SetupBossRoom(); //최상단에 보스룸 생성
+        SetupRandomRoomWeights(); //맵 타입 가중치 설정.
+        SetupRoomTypes(); //맵 타입 설정.
 
         return mapData;
     }
@@ -150,9 +152,10 @@ public class MapDataGenerator : MonoBehaviour
     }
     void SetupRandomRoomWeights()
     {
-        randomRoomTypeWeights[RoomType.MONSTER] = MONSTER_ROOM_WEIGHT;
-        randomRoomTypeWeights[RoomType.CAMPFIRE] = MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT;
-        randomRoomTypeWeights[RoomType.SHOP] = MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT + SHOP_ROOM_WEIGHT;
+        randomRoomTypeWeights[RoomType.BATTLE] = BATTLE_ROOM_WEIGHT;
+        randomRoomTypeWeights[RoomType.RANDOM_EVENT] = randomRoomTypeWeights[RoomType.BATTLE] + RANDOM_EVENT_ROOM_WEIGHT;
+        randomRoomTypeWeights[RoomType.CAMPFIRE] = randomRoomTypeWeights[RoomType.RANDOM_EVENT] + CAMPFIRE_ROOM_WEIGHT;
+        randomRoomTypeWeights[RoomType.SHOP] = randomRoomTypeWeights[RoomType.CAMPFIRE] + SHOP_ROOM_WEIGHT;
 
         randomRoomTypeTotalWeight = randomRoomTypeWeights[RoomType.SHOP];
     }
@@ -161,7 +164,7 @@ public class MapDataGenerator : MonoBehaviour
     {
         foreach (RoomContent room in mapData[0]) //시작은 항상 전투.
         {
-            if (room.nextRooms.Count > 0) room.roomType = RoomType.MONSTER;
+            if (room.nextRooms.Count > 0) room.roomType = RoomType.BATTLE;
         }
 
         foreach (RoomContent room in mapData[8]) //9번째는 항상 상자방.
@@ -254,6 +257,6 @@ public class MapDataGenerator : MonoBehaviour
                 return type;
         }
 
-        return RoomType.MONSTER;
+        return RoomType.BATTLE;
     }
 }

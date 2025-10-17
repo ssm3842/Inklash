@@ -1,4 +1,4 @@
 Card_ID,Card_Name,Type,Size,Cost,HP,ATK,ATK_SPD,Range,SPD,Effect_ID,Description
-P_001,Warrior,Unit,Small,2,20,1,1,1,1,E_000,老窜 厚况初扁
-P_002,Archer,Unit,Small,3,10,1,1,3,1,E_001,老窜 厚况初扁
-E_003,Enemy,Unit,Small,2,10,1,1,1,1,E_002,老窜 厚况初扁
+P_001,Warrior,Unit,Small,2,20,1,1,1,1,E_000,鞚茧嫧 牍勳泴雴撽赴
+P_002,Archer,Unit,Small,3,10,1,1,3,1,E_001,鞚茧嫧 牍勳泴雴撽赴
+E_003,Enemy,Unit,Small,2,10,1,1,1,1,E_002,鞚茧嫧 牍勳泴雴撽赴
