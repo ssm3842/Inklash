@@ -36,7 +36,7 @@ public class MapButton : MonoBehaviour
         switch (room.roomType)
         {
             case RoomType.BATTLE:
-                Debug.Log("Battle Clicked");
+                RunManager.Inst.SetupBattle();
                 break;
             case RoomType.RANDOM_EVENT:
                 Debug.Log("RANDOM_EVENT Clicked");

@@ -17,14 +17,11 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-
         floorClimbed = 0;
         mapData = mapGenerator.GenerateMap();
         VisualizeMap();
 
         UnlockFloor(0);
-
-        gameObject.SetActive(false);
     }
 
     void VisualizeMap()
