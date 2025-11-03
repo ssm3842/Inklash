@@ -47,7 +47,6 @@ public class Units : Entity
 
         // RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, isPlayers ? Vector3.right : Vector3.left, Range); //레이캐스트로 타겟 검사
         RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, new Vector2(Range, 0.6f), 0f, isPlayers ? Vector3.right : Vector3.left, 0f);
-        Debug.Log(hits.Length);
 
         if (hits.Length <= 1) //TODO: 수정필요. 루프가 끝나면 적이 없는 것이므로 그 때 타켓 초기화 진행.
             target = null;
@@ -98,10 +97,4 @@ public class Units : Entity
     {
         isAttacking = false;
     }
-
-    void OnDrawGizmos()
-{
-    Gizmos.color = Color.yellow;
-    Gizmos.DrawWireCube(transform.position, new Vector3(Range, 0.6f, 0f));
-}
 }

@@ -7,6 +7,8 @@ public class Card : MonoBehaviour, IPointerClickHandler
     public CardContent cardContent;
     public HandCardSlot slot;
 
+    [SerializeField] CardManager cardManager;
+
     [SerializeField] TMP_Text costText;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text descriptionText;
@@ -17,20 +19,21 @@ public class Card : MonoBehaviour, IPointerClickHandler
         // 좌클릭
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            CardManager.Inst.CardLeftClicked(this);
+            cardManager.CardLeftClicked(this);
         }
         // 우클릭
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            CardManager.Inst.CardRightClicked();
+            cardManager.CardRightClicked();
         }
     }
 
-    public void Setup(CardContent content)
+    public void Setup(CardManager newCardManager, CardContent content)
     {
+        cardManager = newCardManager;
         cardContent = content;
 
-        costText.text = content.stats.cost.ToString();
+        costText.text = content.cost.ToString();
         nameText.text = content.name;
         descriptionText.text = content.description;
     }
@@ -43,4 +46,5 @@ public class Card : MonoBehaviour, IPointerClickHandler
             renderer.sortingOrder = order * 10 + 1;
         }
     }
+
 }

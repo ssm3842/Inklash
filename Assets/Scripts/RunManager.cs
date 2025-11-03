@@ -6,30 +6,33 @@ public class RunManager : MonoBehaviour
     void Awake()
     {
         Inst = this;
-        // DontDestroyOnLoad(this);
     }
-    [SerializeField] GameObject battle;
     [SerializeField] GameObject battleUICanvas;
 
-    [SerializeField] MapManager mapManager;
-    [SerializeField] MapDataGenerator mapDataGenerator;
+    [SerializeField] DeckSO startingDeckSO;
 
-    [SerializeField] BattleController battleController;
+    public MapManager mapManager;
+    public DeckManager deckManager;
+    public BattleManager battleManager;
+    public UnitDataManager unitDataManager;
+
+    int runGold;
+
+
     void Start()
     {
-        battle.SetActive(false);
+        battleManager.gameObject.SetActive(false);
         battleUICanvas.SetActive(false);
 
         mapManager.gameObject.SetActive(true);
+
+        InitRun();
     }
 
-    public void SetupBattle() //TODO: 방정보 받기
+    public void InitRun() //런 시작 시 게임 초기화.
     {
-        mapManager.gameObject.SetActive(false);
-        
-        battle.SetActive(true);
-        battleUICanvas.SetActive(true);
-
-        battleController.StartBattle();
+        mapManager.InitMapdata(); //맵 정보를 생성
+        deckManager.InitDeck(startingDeckSO.startingDeck); //덱 정보를 시작 덱으로 초기화.
+        unitDataManager.LoadCsvData(); //유닛 데이터를 csv에서 가져와 초기화.
     }
 }

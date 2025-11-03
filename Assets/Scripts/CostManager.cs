@@ -1,48 +1,27 @@
-using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CostManager : MonoBehaviour
 {
-    public static CostManager Inst;
-
     //Cost 관련 변수
-    [SerializeField] int finalMaxCost;
-    private int baseMaxCost = 10;
-    private int CostModifier = 0;
-    public int currentCost { get; private set; }
+    int currentCost;
 
     public float time = 0f;
-    public TextMeshProUGUI GameCostText;
-    void Awake()
-    {
-        Inst = this;
-    }
-    void Start()
+
+    public void Init()
     {
         currentCost = 0;
-        UpdateMaxCost();
     }
-
 
     void Update()
     {
-        GetCost();
-    }
-
-    // 3초마다 Cost 1 증가
-    public void GetCost()
-    {
-        if (currentCost < finalMaxCost)
+        if (currentCost < GameRule.MAX_COST)
         {
             time += Time.deltaTime;
 
             if (time > GameRule.COST_GENERATE_SECOND)
             {
-                currentCost++;
+                AddCost();
                 time = 0f;
-                IndicateCost();
             }
         }
         else
@@ -50,16 +29,24 @@ public class CostManager : MonoBehaviour
             time = 0f;
         }
     }
-    //space바 사용시 cost 1 감소
+
+    public bool CheckUseCostAvailable(int amount)
+    {
+        return currentCost >= amount;
+    }
+
+    void AddCost()
+    {
+        currentCost = Mathf.Min(GameRule.MAX_COST, currentCost+1);
+    }
+
     public void UseCost(int amount)
     {
-        if (amount > currentCost) return;
-        else
-        {
-            currentCost -= amount;
-            IndicateCost();
-            return;
-        }
+        currentCost = Mathf.Max(0, currentCost - amount);
+    }
+    public int GetCurrentCost()
+    {
+        return currentCost;
     }
 
     /*
@@ -78,32 +65,4 @@ public class CostManager : MonoBehaviour
         }
     }
     */
-    //max Cost 값 추가 및 감소
-     public void AddMaxCostModifier(int amount)
-    {
-        CostModifier += amount;
-        UpdateMaxCost();
-    }
-
-    public void RemoveMaxCostModifier(int amount)
-    {
-        CostModifier -= amount;
-        UpdateMaxCost();
-    }
-    //Max Cost 값 적용
-    private void UpdateMaxCost()
-    {
-        finalMaxCost = Mathf.Max(0,baseMaxCost + CostModifier);
-
-        if (currentCost > finalMaxCost) //current와 Max값 비교 후 Max값으로
-        {
-            currentCost = finalMaxCost;
-        }
-        IndicateCost();
-    }
-    //Cost 값 출력 
-    public void IndicateCost()
-    {
-        GameCostText.text = $"Cost : {currentCost} / {finalMaxCost}";
-    }
 }

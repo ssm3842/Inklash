@@ -11,8 +11,8 @@ public class CardContent
 {
     public string id;
     public string name;
-    public string type;
-    public string size;
+    public int cost;
+    public CardType type;
     public string effectID;
     public string description;
     public CardStats stats;
@@ -20,12 +20,16 @@ public class CardContent
 }
 
 [System.Serializable]
-public class CardStats 
+public class CardStats
 {
-    public int cost;
     public float hp;
     public float atk;
     public float atkSpd;
     public float range;
     public float spd;
+}
+
+public enum CardType
+{
+    Unit, Spell, Word,
 }

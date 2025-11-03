@@ -5,17 +5,14 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    public static CardManager Inst { get; private set; }
-    void Awake() => Inst = this;
-
-    [SerializeField] CardContentSO cardContentSO;
-
     [SerializeField] GameObject cardPrefab;
 
     [SerializeField] Transform handTransform;
+    public CostManager costManager;
+    public UnitManager unitManager;
     HandLayout handLayout;
 
-    [SerializeField] List<CardContent> playerDeck;
+    [SerializeField] List<CardContent> currentBattleDeck;
     [SerializeField] List<Card> playerHands;
 
     private RectTransform draggingCardRectTransform;
@@ -23,34 +20,31 @@ public class CardManager : MonoBehaviour
     public bool isDraggingCard = false;
 
 
-    void Start()
+    public void Init() //TODO: 이름 바꾸기
     {
-        List<CardContent> playerCardPool = DataManager.Inst.playerCardDatas.Values.ToList();
+        // List<CardContent> playerCardPool = DataManager.Inst.playerCardDatas.Values.ToList();
 
-        //임시코드
-        playerDeck = new List<CardContent>(10);
-        for (int i = 0; i < 10; i++)
-        {
-            playerDeck.Add(cardContentSO.cardContents[Random.Range(0,playerCardPool.Count)]);
-        }
+        currentBattleDeck = new List<CardContent>(RunManager.Inst.deckManager.GetDeckdata());
 
         handLayout = handTransform.GetComponent<HandLayout>();
-        SetupGame();
+
+        costManager.Init();
+        StartBattle();
     }
 
-    void SetupGame()
+    void StartBattle()
     {
+        // currentBattleDeck.shuffle(); //TODO: 게임 시작 시 덱 섞는 기능 추가하기. 덱매니저에다가.
         for (int i = 0; i < 5; i++) DrawCard();
     }
 
     void DrawCard()
     {
-        Debug.Log("try draw");
-        if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가.
+        if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가. //TODO: 반응 추가하기 ex)카드를 더 뽑을 수 없어 메시지 등
 
         var cardObject = Instantiate(cardPrefab, handTransform);
         var card = cardObject.GetComponent<Card>();
-        card.Setup(PopCardFromDeck());
+        card.Setup(this, PopCardFromDeck());
         playerHands.Add(card);
 
         if (handLayout != null)
@@ -61,8 +55,8 @@ public class CardManager : MonoBehaviour
 
     public CardContent PopCardFromDeck()
     {
-        CardContent cardContent = playerDeck[0];
-        playerDeck.RemoveAt(0);
+        CardContent cardContent = currentBattleDeck[0];
+        currentBattleDeck.RemoveAt(0);
 
         return cardContent;
     }
@@ -79,7 +73,7 @@ public class CardManager : MonoBehaviour
     {
         if (!isDraggingCard) //카드가 손에 없을 때 좌클릭 되면 마우스 따라 이동.
         {
-            if (CostManager.Inst.currentCost < card.cardContent.stats.cost) return; //코스트 부족 시 드래그 불가.
+            if (!costManager.CheckUseCostAvailable(card.cardContent.cost)) return; //코스트 부족 시 드래그 불가.
 
             isDraggingCard = true;
             draggingCard = card;
@@ -88,15 +82,25 @@ public class CardManager : MonoBehaviour
         }
         else //카드가 손에 있을 때 좌클릭 하면 사용.
         {
-            CostManager.Inst.UseCost(card.cardContent.stats.cost); //실제로 코스트 사용.
+            costManager.UseCost(card.cardContent.cost); //실제로 코스트 사용.
 
             isDraggingCard = false;
-            UnitManager.Inst.SpawnUnit(draggingCard.cardContent);
-
+            switch (card.cardContent.type)
+            {
+                case CardType.Unit:
+                    unitManager.SpawnPlayerUnit(draggingCard.cardContent);
+                    break;
+                case CardType.Spell:
+                    unitManager.SpawnPlayerUnit(draggingCard.cardContent);
+                    break;
+                case CardType.Word:
+                    unitManager.SpawnPlayerUnit(draggingCard.cardContent); //TODO: 단어카드 사용 효과 구현.
+                    break;
+            }
             card.slot.isEmpty = true;
 
             playerHands.Remove(draggingCard);
-            playerDeck.Add(draggingCard.cardContent);
+            currentBattleDeck.Add(draggingCard.cardContent);
             Card temp = draggingCard;
             draggingCard = null;
             Destroy(temp.gameObject);

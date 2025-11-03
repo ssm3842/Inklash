@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    public static MapManager Inst { get; private set; }
-    void Awake() => Inst = this;
-
     [SerializeField] MapButton mapButton;
     [SerializeField] GameObject mapLine;
     [SerializeField] MapDataGenerator mapGenerator;
@@ -15,7 +12,7 @@ public class MapManager : MonoBehaviour
     public int floorClimbed;
     public RoomContent lastRoom;
 
-    void Start()
+    public void InitMapdata()
     {
         floorClimbed = 0;
         mapData = mapGenerator.GenerateMap();
@@ -96,6 +93,40 @@ public class MapManager : MonoBehaviour
         }
     }
     
+    public void EnterRoom(RoomContent room)
+    {
+        switch (room.roomType)
+        {
+            case RoomType.BATTLE:
+                RunManager.Inst.battleManager.InitBattle();
+                break;
+            case RoomType.RANDOM_EVENT:
+                Debug.Log("RANDOM_EVENT Clicked");
+                break;
+            case RoomType.TREASURE:
+                Debug.Log("TREASURE Clicked");
+                break;
+            case RoomType.CAMPFIRE:
+                Debug.Log("CAMPFIRE Clicked");
+                break;
+            case RoomType.SHOP:
+                Debug.Log("SHOP Clicked");
+                break;
+            case RoomType.BOSS:
+                Debug.Log("BOSS Clicked");
+                break;
+            default:
+                Debug.Log("Bug Occured");
+                break;
+        }
+        gameObject.SetActive(false);
+
+        LockSameFloor();
+        lastRoom = room;
+
+        floorClimbed++;
+        UnlockFloor(floorClimbed);
+    }
 
     public void SetVisible() //캔버스의 열리는 여부 결정. 열릴 경우 시간 흐름 정지.
     {

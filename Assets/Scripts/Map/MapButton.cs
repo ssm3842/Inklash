@@ -33,36 +33,7 @@ public class MapButton : MonoBehaviour
     public void OnButtonClicked()
     {
         if (!room.isInteractable) return;
-        switch (room.roomType)
-        {
-            case RoomType.BATTLE:
-                RunManager.Inst.SetupBattle();
-                break;
-            case RoomType.RANDOM_EVENT:
-                Debug.Log("RANDOM_EVENT Clicked");
-                break;
-            case RoomType.TREASURE:
-                Debug.Log("TREASURE Clicked");
-                break;
-            case RoomType.CAMPFIRE:
-                Debug.Log("CAMPFIRE Clicked");
-                break;
-            case RoomType.SHOP:
-                Debug.Log("SHOP Clicked");
-                break;
-            case RoomType.BOSS:
-                Debug.Log("BOSS Clicked");
-                break;
-            default:
-                Debug.Log("Bug Occured");
-                break;
-        }
-
-        MapManager.Inst.LockSameFloor();
-        MapManager.Inst.lastRoom = room;
-
-        MapManager.Inst.floorClimbed++;
-        MapManager.Inst.UnlockFloor(MapManager.Inst.floorClimbed);
+        RunManager.Inst.mapManager.EnterRoom(room);
     }
 }
 
