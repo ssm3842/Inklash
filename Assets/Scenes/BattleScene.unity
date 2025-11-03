@@ -2675,7 +2675,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1400227292}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1400227291
 GameObject:
@@ -2707,7 +2707,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1308273237}
   - {fileID: 2087044754}
   - {fileID: 1061190629}
   - {fileID: 741746638}
@@ -2731,7 +2730,7 @@ MonoBehaviour:
   battleRewardButtonPrefab: {fileID: 5268703283635718287, guid: 03a6630814a61a14ba6c1dfd4ffeff59, type: 3}
   cardManager: {fileID: 1061190628}
   unitManager: {fileID: 2087044753}
-  dataManager: {fileID: 0}
+  tempEnemyPool: {fileID: 11400000, guid: b342f450f7e79d64c9c576e964f1aa1a, type: 2}
 --- !u!1 &1513275824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2917,6 +2916,7 @@ MonoBehaviour:
   mapManager: {fileID: 83669496}
   deckManager: {fileID: 1607249508}
   battleManager: {fileID: 1400227293}
+  unitDataManager: {fileID: 1308273236}
 --- !u!4 &1607249506
 Transform:
   m_ObjectHideFlags: 0
@@ -3899,6 +3899,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 945623780}
   - {fileID: 1607249506}
+  - {fileID: 1308273237}
   - {fileID: 1262874703}
   - {fileID: 2086611506}
   - {fileID: 83669493}
