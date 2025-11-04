@@ -6,32 +6,56 @@ using TMPro;
 
 public class SettingManger : MonoBehaviour
 {
-    //public AudioMixer masterMixer; 
-    //public Slider soundSlider;     
+    [Header("메인 창")]
+    public GameObject SettingWindow; 
+    
+    [Header("탭 관리")]
+    public GameObject panelGraphics;
+    public GameObject panelSound;    
+    public GameObject panelControls; 
+    public GameObject panelEtc;    
+    
+    [Header("사운드 설정 (Sound Panel)")]
+    public AudioMixer mainMixer; 
+    public Slider masterSlider; 
+    public Slider bgmSlider;
+    public Slider sfxSlider;         
 
-    public Button prevButton; 
-    public Button nextButton; 
-    public TextMeshProUGUI screenModeText;
+    [Header("그래픽 설정 (Graphic Panel)")]
+    public Button prevButton;      
+    public Button nextButton;     
+    public TextMeshProUGUI screenModeText; 
 
     private List<FullScreenMode> screenModes;
     private int currentModeIndex;
-    
-    public GameObject SettingWindow;
 
     void Start()
     {
+        SettingWindow.SetActive(false); 
+        ShowPanel("Graphic");
+
         screenModes = new List<FullScreenMode> { FullScreenMode.Windowed, FullScreenMode.FullScreenWindow };
         currentModeIndex = PlayerPrefs.GetInt("ScreenModeIndex", 0);
         UpdateScreenMode();
+        
+        float masterVol = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        masterSlider.value = masterVol;
+        SetMasterVolume(masterVol); 
 
-        //float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        //soundSlider.value = savedVolume;
-        //SetMasterVolume(savedVolume); 
+        float bgmVol = PlayerPrefs.GetFloat("BGMVolume", 1f);
+        bgmSlider.value = bgmVol;
+        SetBGMVolume(bgmVol);
 
-        //soundSlider.onValueChanged.AddListener(SetMasterVolume);
+        float sfxVol = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        sfxSlider.value = sfxVol;
+        SetEffectVolume(sfxVol);
 
         prevButton.onClick.AddListener(() => OnClickScreenMode(-1));
         nextButton.onClick.AddListener(() => OnClickScreenMode(1));
+        
+        masterSlider.onValueChanged.AddListener(SetMasterVolume);
+        bgmSlider.onValueChanged.AddListener(SetBGMVolume);
+        sfxSlider.onValueChanged.AddListener(SetEffectVolume);
     }
 
     public void Update()
@@ -43,26 +67,49 @@ public class SettingManger : MonoBehaviour
         }
     }
 
-   /* public void SetMasterVolume(float value)
+    public void ShowPanel(string panelName)
     {
-        masterMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20);
-        PlayerPrefs.SetFloat("MasterVolume", value);
-        PlayerPrefs.Save();
+        panelGraphics.SetActive(false);
+        panelSound.SetActive(false);
+        panelControls.SetActive(false);
+        panelEtc.SetActive(false);
+
+        if (panelName == "Graphic")
+            panelGraphics.SetActive(true);
+        else if (panelName == "Sound")
+            panelSound.SetActive(true);
+        else if (panelName == "Control")
+            panelControls.SetActive(true);
+        else if (panelName == "Etc")
+            panelEtc.SetActive(true);
     }
-    */
+
+   // 사운드
+    public void SetMasterVolume(float value)
+    {
+        mainMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20);
+        PlayerPrefs.SetFloat("MasterVolume", value);
+    }
     
+    public void SetBGMVolume(float value)
+    {
+        mainMixer.SetFloat("BGMVolume", Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20);
+        PlayerPrefs.SetFloat("BGMVolume", value);
+    }
+    
+    public void SetEffectVolume(float value)
+    {
+        mainMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", value);
+    }
+
+    // 그래픽
     public void OnClickScreenMode(int direction)
     {
         currentModeIndex += direction;
 
-        if (currentModeIndex < 0)
-        {
-            currentModeIndex = screenModes.Count - 1;
-        }
-        else if (currentModeIndex >= screenModes.Count)
-        {
-            currentModeIndex = 0;
-        }
+        if (currentModeIndex < 0) currentModeIndex = screenModes.Count - 1;
+        else if (currentModeIndex >= screenModes.Count) currentModeIndex = 0;
         
         UpdateScreenMode();
     }
@@ -72,19 +119,12 @@ public class SettingManger : MonoBehaviour
         FullScreenMode selectedMode = screenModes[currentModeIndex];
         Screen.fullScreenMode = selectedMode;
 
-        switch (selectedMode)
-        {
-            case FullScreenMode.Windowed:
-                screenModeText.text = "Window";
-                break;
-            case FullScreenMode.FullScreenWindow:
-                screenModeText.text = "Full Screen";
-                break;
-        }
+        screenModeText.text = selectedMode == FullScreenMode.Windowed ? "Window" : "Full Screen";
 
         PlayerPrefs.SetInt("ScreenModeIndex", currentModeIndex);
-        PlayerPrefs.Save();
-    }    
+    }
+
+  
     public void OpenSetting()
     {
         SettingWindow.SetActive(true);
@@ -94,13 +134,25 @@ public class SettingManger : MonoBehaviour
     public void CloseSetting()
     {
         SettingWindow.SetActive(false);
-        Time.timeScale = 1f;
-
+        Time.timeScale = 1f; 
+        PlayerPrefs.Save();  
     }
 
     public void ClearSetting()
     {
-        
-    }
+        PlayerPrefs.DeleteKey("MasterVolume");
+        PlayerPrefs.DeleteKey("BGMVolume");
+        PlayerPrefs.DeleteKey("SFXVolume");
+        PlayerPrefs.DeleteKey("ScreenModeIndex");
 
+        masterSlider.value = 1f;
+        bgmSlider.value = 1f;
+        sfxSlider.value = 1f;
+        currentModeIndex = 0;
+
+        SetMasterVolume(1f);
+        SetBGMVolume(1f);
+        SetEffectVolume(1f);
+        UpdateScreenMode();
+    }
 }
