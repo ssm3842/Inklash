@@ -1,2 +1,2 @@
-Card_ID,Card_Name,Type,Size,Cost,HP,ATK,ATK_SPD,Range,SPD,Effect_ID,Description
-P_001,FireBall,Spell,-,3,-,3,-,-,-,E_100,광역 공격
+Card_ID,Card_Name,Cost,ATK,ATK_SPD,Range,Effect_ID,Description
+P_003,FireBall,2,10,-,-,E_100,광역 공격

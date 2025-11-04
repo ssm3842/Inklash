@@ -1,42 +1,39 @@
-using Unity.Mathematics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
-    public static UnitManager Inst { get; private set; }
-    void Awake() => Inst = this;
-
     [SerializeField] GameObject unitSpawnPoint;
     [SerializeField] GameObject enemySpawnPoint;
-     private List<CardContent> availableEnemies;
+    private List<CardContent> availableEnemies;
 
-    public void SpawnUnit(CardContent playerUnit)
+    public void InitUnitManager(List<CardContent> enemyPool)
     {
-        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position, quaternion.identity);
-        newUnit.GetComponent<Units>().Init(true, playerUnit);
-    }
-
-    void Start()
-    {
-        availableEnemies = new List<CardContent>(DataManager.Inst.enemyUnitDatas.Values);
-        StartCoroutine(SpawnEnemyCoroutine());
+        // availableEnemies = new List<CardContent>(enemyPool);
+        availableEnemies = new List<CardContent>(RunManager.Inst.unitDataManager.enemyUnitDatas.Values);
         unitSpawnPoint.GetComponent<Entity>().Init(true);
         enemySpawnPoint.GetComponent<Entity>().Init(false);
+        StartCoroutine(SpawnEnemyCoroutine());
+    }
+
+    public void SpawnPlayerUnit(CardContent playerUnit)
+    {
+        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
+        newUnit.GetComponent<Units>().Init(true, playerUnit);
     }
 
     IEnumerator SpawnEnemyCoroutine()
     {
         while (true)
         {
-            int randomIndex = UnityEngine.Random.Range(0, availableEnemies.Count);
+            int randomIndex = Random.Range(0, availableEnemies.Count);
             CardContent enemyUnit = availableEnemies[randomIndex];
 
-            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position, quaternion.identity);
+            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position - new Vector3(1, Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
             newUnit.GetComponent<Units>().Init(false, enemyUnit);
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
         }
     }
 }

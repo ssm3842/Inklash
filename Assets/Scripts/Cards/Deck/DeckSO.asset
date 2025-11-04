@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5890819ba0c9434f827864149f40089, type: 3}
+  m_Name: DeckSO
+  m_EditorClassIdentifier: 
+  startingDeck:
+  - id: P_001
+    name: Warrior
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      hp: 20
+      atk: 1
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_001
+    name: Warrior
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      hp: 20
+      atk: 1
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_001
+    name: Warrior
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      hp: 20
+      atk: 1
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_002
+    name: Archer
+    cost: 3
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      hp: 10
+      atk: 1
+      atkSpd: 1
+      range: 3
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
+  - id: P_002
+    name: Archer
+    cost: 3
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      hp: 10
+      atk: 1
+      atkSpd: 1
+      range: 3
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
+  - id: P_002
+    name: Archer
+    cost: 3
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      hp: 10
+      atk: 1
+      atkSpd: 1
+      range: 3
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
+  - id: P_003
+    name: FireBall
+    cost: 2
+    type: 1
+    effectID: 
+    description: 
+    stats:
+      hp: 1
+      atk: 10
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
