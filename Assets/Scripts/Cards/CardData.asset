@@ -39,7 +39,7 @@ MonoBehaviour:
       range: 3
       spd: 1
     unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
-  - id: P_001
+  - id: P_003
     name: FireBall
     cost: 2
     type: 1
@@ -53,15 +53,15 @@ MonoBehaviour:
       spd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
   - id: E_001
-    name: FireBall
-    cost: 0
-    type: 1
+    name: Enemy
+    cost: 2
+    type: 0
     effectID: 
-    description: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
     stats:
-      hp: 0
-      atk: 0
-      atkSpd: 0
-      range: 0
-      spd: 0
+      hp: 10
+      atk: 1
+      atkSpd: 1
+      range: 1
+      spd: 1
     unit: {fileID: 7067957278874566163, guid: d29aa64291dd8a244944e1a4c58d095f, type: 3}

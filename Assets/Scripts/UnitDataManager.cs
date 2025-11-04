@@ -7,16 +7,16 @@ public class UnitDataManager : MonoBehaviour
     [SerializeField] private TextAsset[] csvFiles;
 
     Dictionary<string, CardContent> playerCardDatas = new Dictionary<string, CardContent>();
-    Dictionary<string, CardContent> enemyUnitDatas = new Dictionary<string, CardContent>();
+    public Dictionary<string, CardContent> enemyUnitDatas = new Dictionary<string, CardContent>();
 
 public void LoadCsvData()
     {
         Dictionary<string, CardContent> allCardTemplates = new Dictionary<string, CardContent>();
         foreach (CardContent card in cardContentSO.cardContents)
         {
-            if (!allCardTemplates.ContainsKey(card.name)) //카드 이름을 키로 해서 카드 정보를 딕셔너리로 신규 생성.
+            if (!allCardTemplates.ContainsKey(card.id)) //카드 아이디를 키로 해서 카드 정보를 딕셔너리로 신규 생성.
             {
-                allCardTemplates.Add(card.name, card);
+                allCardTemplates.Add(card.id, card);
             }
         }
 
@@ -46,9 +46,9 @@ public void LoadCsvData()
             string cardId = columns[0];
             string cardName = columns[1];
 
-            if (templates.ContainsKey(cardName))
+            if (templates.ContainsKey(cardId))
             {
-                CardContent targetCard = templates[cardName];
+                CardContent targetCard = templates[cardId];
 
                 targetCard.id = columns[0];
                 targetCard.name = columns[1];
@@ -90,9 +90,9 @@ public void LoadCsvData()
             string cardId = columns[0];
             string cardName = columns[1];
 
-            if (templates.ContainsKey(cardName))
+            if (templates.ContainsKey(cardId))
             {
-                CardContent targetCard = templates[cardName];
+                CardContent targetCard = templates[cardId];
 
                 targetCard.id = columns[0];
                 targetCard.name = columns[1];

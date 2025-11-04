@@ -10,7 +10,8 @@ public class UnitManager : MonoBehaviour
 
     public void InitUnitManager(List<CardContent> enemyPool)
     {
-        availableEnemies = new List<CardContent>(enemyPool);
+        // availableEnemies = new List<CardContent>(enemyPool);
+        availableEnemies = new List<CardContent>(RunManager.Inst.unitDataManager.enemyUnitDatas.Values);
         unitSpawnPoint.GetComponent<Entity>().Init(true);
         enemySpawnPoint.GetComponent<Entity>().Init(false);
         StartCoroutine(SpawnEnemyCoroutine());
