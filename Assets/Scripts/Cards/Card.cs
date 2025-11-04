@@ -5,7 +5,6 @@ using TMPro;
 public class Card : MonoBehaviour, IPointerClickHandler
 {
     public CardContent cardContent;
-    public HandCardSlot slot;
 
     [SerializeField] CardManager cardManager;
 

@@ -7,10 +7,9 @@ public class CardManager : MonoBehaviour
 {
     [SerializeField] GameObject cardPrefab;
 
-    [SerializeField] Transform handTransform;
+    [SerializeField] HandLayout handLayout;
     public CostManager costManager;
     public UnitManager unitManager;
-    HandLayout handLayout;
 
     [SerializeField] List<CardContent> currentBattleDeck;
     [SerializeField] List<Card> playerHands;
@@ -26,8 +25,6 @@ public class CardManager : MonoBehaviour
 
         currentBattleDeck = new List<CardContent>(RunManager.Inst.deckManager.GetDeckdata());
 
-        handLayout = handTransform.GetComponent<HandLayout>();
-
         costManager.Init();
         StartBattle();
     }
@@ -42,15 +39,12 @@ public class CardManager : MonoBehaviour
     {
         if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가. //TODO: 반응 추가하기 ex)카드를 더 뽑을 수 없어 메시지 등
 
-        var cardObject = Instantiate(cardPrefab, handTransform);
+        var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
         card.Setup(this, PopCardFromDeck());
         playerHands.Add(card);
 
-        if (handLayout != null)
-        {
-            handLayout.AddCardToHand(cardObject);
-        }
+        handLayout.AlignCards();
     }
 
     public CardContent PopCardFromDeck()
@@ -97,13 +91,13 @@ public class CardManager : MonoBehaviour
                     unitManager.SpawnPlayerUnit(draggingCard.cardContent); //TODO: 단어카드 사용 효과 구현.
                     break;
             }
-            card.slot.isEmpty = true;
 
             playerHands.Remove(draggingCard);
             currentBattleDeck.Add(draggingCard.cardContent);
             Card temp = draggingCard;
             draggingCard = null;
             Destroy(temp.gameObject);
+            handLayout.AlignCards();
 
             DrawCard();
         }
@@ -111,27 +105,10 @@ public class CardManager : MonoBehaviour
 
     public void CardRightClicked()
     {
-        draggingCardRectTransform.position = draggingCard.slot.GetComponent<RectTransform>().position + new Vector3(0, 145, 0);
+        handLayout.AlignCards();
         draggingCardRectTransform = null;
 
         isDraggingCard = false;
         draggingCard = null;
     }
-
-    // void AlignHand()
-    // {
-    //     float step = 1f / (playerHands.Count + 1); //1장이면 2로 계산해서 0.5, 2장이면 3으로 계산해 0.33
-
-    //     float[] posBase = new float[playerHands.Count];
-    //     for (int i = 0; i < playerHands.Count; i++)
-    //     {
-    //         posBase[i] = step * (i + 1);
-    //     }
-
-    //     for (int i = 0; i < playerHands.Count; i++)
-    //     {
-    //         playerHands[i].transform.position = new Vector3(10 * posBase[i] - 5, -3.5f);
-    //         // playerHands[i].SetOrderInLayer(i);
-    //     }
-    // }
 }
