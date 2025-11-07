@@ -1,16 +1,18 @@
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Units : Entity
 {
-    [SerializeField] private float ATK;
-    private float MoveSPD;
-    private float AtkSPD;
-    private float Range;
+    [SerializeField] float ATK;
+    float MoveSPD;
+    float AtkSPD;
+    float Range;
 
-    private bool isAttacking = false;
+    bool isAttacking = false;
+    bool isTriggered = false;
 
-    [SerializeField] private bool canAttack;
-    [SerializeField]private float canAttackTimer;
+    [SerializeField] bool canAttack;
+    [SerializeField] float canAttackTimer;
 
     Rigidbody2D RB;
     Animator ANI;
@@ -28,7 +30,6 @@ public class Units : Entity
         this.ATK = card.stats.atk;
         this.MoveSPD = card.stats.spd;
         this.AtkSPD = card.stats.atkSpd;
-        ANI.SetFloat("AtkSpd", AtkSPD);
         this.Range = card.stats.range;
 
         canAttack = true;
@@ -45,7 +46,6 @@ public class Units : Entity
 
         ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
 
-        // RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, isPlayers ? Vector3.right : Vector3.left, Range); //레이캐스트로 타겟 검사
         RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, new Vector2(Range, 0.6f), 0f, isPlayers ? Vector3.right : Vector3.left, 0f);
 
         if (hits.Length <= 1) //TODO: 수정필요. 루프가 끝나면 적이 없는 것이므로 그 때 타켓 초기화 진행.
@@ -62,25 +62,24 @@ public class Units : Entity
             }
         }
 
-        if (canAttackTimer >= (1 / AtkSPD))
-        {
-            canAttack = true;
-        }
-        else canAttackTimer += Time.deltaTime;
+        if (canAttackTimer >= 3f && !canAttack) canAttack = true;//2초마다 공격 가능 상태가 됨.
+        else if (canAttackTimer >= 3f && canAttack) { }
+        else canAttackTimer += Time.deltaTime * AtkSPD; //공격 속도만큼 빠르게 채워짐.
 
-        if (canAttack && target)
+        //Attack 애니메이션이 재생중이면 true
+        bool isAttackPlayed = ANI.GetCurrentAnimatorStateInfo(0).IsName("Attack") && ANI.GetCurrentAnimatorStateInfo(0).normalizedTime > 0f;
+        if (canAttack && target != null && !isTriggered && !isAttackPlayed) //공격 가능한 상태에 애니메이션 재생.
         {
             ANI.SetTrigger("Attacked");
-            isAttacking = true;
-            AttackEnemy(target);
+            isTriggered = true;
+            Debug.Log("!!");
         }
     }
 
-    void AttackEnemy(Entity enemy)
+    public void _AttackEnemy() //공격은 애니메이션에서 진행.
     {
-        enemy.TakeDamage(ATK);
+        target?.TakeDamage(ATK);
         canAttackTimer = 0f;
-        canAttack = false;
     }
 
     override public void TakeDamage(float amount)
@@ -93,7 +92,13 @@ public class Units : Entity
         }
     }
 
-    public void OnAttackEnd()
+    public void _OnAttackStart()
+    {
+        isTriggered = false;
+        canAttack = false;
+        isAttacking = true;
+    }
+    public void _OnAttackEnd()
     {
         isAttacking = false;
     }

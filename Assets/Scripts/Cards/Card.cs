@@ -5,6 +5,7 @@ using TMPro;
 public class Card : MonoBehaviour, IPointerClickHandler
 {
     public CardContent cardContent;
+    public int originIndex;
 
     [SerializeField] CardManager cardManager;
 
@@ -27,10 +28,11 @@ public class Card : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void Setup(CardManager newCardManager, CardContent content)
+    public void Setup(CardManager newCardManager, CardContent content, int newIndex)
     {
         cardManager = newCardManager;
         cardContent = content;
+        originIndex = newIndex;
 
         costText.text = content.cost.ToString();
         nameText.text = content.name;

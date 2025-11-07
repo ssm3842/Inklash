@@ -8,13 +8,13 @@ public class CardManager : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
 
     [SerializeField] HandLayout handLayout;
+    [SerializeField] Canvas battleUICanvas;
     public CostManager costManager;
     public UnitManager unitManager;
 
     [SerializeField] List<CardContent> currentBattleDeck;
     [SerializeField] List<Card> playerHands;
 
-    private RectTransform draggingCardRectTransform;
     public Card draggingCard;
     public bool isDraggingCard = false;
 
@@ -41,7 +41,7 @@ public class CardManager : MonoBehaviour
 
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
-        card.Setup(this, PopCardFromDeck());
+        card.Setup(this, PopCardFromDeck(), card.transform.GetSiblingIndex());
         playerHands.Add(card);
 
         handLayout.AlignCards();
@@ -59,7 +59,7 @@ public class CardManager : MonoBehaviour
     {
         if (isDraggingCard)
         {
-            draggingCardRectTransform.position = Input.mousePosition;
+            draggingCard.transform.position = Input.mousePosition;
         }
     }
 
@@ -71,7 +71,7 @@ public class CardManager : MonoBehaviour
 
             isDraggingCard = true;
             draggingCard = card;
-            draggingCardRectTransform = card.GetComponent<RectTransform>();
+            draggingCard.transform.SetParent(battleUICanvas.transform);
             // draggingCard.SetOrderInLayer(GameRule.MAX_HAND_CARD_NUM + 1);
         }
         else //카드가 손에 있을 때 좌클릭 하면 사용.
@@ -105,10 +105,11 @@ public class CardManager : MonoBehaviour
 
     public void CardRightClicked()
     {
-        handLayout.AlignCards();
-        draggingCardRectTransform = null;
-
         isDraggingCard = false;
+        draggingCard.transform.SetParent(handLayout.transform);
+        draggingCard.transform.SetSiblingIndex(draggingCard.originIndex);
         draggingCard = null;
+
+        handLayout.AlignCards();
     }
 }

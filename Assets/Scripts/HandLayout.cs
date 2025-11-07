@@ -7,12 +7,14 @@ public class HandLayout : MonoBehaviour
     public float radius = 300f;       // 부채꼴 반지름
     public float maxRotateAngle = 60f;      // 가장 바깥쪽 카드의 최대 회전 각도 (양수)
 
-    void Update()
-    {
-        AlignHand();
-    }
     public void AlignCards()
-    {   
+    {
+        if (transform.childCount <= 0) return;
+        for(int i =0; i<transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<Card>().originIndex = transform.GetChild(i).GetSiblingIndex();
+        }
+
         //카드의 위치를 지정하는 부분.
         float step = 1f / (transform.childCount + 1); //1장이면 2로 계산해서 0.5, 2장이면 3으로 계산해 0.33
 
@@ -40,10 +42,5 @@ public class HandLayout : MonoBehaviour
             // 부채꼴의 중심에서 각도를 기준으로 위치 계산
             transform.GetChild(i).localRotation = Quaternion.Euler(0, 0, -angle);
         }
-    }
-
-    void AlignHand()
-    {
-        
     }
 }
