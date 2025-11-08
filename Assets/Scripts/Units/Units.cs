@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class Units : Entity
@@ -90,13 +89,13 @@ public class Units : Entity
         target?.StartCoroutine(TakeDamage(ATK, 0f));
     }
 
-    public void _OnAttackStart()
+    public void _OnAttackStart() //공격 애니메이션 시작 시 관련 변수를 초기화.
     {
         canAttackTimer = 0f;
         canAttack = false;
         isAttacking = true;
     }
-    public void _OnAttackEnd()
+    public void _OnAttackEnd() //공격 애니메이션 종료 시 이동할 수 있도록 변수 초기화.
     {
         isAttacking = false;
     }
