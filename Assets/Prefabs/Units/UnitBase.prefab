@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4210512632821811087}
   - component: {fileID: 6665485786468077925}
   - component: {fileID: 2489958423184310239}
-  - component: {fileID: 1134042523287737921}
+  - component: {fileID: 6794712847724622433}
   m_Layer: 0
   m_Name: UnitBase
   m_TagString: Units
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4ba2eb1d733209a4db743caf07c88584, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb8797ca3457f5746a2ca1598a6f363a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -186,7 +186,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1134042523287737921
+--- !u!114 &6794712847724622433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

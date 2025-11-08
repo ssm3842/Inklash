@@ -1,23 +1,23 @@
+using System.Collections;
 using UnityEditor.Animations;
 using UnityEngine;
 
 public class Units : Entity
 {
-    [SerializeField] float ATK;
+    [SerializeField] protected float ATK;
     float MoveSPD;
     float AtkSPD;
     float Range;
 
     bool isAttacking = false;
-    bool isTriggered = false;
 
-    [SerializeField] bool canAttack;
-    [SerializeField] float canAttackTimer;
+    [SerializeField] protected bool canAttack;
+    [SerializeField] protected float canAttackTimer;
 
     Rigidbody2D RB;
     Animator ANI;
 
-    Entity target;
+    protected Entity target;
 
     void Awake()
     {
@@ -61,29 +61,22 @@ public class Units : Entity
                 }
             }
         }
+        //Attack 애니메이션이 재생중이면 true
+        if (canAttack && target != null) //공격 가능한 상태에 애니메이션 재생.
+        {
+            canAttack = false;
+            ANI.SetTrigger("Attacked");
+        }
 
         if (canAttackTimer >= 3f && !canAttack) canAttack = true;//2초마다 공격 가능 상태가 됨.
         else if (canAttackTimer >= 3f && canAttack) { }
         else canAttackTimer += Time.deltaTime * AtkSPD; //공격 속도만큼 빠르게 채워짐.
-
-        //Attack 애니메이션이 재생중이면 true
-        bool isAttackPlayed = ANI.GetCurrentAnimatorStateInfo(0).IsName("Attack") && ANI.GetCurrentAnimatorStateInfo(0).normalizedTime > 0f;
-        if (canAttack && target != null && !isTriggered && !isAttackPlayed) //공격 가능한 상태에 애니메이션 재생.
-        {
-            ANI.SetTrigger("Attacked");
-            isTriggered = true;
-            Debug.Log("!!");
-        }
     }
 
-    public void _AttackEnemy() //공격은 애니메이션에서 진행.
+    override public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
     {
-        target?.TakeDamage(ATK);
-        canAttackTimer = 0f;
-    }
-
-    override public void TakeDamage(float amount)
-    {
+        Debug.Log("dfdfd");
+        yield return new WaitForSeconds(delayTime);
         if (CurHP <= amount) Destroy(this.gameObject);
         else
         {
@@ -92,9 +85,14 @@ public class Units : Entity
         }
     }
 
+    public virtual void _AttackEnemy() //공격은 애니메이션에서 진행.
+    {
+        target?.StartCoroutine(TakeDamage(ATK, 0f));
+    }
+
     public void _OnAttackStart()
     {
-        isTriggered = false;
+        canAttackTimer = 0f;
         canAttack = false;
         isAttacking = true;
     }

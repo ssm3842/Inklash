@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
+    float spawnHeight = 0.3f;
     [SerializeField] GameObject unitSpawnPoint;
     [SerializeField] GameObject enemySpawnPoint;
     private List<CardContent> availableEnemies;
@@ -19,7 +20,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnPlayerUnit(CardContent playerUnit)
     {
-        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
+        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight), 0), Quaternion.identity);
         newUnit.GetComponent<Units>().Init(true, playerUnit);
     }
 
@@ -30,7 +31,7 @@ public class UnitManager : MonoBehaviour
             int randomIndex = Random.Range(0, availableEnemies.Count);
             CardContent enemyUnit = availableEnemies[randomIndex];
 
-            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position - new Vector3(1, Random.Range(-0.3f, 0.3f), 0), Quaternion.identity);
+            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position - new Vector3(1, Random.Range(-spawnHeight, spawnHeight), 0), Quaternion.identity);
             newUnit.GetComponent<Units>().Init(false, enemyUnit);
 
             yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);

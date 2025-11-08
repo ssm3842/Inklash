@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -27,8 +28,9 @@ public class Entity : MonoBehaviour
         isPlayers = players;
     }
 
-    virtual public void TakeDamage(float amount)
+    virtual public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
     {
+        yield return new WaitForSeconds(delayTime);
         if (CurHP <= amount)
         {
             if (!isPlayers)
@@ -46,7 +48,7 @@ public class Entity : MonoBehaviour
         else
         {
             CurHP -= amount;
-            if(healthBar) healthBar.text = CurHP.ToString() + " / " + MaxHP.ToString();
+            if (healthBar) healthBar.text = CurHP.ToString() + " / " + MaxHP.ToString();
             Debug.Log(CurHP);
         }
     }
