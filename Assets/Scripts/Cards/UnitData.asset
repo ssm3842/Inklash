@@ -53,7 +53,7 @@ MonoBehaviour:
       spd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
   - id: E_001
-    name: Enemy
+    name: LowerI
     cost: 2
     type: 0
     effectID: 
@@ -62,17 +62,17 @@ MonoBehaviour:
       hp: 10
       atk: 1
       atkSpd: 1
-      range: 1
+      range: 3
       spd: 1
     unit: {fileID: 765215707061389867, guid: eff326010097cc0458b81f3e50569575, type: 3}
-  - id: E_00
-    name: Enemy
+  - id: E_002
+    name: UpperI
     cost: 2
     type: 0
     effectID: 
     description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
     stats:
-      hp: 10
+      hp: 20
       atk: 1
       atkSpd: 1
       range: 1

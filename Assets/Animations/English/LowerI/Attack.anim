@@ -17,21 +17,82 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves: []
-  m_SampleRate: 60
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: eea266ce5ca895d4796181490c380fcb, type: 3}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: c57d61de86b1af746825a776f22674fe, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: 23f87f62257df9e458e753ac627eeac7, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: e0aaa08878610484082781a496c82fb3, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 5c2353b932a56a845a8d47d85fefc523, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: ab079fa6a8ea47a438f4ec13873a8e3f, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 4270cd4adb21d99409f22b843abfd703, type: 3}
+    - time: 0.5833333
+      value: {fileID: 21300000, guid: 28c04303e1c621144b8de8bb45130d29, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 4af25c3b1570d5f43912590d3e767d45, type: 3}
+    - time: 0.75
+      value: {fileID: 21300000, guid: 1202ff9a29a48c849a7908945872c5cd, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 0a8d70de7cfa2ab4fb9ed9db7379a378, type: 3}
+    - time: 0.9166667
+      value: {fileID: 21300000, guid: b7dd7e2839f536047a80f47ef711fbdb, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: d670777932be8d946b4df89869a8dbe2, type: 3}
+    - time: 1.0833334
+      value: {fileID: 21300000, guid: db162e954f2d1d64aba2a4e9a5276de9, type: 3}
+    - time: 1.1666666
+      value: {fileID: 21300000, guid: 3dc83779327edf24dab9e405dd41e51c, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 12
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings: []
-    pptrCurveMapping: []
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: eea266ce5ca895d4796181490c380fcb, type: 3}
+    - {fileID: 21300000, guid: c57d61de86b1af746825a776f22674fe, type: 3}
+    - {fileID: 21300000, guid: 23f87f62257df9e458e753ac627eeac7, type: 3}
+    - {fileID: 21300000, guid: e0aaa08878610484082781a496c82fb3, type: 3}
+    - {fileID: 21300000, guid: 5c2353b932a56a845a8d47d85fefc523, type: 3}
+    - {fileID: 21300000, guid: ab079fa6a8ea47a438f4ec13873a8e3f, type: 3}
+    - {fileID: 21300000, guid: 4270cd4adb21d99409f22b843abfd703, type: 3}
+    - {fileID: 21300000, guid: 28c04303e1c621144b8de8bb45130d29, type: 3}
+    - {fileID: 21300000, guid: 4af25c3b1570d5f43912590d3e767d45, type: 3}
+    - {fileID: 21300000, guid: 1202ff9a29a48c849a7908945872c5cd, type: 3}
+    - {fileID: 21300000, guid: 0a8d70de7cfa2ab4fb9ed9db7379a378, type: 3}
+    - {fileID: 21300000, guid: b7dd7e2839f536047a80f47ef711fbdb, type: 3}
+    - {fileID: 21300000, guid: d670777932be8d946b4df89869a8dbe2, type: 3}
+    - {fileID: 21300000, guid: db162e954f2d1d64aba2a4e9a5276de9, type: 3}
+    - {fileID: 21300000, guid: 3dc83779327edf24dab9e405dd41e51c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 1.25
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -50,4 +111,25 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: _OnAttackStart
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: _AttackEnemy
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.25
+    functionName: _OnAttackEnd
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
