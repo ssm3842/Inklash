@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class Units : Entity
@@ -45,21 +46,18 @@ public class Units : Entity
 
         ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
 
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, new Vector2(Range, 0.6f), 0f, isPlayers ? Vector3.right : Vector3.left, 0f);
-
-        if (hits.Length <= 1) //TODO: 수정필요. 루프가 끝나면 적이 없는 것이므로 그 때 타켓 초기화 진행.
-            target = null;
-        else
+        if (!target) //타겟이 없을 때만 새로 검사.
         {
-            foreach (RaycastHit2D hit in hits)
-            {
-                if (hit.collider.CompareTag("Units") && (hit.collider.GetComponent<Entity>().isPlayers != isPlayers)) //팀이 다른 유닛 발견 시 까지 검사.
-                {
-                    target = hit.collider.GetComponent<Entity>();
-                    break;
-                }
-            }
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, new Vector2(Range, 0.6f), 0f, isPlayers ? Vector3.right : Vector3.left, 0f);
+            hits = hits //검사된 오브젝트들을 필터링 및 정렬.
+                .Where(hit => hit.collider != null && hit.collider.CompareTag("Units") && hit.collider.GetComponent<Entity>().isPlayers != isPlayers) //상대 유닛만 검사 포함.
+                .OrderBy(hit => Vector3.Distance(hit.transform.position, transform.position)) //오름차순으로 정렬(가까운 오브젝트가 제일 앞에 옴)
+                .ToArray();
+
+            if (hits.Length <= 0) target = null; //자신만 감지된 경우 타겟 없음.
+            else target = hits[0].collider.GetComponent<Entity>();
         }
+
         //Attack 애니메이션이 재생중이면 true
         if (canAttack && target != null) //공격 가능한 상태에 애니메이션 재생.
         {
@@ -74,7 +72,6 @@ public class Units : Entity
 
     override public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
     {
-        Debug.Log("dfdfd");
         yield return new WaitForSeconds(delayTime);
         if (CurHP <= amount) Destroy(this.gameObject);
         else
@@ -86,7 +83,8 @@ public class Units : Entity
 
     public virtual void _AttackEnemy() //공격은 애니메이션에서 진행.
     {
-        target?.StartCoroutine(TakeDamage(ATK, 0f));
+        Debug.Log(gameObject.name + " " + target.name);
+        target?.StartCoroutine(target.TakeDamage(ATK, 0f));
     }
 
     public void _OnAttackStart() //공격 애니메이션 시작 시 관련 변수를 초기화.

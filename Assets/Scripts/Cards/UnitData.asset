@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 082bfc0884e6487408e72294d3498c84, type: 3}
-  m_Name: CardData
+  m_Name: UnitData
   m_EditorClassIdentifier: 
   cardContents:
   - id: P_001
@@ -64,4 +64,17 @@ MonoBehaviour:
       atkSpd: 1
       range: 1
       spd: 1
-    unit: {fileID: 7067957278874566163, guid: d29aa64291dd8a244944e1a4c58d095f, type: 3}
+    unit: {fileID: 765215707061389867, guid: eff326010097cc0458b81f3e50569575, type: 3}
+  - id: E_00
+    name: Enemy
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      hp: 10
+      atk: 1
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 7742337380305042760, guid: cc35cac3b6c77e34f869ccfbbfdd7fef, type: 3}
