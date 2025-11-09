@@ -5,9 +5,6 @@ TextureImporter:
   - first:
       213: 1495229616149295316
     second: Uppercase 'I' Move_0005_0
-  - first:
-      213: -1972282446065457340
-    second: Uppercase 'I' Move_0005_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -137,28 +134,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Uppercase 'I' Move_0005_1
-      rect:
-        serializedVersion: 2
-        x: 903
-        y: 750
-        width: 113
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 447a78d909b01a4e0800000000000000
-      internalID: -1972282446065457340
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -174,7 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Uppercase 'I' Move_0005_0: 1495229616149295316
-      Uppercase 'I' Move_0005_1: -1972282446065457340
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
