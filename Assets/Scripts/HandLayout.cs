@@ -12,7 +12,8 @@ public class HandLayout : MonoBehaviour
         if (transform.childCount <= 0) return;
         for(int i =0; i<transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<Card>().originIndex = transform.GetChild(i).GetSiblingIndex();
+            Card targetCard = transform.GetChild(i).GetComponent<Card>();
+            targetCard.originalIndex = transform.GetChild(i).GetSiblingIndex();
         }
 
         //카드의 위치를 지정하는 부분.

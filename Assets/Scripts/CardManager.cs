@@ -72,7 +72,6 @@ public class CardManager : MonoBehaviour
             isDraggingCard = true;
             draggingCard = card;
             draggingCard.transform.SetParent(battleUICanvas.transform);
-            // draggingCard.SetOrderInLayer(GameRule.MAX_HAND_CARD_NUM + 1);
         }
         else //카드가 손에 있을 때 좌클릭 하면 사용.
         {
@@ -107,7 +106,7 @@ public class CardManager : MonoBehaviour
     {
         isDraggingCard = false;
         draggingCard.transform.SetParent(handLayout.transform);
-        draggingCard.transform.SetSiblingIndex(draggingCard.originIndex);
+        draggingCard.transform.SetSiblingIndex(draggingCard.originalIndex);
         draggingCard = null;
 
         handLayout.AlignCards();

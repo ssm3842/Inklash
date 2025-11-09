@@ -65,8 +65,8 @@ public class Units : Entity
             ANI.SetTrigger("Attacked");
         }
 
-        if (canAttackTimer >= 3f && !canAttack) canAttack = true;//2초마다 공격 가능 상태가 됨.
-        else if (canAttackTimer >= 3f && canAttack) { }
+        if (canAttackTimer >= 2f && !canAttack) canAttack = true;//2초마다 공격 가능 상태가 됨.
+        else if (canAttackTimer >= 2f && canAttack) { }
         else canAttackTimer += Time.deltaTime * AtkSPD; //공격 속도만큼 빠르게 채워짐.
     }
 
@@ -83,7 +83,6 @@ public class Units : Entity
 
     public virtual void _AttackEnemy() //공격은 애니메이션에서 진행.
     {
-        Debug.Log(gameObject.name + " " + target.name);
         target?.StartCoroutine(target.TakeDamage(ATK, 0f));
     }
 

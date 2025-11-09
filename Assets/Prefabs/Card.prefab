@@ -307,7 +307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 88.4, y: -14.2}
+  m_AnchoredPosition: {x: 88.4, y: -14.200012}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5017751064397351109
@@ -518,18 +518,18 @@ MonoBehaviour:
   cardContent:
     id: 
     name: 
+    cost: 0
     type: 0
     effectID: 
     description: 
     stats:
-      cost: 0
       hp: 0
       atk: 0
       atkSpd: 0
       range: 0
       spd: 0
     unit: {fileID: 0}
-  slot: {fileID: 0}
+  originalIndex: 0
   cardManager: {fileID: 0}
   costText: {fileID: 4080924894869599096}
   nameText: {fileID: 3922267919118985877}
