@@ -13,6 +13,7 @@ public class CardManager : MonoBehaviour
     public UnitManager unitManager;
 
     [SerializeField] List<CardContent> currentBattleDeck;
+    [SerializeField] List<CardContent> graveYardDeck;
     [SerializeField] List<Card> playerHands;
 
     public Card draggingCard;
@@ -24,19 +25,27 @@ public class CardManager : MonoBehaviour
         // List<CardContent> playerCardPool = DataManager.Inst.playerCardDatas.Values.ToList();
 
         currentBattleDeck = new List<CardContent>(RunManager.Inst.deckManager.GetDeckdata());
+        graveYardDeck = new List<CardContent>();
 
         costManager.Init();
+
         StartBattle();
     }
 
     void StartBattle()
     {
         // currentBattleDeck.shuffle(); //TODO: 게임 시작 시 덱 섞는 기능 추가하기. 덱매니저에다가.
-        for (int i = 0; i < 5; i++) DrawCard();
+        DrawNewHand(true);
     }
 
     void DrawCard()
     {
+        if (currentBattleDeck.Count <= 0)
+        {
+            currentBattleDeck = new List<CardContent>(graveYardDeck);
+            graveYardDeck.Clear();
+        }
+
         if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가. //TODO: 반응 추가하기 ex)카드를 더 뽑을 수 없어 메시지 등
 
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
@@ -47,7 +56,28 @@ public class CardManager : MonoBehaviour
         handLayout.AlignCards();
     }
 
-    public CardContent PopCardFromDeck()
+    public void DrawNewHand(bool isFree) //패가 가득 찰 때까지 카드를 뽑음.
+    {   
+        if(!isFree) //전투 시작 시 또는 패를 다 사용했을 때는 비용 없이 카드 다시뽑기.
+        {
+            if (!costManager.CheckUseCostAvailable(playerHands.Count + 1)) return;
+            costManager.UseCost(playerHands.Count + 1);
+        }
+
+        for (int i = playerHands.Count - 1; i >= 0; i--) //에러 방지를 위해 역순으로 묘지로 이동
+        {
+            MoveCardToGraveYard(playerHands[i]);
+        }
+
+        for (int i = 0; i < GameRule.MAX_HAND_CARD_NUM; i++) //카드 5장 다시 뽑기
+        {
+            DrawCard();
+        }
+        
+        handLayout.AlignCards();
+    }
+
+    CardContent PopCardFromDeck()
     {
         CardContent cardContent = currentBattleDeck[0];
         currentBattleDeck.RemoveAt(0);
@@ -91,14 +121,22 @@ public class CardManager : MonoBehaviour
                     break;
             }
 
-            playerHands.Remove(draggingCard);
-            currentBattleDeck.Add(draggingCard.cardContent);
-            Card temp = draggingCard;
+            MoveCardToGraveYard(draggingCard);
             draggingCard = null;
-            Destroy(temp.gameObject);
-            handLayout.AlignCards();
 
-            DrawCard();
+            RunManager.Inst.battleManager.OnCardUse();
+
+            if (playerHands.Count <= 0)
+            {
+                costManager.AddCost(3);
+                DrawNewHand(true);
+            }
+
+            // Card temp = draggingCard;
+            // draggingCard = null;
+            // Destroy(temp.gameObject);
+
+            handLayout.AlignCards();
         }
     }
 
@@ -110,5 +148,19 @@ public class CardManager : MonoBehaviour
         draggingCard = null;
 
         handLayout.AlignCards();
+    }
+
+    void MoveCardToGraveYard(Card targetCard) //매개변수 카드를 패에서 묘지로 보냄.
+    {
+        playerHands.Remove(targetCard); //패에서 카드 데이터 제거.
+        graveYardDeck.Add(targetCard.cardContent);
+
+        targetCard.transform.SetParent(battleUICanvas.transform);
+        Destroy(targetCard.gameObject);
+    }
+
+    public void OnCardUse()
+    {
+        Debug.Log(transform.childCount);
     }
 }

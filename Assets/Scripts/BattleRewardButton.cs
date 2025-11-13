@@ -9,13 +9,19 @@ public class BattleRewardButton : MonoBehaviour
     [SerializeField] Image rewardIcon;
     [SerializeField] TextMeshProUGUI rewardText;
 
+    RewardType rewardType;
+    int rewardContent;
+
     public void AddRewardButton(RewardType type, int amount)
     {
+        rewardType = type; //버튼에 들어갈 보상 타입을 저장.
         switch (type)
         {
             case RewardType.Gold:
                 rewardIcon.sprite = iconImages[0];
                 rewardText.text = amount + " Gold";
+
+                rewardContent = amount;
                 break;
             case RewardType.Card:
                 rewardIcon.sprite = iconImages[1];
@@ -28,6 +34,17 @@ public class BattleRewardButton : MonoBehaviour
 
     public void TryTakeReward()
     {
+        switch (rewardType)
+        {
+            case RewardType.Gold:
+                RunManager.Inst.GetGold(rewardContent);
+                break;
+            case RewardType.Card:
+                //TODO: 랜덤한 카드 3개를 선택. 및 표시.
+                break;
+            case RewardType.Artifact:
+                break;
+        }
         Destroy(gameObject);
     }
 }

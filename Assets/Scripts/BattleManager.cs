@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BattleManager : MonoBehaviour
 {
@@ -8,10 +9,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject battleRewardButtonContainer;
     [SerializeField] BattleRewardButton battleRewardButtonPrefab;
 
+    [SerializeField] DeckSO tempEnemyPool;
+
     public CardManager cardManager;
     public UnitManager unitManager;
 
-    [SerializeField] DeckSO tempEnemyPool;
+    public UnityEvent CardUse;
 
     public void InitBattle()
     {
@@ -35,5 +38,10 @@ public class BattleManager : MonoBehaviour
         BattleRewardButton newRewardButton = Instantiate(battleRewardButtonPrefab, battleRewardButtonContainer.transform);
         newRewardButton.AddRewardButton(RewardType.Gold, 70);
         battleRewardCanvas.gameObject.SetActive(true);
+    }
+
+    public void OnCardUse()
+    {
+        CardUse?.Invoke();
     }
 }

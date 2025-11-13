@@ -20,7 +20,7 @@ public class CostManager : MonoBehaviour
 
             if (time > GameRule.COST_GENERATE_SECOND)
             {
-                AddCost();
+                AddCost(1);
                 time = 0f;
             }
         }
@@ -35,9 +35,9 @@ public class CostManager : MonoBehaviour
         return currentCost >= amount;
     }
 
-    void AddCost()
+    public void AddCost(int amount)
     {
-        currentCost = Mathf.Min(GameRule.MAX_COST, currentCost+1);
+        currentCost = Mathf.Min(GameRule.MAX_COST, currentCost + amount);
     }
 
     public void UseCost(int amount)
