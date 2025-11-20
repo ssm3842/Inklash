@@ -1,15 +1,18 @@
 fileFormatVersion: 2
-guid: 2aa14e17c56853d43bb4f1e71c8cfb25
+guid: d92d0adabb5e40a479eb471a035430d7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5669775869717962088
-    second: "\uD50C\uB808\uC774\uC5B4_SD_0"
+      213: -894095381526335850
+    second: Lightning_0
+  - first:
+      213: 1757268892636325777
+    second: Lightning_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -49,11 +52,11 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1800
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.13}
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,7 +75,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -113,23 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uD50C\uB808\uC774\uC5B4_SD_0"
+      name: Lightning_0
       rect:
         serializedVersion: 2
-        x: 985
-        y: 805
-        width: 2854
-        height: 3421
+        x: 33
+        y: 54
+        width: 45
+        height: 441
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8922161e2e8e051b0800000000000000
-      internalID: -5669775869717962088
+      spriteID: 69e2ec4dcf88793f0800000000000000
+      internalID: -894095381526335850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lightning_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 32
+        width: 57
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 197ae685fb2136810800000000000000
+      internalID: 1757268892636325777
       vertices: []
       indices: 
       edges: []
@@ -139,7 +164,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uD50C\uB808\uC774\uC5B4_SD_0": -5669775869717962088
+      Lightning_0: -894095381526335850
+      Lightning_1: 1757268892636325777
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

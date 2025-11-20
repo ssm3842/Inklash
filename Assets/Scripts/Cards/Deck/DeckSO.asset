@@ -26,6 +26,19 @@ MonoBehaviour:
       range: 1
       spd: 1
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_003
+    name: FireBall
+    cost: 2
+    type: 1
+    effectID: 
+    description: 
+    stats:
+      hp: 1
+      atk: 10
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
   - id: P_001
     name: Warrior
     cost: 2
@@ -103,4 +116,4 @@ MonoBehaviour:
       atkSpd: 1
       range: 1
       spd: 1
-    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+    unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}

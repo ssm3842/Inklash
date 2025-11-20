@@ -51,7 +51,7 @@ MonoBehaviour:
       atkSpd: 0
       range: 0
       spd: 0
-    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+    unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
   - id: E_001
     name: LowerI
     cost: 2

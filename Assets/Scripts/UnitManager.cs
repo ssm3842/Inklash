@@ -23,6 +23,12 @@ public class UnitManager : MonoBehaviour
         GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight), 0), Quaternion.identity);
         newUnit.GetComponent<Units>().Init(true, playerUnit);
     }
+    public void CastPlayerSpell(CardContent playerUnit)
+    {
+        GameObject newUnit = Instantiate(playerUnit.unit);
+        newUnit.GetComponent<Lightning>().CastSpell(playerUnit.stats.atk, Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
+        // newUnit.GetComponent<Units>().Init(true, playerUnit);
+    }
 
     IEnumerator SpawnEnemyCoroutine()
     {

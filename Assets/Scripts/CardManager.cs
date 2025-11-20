@@ -114,7 +114,7 @@ public class CardManager : MonoBehaviour
                     unitManager.SpawnPlayerUnit(draggingCard.cardContent);
                     break;
                 case CardType.Spell:
-                    unitManager.SpawnPlayerUnit(draggingCard.cardContent);
+                    unitManager.CastPlayerSpell(draggingCard.cardContent);
                     break;
                 case CardType.Word:
                     unitManager.SpawnPlayerUnit(draggingCard.cardContent); //TODO: 단어카드 사용 효과 구현.
@@ -161,6 +161,6 @@ public class CardManager : MonoBehaviour
 
     public void OnCardUse()
     {
-        Debug.Log(transform.childCount);
+        // Debug.Log(transform.childCount);
     }
 }
