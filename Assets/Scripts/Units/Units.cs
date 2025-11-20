@@ -34,6 +34,9 @@ public class Units : Entity
 
         canAttack = true;
         canAttackTimer = 0f;
+
+        GetComponent<Renderer>().sortingOrder = -Mathf.CeilToInt((transform.position.y - 0.3f) * 100f);
+
         base.Init(isplayers, card);
         
         isPlayers = isplayers;
