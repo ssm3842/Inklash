@@ -25,8 +25,4 @@ public class DeckManager : MonoBehaviour
         deck.Remove(targetCard);
     }
 
-    public void Shuffle()
-    {
-        return;
-    }
 }

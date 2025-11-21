@@ -10,6 +10,10 @@ public class RunManager : MonoBehaviour
     [SerializeField] GameObject battleUICanvas;
 
     [SerializeField] DeckSO startingDeckSO;
+    
+    // 체력, 돈 확인용 
+    [SerializeField] private ResourceManager resourceManager;
+
 
     public MapManager mapManager;
     public DeckManager deckManager;
@@ -25,8 +29,11 @@ public class RunManager : MonoBehaviour
         battleUICanvas.SetActive(false);
 
         mapManager.gameObject.SetActive(true);
-
+    
         InitRun();
+
+        // 체력, 돈 확인용 
+        resourceManager.Init();
     }
 
     public void InitRun() //런 시작 시 게임 초기화.

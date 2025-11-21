@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Units : Entity
 {
@@ -12,6 +13,12 @@ public class Units : Entity
     [SerializeField] private bool canAttack;
     [SerializeField]private float canAttackTimer;
 
+    private bool isDead = false;       
+    public bool IsDead => isDead;
+    private SpriteRenderer SR;        
+    private Collider2D COL;           
+    [SerializeField] private float deathDuration = 0.3f; 
+
     Rigidbody2D RB;
     Animator ANI;
 
@@ -21,6 +28,9 @@ public class Units : Entity
     {
         RB = GetComponent<Rigidbody2D>();
         ANI = GetComponent<Animator>();
+
+        SR = GetComponent<SpriteRenderer>();
+        COL = GetComponent<Collider2D>();
     }
 
     override public void Init(bool isplayers, CardContent card)
@@ -31,6 +41,8 @@ public class Units : Entity
         ANI.SetFloat("AtkSpd", AtkSPD);
         this.Range = card.stats.range;
 
+        isDead = false; 
+
         canAttack = true;
         canAttackTimer = 0f;
         base.Init(isplayers, card);
@@ -40,6 +52,20 @@ public class Units : Entity
 
     void Update()
     {
+        if (isDead) return;
+        
+if (target != null)
+        {
+
+            Units targetUnit = target.GetComponent<Units>();
+            
+            if (targetUnit != null && targetUnit.IsDead)
+            {
+                target = null;    
+                isAttacking = false; 
+            }
+        }
+
         if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? MoveSPD : -MoveSPD; //목표가 없으면 이동.
         else RB.linearVelocityX = 0f;   //목표가 있으면 정지
 
@@ -85,7 +111,9 @@ public class Units : Entity
 
     override public void TakeDamage(float amount)
     {
-        if (CurHP <= amount) Destroy(this.gameObject);
+        if (isDead) return;
+
+        if (CurHP <= amount) Die(); //Destroy(this.gameObject);
         else
         {
             CurHP -= amount;
@@ -96,5 +124,46 @@ public class Units : Entity
     public void OnAttackEnd()
     {
         isAttacking = false;
+    }
+
+//사망모션 임의 구현
+    private void Die()
+    {
+        isDead = true; 
+
+        if (RB != null) RB.linearVelocity = Vector2.zero;
+        if (ANI != null) ANI.enabled = false; 
+
+        if (COL != null) COL.enabled = false;
+
+        StartCoroutine(DeathEffectCoroutine());
+    }
+
+    private IEnumerator DeathEffectCoroutine()
+    {
+        float timer = 0f;
+        
+        Vector3 initialScale = transform.localScale;
+        Color initialColor = (SR != null) ? SR.color : Color.white;
+
+        while (timer < deathDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / deathDuration; 
+
+            transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, progress);
+
+            /* 투명하게
+            if (SR != null)
+            {
+                Color newColor = initialColor;
+                newColor.a = Mathf.Lerp(initialColor.a, 0f, progress);
+                SR.color = newColor;
+            }
+            */
+            yield return null; 
+        }
+
+        Destroy(this.gameObject);
     }
 }
