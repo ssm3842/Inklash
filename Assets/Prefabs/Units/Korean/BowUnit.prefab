@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BowUnit
       objectReference: {fileID: 0}
+    - target: {fileID: 898252856215440199, guid: b62f85981057a7d46919ee866face945, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ac43c8c9077dde640a7aed2078771543, type: 3}
     - target: {fileID: 6726480520644841500, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
