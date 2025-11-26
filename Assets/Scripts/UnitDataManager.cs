@@ -56,11 +56,11 @@ public void LoadCsvData()
                 targetCard.type = CardType.Unit;
                 targetCard.description = columns[9];
 
-                targetCard.stats.hp = float.Parse(columns[3]);
-                targetCard.stats.atk = float.Parse(columns[4]);
-                targetCard.stats.atkSpd = float.Parse(columns[5]);
-                targetCard.stats.range = float.Parse(columns[6]);
-                targetCard.stats.spd = float.Parse(columns[7]);
+                targetCard.stats.baseMaxHp = float.Parse(columns[3]);
+                targetCard.stats.baseATK = float.Parse(columns[4]);
+                targetCard.stats.baseATKSpd = float.Parse(columns[5]);
+                targetCard.stats.baseRange = float.Parse(columns[6]);
+                targetCard.stats.baseSpd = float.Parse(columns[7]);
 
                 if (cardId.StartsWith("P", System.StringComparison.OrdinalIgnoreCase))
                 {
@@ -100,7 +100,7 @@ public void LoadCsvData()
                 targetCard.type = CardType.Spell;
 
                 // targetCard.stats.hp = 1;
-                targetCard.stats.atk = float.Parse(columns[3]);
+                targetCard.stats.baseATK = float.Parse(columns[3]);
                 // targetCard.stats.atkSpd = 1;
                 // targetCard.stats.range = 1;
                 // targetCard.stats.spd = 1;

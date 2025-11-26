@@ -20,100 +20,140 @@ MonoBehaviour:
     effectID: 
     description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
     stats:
-      hp: 20
-      atk: 1
-      atkSpd: 1
-      range: 1
-      spd: 1
+      baseMaxHp: 20
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 1
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
   - id: P_003
     name: FireBall
     cost: 2
     type: 1
     effectID: 
-    description: 
+    description: "\uAD11\uC5ED \uACF5\uACA9"
     stats:
-      hp: 1
-      atk: 10
-      atkSpd: 1
-      range: 1
-      spd: 1
+      baseMaxHp: 0
+      baseATK: 10
+      baseATKSpd: 0
+      baseRange: 0
+      baseSpd: 0
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 165430342810149062, guid: 7bec21aef2af94c408ec5b138b62f32f, type: 3}
+  - id: P_001
+    name: Warrior
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      baseMaxHp: 20
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 1
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_001
+    name: Warrior
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      baseMaxHp: 20
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 1
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_002
+    name: Archer
+    cost: 3
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      baseMaxHp: 10
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 3
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
+  - id: P_002
+    name: Archer
+    cost: 3
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      baseMaxHp: 10
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 3
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
+  - id: P_003
+    name: FireBall
+    cost: 2
+    type: 1
+    effectID: 
+    description: "\uAD11\uC5ED \uACF5\uACA9"
+    stats:
+      baseMaxHp: 0
+      baseATK: 10
+      baseATKSpd: 0
+      baseRange: 0
+      baseSpd: 0
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
     unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
-  - id: P_001
-    name: Warrior
-    cost: 2
-    type: 0
-    effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
-    stats:
-      hp: 20
-      atk: 1
-      atkSpd: 1
-      range: 1
-      spd: 1
-    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
-  - id: P_001
-    name: Warrior
-    cost: 2
-    type: 0
-    effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
-    stats:
-      hp: 20
-      atk: 1
-      atkSpd: 1
-      range: 1
-      spd: 1
-    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
-  - id: P_002
-    name: Archer
-    cost: 3
-    type: 0
-    effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
-    stats:
-      hp: 10
-      atk: 1
-      atkSpd: 1
-      range: 3
-      spd: 1
-    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
-  - id: P_002
-    name: Archer
-    cost: 3
-    type: 0
-    effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
-    stats:
-      hp: 10
-      atk: 1
-      atkSpd: 1
-      range: 3
-      spd: 1
-    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
-  - id: P_002
-    name: Archer
-    cost: 3
-    type: 0
-    effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
-    stats:
-      hp: 10
-      atk: 1
-      atkSpd: 1
-      range: 3
-      spd: 1
-    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
   - id: P_003
     name: FireBall
     cost: 2
     type: 1
     effectID: 
-    description: 
+    description: "\uAD11\uC5ED \uACF5\uACA9"
     stats:
-      hp: 1
-      atk: 10
-      atkSpd: 1
-      range: 1
-      spd: 1
+      baseMaxHp: 0
+      baseATK: 10
+      baseATKSpd: 0
+      baseRange: 0
+      baseSpd: 0
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
     unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}

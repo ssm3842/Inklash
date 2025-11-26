@@ -13,6 +13,6 @@ public class BowUnit : Units
         GameObject newArrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
         newArrow.GetComponent<Arrow>().targetPos = target.transform.position;
 
-        target?.StartCoroutine(target.TakeDamage(ATK, 1f));
+        target?.StartCoroutine(target.TakeDamage(statController.GetStat(StatType.ATK), 1f));
     }
 }

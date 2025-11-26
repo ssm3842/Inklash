@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6665485786468077925}
   - component: {fileID: 2489958423184310239}
   - component: {fileID: 6794712847724622433}
+  - component: {fileID: 5367653266981184350}
+  - component: {fileID: 7729553345636926120}
   m_Layer: 0
   m_Name: UnitBase
   m_TagString: Units
@@ -198,10 +200,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e95e9cbff7286642935d2161d706a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHP: 0
-  CurHP: 0
+  statController: {fileID: 5367653266981184350}
+  buffController: {fileID: 7729553345636926120}
   healthBar: {fileID: 0}
   isPlayers: 0
-  ATK: 0
   canAttack: 0
   canAttackTimer: 0
+--- !u!114 &5367653266981184350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343857630251856812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256a08fe351d1b94d9788d263637dadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats:
+    baseMaxHp: 0
+    baseATK: 0
+    baseATKSpd: 0
+    baseRange: 0
+    baseSpd: 0
+    bonusMaxHp: 0
+    bonusATK: 0
+    bonusATKSpd: 0
+    bonusRange: 0
+    bonusSpd: 0
+  curHP: 0
+  buffController: {fileID: 7729553345636926120}
+--- !u!114 &7729553345636926120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343857630251856812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statController: {fileID: 5367653266981184350}

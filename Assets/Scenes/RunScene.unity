@@ -1015,6 +1015,8 @@ GameObject:
   - component: {fileID: 597376421}
   - component: {fileID: 597376423}
   - component: {fileID: 597376424}
+  - component: {fileID: 597376425}
+  - component: {fileID: 597376426}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Units
@@ -1151,10 +1153,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16fad408d66c7a4b81a53d700eb0d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHP: 10
-  CurHP: 0
+  statController: {fileID: 597376425}
   healthBar: {fileID: 1127777735}
   isPlayers: 0
+--- !u!114 &597376425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597376420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256a08fe351d1b94d9788d263637dadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats:
+    maxHp: 0
+    atk: 0
+    atkSpd: 0
+    range: 0
+    spd: 0
+  curHP: 0
+  buffController: {fileID: 597376426}
+--- !u!114 &597376426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597376420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &741746634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,6 +1650,8 @@ GameObject:
   - component: {fileID: 1041127019}
   - component: {fileID: 1041127021}
   - component: {fileID: 1041127022}
+  - component: {fileID: 1041127023}
+  - component: {fileID: 1041127024}
   m_Layer: 0
   m_Name: PlayerBase
   m_TagString: Units
@@ -1689,7 +1724,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.6, y: 0, z: 0}
-  m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2033325839}
@@ -1733,7 +1768,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 50, y: 50}
+    oldSize: {x: 2.777778, y: 2.777778}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1753,10 +1788,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16fad408d66c7a4b81a53d700eb0d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHP: 100
-  CurHP: 0
+  statController: {fileID: 1041127023}
   healthBar: {fileID: 2033325837}
   isPlayers: 1
+--- !u!114 &1041127023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041127018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256a08fe351d1b94d9788d263637dadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats:
+    maxHp: 0
+    atk: 0
+    atkSpd: 0
+    range: 0
+    spd: 0
+  curHP: 0
+  buffController: {fileID: 1041127024}
+--- !u!114 &1041127024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041127018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1061190627
 GameObject:
   m_ObjectHideFlags: 0
@@ -3717,7 +3783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.6, y: 1.25}
+  m_AnchoredPosition: {x: -0.6, y: 1.33}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2086611502
