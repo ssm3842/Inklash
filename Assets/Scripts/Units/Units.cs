@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using System.Collections;
 
 public class Units : DamageableObject
 {
@@ -49,7 +48,7 @@ public class Units : DamageableObject
         if (target != null)
         {
             Units targetUnit = target.GetComponent<Units>();
-            if (targetUnit?.IsDead) target = null;    
+            if (targetUnit != null && targetUnit.IsDead) target = null;    
         }
 
         if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD); //목표가 없으면 이동.
@@ -83,7 +82,7 @@ public class Units : DamageableObject
 
     override public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
     {
-        if (isDead) return;
+        if (isDead) yield break;
 
         yield return new WaitForSeconds(delayTime);
         if (statController.GetCurHp() <= amount) Die(); //남은 체력보다 데미지가 크면 오브젝트 파괴.

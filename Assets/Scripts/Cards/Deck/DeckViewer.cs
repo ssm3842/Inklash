@@ -8,44 +8,30 @@ public class DeckViewer : MonoBehaviour
 {
     [SerializeField] private CardManager cardManager; 
 
-    [SerializeField] private GameObject deckViewerPanel;
     [SerializeField] private TextMeshProUGUI titleText;  
-    [SerializeField] private Button closeButton;        
-
     [SerializeField] private Transform cardListContent;   
     
-    // [SerializeField] private GameObject cardPreviewPrefab; // (CardManager의 것을 쓰므로 필요 없음)
+    [SerializeField] private GameObject cardPrefab;
 
-    [SerializeField] private Button drawDeckButton;      
-    [SerializeField] private Button discardDeckButton; 
 
-    void Start()
-    {
-        drawDeckButton.onClick.AddListener(ShowDrawDeck);
-        discardDeckButton.onClick.AddListener(ShowDiscardDeck);
-        closeButton.onClick.AddListener(ClosePanel);
-
-        deckViewerPanel.SetActive(false);
-    }
+    // void Start()
+    // {
+    //     gameObject.SetActive(false);
+    // }
 
     void Update()
     {
-        if (deckViewerPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
-        {
-            ClosePanel();
-        }
+        if (gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape)) ClosePanel();
     }
 
     public void ShowDrawDeck()
     {
-        List<CardContent> deck = cardManager.GetDrawPile();
-        PopulatePanel(deck, "뽑을 카드 더미");
+        PopulatePanel(cardManager.GetDrawPile(), "뽑을 카드 더미");
     }
 
     public void ShowDiscardDeck()
     {
-        List<CardContent> deck = cardManager.GetDiscardPile();
-        PopulatePanel(deck, "버린 카드 더미");
+        PopulatePanel(cardManager.GetDiscardPile(), "버린 카드 더미");
     }
 
     private void PopulatePanel(List<CardContent> cardList, string title)
@@ -64,13 +50,13 @@ public class DeckViewer : MonoBehaviour
 
         foreach (CardContent cardData in sortedList)
         {
-            GameObject cardObj = Instantiate(cardManager.CardPrefab, cardListContent);
+            GameObject cardObj = Instantiate(cardPrefab, cardListContent);
             
             Card cardScript = cardObj.GetComponent<Card>();
 
             if (cardScript != null)
             {
-                cardScript.Setup(cardManager, cardData); 
+                cardScript.Setup(cardManager, cardData, 1); 
             }
             else
             {
@@ -83,13 +69,13 @@ public class DeckViewer : MonoBehaviour
     
     private void OpenPanel()
     {
-        deckViewerPanel.SetActive(true);
+        gameObject.SetActive(true);
         Time.timeScale = 0f; 
     }
 
     public void ClosePanel()
     {
-        deckViewerPanel.SetActive(false);
+        gameObject.SetActive(false);
         Time.timeScale = 1f; 
     }
 }
