@@ -13,19 +13,18 @@ public class CardManager : MonoBehaviour
     public UnitManager unitManager;
 
     [SerializeField] List<CardContent> currentBattleDeck;
-    [SerializeField] List<CardContent> graveYardDeck;
+    [SerializeField] List<CardContent> discardBattleDeck;
     [SerializeField] List<Card> playerHands;
 
     public Card draggingCard;
     public bool isDraggingCard = false;
-
 
     public void Init() //TODO: 이름 바꾸기
     {
         // List<CardContent> playerCardPool = DataManager.Inst.playerCardDatas.Values.ToList();
 
         currentBattleDeck = new List<CardContent>(RunManager.Inst.deckManager.GetDeckdata());
-        graveYardDeck = new List<CardContent>();
+        discardBattleDeck = new List<CardContent>();
 
         costManager.Init();
 
@@ -34,7 +33,7 @@ public class CardManager : MonoBehaviour
 
     void StartBattle()
     {
-        // currentBattleDeck.shuffle(); //TODO: 게임 시작 시 덱 섞는 기능 추가하기. 덱매니저에다가.
+        Shuffle(currentBattleDeck);
         DrawNewHand(true);
     }
 
@@ -79,6 +78,20 @@ public class CardManager : MonoBehaviour
 
     CardContent PopCardFromDeck()
     {
+
+        if (currentBattleDeck.Count == 0)
+        {
+            if (discardBattleDeck.Count == 0)
+            {
+                Debug.LogWarning("뽑을 카드와 버린 카드가 모두 없습니다!");
+                return null;
+            }
+            currentBattleDeck = new List<CardContent>(discardBattleDeck);
+            discardBattleDeck.Clear();
+
+            Shuffle(currentBattleDeck);
+        }
+        
         CardContent cardContent = currentBattleDeck[0];
         currentBattleDeck.RemoveAt(0);
 
@@ -90,6 +103,20 @@ public class CardManager : MonoBehaviour
         if (isDraggingCard)
         {
             draggingCard.transform.position = Input.mousePosition;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RefreshHand();
+            handLayout.AlignCards();
+        }
+
+        for (int i = 0; i < rerollKeys.Length; i++)
+        {
+            if (Input.GetKeyDown(rerollKeys[i]))
+            {
+                RerollCardAtIndex(i); // i가 곧 0, 1, 2, 3, 4 인덱스가 됨
+            }
         }
     }
 
@@ -121,7 +148,7 @@ public class CardManager : MonoBehaviour
                     break;
             }
 
-            MoveCardToGraveYard(draggingCard);
+            MoveCardToDiscardDeck(draggingCard);
             draggingCard = null;
 
             RunManager.Inst.battleManager.OnCardUse();
@@ -150,7 +177,7 @@ public class CardManager : MonoBehaviour
         handLayout.AlignCards();
     }
 
-    void MoveCardToGraveYard(Card targetCard) //매개변수 카드를 패에서 묘지로 보냄.
+    void MoveCardToDiscardDeck(Card targetCard) //매개변수 카드를 패에서 묘지로 보냄.
     {
         playerHands.Remove(targetCard); //패에서 카드 데이터 제거.
         graveYardDeck.Add(targetCard.cardContent);
@@ -162,5 +189,103 @@ public class CardManager : MonoBehaviour
     public void OnCardUse()
     {
         // Debug.Log(transform.childCount);
+    }
+
+    public List<CardContent> GetDrawPile()
+    {
+        return currentBattleDeck;
+    }
+
+    public List<CardContent> GetDiscardPile()
+    {
+        return discardBattleDeck;
+    }
+
+    private void Shuffle(List<CardContent> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1); 
+            
+            CardContent value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+
+public void RefreshHand() //DrawCard와 중복되는 내용 정리 필요
+    {
+
+        int cardsToDraw = playerHands.Count;
+
+        while (playerHands.Count > 0)
+        {
+            Card card = playerHands[0]; 
+            discardBattleDeck.Add(card.cardContent);
+            playerHands.RemoveAt(0);
+            
+            card.transform.SetParent(null); 
+            Destroy(card.gameObject);     
+        }
+
+        handLayout.AlignCards(); 
+
+        for (int i = 0; i < cardsToDraw; i++)
+        {
+            CardContent cardData = PopCardFromDeck();
+            if (cardData == null) break; 
+
+            var cardObject = Instantiate(cardPrefab, handLayout.transform); 
+            var card = cardObject.GetComponent<Card>();
+            card.Setup(this, cardData);
+            playerHands.Add(card);
+        }
+
+        handLayout.AlignCards();
+    }
+
+// 개별 리롤
+    private void RerollCardAtIndex(int index)
+    {
+        if (isDraggingCard) return;
+        if (index < 0 || index >= playerHands.Count) return;
+
+        Card targetCard = playerHands[index];
+        RerollSingleCard(targetCard);
+    }
+
+    public void RerollSingleCard(Card cardToReroll)
+    {
+        if (cardToReroll == null) return;
+
+        int originalIndex = playerHands.IndexOf(cardToReroll);
+
+        if (originalIndex == -1) return;
+        discardBattleDeck.Add(cardToReroll.cardContent);
+        
+        cardToReroll.transform.SetParent(null); 
+        Destroy(cardToReroll.gameObject);
+
+        CardContent newCardData = PopCardFromDeck();
+
+        if (newCardData != null)
+        {
+            var cardObject = Instantiate(cardPrefab, handLayout.transform);
+            var card = cardObject.GetComponent<Card>();
+            card.Setup(this, newCardData);
+
+            playerHands[originalIndex] = card; 
+
+            card.transform.SetSiblingIndex(originalIndex);
+        }
+        else
+        {
+            playerHands.RemoveAt(originalIndex);
+        }
+
+        // 4. 정렬
+        handLayout.AlignCards();
     }
 }

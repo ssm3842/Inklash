@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class CostManager : MonoBehaviour
 {
-    //Cost 관련 변수
-    int currentCost;
+    public int currentCost;
 
     public float time = 0f;
 
@@ -49,20 +48,4 @@ public class CostManager : MonoBehaviour
         return currentCost;
     }
 
-    /*
-    //카드에 적힌 cost 비용만큼 감소, 사용 불가시 false 반환
-    public bool TryUseCard(Card card)
-    {
-        int cardCost = card.cardContent.cost;
-        if (currentCost >= cardCost)
-        {
-            currentCost -= cardCost;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    */
 }

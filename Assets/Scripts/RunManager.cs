@@ -12,6 +12,10 @@ public class RunManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI goldText;
 
     [SerializeField] DeckSO startingDeckSO;
+    
+    // 체력, 돈 확인용 
+    [SerializeField] private ResourceManager resourceManager;
+
 
     public MapManager mapManager;
     public DeckManager deckManager;
@@ -26,11 +30,8 @@ public class RunManager : MonoBehaviour
         battleManager.gameObject.SetActive(false); //전투 비활성화
         battleUICanvas.SetActive(false);
 
-        mapManager.gameObject.SetActive(true); //시작 시 맵 먼저 표시.
-
-        runGold = 0;
-        GetGold(0);
-
+        mapManager.gameObject.SetActive(true);
+    
         InitRun();
     }
 
@@ -39,6 +40,7 @@ public class RunManager : MonoBehaviour
         mapManager.InitMapdata(); //맵 정보를 생성
         deckManager.InitDeck(startingDeckSO.startingDeck); //덱 정보를 시작 덱으로 초기화.
         unitDataManager.LoadCsvData(); //유닛 데이터를 csv에서 가져와 초기화.
+        resourceManager.Init(); // 체력, 돈 확인용 
     }
 
     public void GetGold(int amount)

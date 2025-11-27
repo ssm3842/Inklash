@@ -32,12 +32,20 @@ public class BattleRewardButton : MonoBehaviour
         }
     }
 
+    //골드 증가 확인용
+    private void Start()
+    {
+        if (resourceManager == null)
+        {
+            resourceManager = FindAnyObjectByType<ResourceManager>();
+        }
+    }
     public void TryTakeReward()
     {
         switch (rewardType)
         {
             case RewardType.Gold:
-                RunManager.Inst.GetGold(rewardContent);
+                RunManager.resourceManager?.EarnGold(rewardContent);
                 break;
             case RewardType.Card:
                 //TODO: 랜덤한 카드 3개를 선택. 및 표시.
@@ -47,6 +55,7 @@ public class BattleRewardButton : MonoBehaviour
         }
         Destroy(gameObject);
     }
+
 }
 
 public enum RewardType{

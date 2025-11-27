@@ -85,6 +85,19 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_001
+    name: Warrior
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      hp: 20
+      atk: 1
+      atkSpd: 1
+      range: 1
+      spd: 1
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
   - id: P_002
     name: Archer
     cost: 3

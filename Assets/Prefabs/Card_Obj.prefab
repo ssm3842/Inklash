@@ -440,7 +440,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &9042292140747707188
@@ -502,11 +502,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardContent:
+    id: 
     name: 
     cost: 0
+    type: 0
+    effectID: 
+    description: 
+    stats:
+      hp: 0
+      atk: 0
+      atkSpd: 0
+      range: 0
+      spd: 0
     unit: {fileID: 0}
+  cardManager: {fileID: 0}
   costText: {fileID: 6326876861885816229}
   nameText: {fileID: 8392362842030302899}
+  descriptionText: {fileID: 0}
   subObjectsRenderers:
   - {fileID: 9114945123436676140}
   - {fileID: 432439414766932212}

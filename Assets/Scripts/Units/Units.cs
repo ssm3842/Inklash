@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public class Units : DamageableObject
 {
@@ -8,6 +9,12 @@ public class Units : DamageableObject
 
     [SerializeField] protected bool canAttack;
     [SerializeField] protected float canAttackTimer;
+
+    private bool isDead = false;       
+    public bool IsDead => isDead;
+    private SpriteRenderer SR;        
+    private Collider2D COL;           
+    [SerializeField] private float deathDuration = 0.3f; 
 
     Rigidbody2D RB;
     Animator ANI;
@@ -18,11 +25,16 @@ public class Units : DamageableObject
     {
         RB = GetComponent<Rigidbody2D>();
         ANI = GetComponent<Animator>();
+
+        SR = GetComponent<SpriteRenderer>();
+        COL = GetComponent<Collider2D>();
     }
 
     override public void Init(bool isplayers, UnitStats stats)
     {
         base.Init(isplayers, stats);
+
+        isDead = false; 
 
         canAttack = true;
         canAttackTimer = 0f;
@@ -33,6 +45,13 @@ public class Units : DamageableObject
 
     void Update()
     {
+        if (isDead) return;
+        if (target != null)
+        {
+            Units targetUnit = target.GetComponent<Units>();
+            if (targetUnit?.IsDead) target = null;    
+        }
+
         if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD); //목표가 없으면 이동.
         else RB.linearVelocityX = 0f;   //목표가 있으면 정지
 
@@ -64,8 +83,10 @@ public class Units : DamageableObject
 
     override public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
     {
+        if (isDead) return;
+
         yield return new WaitForSeconds(delayTime);
-        if (statController.GetCurHp() <= amount) Destroy(gameObject); //남은 체력보다 데미지가 크면 오브젝트 파괴.
+        if (statController.GetCurHp() <= amount) Die(); //남은 체력보다 데미지가 크면 오브젝트 파괴.
         else statController.ChangeCurHp(amount); //아니면 체력 계산.
     }
 
@@ -83,5 +104,46 @@ public class Units : DamageableObject
     public void _OnAttackEnd() //공격 애니메이션 종료 시 이동할 수 있도록 변수 초기화.
     {
         isAttacking = false;
+    }
+
+    //사망모션 임의 구현
+    private void Die()
+    {
+        isDead = true; 
+
+        if (RB != null) RB.linearVelocity = Vector2.zero;
+        if (ANI != null) ANI.enabled = false; 
+
+        if (COL != null) COL.enabled = false;
+
+        StartCoroutine(DeathEffectCoroutine());
+    }
+
+    private IEnumerator DeathEffectCoroutine()
+    {
+        float timer = 0f;
+        
+        Vector3 initialScale = transform.localScale;
+        Color initialColor = (SR != null) ? SR.color : Color.white;
+
+        while (timer < deathDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / deathDuration; 
+
+            transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, progress);
+
+            /* 투명하게
+            if (SR != null)
+            {
+                Color newColor = initialColor;
+                newColor.a = Mathf.Lerp(initialColor.a, 0f, progress);
+                SR.color = newColor;
+            }
+            */
+            yield return null; 
+        }
+
+        Destroy(this.gameObject);
     }
 }
