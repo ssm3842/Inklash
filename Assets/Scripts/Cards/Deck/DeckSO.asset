@@ -32,7 +32,7 @@ MonoBehaviour:
       bonusSpd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
   - id: P_003
-    name: FireBall
+    name: Rage
     cost: 2
     type: 1
     effectID: 
@@ -92,11 +92,16 @@ MonoBehaviour:
     effectID: 
     description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
     stats:
-      hp: 20
-      atk: 1
-      atkSpd: 1
-      range: 1
-      spd: 1
+      baseMaxHp: 20
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 1
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
   - id: P_002
     name: Archer

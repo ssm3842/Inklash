@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d941aab88add9d14989b76bcc8670f85, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ce7e665edb0282468423d3529ccb285, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -603,7 +603,7 @@ RectTransform:
   m_Father: {fileID: 1309045650}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -733,6 +733,8 @@ GameObject:
   - component: {fileID: 597376421}
   - component: {fileID: 597376423}
   - component: {fileID: 597376424}
+  - component: {fileID: 597376426}
+  - component: {fileID: 597376425}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Units
@@ -869,10 +871,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16fad408d66c7a4b81a53d700eb0d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statController: {fileID: 0}
-  buffController: {fileID: 0}
+  statController: {fileID: 597376426}
+  buffController: {fileID: 597376425}
   healthBar: {fileID: 1127777735}
   isPlayers: 0
+--- !u!114 &597376425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597376420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statController: {fileID: 597376426}
+--- !u!114 &597376426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597376420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256a08fe351d1b94d9788d263637dadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats:
+    baseMaxHp: 0
+    baseATK: 0
+    baseATKSpd: 0
+    baseRange: 0
+    baseSpd: 0
+    bonusMaxHp: 0
+    bonusATK: 0
+    bonusATKSpd: 0
+    bonusRange: 0
+    bonusSpd: 0
+  curHP: 0
+  buffController: {fileID: 0}
 --- !u!1 &741746634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,9 +1667,9 @@ RectTransform:
   m_Father: {fileID: 1182636620}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &991620164
 MonoBehaviour:
@@ -1694,6 +1734,8 @@ GameObject:
   - component: {fileID: 1041127019}
   - component: {fileID: 1041127021}
   - component: {fileID: 1041127022}
+  - component: {fileID: 1041127024}
+  - component: {fileID: 1041127023}
   m_Layer: 0
   m_Name: PlayerBase
   m_TagString: Units
@@ -1745,7 +1787,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c939e0323fe7ec246a8c9a50bcacfbfb, type: 3}
   m_Color: {r: 0.40566027, g: 0.44062147, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1810,7 +1852,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.777778, y: 2.777778}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1830,10 +1872,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16fad408d66c7a4b81a53d700eb0d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statController: {fileID: 0}
-  buffController: {fileID: 0}
+  statController: {fileID: 1041127024}
+  buffController: {fileID: 1041127023}
   healthBar: {fileID: 2033325837}
   isPlayers: 1
+--- !u!114 &1041127023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041127018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statController: {fileID: 1041127024}
+--- !u!114 &1041127024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041127018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256a08fe351d1b94d9788d263637dadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStats:
+    baseMaxHp: 0
+    baseATK: 0
+    baseATKSpd: 0
+    baseRange: 0
+    baseSpd: 0
+    bonusMaxHp: 0
+    bonusATK: 0
+    bonusATKSpd: 0
+    bonusRange: 0
+    bonusSpd: 0
+  curHP: 0
+  buffController: {fileID: 0}
 --- !u!1 &1061190627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,7 +1945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 6531397089859223516, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
   handLayout: {fileID: 1303950343}
-  battleUICanvas: {fileID: 0}
+  battleUICanvas: {fileID: 741746637}
   costManager: {fileID: 1993453015}
   unitManager: {fileID: 2087044753}
   currentBattleDeck: []
@@ -3578,7 +3658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1485265686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3591,10 +3671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d0db34c77074243884c86225c4bd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardManager: {fileID: 0}
-  titleText: {fileID: 0}
-  cardListContent: {fileID: 0}
-  cardPrefab: {fileID: 0}
+  cardManager: {fileID: 1061190628}
+  titleText: {fileID: 1558379638}
+  cardListContent: {fileID: 1908490906}
+  cardPrefab: {fileID: 6531397089859223516, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
 --- !u!114 &1485265687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4156,54 +4236,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718293518}
   m_CullTransparentMesh: 1
---- !u!1 &1730074706
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1730074708}
-  - component: {fileID: 1730074707}
-  m_Layer: 0
-  m_Name: DeckViewer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1730074707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730074706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31d0db34c77074243884c86225c4bd41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardManager: {fileID: 1061190628}
-  titleText: {fileID: 1558379638}
-  cardListContent: {fileID: 1908490906}
-  cardPrefab: {fileID: 0}
---- !u!4 &1730074708
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730074706}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1580.606, y: 1295.1163, z: -2.786932}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854977270
 GameObject:
   m_ObjectHideFlags: 0
@@ -4445,8 +4477,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00007595911, y: -0.0000059929253}
-  m_SizeDelta: {x: 0, y: 830.2488}
+  m_AnchoredPosition: {x: -0.00007595911, y: 0.000068042544}
+  m_SizeDelta: {x: -1803, y: 830.2488}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1908490907
 MonoBehaviour:
@@ -5114,7 +5146,6 @@ SceneRoots:
   - {fileID: 945623780}
   - {fileID: 1607249506}
   - {fileID: 1308273237}
-  - {fileID: 1730074708}
   - {fileID: 291266483}
   - {fileID: 1262874703}
   - {fileID: 2086611506}
