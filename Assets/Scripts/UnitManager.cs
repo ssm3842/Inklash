@@ -20,7 +20,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnPlayerUnit(CardContent playerUnit)
     {
-        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight), 0), Quaternion.identity);
+        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
         newUnit.GetComponent<Units>().Init(true, playerUnit.stats);
     }
     public void CastPlayerSpell(CardContent playerUnit)
@@ -37,7 +37,7 @@ public class UnitManager : MonoBehaviour
             int randomIndex = Random.Range(0, availableEnemies.Count);
             CardContent enemyUnit = availableEnemies[randomIndex];
 
-            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position - new Vector3(1, Random.Range(-spawnHeight, spawnHeight), 0), Quaternion.identity);
+            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position + new Vector3(-1, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
             newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
 
             yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);

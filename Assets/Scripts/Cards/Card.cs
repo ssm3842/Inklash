@@ -34,7 +34,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         transform.SetSiblingIndex(5);
 
         originalPosition = transform.position;
-        transform.position = new Vector3(transform.position.x, 450, 0);
+        transform.position = new Vector3(transform.position.x, 225, 0);
 
         originalRotation = transform.rotation;
         transform.rotation = Quaternion.identity;

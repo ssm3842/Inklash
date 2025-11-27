@@ -4,7 +4,7 @@ public class Lightning : SpellBase
 {
     public override void CastSpell(float damage, float castXPosition)
     {
-        transform.position = new Vector3(castXPosition, 0, 0);
+        transform.position = new Vector3(castXPosition, -0.5f, 0);
         Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, new Vector2(2f, 0.6f), 0f);
 
         foreach (Collider2D enemy in enemies)
