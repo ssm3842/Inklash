@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9e55242af04007643856a3645e351347, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ce7e665edb0282468423d3529ccb285, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1154,6 +1154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statController: {fileID: 597376425}
+  buffController: {fileID: 0}
   healthBar: {fileID: 1127777735}
   isPlayers: 0
 --- !u!114 &597376425
@@ -1169,11 +1170,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStats:
-    maxHp: 0
-    atk: 0
-    atkSpd: 0
-    range: 0
-    spd: 0
+    baseMaxHp: 0
+    baseATK: 0
+    baseATKSpd: 0
+    baseRange: 0
+    baseSpd: 0
+    bonusMaxHp: 0
+    bonusATK: 0
+    bonusATKSpd: 0
+    bonusRange: 0
+    bonusSpd: 0
   curHP: 0
   buffController: {fileID: 597376426}
 --- !u!114 &597376426
@@ -1188,6 +1194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statController: {fileID: 0}
 --- !u!1 &741746634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,6 +1796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statController: {fileID: 1041127023}
+  buffController: {fileID: 0}
   healthBar: {fileID: 2033325837}
   isPlayers: 1
 --- !u!114 &1041127023
@@ -1804,11 +1812,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStats:
-    maxHp: 0
-    atk: 0
-    atkSpd: 0
-    range: 0
-    spd: 0
+    baseMaxHp: 0
+    baseATK: 0
+    baseATKSpd: 0
+    baseRange: 0
+    baseSpd: 0
+    bonusMaxHp: 0
+    bonusATK: 0
+    bonusATKSpd: 0
+    bonusRange: 0
+    bonusSpd: 0
   curHP: 0
   buffController: {fileID: 1041127024}
 --- !u!114 &1041127024
@@ -1823,6 +1836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statController: {fileID: 0}
 --- !u!1 &1061190627
 GameObject:
   m_ObjectHideFlags: 0
