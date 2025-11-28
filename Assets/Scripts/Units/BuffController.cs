@@ -22,7 +22,6 @@ public class BuffController : MonoBehaviour
         foreach(Buffs buff in buffsToRemove)
         {
             buffList.Remove(buff);
-            Destroy(buff);
         }
     }
 

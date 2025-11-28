@@ -19,5 +19,6 @@ public class BuffRage : Buffs
         statController.ControlBonusStat(StatType.ATKSPD, -1f);
         statController.ControlBonusStat(StatType.SPD, -1f);
         statController.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        Debug.Log(statController.gameObject.name);
     }
 }

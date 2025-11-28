@@ -9,7 +9,7 @@ public class RageSpell : SpellBase
     void OnTriggerStay2D(Collider2D unit)
     {
         if(!unit.gameObject.GetComponent<Units>().isPlayers) return; //적은 효과 받지 않음.
-        unit?.gameObject.GetComponent<Units>().buffController.GetBuff(ScriptableObject.CreateInstance<BuffRage>());
+        unit?.gameObject.GetComponent<Units>().buffController.GetBuff(new BuffRage());
     }
     void OnDrawGizmosSelected()
     {

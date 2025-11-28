@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Buffs : ScriptableObject
+public class Buffs
 {
     public string buffName; //버프 이름
     public float remainTime; //남은 시간을 계산할 때 사용
