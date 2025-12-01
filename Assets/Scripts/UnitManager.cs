@@ -9,6 +9,8 @@ public class UnitManager : MonoBehaviour
     [SerializeField] GameObject enemySpawnPoint;
     private List<CardContent> availableEnemies;
 
+    List<WordCardType> stackedWordCardEffect;
+
     public void InitUnitManager(List<CardContent> enemyPool)
     {
         // availableEnemies = new List<CardContent>(enemyPool);
@@ -18,15 +20,27 @@ public class UnitManager : MonoBehaviour
         StartCoroutine(SpawnEnemyCoroutine());
     }
 
-    public void SpawnPlayerUnit(CardContent playerUnit)
+    public void SpawnPlayerUnit(CardContent card)
     {
-        GameObject newUnit = Instantiate(playerUnit.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
-        newUnit.GetComponent<Units>().Init(true, playerUnit.stats);
+        //TODO: 유닛에만 적용되는 효과 선별 후 적용
+        GameObject newUnit = Instantiate(card.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
+        newUnit.GetComponent<Units>().Init(true, card.stats);
     }
-    public void CastPlayerSpell(CardContent playerUnit)
+    public void CastPlayerSpell(CardContent card)
     {
-        GameObject newUnit = Instantiate(playerUnit.unit);
-        newUnit.GetComponent<SpellBase>().CastSpell(playerUnit.stats.baseATK, Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
+        //TODO: 마법에만 적용되는 효과 선별 후 적용
+        GameObject newUnit = Instantiate(card.unit);
+        newUnit.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
+        // newUnit.GetComponent<Units>().Init(true, playerUnit);
+    }
+    public void AddWordCard(CardContent card)
+    {
+        //쌓인 카드 효과중 중복이 있으면 아무효과 X.
+        foreach(WordCardType type in stackedWordCardEffect)
+        {
+            if(type == card.wordCardType) return;
+        }
+        stackedWordCardEffect.Add(card.wordCardType); //중복 없으면 효과 스택.
         // newUnit.GetComponent<Units>().Init(true, playerUnit);
     }
 

@@ -37,6 +37,13 @@ public class BuffController : MonoBehaviour
                 return;
             }
         }
+        //단어 카드의 강화카드는 추적해서 시간에따라 제거하지 않음.
+        if(newBuff.remainTime == -1)
+        {
+            newBuff.statController = statController;
+            newBuff.OnGetBuff();
+            return;
+        }
         //반복문을 다 돌아도 같은 이름의 버프가 없으면 버프추가.
         buffList.Add(newBuff);
         newBuff.statController = statController;

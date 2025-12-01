@@ -135,7 +135,7 @@ public class CardManager : MonoBehaviour
                     unitManager.CastPlayerSpell(draggingCard.cardContent);
                     break;
                 case CardType.Word:
-                    unitManager.SpawnPlayerUnit(draggingCard.cardContent); //TODO: 단어카드 사용 효과 구현.
+                    unitManager.AddWordCard(draggingCard.cardContent);
                     break;
             }
 

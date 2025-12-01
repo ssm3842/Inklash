@@ -5,8 +5,6 @@ public class StatController : MonoBehaviour
     [SerializeField]UnitStats unitStats;
     [SerializeField]protected float curHP;
 
-    [SerializeField]BuffController buffController;
-
     public void InitStat(UnitStats stats)
     {
         unitStats = stats;
