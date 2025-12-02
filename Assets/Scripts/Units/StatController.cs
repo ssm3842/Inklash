@@ -7,7 +7,7 @@ public class StatController : MonoBehaviour
 
     public void InitStat(UnitStats stats)
     {
-        unitStats = stats;
+        unitStats = new UnitStats(stats);
         curHP = unitStats.baseMaxHp;
 
         unitStats.bonusMaxHp = 0;
@@ -86,7 +86,7 @@ public class UnitStats
         baseATK = newStats.baseATK;
         baseATKSpd = newStats.baseATKSpd;
         baseRange = newStats.baseRange;
-        baseSpd = newStats.baseRange;
+        baseSpd = newStats.baseSpd;
     }
     public UnitStats(float newMaxhp, float newATK, float newATKSpd, float newRange, float MoveSpd)
     {
