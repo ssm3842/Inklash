@@ -52,11 +52,11 @@ public class DeckViewer : MonoBehaviour
         {
             GameObject cardObj = Instantiate(cardPrefab, cardListContent);
             
-            Card cardScript = cardObj.GetComponent<Card>();
+            DeckViewCard cardScript = cardObj.GetComponent<DeckViewCard>();
 
             if (cardScript != null)
             {
-                cardScript.Setup(cardManager, cardData, 1); 
+                cardScript.Setup(cardData); 
             }
             else
             {
