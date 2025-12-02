@@ -49,10 +49,10 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 165430342810149062, guid: 7bec21aef2af94c408ec5b138b62f32f, type: 3}
-  - id: P_001
-    name: Warrior
+  - id: P_004
+    name: Strong
     cost: 2
-    type: 0
+    type: 2
     effectID: 
     description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
     stats:
@@ -66,7 +66,7 @@ MonoBehaviour:
       bonusATKSpd: 0
       bonusRange: 0
       bonusSpd: 0
-    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+    unit: {fileID: 4351296649486763524, guid: a0a79e60dd3569842aae4440363ad681, type: 3}
   - id: P_001
     name: Warrior
     cost: 2

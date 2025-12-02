@@ -39,7 +39,6 @@ public class Units : DamageableObject
         canAttackTimer = 0f;
 
         GetComponent<Renderer>().sortingOrder = -Mathf.CeilToInt((transform.position.y - 0.3f) * 100f);
-
     }
 
     void Update()

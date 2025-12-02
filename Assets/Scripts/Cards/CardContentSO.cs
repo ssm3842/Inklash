@@ -17,7 +17,6 @@ public class CardContent
     public string description;
     public UnitStats stats;
     public GameObject unit;
-    public WordCardType wordCardType = WordCardType.None;
 }
 
 public enum CardType
@@ -27,5 +26,5 @@ public enum CardType
 
 public enum WordCardType
 {
-    None, Cost, ATK,
+    None, Unit, Spell, Card,
 }
