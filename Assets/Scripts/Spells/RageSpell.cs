@@ -4,7 +4,7 @@ public class RageSpell : SpellBase
 {
     public override void CastSpell(float damage, float castXPosition)
     {
-        transform.position = new Vector3(castXPosition, -0.5f, 0);
+        transform.position = new Vector3(castXPosition, -0.85f, 0);
     }
     void OnTriggerStay2D(Collider2D unit)
     {

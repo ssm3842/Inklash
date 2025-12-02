@@ -28,7 +28,7 @@ public class UnitManager : MonoBehaviour
 
         GameObject newUnit = Instantiate(card.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
         newUnit.GetComponent<Units>().Init(true, card.stats);
-        
+
         foreach(WordBase wordCard in stackedWordCardEffect)
         {
             wordCard.ApplyBuff(newUnit.GetComponent<BuffController>());
@@ -55,12 +55,19 @@ public class UnitManager : MonoBehaviour
 
     void FilterWordCard(WordCardType wordCardType)
     {
+        List<WordBase> toRemove = new List<WordBase>();
+
         foreach(WordBase wordcard in stackedWordCardEffect)
         {
             if(wordcard.wordCardType != wordCardType)
             {
-                stackedWordCardEffect.Remove(wordcard);
+                toRemove.Add(wordcard);
             }
+        }
+
+        foreach(WordBase wordcard in toRemove)
+        {
+            stackedWordCardEffect.Remove(wordcard);
         }
     }
 
