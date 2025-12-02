@@ -9,8 +9,9 @@ public class Lightning : SpellBase
 
         foreach (Collider2D enemy in enemies)
         {
-            if(enemy.gameObject.GetComponent<Units>().isPlayers) continue;
-            StartCoroutine(enemy?.gameObject.GetComponent<Units>().TakeDamage(100f));
+            if(enemy.gameObject.GetComponent<DamageableObject>().isPlayers) continue;
+            if(enemy.gameObject.GetComponent<Units>() == null) continue;
+            StartCoroutine(enemy.gameObject.GetComponent<Units>().TakeDamage(100f));
         }
     }
 }

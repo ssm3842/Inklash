@@ -35,6 +35,7 @@ public class UnitManager : MonoBehaviour
         }
         stackedWordCardEffect = new List<WordBase>();
     }
+
     public void CastPlayerSpell(CardContent card)
     {
         FilterWordCard(WordCardType.Spell);
@@ -42,6 +43,7 @@ public class UnitManager : MonoBehaviour
         GameObject newUnit = Instantiate(card.unit);
         newUnit.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
     }
+    
     public void AddWordCard(CardContent card)
     {
         WordBase targetWordCard = card.unit.GetComponent<WordBase>();
