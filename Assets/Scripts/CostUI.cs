@@ -10,11 +10,11 @@ public class CostUI : MonoBehaviour
     void Start()
     {
         costText = GetComponent<TextMeshProUGUI>();
-        costText.text = "Cost: 0 / 0";
+        costText.text = "0 / 0";
     }
 
     void Update()
     {
-        costText.text = "Cost: " + costManager.GetCurrentCost() + " / " + GameRule.MAX_COST;
+        costText.text = costManager.GetCurrentCost() + " / " + GameRule.MAX_COST;
     }
 }
