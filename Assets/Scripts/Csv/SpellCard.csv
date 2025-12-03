@@ -1,2 +1,3 @@
 Card_ID,Card_Name,Cost,ATK,ATK_SPD,Range,Effect_ID,Description
-P_003,FireBall,2,10,-,-,E_100,광역 공격
+P_003,Lightning,2,10,-,-,E_100,광역 공격
+P_004,Rage,2,0,-,-,E_100,광역 공격
