@@ -43,22 +43,45 @@ public class Units : DamageableObject
 
     void Update()
     {
+        //사망 시 행동 불능.
         if (isDead) return;
+
+        //디버프로 인한 행동불능이 있는지 검사.
+        if(buffController.HaveDisruptEffect())
+        {
+            //애니메이션 초기화.
+            ANI.speed = 0f;
+            ANI.SetTrigger("Disrupted");
+
+            //공격 초기화
+            target = null;
+            isAttacking = false;
+            canAttackTimer = 0f;
+            canAttack = false;
+
+            //이동속도 0
+            RB.linearVelocityX = 0f;
+
+            return;
+        }
+        else
+        {
+            ANI.speed = 1f;
+        }
+
+        //검색한 타겟이 유효한지 검사.
         if (target != null)
         {
             Units targetUnit = target.GetComponent<Units>();
             if (targetUnit != null && targetUnit.IsDead) target = null;    
         }
 
-        if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD); //목표가 없으면 이동.
-        else RB.linearVelocityX = 0f;   //목표가 있으면 정지
-
-        ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
-
-        if (!target) //타겟이 없을 때만 새로 검사.
+        //타겟이 없을 때만 새로 검사.
+        if (!target) 
         {
             RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, new Vector2(statController.GetStat(StatType.RANGE), 0.6f), 0f, isPlayers ? Vector3.right : Vector3.left, 0f);
-            hits = hits //검사된 오브젝트들을 필터링 및 정렬.
+            //검사된 오브젝트들을 필터링 및 정렬.
+            hits = hits 
                 .Where(hit => hit.collider != null && hit.collider.CompareTag("Units") && hit.collider.GetComponent<DamageableObject>().isPlayers != isPlayers) //상대 유닛만 검사 포함.
                 .OrderBy(hit => Vector3.Distance(hit.transform.position, transform.position)) //오름차순으로 정렬(가까운 오브젝트가 제일 앞에 옴)
                 .ToArray();
@@ -67,14 +90,20 @@ public class Units : DamageableObject
             else target = hits[0].collider.GetComponent<DamageableObject>();
         }
 
-        //Attack 애니메이션이 재생중이면 true
-        if (canAttack && target != null) //공격 가능한 상태에 애니메이션 재생.
+        //목표가 없고 공격 모션이 끝나면 이동.
+        if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD);
+        //목표가 있거나 공격 모션이 재생중이면 이동 불가.
+        else RB.linearVelocityX = 0f;
+        ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
+
+        //공격이 가능하고 타겟이 있다면 애니메이션 재생으로 공격 실행.
+        if (canAttack && target != null) 
         {
             canAttack = false;
             ANI.SetTrigger("Attacked");
         }
 
-        if (canAttackTimer >= 2f && !canAttack) canAttack = true;//2초마다 공격 가능 상태가 됨.
+        if (canAttackTimer >= 2f && !canAttack) canAttack = true; //2초마다 공격 가능 상태가 됨.
         else if (canAttackTimer >= 2f && canAttack) { }
         else canAttackTimer += Time.deltaTime * statController.GetStat(StatType.ATKSPD); //공격 속도만큼 빠르게 채워짐.
     }

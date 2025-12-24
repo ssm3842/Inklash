@@ -47,4 +47,13 @@ public class BuffController : MonoBehaviour
         //지속시간 추적이 필요한 버프는 리스트에 추가.
         buffList.Add(newBuff);
     }
+
+    public bool HaveDisruptEffect()
+    {
+        foreach(Buffs existingBuff in buffList)
+        {
+            if(existingBuff.order == 1) return true;
+        }
+        return false;
+    }
 }

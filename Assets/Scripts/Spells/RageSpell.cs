@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RageSpell : SpellBase
+public class Rage : SpellBase
 {
     public override void CastSpell(float damage, float castXPosition)
     {

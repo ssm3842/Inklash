@@ -6,7 +6,7 @@ public class BuffRage : Buffs
     {
         buffName = "Rage";
         remainTime = 3f;
-        order = 1;
+        order = 0;
     }
     public override void OnGetBuff() //버프를 받았을 때 효과 처리.
     {
