@@ -12,7 +12,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] DeckSO tempEnemyPool;
 
     public CardManager cardManager;
-    public UnitManager unitManager;
+    public CardUseManager cardUseManager;
 
     public UnityEvent CardUse;
 
@@ -20,7 +20,7 @@ public class BattleManager : MonoBehaviour
     {
         battleRewardCanvas.gameObject.SetActive(false);
 
-        cardManager.unitManager = unitManager;
+        cardManager.cardUseManager = cardUseManager;
 
         cardManager.Init();
         battleUICanvas.SetActive(true);
@@ -28,7 +28,7 @@ public class BattleManager : MonoBehaviour
         Time.timeScale = 1f;
         gameObject.SetActive(true);
 
-        unitManager.InitUnitManager(tempEnemyPool.startingDeck); //TODO: 방 정보를 읽어와 적 유닛풀 설정. 지금은 임시코드로 대체.
+        cardUseManager.InitUnitManager(tempEnemyPool.startingDeck); //TODO: 방 정보를 읽어와 적 유닛풀 설정. 지금은 임시코드로 대체.
     }
 
     public void OnBattleWin()

@@ -10,7 +10,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] HandLayout handLayout;
     [SerializeField] Canvas battleUICanvas;
     public CostManager costManager;
-    public UnitManager unitManager;
+    public CardUseManager cardUseManager;
 
     [SerializeField] List<CardContent> currentBattleDeck;
     [SerializeField] List<CardContent> discardBattleDeck;
@@ -126,18 +126,8 @@ public class CardManager : MonoBehaviour
             costManager.UseCost(card.cardContent.cost); //실제로 코스트 사용.
 
             isDraggingCard = false;
-            switch (card.cardContent.type)
-            {
-                case CardType.Unit:
-                    unitManager.SpawnPlayerUnit(draggingCard.cardContent);
-                    break;
-                case CardType.Spell:
-                    unitManager.CastPlayerSpell(draggingCard.cardContent);
-                    break;
-                case CardType.Word:
-                    unitManager.AddWordCard(draggingCard.cardContent);
-                    break;
-            }
+
+            cardUseManager.UseCard(card.cardContent);
 
             MoveCardToDiscardDeck(draggingCard);
             draggingCard = null;

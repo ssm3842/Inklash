@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardContent", menuName ="Scriptable Object/CardContent")]
@@ -24,7 +25,11 @@ public enum CardType
     Unit, Spell, Word,
 }
 
+[Flags]
 public enum WordCardType
 {
-    None, Unit, Spell, Card,
+    None = 0,
+    Unit = 1 << 0,
+    Spell = 1 << 1,
+    Card = 1 << 2,
 }

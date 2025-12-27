@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WordString : WordBase
+public class WordStrong : WordBase
 {
     public override void ApplyBuff(BuffController targetUnit)
     {

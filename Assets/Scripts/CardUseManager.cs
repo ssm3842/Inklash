@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitManager : MonoBehaviour
+public class CardUseManager : MonoBehaviour
 {
     float spawnHeight = 0.3f;
     [SerializeField] GameObject unitSpawnPoint;
@@ -10,6 +10,8 @@ public class UnitManager : MonoBehaviour
     private List<CardContent> availableEnemies;
 
     List<WordBase> stackedWordCardEffect;
+
+    bool isCloneCardUsed = false;
 
     public void InitUnitManager(List<CardContent> enemyPool)
     {
@@ -22,31 +24,79 @@ public class UnitManager : MonoBehaviour
         StartCoroutine(SpawnEnemyCoroutine());
     }
 
-    public void SpawnPlayerUnit(CardContent card)
+    public void UseCard(CardContent card)
+    {
+        switch (card.type)
+        {
+            case CardType.Unit:
+                StartCoroutine(SpawnPlayerUnit(card));
+                break;
+            case CardType.Spell:
+                StartCoroutine(CastPlayerSpell(card));
+                break;
+            case CardType.Word:
+                AddWordCard(card);
+                break;
+        }
+    }
+
+    IEnumerator SpawnPlayerUnit(CardContent card)
     {
         FilterWordCard(WordCardType.Unit);
 
+        //유닛 생성.
         GameObject newUnit = Instantiate(card.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
         newUnit.GetComponent<Units>().Init(true, card.stats);
 
+        //유닛 생성 후 버프 적용
         foreach(WordBase wordCard in stackedWordCardEffect)
         {
             wordCard.ApplyBuff(newUnit.GetComponent<BuffController>());
         }
+
+        //복제 카드 사용 시 버프까지 복사해서 생성.
+        if(isCloneCardUsed)
+        {
+            yield return new WaitForSeconds(0.15f);
+
+            isCloneCardUsed = false;
+            StartCoroutine(SpawnPlayerUnit(card));
+        }
+
+        //단어카드 리스트 초기화.
         stackedWordCardEffect = new List<WordBase>();
     }
 
-    public void CastPlayerSpell(CardContent card)
+    IEnumerator CastPlayerSpell(CardContent card)
     {
         FilterWordCard(WordCardType.Spell);
 
-        GameObject newUnit = Instantiate(card.unit);
-        newUnit.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
+        GameObject newSpell = Instantiate(card.unit);
+        float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+        newSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, targetPos);
+
+        //복제 카드 사용 시 두번 시전.
+        if(isCloneCardUsed)
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            GameObject clonedSpell = Instantiate(card.unit);
+            clonedSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, targetPos);
+            isCloneCardUsed = false;
+        }
     }
     
     public void AddWordCard(CardContent card)
     {
         WordBase targetWordCard = card.unit.GetComponent<WordBase>();
+
+        //복제카드의 경우 별도로 처리하고 리턴.
+        if(targetWordCard.cardName == "Clone")
+        {
+            isCloneCardUsed = true;
+            return;
+        }
+
         //쌓인 카드 효과중 중복이 있으면 아무효과 X.
         foreach(WordBase type in stackedWordCardEffect)
         {
@@ -61,7 +111,7 @@ public class UnitManager : MonoBehaviour
 
         foreach(WordBase wordcard in stackedWordCardEffect)
         {
-            if(wordcard.wordCardType != wordCardType)
+            if(!wordcard.wordCardType.HasFlag(wordCardType))
             {
                 toRemove.Add(wordcard);
             }
