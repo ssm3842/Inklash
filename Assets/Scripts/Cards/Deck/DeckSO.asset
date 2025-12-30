@@ -31,6 +31,78 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_001
+    name: Warrior
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      baseMaxHp: 20
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 1
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_001
+    name: Warrior
+    cost: 2
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      baseMaxHp: 20
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 1
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+  - id: P_002
+    name: Archer
+    cost: 3
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      baseMaxHp: 10
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 3
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
+  - id: P_002
+    name: Archer
+    cost: 3
+    type: 0
+    effectID: 
+    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    stats:
+      baseMaxHp: 10
+      baseATK: 1
+      baseATKSpd: 1
+      baseRange: 3
+      baseSpd: 1
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
   - id: P_003
     name: Rage
     cost: 2
@@ -49,6 +121,42 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 165430342810149062, guid: 7bec21aef2af94c408ec5b138b62f32f, type: 3}
+  - id: P_003
+    name: Lightning
+    cost: 2
+    type: 1
+    effectID: 
+    description: "\uAD11\uC5ED \uACF5\uACA9"
+    stats:
+      baseMaxHp: 0
+      baseATK: 10
+      baseATKSpd: 0
+      baseRange: 0
+      baseSpd: 0
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
+  - id: P_003
+    name: Lightning
+    cost: 2
+    type: 1
+    effectID: 
+    description: "\uAD11\uC5ED \uACF5\uACA9"
+    stats:
+      baseMaxHp: 0
+      baseATK: 10
+      baseATKSpd: 0
+      baseRange: 0
+      baseSpd: 0
+      bonusMaxHp: 0
+      bonusATK: 0
+      bonusATKSpd: 0
+      bonusRange: 0
+      bonusSpd: 0
+    unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
   - id: P_004
     name: Strong
     cost: 2
@@ -67,9 +175,9 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 4351296649486763524, guid: a0a79e60dd3569842aae4440363ad681, type: 3}
-  - id: P_001
-    name: Warrior
-    cost: 2
+  - id: P_005
+    name: Spear
+    cost: 5
     type: 0
     effectID: 
     description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
@@ -84,94 +192,22 @@ MonoBehaviour:
       bonusATKSpd: 0
       bonusRange: 0
       bonusSpd: 0
-    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
-  - id: P_001
-    name: Warrior
-    cost: 2
-    type: 0
-    effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
-    stats:
-      baseMaxHp: 20
-      baseATK: 1
-      baseATKSpd: 1
-      baseRange: 1
-      baseSpd: 1
-      bonusMaxHp: 0
-      bonusATK: 0
-      bonusATKSpd: 0
-      bonusRange: 0
-      bonusSpd: 0
-    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
-  - id: P_002
-    name: Archer
-    cost: 3
+    unit: {fileID: 3478570815177045348, guid: 1790bdad525837c40bafc0c144d96cee, type: 3}
+  - id: P_006
+    name: Canoon
+    cost: 7
     type: 0
     effectID: 
     description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
     stats:
       baseMaxHp: 10
-      baseATK: 1
-      baseATKSpd: 1
-      baseRange: 3
+      baseATK: 8
+      baseATKSpd: 0.2
+      baseRange: 15
       baseSpd: 1
       bonusMaxHp: 0
       bonusATK: 0
       bonusATKSpd: 0
       bonusRange: 0
       bonusSpd: 0
-    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
-  - id: P_002
-    name: Archer
-    cost: 3
-    type: 0
-    effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
-    stats:
-      baseMaxHp: 10
-      baseATK: 1
-      baseATKSpd: 1
-      baseRange: 3
-      baseSpd: 1
-      bonusMaxHp: 0
-      bonusATK: 0
-      bonusATKSpd: 0
-      bonusRange: 0
-      bonusSpd: 0
-    unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
-  - id: P_003
-    name: Lightning
-    cost: 2
-    type: 1
-    effectID: 
-    description: "\uAD11\uC5ED \uACF5\uACA9"
-    stats:
-      baseMaxHp: 0
-      baseATK: 10
-      baseATKSpd: 0
-      baseRange: 0
-      baseSpd: 0
-      bonusMaxHp: 0
-      bonusATK: 0
-      bonusATKSpd: 0
-      bonusRange: 0
-      bonusSpd: 0
-    unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
-  - id: P_003
-    name: Lightning
-    cost: 2
-    type: 1
-    effectID: 
-    description: "\uAD11\uC5ED \uACF5\uACA9"
-    stats:
-      baseMaxHp: 0
-      baseATK: 10
-      baseATKSpd: 0
-      baseRange: 0
-      baseSpd: 0
-      bonusMaxHp: 0
-      bonusATK: 0
-      bonusATKSpd: 0
-      bonusRange: 0
-      bonusSpd: 0
-    unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
+    unit: {fileID: 3478570815177045348, guid: 5a8bd4313a21b9d49ba63c5155a6a200, type: 3}

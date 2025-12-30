@@ -41,6 +41,25 @@ public class StatController : MonoBehaviour
         }
     }
 
+    public void ResetBonusStat(StatType statType)
+    {
+        switch (statType)
+        {
+            case StatType.ATK:
+                unitStats.bonusATK = 0;
+                break;
+            case StatType.ATKSPD:
+                unitStats.bonusATKSpd = 0;
+                break;
+            case StatType.RANGE:
+                unitStats.bonusRange = 0;
+                break;
+            case StatType.SPD:
+                unitStats.bonusSpd = 0;
+                break;
+        }
+    }
+
     public float GetStat(StatType statType)
     {
         switch (statType)
@@ -94,7 +113,7 @@ public class UnitStats
         baseATK = newATK;
         baseATKSpd = newATKSpd;
         baseRange = newRange;
-        baseRange = MoveSpd;
+        baseSpd = MoveSpd;
     }
 }
 

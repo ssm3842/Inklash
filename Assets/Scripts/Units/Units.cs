@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Units : DamageableObject
 {
-    bool isAttacking = false;
+    protected bool isAttacking = false;
 
     [SerializeField] protected bool canAttack;
     [SerializeField] protected float canAttackTimer;
@@ -50,10 +50,7 @@ public class Units : DamageableObject
             if (targetUnit != null && targetUnit.IsDead) target = null;    
         }
 
-        if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD); //목표가 없으면 이동.
-        else RB.linearVelocityX = 0f;   //목표가 있으면 정지
-
-        ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
+        Move();
 
         if (!target) //타겟이 없을 때만 새로 검사.
         {
@@ -77,6 +74,15 @@ public class Units : DamageableObject
         if (canAttackTimer >= 2f && !canAttack) canAttack = true;//2초마다 공격 가능 상태가 됨.
         else if (canAttackTimer >= 2f && canAttack) { }
         else canAttackTimer += Time.deltaTime * statController.GetStat(StatType.ATKSPD); //공격 속도만큼 빠르게 채워짐.
+    }
+
+    public virtual void Move()
+    {
+        if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD); //목표가 없으면 이동.
+        else RB.linearVelocityX = 0f;   //목표가 있으면 정지
+
+        ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
+
     }
 
     override public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
