@@ -736,7 +736,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1127777737}
-  m_Father: {fileID: 2087044754}
+  m_Father: {fileID: 1400227292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &597376423
 BoxCollider2D:
@@ -1737,7 +1737,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2033325839}
-  m_Father: {fileID: 2087044754}
+  m_Father: {fileID: 1400227292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1041127021
 BoxCollider2D:
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   handLayout: {fileID: 1303950343}
   battleUICanvas: {fileID: 741746637}
   costManager: {fileID: 1993453015}
-  cardUseManager: {fileID: 0}
+  cardUseManager: {fileID: 2087044753}
   currentBattleDeck: []
   discardBattleDeck: []
   playerHands: []
@@ -3380,6 +3380,8 @@ Transform:
   - {fileID: 2087044754}
   - {fileID: 1061190629}
   - {fileID: 741746638}
+  - {fileID: 1041127020}
+  - {fileID: 597376422}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1400227293
@@ -4943,9 +4945,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1041127020}
-  - {fileID: 597376422}
+  m_Children: []
   m_Father: {fileID: 1400227292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2116573329

@@ -1,9 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Rooms", menuName ="Scriptable Object/Rooms")]
-public class RoomsSO : ScriptableObject
+[CreateAssetMenu(fileName = "RoomData", menuName ="Scriptable Object/Rooms")]
+public class RoomDataSO : ScriptableObject
 {
-    public RoomContent[] cardContents;
+    public RoomData[] roomDatas;
+}
+
+[System.Serializable]
+public class RoomData
+{
+    public Sprite baseSprite;
+    public GameObject[] availableEnemyUnits;
+    public int baseHP;
 }
 

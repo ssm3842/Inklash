@@ -5,8 +5,8 @@ using UnityEngine;
 public class CardUseManager : MonoBehaviour
 {
     float spawnHeight = 0.3f;
-    [SerializeField] GameObject unitSpawnPoint;
-    [SerializeField] GameObject enemySpawnPoint;
+    [SerializeField] GameObject playerBase;
+    [SerializeField] GameObject enemyBase;
     private List<CardContent> availableEnemies;
 
     List<WordBase> stackedWordCardEffect;
@@ -19,8 +19,8 @@ public class CardUseManager : MonoBehaviour
         availableEnemies = new List<CardContent>(RunManager.Inst.unitDataManager.enemyUnitDatas.Values);
         stackedWordCardEffect = new List<WordBase>();
 
-        unitSpawnPoint.GetComponent<DamageableObject>().Init(true, new UnitStats(10,0,0,0,0)); //TODO: 건물 체력 임시 생성.
-        enemySpawnPoint.GetComponent<DamageableObject>().Init(false, new UnitStats(10,0,0,0,0));
+        playerBase.GetComponent<DamageableObject>().Init(true, new UnitStats(10,0,0,0,0)); //TODO: 건물 체력 임시 생성.
+        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(10,0,0,0,0));
         StartCoroutine(SpawnEnemyCoroutine());
     }
 
@@ -45,7 +45,8 @@ public class CardUseManager : MonoBehaviour
         FilterWordCard(WordCardType.Unit);
 
         //유닛 생성.
-        GameObject newUnit = Instantiate(card.unit, unitSpawnPoint.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
+        GameObject newUnit = Instantiate(card.unit, playerBase.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
+        newUnit.transform.SetParent(transform);
         newUnit.GetComponent<Units>().Init(true, card.stats);
 
         //유닛 생성 후 버프 적용
@@ -85,6 +86,24 @@ public class CardUseManager : MonoBehaviour
             isCloneCardUsed = false;
         }
     }
+
+    void FilterWordCard(WordCardType wordCardType)
+    {
+        List<WordBase> toRemove = new List<WordBase>();
+
+        foreach(WordBase wordcard in stackedWordCardEffect)
+        {
+            if(!wordcard.wordCardType.HasFlag(wordCardType))
+            {
+                toRemove.Add(wordcard);
+            }
+        }
+
+        foreach(WordBase wordcard in toRemove)
+        {
+            stackedWordCardEffect.Remove(wordcard);
+        }
+    }
     
     public void AddWordCard(CardContent card)
     {
@@ -105,24 +124,6 @@ public class CardUseManager : MonoBehaviour
         stackedWordCardEffect.Add(targetWordCard); //중복이 아니면 효과 스택.
     }
 
-    void FilterWordCard(WordCardType wordCardType)
-    {
-        List<WordBase> toRemove = new List<WordBase>();
-
-        foreach(WordBase wordcard in stackedWordCardEffect)
-        {
-            if(!wordcard.wordCardType.HasFlag(wordCardType))
-            {
-                toRemove.Add(wordcard);
-            }
-        }
-
-        foreach(WordBase wordcard in toRemove)
-        {
-            stackedWordCardEffect.Remove(wordcard);
-        }
-    }
-
     IEnumerator SpawnEnemyCoroutine()
     {
         while (true)
@@ -130,7 +131,8 @@ public class CardUseManager : MonoBehaviour
             int randomIndex = Random.Range(0, availableEnemies.Count);
             CardContent enemyUnit = availableEnemies[randomIndex];
 
-            GameObject newUnit = Instantiate(enemyUnit.unit, enemySpawnPoint.transform.position + new Vector3(-1, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
+            GameObject newUnit = Instantiate(enemyUnit.unit, enemyBase.transform.position + new Vector3(-1, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
+            newUnit.transform.SetParent(transform);
             newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
 
             yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);

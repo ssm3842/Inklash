@@ -22,13 +22,21 @@ public class BattleManager : MonoBehaviour
 
         cardManager.cardUseManager = cardUseManager;
 
+        //덱, 코스트 초기화 및 전투 시작.
         cardManager.Init();
         battleUICanvas.SetActive(true);
 
         Time.timeScale = 1f;
         gameObject.SetActive(true);
 
-        cardUseManager.InitUnitManager(tempEnemyPool.startingDeck); //TODO: 방 정보를 읽어와 적 유닛풀 설정. 지금은 임시코드로 대체.
+        //이전 전투에서 소환된 유닛을 제거.
+        foreach(Transform unit in cardUseManager.transform)
+        {
+            Destroy(unit.gameObject);
+        }
+        
+        //각 기지를 초기화하고 적 유닛풀 설정.
+        cardUseManager.InitUnitManager(tempEnemyPool.startingDeck);
     }
 
     public void OnBattleWin()
