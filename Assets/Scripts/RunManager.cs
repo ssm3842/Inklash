@@ -35,8 +35,8 @@ public class RunManager : MonoBehaviour
     public void InitRun() //런 시작 시 게임 초기화.
     {
         mapManager.InitMapdata(); //맵 정보를 생성
-        deckManager.InitDeck(startingDeckSO.startingDeck); //덱 정보를 시작 덱으로 초기화.
         unitDataManager.LoadCsvData(); //유닛 데이터를 csv에서 가져와 초기화.
-        resourceManager.Init(); // 체력, 돈 확인용 
+        deckManager.InitDeck(startingDeckSO.startingDeck); //덱 정보를 시작 덱으로 초기화.
+        resourceManager.Init(); // 체력, 돈 확인용
     }
 }

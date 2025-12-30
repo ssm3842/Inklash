@@ -13,16 +13,5 @@ MonoBehaviour:
   m_Name: EnemySpawnPool
   m_EditorClassIdentifier: 
   startingDeck:
-  - id: E_001
-    name: FireBall
-    cost: 0
-    type: 1
-    effectID: 
-    description: 
-    stats:
-      hp: 0
-      atk: 0
-      atkSpd: 0
-      range: 0
-      spd: 0
-    unit: {fileID: 7067957278874566163, guid: d29aa64291dd8a244944e1a4c58d095f, type: 3}
+  - {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
+  - {fileID: 11400000, guid: 3922f7bb764d0b44c8cf8e12e7111aee, type: 2}

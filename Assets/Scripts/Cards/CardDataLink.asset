@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082bfc0884e6487408e72294d3498c84, type: 3}
+  m_Name: CardDataLink
+  m_EditorClassIdentifier: 
+  playerUnits:
+  - id: Sword
+    cardContents: {fileID: 11400000, guid: e944e9b938d26724b84f16c98810714a, type: 2}
+  - id: Bow
+    cardContents: {fileID: 11400000, guid: 6e576305d1664404b8f5a28244b3a0c8, type: 2}
+  playerSpells:
+  - id: Lightning
+    cardContents: {fileID: 11400000, guid: 9fddb49316cd4404083abd5c20a36ecf, type: 2}
+  - id: Rage
+    cardContents: {fileID: 11400000, guid: 632b4a85891000e439f8fcd1a9a5e7f6, type: 2}
+  - id: Freeze
+    cardContents: {fileID: 11400000, guid: ea8d2e5a208c85d479e9df7f530743b3, type: 2}
+  playerWords:
+  - id: Strong
+    cardContents: {fileID: 11400000, guid: 941fd050668c2fd4ea856bb644f9b875, type: 2}
+  - id: Clone
+    cardContents: {fileID: 11400000, guid: 0b9818b296ad5bf42936aa0467713cc0, type: 2}
+  EnemyUnits:
+  - id: LowerI
+    cardContents: {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
+  - id: UpperI
+    cardContents: {fileID: 11400000, guid: 3922f7bb764d0b44c8cf8e12e7111aee, type: 2}

@@ -5,9 +5,13 @@ public class DeckManager : MonoBehaviour
 {
     List<CardContent> deck = null;
 
-    public void InitDeck(List<CardContent> newDeck)
+    public void InitDeck(List<CardDataSO> newDeck)
     {
-        deck = new List<CardContent>(newDeck);
+        deck = new List<CardContent>();
+        foreach(CardDataSO cardData in newDeck)
+        {
+            deck.Add(cardData.card);
+        }
     }
 
     public List<CardContent> GetDeckdata()

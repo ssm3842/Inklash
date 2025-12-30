@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dee4f5e07461e34ab3b16026f0f96b0, type: 3}
   m_Name: Rooms
   m_EditorClassIdentifier: 
+  roomDatas:
+  - baseSprite: {fileID: 0}
+    availableEnemyUnits: []
+    baseHP: 0
+  - baseSprite: {fileID: 0}
+    availableEnemyUnits: []
+    baseHP: 0

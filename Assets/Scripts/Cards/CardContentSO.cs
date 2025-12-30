@@ -2,27 +2,19 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardContent", menuName ="Scriptable Object/CardContent")]
-public class CardContentSO : ScriptableObject
+public class CardDataLinkSO : ScriptableObject
 {
-    public CardContent[] cardContents;
+    public CardLink[] playerUnits;
+    public CardLink[] playerSpells;
+    public CardLink[] playerWords;
+    public CardLink[] EnemyUnits;
 }
 
-[System.Serializable]
-public class CardContent
+[Serializable]
+public class CardLink
 {
     public string id;
-    public string name;
-    public int cost;
-    public CardType type;
-    public string effectID;
-    public string description;
-    public UnitStats stats;
-    public GameObject unit;
-}
-
-public enum CardType
-{
-    Unit, Spell, Word,
+    public CardDataSO cardContents;
 }
 
 [Flags]

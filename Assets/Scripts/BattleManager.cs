@@ -36,7 +36,7 @@ public class BattleManager : MonoBehaviour
         }
         
         //각 기지를 초기화하고 적 유닛풀 설정.
-        cardUseManager.InitUnitManager(tempEnemyPool.startingDeck);
+        cardUseManager.InitUnitManager();
     }
 
     public void OnBattleWin()

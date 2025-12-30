@@ -3328,10 +3328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06f1cc51d422c549a0f81ead8e46428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardContentSO: {fileID: 11400000, guid: 957476bedb0c4de418f054d82d3be62f, type: 2}
+  cardDataLinkSO: {fileID: 11400000, guid: 957476bedb0c4de418f054d82d3be62f, type: 2}
   csvFiles:
   - {fileID: 4900000, guid: 0a7760054db935f478fdda72c398bfab, type: 3}
   - {fileID: 4900000, guid: 99a39a8105fc36349ad97cc18585a050, type: 3}
+  - {fileID: 4900000, guid: 99a39a8105fc36349ad97cc18585a050, type: 3}
+  - {fileID: 4900000, guid: bf04b0d27b094584e819e88cad101f44, type: 3}
 --- !u!4 &1308273237
 Transform:
   m_ObjectHideFlags: 0
@@ -4931,8 +4933,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a1dfb199282f648a5d89347dce4ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitSpawnPoint: {fileID: 1041127018}
-  enemySpawnPoint: {fileID: 597376420}
+  playerBase: {fileID: 1041127018}
+  enemyBase: {fileID: 597376420}
 --- !u!4 &2087044754
 Transform:
   m_ObjectHideFlags: 0

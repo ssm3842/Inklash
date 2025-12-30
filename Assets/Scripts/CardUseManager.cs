@@ -7,16 +7,22 @@ public class CardUseManager : MonoBehaviour
     float spawnHeight = 0.3f;
     [SerializeField] GameObject playerBase;
     [SerializeField] GameObject enemyBase;
-    private List<CardContent> availableEnemies;
+    [SerializeField] DeckSO enemyPool;
+
+    List<CardContent> availableEnemies;
 
     List<WordBase> stackedWordCardEffect;
 
     bool isCloneCardUsed = false;
 
-    public void InitUnitManager(List<CardContent> enemyPool)
+    public void InitUnitManager()
     {
-        // availableEnemies = new List<CardContent>(enemyPool);
-        availableEnemies = new List<CardContent>(RunManager.Inst.unitDataManager.enemyUnitDatas.Values);
+        availableEnemies = new List<CardContent>();
+        foreach(CardDataSO enemyCard in enemyPool.startingDeck)
+        {
+            availableEnemies.Add(enemyCard.card);
+        }
+
         stackedWordCardEffect = new List<WordBase>();
 
         playerBase.GetComponent<DamageableObject>().Init(true, new UnitStats(10,0,0,0,0)); //TODO: 건물 체력 임시 생성.
