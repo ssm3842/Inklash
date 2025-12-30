@@ -4935,6 +4935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBase: {fileID: 1041127018}
   enemyBase: {fileID: 597376420}
+  enemyPool: {fileID: 11400000, guid: b342f450f7e79d64c9c576e964f1aa1a, type: 2}
 --- !u!4 &2087044754
 Transform:
   m_ObjectHideFlags: 0

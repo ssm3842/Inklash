@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingDeck:
   - {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
-  - {fileID: 11400000, guid: 3922f7bb764d0b44c8cf8e12e7111aee, type: 2}
+  - {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
