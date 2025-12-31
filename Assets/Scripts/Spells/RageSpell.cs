@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Rage : SpellBase
 {
-    public override void CastSpell(float damage, float castXPosition)
+    public override void CastSpell(float damage, float range, float castXPosition)
     {
         transform.position = new Vector3(castXPosition, -0.85f, 0);
     }

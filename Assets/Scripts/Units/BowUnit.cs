@@ -11,6 +11,7 @@ public class BowUnit : Units
         }
         
         GameObject newArrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+        newArrow.transform.SetParent(RunManager.Inst.battleManager.cardUseManager.transform);
         newArrow.GetComponent<Arrow>().targetPos = target.transform.position;
 
         target?.StartCoroutine(target.TakeDamage(statController.GetStat(StatType.ATK), 1f));

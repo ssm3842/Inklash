@@ -13,6 +13,8 @@ public class CardUseManager : MonoBehaviour
 
     List<WordBase> stackedWordCardEffect;
 
+    public Coroutine enemySpawnCoroutine = null;
+
     bool isCloneCardUsed = false;
 
     public void InitUnitManager()
@@ -25,9 +27,11 @@ public class CardUseManager : MonoBehaviour
 
         stackedWordCardEffect = new List<WordBase>();
 
-        playerBase.GetComponent<DamageableObject>().Init(true, new UnitStats(10,0,0,0,0)); //TODO: 건물 체력 임시 생성.
-        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(10,0,0,0,0));
-        StartCoroutine(SpawnEnemyCoroutine());
+        playerBase.GetComponent<DamageableObject>().Init(true, new UnitStats(20,0,0,0,0)); //TODO: 건물 체력 임시 생성.
+        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(20,0,0,0,0));
+        enemyBase.gameObject.SetActive(true);
+
+        if(enemySpawnCoroutine == null) enemySpawnCoroutine = StartCoroutine(SpawnEnemyCoroutine());
     }
 
     public void UseCard(CardContent card)
@@ -80,7 +84,7 @@ public class CardUseManager : MonoBehaviour
 
         GameObject newSpell = Instantiate(card.unit);
         float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
-        newSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, targetPos);
+        newSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, card.stats.baseRange, targetPos);
 
         //복제 카드 사용 시 두번 시전.
         if(isCloneCardUsed)
@@ -88,7 +92,7 @@ public class CardUseManager : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
 
             GameObject clonedSpell = Instantiate(card.unit);
-            clonedSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, targetPos);
+            clonedSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, card.stats.baseRange, targetPos);
             isCloneCardUsed = false;
         }
     }
@@ -128,6 +132,12 @@ public class CardUseManager : MonoBehaviour
             if(type.cardName == targetWordCard.cardName) return;
         }
         stackedWordCardEffect.Add(targetWordCard); //중복이 아니면 효과 스택.
+    }
+
+    public void StopSpawnEnemyCoroutine()
+    {
+        StopCoroutine(enemySpawnCoroutine);
+        enemySpawnCoroutine = null;
     }
 
     IEnumerator SpawnEnemyCoroutine()

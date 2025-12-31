@@ -35,7 +35,9 @@ public class DamageableObject : MonoBehaviour
                 Debug.Log("Player Lose");
             }
 
-            Destroy(this.gameObject);
+            //적 스폰 코루틴을 제거.
+            RunManager.Inst.battleManager.cardUseManager.StopSpawnEnemyCoroutine();
+            gameObject.SetActive(false);
         }
         else
         {

@@ -1,4 +1,4 @@
-Card_ID,Card_Name,Cost,ATK,ATK_SPD,Range,Effect_ID,Description
-Lightning,번개,2,10,-,-,E_100,광역 공격
-Rage,분노,2,0,-,-,E_100,광역 공격
-Freeze,빙결,4,0,-,-,E_100,광역 공격
+Card_ID,Card_Name,Cost,Value,Range,Description
+Lightning,번개,2,10,1.5,광역 공격
+Rage,분노,2,1.2,2.5,광역 공격
+Freeze,빙결,4,0,2,광역 공격

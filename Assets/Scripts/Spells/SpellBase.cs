@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpellBase : MonoBehaviour
 {
-    public virtual void CastSpell(float damage, float castXPosition)
+    public virtual void CastSpell(float damage, float range, float castXPosition)
     {
         return;
     }

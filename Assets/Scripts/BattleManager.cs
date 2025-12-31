@@ -9,8 +9,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject battleRewardButtonContainer;
     [SerializeField] BattleRewardButton battleRewardButtonPrefab;
 
-    [SerializeField] DeckSO tempEnemyPool;
-
     public CardManager cardManager;
     public CardUseManager cardUseManager;
 

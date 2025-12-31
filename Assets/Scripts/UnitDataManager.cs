@@ -29,7 +29,7 @@ public class UnitDataManager : MonoBehaviour
             }
             else if (csvFile.name.Equals("WordCard")) //단어카드의 경우.
             {
-                ParseSpellData(csvFile);
+                ParseWordData(csvFile);
             }
             else if (csvFile.name.Equals("EnemyCard")) //적 유닛의 경우.
             {
@@ -62,7 +62,7 @@ public class UnitDataManager : MonoBehaviour
                 cardLink.cardContents.card.name = columns[1];
                 cardLink.cardContents.card.cost = int.Parse(columns[2]);
                 cardLink.cardContents.card.type = CardType.Unit;
-                cardLink.cardContents.card.description = columns[9];
+                cardLink.cardContents.card.description = columns[8];
 
                 cardLink.cardContents.card.stats.baseMaxHp = float.Parse(columns[3]);
                 cardLink.cardContents.card.stats.baseATK = float.Parse(columns[4]);
@@ -96,12 +96,17 @@ public class UnitDataManager : MonoBehaviour
                 cardLink.cardContents.card.name = columns[1];
                 cardLink.cardContents.card.cost = int.Parse(columns[2]);
                 cardLink.cardContents.card.type = CardType.Spell;
-                // cardLink.cardContents.card.description = columns[9];
+                cardLink.cardContents.card.description = columns[5];
 
-                cardLink.cardContents.card.stats.baseATK = float.Parse(columns[3]);
+                //메인 값들을 기록. 데미지, 공속 변화량 등.
+                cardLink.cardContents.card.stats.baseATK = float.Parse(columns[3]); 
+
                 // cardLink.cardContents.card.stats.baseATK = float.Parse(columns[4]);
                 // cardLink.cardContents.card.stats.baseATKSpd = float.Parse(columns[5]);
-                // cardLink.cardContents.card.stats.baseRange = float.Parse(columns[6]);
+
+                //사거리를 기록.
+                cardLink.cardContents.card.stats.baseRange = float.Parse(columns[4]);
+
                 // cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[7]);
                 break;
             }
@@ -110,37 +115,31 @@ public class UnitDataManager : MonoBehaviour
 
     void ParseWordData(TextAsset csvFile)
     {
-        // // 한줄로 입력된 유닛 정보를 lines로 저장.
-        // string[] lines = csvFile.text.Split('\n'); 
+        // 한줄로 입력된 유닛 정보를 lines로 저장.
+        string[] lines = csvFile.text.Split('\n'); 
 
-        // // 첫 줄은 각 항목들의 설명이므로 1부터 시작.
-        // for (int i = 1; i < lines.Length; i++)
-        // {
-        //     string line = lines[i];
-        //     if (string.IsNullOrWhiteSpace(line)) continue;
+        // 첫 줄은 각 항목들의 설명이므로 1부터 시작.
+        for (int i = 1; i < lines.Length; i++)
+        {
+            string line = lines[i];
+            if (string.IsNullOrWhiteSpace(line)) continue;
 
-        //     string[] columns = line.Trim().Split(',');
+            string[] columns = line.Trim().Split(',');
 
-        //     foreach(CardLink cardLink in cardDataLinkSO.playerWords)
-        //     {
-        //         //id가 일치하지 않으면 읽지 않음.
-        //         if(cardLink.id != columns[0]) continue;
+            foreach(CardLink cardLink in cardDataLinkSO.playerWords)
+            {
+                //id가 일치하지 않으면 읽지 않음.
+                if(cardLink.id != columns[0]) continue;
                 
-        //         //id가 일치한다면 데이터를 읽어서 CardDataSO에 저장.
-        //         cardLink.cardContents.card.id = columns[0];
-        //         cardLink.cardContents.card.name = columns[1];
-        //         cardLink.cardContents.card.cost = int.Parse(columns[2]);
-        //         cardLink.cardContents.card.type = CardType.Spell;
-        //         // cardLink.cardContents.card.description = columns[9];
-
-        //         cardLink.cardContents.card.stats.baseATK = float.Parse(columns[3]);
-        //         // cardLink.cardContents.card.stats.baseATK = float.Parse(columns[4]);
-        //         // cardLink.cardContents.card.stats.baseATKSpd = float.Parse(columns[5]);
-        //         // cardLink.cardContents.card.stats.baseRange = float.Parse(columns[6]);
-        //         // cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[7]);
-        //         break;
-        //     }
-        // }
+                //id가 일치한다면 데이터를 읽어서 CardDataSO에 저장.
+                cardLink.cardContents.card.id = columns[0];
+                cardLink.cardContents.card.name = columns[1];
+                cardLink.cardContents.card.cost = int.Parse(columns[2]);
+                cardLink.cardContents.card.type = CardType.Word;
+                cardLink.cardContents.card.description = columns[3];
+                break;
+            }
+        }
     }
 
     void ParseEnemyUnitData(TextAsset csvFile)
@@ -168,7 +167,7 @@ public class UnitDataManager : MonoBehaviour
                 cardLink.cardContents.card.name = columns[1];
                 cardLink.cardContents.card.cost = int.Parse(columns[2]);
                 cardLink.cardContents.card.type = CardType.Unit;
-                cardLink.cardContents.card.description = columns[9];
+                cardLink.cardContents.card.description = columns[8];
 
                 cardLink.cardContents.card.stats.baseMaxHp = float.Parse(columns[3]);
                 cardLink.cardContents.card.stats.baseATK = float.Parse(columns[4]);
