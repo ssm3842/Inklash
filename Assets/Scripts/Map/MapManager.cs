@@ -16,12 +16,12 @@ public class MapManager : MonoBehaviour
     {
         floorClimbed = 0;
         mapData = mapGenerator.GenerateMap();
-        VisualizeMap();
+        DrawMap();
 
         UnlockFloor(0);
     }
 
-    void VisualizeMap()
+    void DrawMap()
     {
         foreach (List<RoomContent> currentFloor in mapData)
         {
@@ -85,7 +85,7 @@ public class MapManager : MonoBehaviour
         {
             GameObject newMapLine = Instantiate(mapLine, scrollContent.transform);
 
-            newMapLine.transform.localPosition = (next.position + room.position) / 2f + new Vector2(150, 50);
+            newMapLine.transform.localPosition = (next.position + room.position) / 2f + new Vector2(100, 0);
 
             Vector2 direction = next.position - room.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -130,9 +130,18 @@ public class MapManager : MonoBehaviour
 
     public void SetVisible() //캔버스의 열리는 여부 결정. 열릴 경우 시간 흐름 정지.
     {
-        if (!gameObject.activeSelf) Time.timeScale = 0f;
-        else Time.timeScale = 1f;
-
         gameObject.SetActive(!gameObject.activeSelf);
+
+        if (gameObject.activeSelf)
+        {
+            Time.timeScale = 0f;
+
+            foreach(Transform child in scrollContent.transform)
+            {
+                child.GetComponent<MapButton>()?.UpdateAnimation();
+            }
+        }
+
+        else Time.timeScale = 1f;
     }
 }

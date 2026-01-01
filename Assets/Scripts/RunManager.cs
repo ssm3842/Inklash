@@ -25,11 +25,9 @@ public class RunManager : MonoBehaviour
     void Start()
     {
         battleManager.gameObject.SetActive(false); //전투 비활성화
-        battleUICanvas.SetActive(false);
-
-        mapManager.gameObject.SetActive(true);
-    
+        battleUICanvas.SetActive(false);   
         InitRun();
+        mapManager.SetVisible();
     }
 
     public void InitRun() //런 시작 시 게임 초기화.

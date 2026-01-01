@@ -23,11 +23,18 @@ public class MapButton : MonoBehaviour
         };
     }
 
+    public void UpdateAnimation()
+    {
+        if(GetComponent<Image>().sprite == null) GetComponent<Image>().sprite = roomIcons[room.roomType];
+
+        if(room.isInteractable) GetComponent<Animator>().Play("MapButtonOpen");
+        else GetComponent<Animator>().Play("MapButtonDefault");
+    }
+
     public void SetRoom(RoomContent roomData)
     {
         room = roomData;
         transform.localPosition = room.position + new Vector2(100, 0);
-        GetComponent<Image>().sprite = roomIcons[room.roomType];
     }
 
     public void OnButtonClicked()
