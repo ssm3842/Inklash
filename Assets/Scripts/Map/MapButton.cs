@@ -4,37 +4,27 @@ using UnityEngine.UI;
 
 public class MapButton : MonoBehaviour
 {
-    [SerializeField] Sprite[] icons = new Sprite[5];
-    Dictionary<RoomType, Sprite> roomIcons;
+    [SerializeField] Animator ani;
+    [SerializeField] Image image;
+
+    [SerializeField] GameObject clearMark;
 
     RoomContent room;
 
-    void Awake()
-    {
-        roomIcons = new Dictionary<RoomType, Sprite>
-        {
-            { RoomType.NOT_ASSIGNED, null },
-            { RoomType.BATTLE, icons[0] },
-            { RoomType.RANDOM_EVENT, icons[4] },
-            { RoomType.TREASURE, icons[1] },
-            { RoomType.CAMPFIRE, icons[2] },
-            { RoomType.SHOP, icons[3] },
-            { RoomType.BOSS, icons[0] }
-        };
-    }
-
     public void UpdateAnimation()
     {
-        if(GetComponent<Image>().sprite == null) GetComponent<Image>().sprite = roomIcons[room.roomType];
+        if(room.isInteractable) ani.Play("MapButtonOpen");
+        else ani.Play("MapButtonDefault");
 
-        if(room.isInteractable) GetComponent<Animator>().Play("MapButtonOpen");
-        else GetComponent<Animator>().Play("MapButtonDefault");
+        if(room.isCleared) clearMark.SetActive(true);
     }
 
-    public void SetRoom(RoomContent roomData)
+    public void SetRoom(RoomContent roomData, Sprite buttonImage)
     {
         room = roomData;
         transform.localPosition = room.position + new Vector2(100, 0);
+
+        image.sprite = buttonImage;
     }
 
     public void OnButtonClicked()

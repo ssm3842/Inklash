@@ -8,6 +8,9 @@ public class MapManager : MonoBehaviour
     [SerializeField] MapDataGenerator mapGenerator;
     [SerializeField] GameObject scrollContent;
 
+    [SerializeField] Sprite[] icons;
+    Dictionary<RoomType, Sprite> roomIcons;
+
     List<List<RoomContent>> mapData;
     public int floorClimbed;
     public RoomContent lastRoom;
@@ -16,10 +19,29 @@ public class MapManager : MonoBehaviour
     {
         floorClimbed = 0;
         mapData = mapGenerator.GenerateMap();
+        InitImageDictionary();
         DrawMap();
 
         UnlockFloor(0);
     }
+
+    void InitImageDictionary()
+    {
+        //roomIcon이 초기화 되어 있지 않을 때만 실행.
+        if(roomIcons != null) return;
+
+        roomIcons = new Dictionary<RoomType, Sprite>
+        {
+            { RoomType.NOT_ASSIGNED, null },
+            { RoomType.BATTLE, icons[0] },
+            { RoomType.RANDOM_EVENT, icons[4] },
+            { RoomType.TREASURE, icons[1] },
+            { RoomType.CAMPFIRE, icons[2] },
+            { RoomType.SHOP, icons[3] },
+            { RoomType.BOSS, icons[0] }
+        };
+    }
+
 
     void DrawMap()
     {
@@ -72,7 +94,7 @@ public class MapManager : MonoBehaviour
     void SpawnRoom(RoomContent room)
     {
         MapButton NewMapButton = Instantiate(mapButton, scrollContent.transform);
-        NewMapButton.SetRoom(room);
+        NewMapButton.SetRoom(room, roomIcons[room.roomType]);
 
         ConnectLines(room);
     }
@@ -123,6 +145,11 @@ public class MapManager : MonoBehaviour
 
         LockSameFloor();
         lastRoom = room;
+    }
+
+    public void ClearLastRoom()
+    {
+        lastRoom.isCleared = true;
 
         floorClimbed++;
         UnlockFloor(floorClimbed);

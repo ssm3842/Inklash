@@ -44,6 +44,8 @@ public class BattleManager : MonoBehaviour
         BattleRewardButton newRewardButton = Instantiate(battleRewardButtonPrefab, battleRewardButtonContainer.transform);
         newRewardButton.AddRewardButton(RewardType.Gold, 70);
         battleRewardCanvas.gameObject.SetActive(true);
+
+        RunManager.Inst.mapManager.ClearLastRoom();
     }
 
     public void OnCardUse()

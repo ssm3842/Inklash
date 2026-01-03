@@ -328,6 +328,12 @@ MonoBehaviour:
   mapLine: {fileID: 8715648813717236765, guid: 2ad07020a82a04c499803bd9e3bd00b2, type: 3}
   mapGenerator: {fileID: 83669495}
   scrollContent: {fileID: 2116573329}
+  icons:
+  - {fileID: 21300000, guid: 5f9b1f27ace2a7a4995223bbc5f9f6ea, type: 3}
+  - {fileID: 21300000, guid: 49e173b305e2fd147bdb75587b169087, type: 3}
+  - {fileID: 21300000, guid: 2d352ff5eee302c46a70f4bc004f68bd, type: 3}
+  - {fileID: 21300000, guid: ee3ba1c7cdab068438bea33d96426623, type: 3}
+  - {fileID: 21300000, guid: 12f0bf23420faf644868e0cf52b3e192, type: 3}
   floorClimbed: 0
 --- !u!1 &158857054
 GameObject:
@@ -3402,7 +3408,6 @@ MonoBehaviour:
   battleRewardCanvas: {fileID: 988922712}
   battleRewardButtonContainer: {fileID: 158857054}
   battleRewardButtonPrefab: {fileID: 5268703283635718287, guid: 03a6630814a61a14ba6c1dfd4ffeff59, type: 3}
-  tempEnemyPool: {fileID: 11400000, guid: b342f450f7e79d64c9c576e964f1aa1a, type: 2}
   cardManager: {fileID: 1061190628}
   cardUseManager: {fileID: 2087044753}
   CardUse:
