@@ -123,19 +123,19 @@ public class MapManager : MonoBehaviour
                 RunManager.Inst.battleManager.InitBattle();
                 break;
             case RoomType.RANDOM_EVENT:
-                Debug.Log("RANDOM_EVENT Clicked");
+                RunManager.Inst.randomEventCanvas.Init();
                 break;
             case RoomType.TREASURE:
-                Debug.Log("TREASURE Clicked");
+                RunManager.Inst.placeholderCanvas.SetActive(true);
                 break;
             case RoomType.CAMPFIRE:
-                Debug.Log("CAMPFIRE Clicked");
+                RunManager.Inst.campfireCanvas.SetActive(true);
                 break;
             case RoomType.SHOP:
-                Debug.Log("SHOP Clicked");
+                RunManager.Inst.placeholderCanvas.SetActive(true);
                 break;
             case RoomType.BOSS:
-                Debug.Log("BOSS Clicked");
+                RunManager.Inst.battleManager.InitBattle();
                 break;
             default:
                 Debug.Log("Bug Occured");
