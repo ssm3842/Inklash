@@ -36,7 +36,7 @@ public class CardUseManager : MonoBehaviour
 
     public void UseCard(CardContent card)
     {
-        switch (card.type)
+        switch (card.cardType)
         {
             case CardType.Unit:
                 StartCoroutine(SpawnPlayerUnit(card));

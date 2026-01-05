@@ -13,7 +13,8 @@ public class CardContent
     public string id;
     public string name;
     public int cost;
-    public CardType type;
+    public CardType cardType;
+    public AttackType attackType;
     public string effectID;
     public string description;
     public UnitStats stats;
@@ -23,4 +24,9 @@ public class CardContent
 public enum CardType
 {
     Unit, Spell, Word,
+}
+
+public enum AttackType
+{
+    None, Melee, Ranged,
 }

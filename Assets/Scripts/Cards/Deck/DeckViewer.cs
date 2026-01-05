@@ -44,7 +44,7 @@ public class DeckViewer : MonoBehaviour
         }
 
         List<CardContent> sortedList = cardList
-            .OrderBy(card => card.type)
+            .OrderBy(card => card.cardType)
             .ThenBy(card => card.cost)
             .ToList();
 

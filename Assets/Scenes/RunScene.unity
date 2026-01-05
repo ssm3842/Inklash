@@ -3330,10 +3330,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardDataLinkSO: {fileID: 11400000, guid: 957476bedb0c4de418f054d82d3be62f, type: 2}
   csvFiles:
-  - {fileID: 4900000, guid: 0a7760054db935f478fdda72c398bfab, type: 3}
-  - {fileID: 4900000, guid: 99a39a8105fc36349ad97cc18585a050, type: 3}
-  - {fileID: 4900000, guid: 133bf33b7f02ae0419f10076ccaf047e, type: 3}
-  - {fileID: 4900000, guid: bf04b0d27b094584e819e88cad101f44, type: 3}
+  - {fileID: 4900000, guid: 3543e5a64f6ce5345bac70f4a000c590, type: 3}
+  - {fileID: 4900000, guid: 89cdb22b886e4504ebdc885eac13dec1, type: 3}
+  - {fileID: 4900000, guid: c1be2352da2fad146b805c014626f6a8, type: 3}
+  - {fileID: 4900000, guid: cca73dff6e4b9d247b46e863d84d8096, type: 3}
+  - {fileID: 4900000, guid: 85fb8853296b07f43af694f32a1d8456, type: 3}
 --- !u!4 &1308273237
 Transform:
   m_ObjectHideFlags: 0
@@ -3402,7 +3403,6 @@ MonoBehaviour:
   battleRewardCanvas: {fileID: 988922712}
   battleRewardButtonContainer: {fileID: 158857054}
   battleRewardButtonPrefab: {fileID: 5268703283635718287, guid: 03a6630814a61a14ba6c1dfd4ffeff59, type: 3}
-  tempEnemyPool: {fileID: 11400000, guid: b342f450f7e79d64c9c576e964f1aa1a, type: 2}
   cardManager: {fileID: 1061190628}
   cardUseManager: {fileID: 2087044753}
   CardUse:

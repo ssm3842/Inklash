@@ -3,7 +3,8 @@ guid: f06f1cc51d422c549a0f81ead8e46428
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cardDataLinkSO: {instanceID: 0}
   executionOrder: -100
   icon: {instanceID: 0}
   userData: 
