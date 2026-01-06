@@ -1316,7 +1316,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: e32d41f0ea235004f935a40bf7e7a982, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 329a1f8cca9598f428757648e7a724eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7611,7 +7611,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBase: {fileID: 1041127018}
   enemyBase: {fileID: 597376420}
-  enemyPool: {fileID: 11400000, guid: b342f450f7e79d64c9c576e964f1aa1a, type: 2}
+  enemyBaseDatas:
+  - {fileID: 11400000, guid: bcc5a49c5827e7244b79838face5774e, type: 2}
+  - {fileID: 11400000, guid: fbe902b05cbb0a94bb49679f1830dc65, type: 2}
 --- !u!4 &2087044754
 Transform:
   m_ObjectHideFlags: 0

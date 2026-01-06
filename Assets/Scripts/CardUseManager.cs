@@ -7,7 +7,7 @@ public class CardUseManager : MonoBehaviour
     float spawnHeight = 0.3f;
     [SerializeField] GameObject playerBase;
     [SerializeField] GameObject enemyBase;
-    [SerializeField] DeckSO enemyPool;
+    [SerializeField] EnemyBaseDataSO[] enemyBaseDatas;
 
     List<CardContent> availableEnemies;
 
@@ -19,8 +19,12 @@ public class CardUseManager : MonoBehaviour
 
     public void InitUnitManager()
     {
+        //적 데이터 중에서 하나를 랜덤으로 선택.
+        EnemyBaseDataSO enemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
+
         availableEnemies = new List<CardContent>();
-        foreach(CardDataSO enemyCard in enemyPool.startingDeck)
+
+        foreach(CardDataSO enemyCard in enemyData.enemyDeck)
         {
             availableEnemies.Add(enemyCard.card);
         }
@@ -28,7 +32,8 @@ public class CardUseManager : MonoBehaviour
         stackedWordCardEffect = new List<WordBase>();
 
         playerBase.GetComponent<DamageableObject>().Init(true, new UnitStats(20,0,0,0,0)); //TODO: 건물 체력 임시 생성.
-        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(20,0,0,0,0));
+        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(enemyData.startingHP,0,0,0,0));
+        enemyBase.GetComponent<SpriteRenderer>().sprite = enemyData.baseSprite;
         enemyBase.gameObject.SetActive(true);
 
         if(enemySpawnCoroutine == null) enemySpawnCoroutine = StartCoroutine(SpawnEnemyCoroutine());
