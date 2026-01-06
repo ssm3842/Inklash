@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class SpearUnit : Units
 {
-
-    [SerializeField] float speedStep = 0.2f;     
-    [SerializeField] float attackStep = 0.5f;     
-
-    [SerializeField] float maxSpeedLimit = 2.0f; 
-
     private float accSpeed = 0f;
     private float accAttack = 0f;
 
-    
+    float stepSpd = 0.1f;
+    float stepAtk = 0.1f;
+
+    private float cachedBaseSpd = 0f;
+    private float cachedBaseAtk = 0f;
+
     private float updateTimer = 0f;
 
 
@@ -24,21 +23,28 @@ public class SpearUnit : Units
         }
 
         updateTimer += Time.deltaTime;
-        if (updateTimer >= 0.1f)
+       if (updateTimer >= 0.1f)
         {
             updateTimer = 0f;
 
-            if (statController.GetStat(StatType.SPD) < maxSpeedLimit)
+            if (accSpeed <= 0f)
             {
-                statController.ControlBonusStat(StatType.SPD, speedStep);
-                statController.ControlBonusStat(StatType.ATK, attackStep);
+                cachedBaseSpd = statController.GetStat(StatType.SPD);
+                cachedBaseAtk = statController.GetStat(StatType.ATK);
+            }
 
-                accSpeed += speedStep;
-                accAttack += attackStep;
+
+            if (accSpeed < 1)
+            {
+                statController.ControlBonusStat(StatType.SPD, stepSpd);
+                statController.ControlBonusStat(StatType.ATK, stepAtk);
+
+                accSpeed += stepSpd;
+                accAttack += stepAtk;
             }
         }
 
-        base.Move(); 
+        base.Move();
     }
 
     public override void _AttackEnemy()

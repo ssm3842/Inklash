@@ -7,6 +7,7 @@ public class CannonShell : MonoBehaviour
 
     private float elapsedTime = 0f;
     [SerializeField] private float lifeTime = 0.2f; 
+    [SerializeField] private float rotateSpeed = 720f; 
 
     void Start()
     {
@@ -15,16 +16,18 @@ public class CannonShell : MonoBehaviour
 
     void Update()
     {
-        if (targetPos == Vector3.zero) return;
+        if (targetPos == null ) return;
 
         elapsedTime += Time.deltaTime;
         float t = elapsedTime / lifeTime;
 
         transform.position = Vector3.Lerp(startPos, targetPos, t);
-    }
 
-    public void _OnAnimationEnd()
-    {
-        Destroy(gameObject);
+        transform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+
+        if (elapsedTime >= lifeTime)
+        {
+            Destroy(gameObject);
+        }
     }
 }

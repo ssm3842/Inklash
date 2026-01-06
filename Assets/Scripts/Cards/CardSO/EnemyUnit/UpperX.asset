@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: UpperX
   m_EditorClassIdentifier: 
   card:
-    id: 
-    name: 
-    cost: 0
+    id: UpperX
+    name: ENEMY_NAME_UPPER_X
+    cost: 5
     cardType: 0
-    attackType: 0
+    attackType: 1
     effectID: 
-    description: 
+    description: ENEMY_DESC_UPPER_X
     stats:
-      baseMaxHp: 0
-      baseATK: 0
-      baseATKSpd: 0
-      baseRange: 0
-      baseSpd: 0
+      baseMaxHp: 120
+      baseATK: 15
+      baseATKSpd: 1
+      baseRange: 1
+      baseSpd: 1
       bonusMaxHp: 0
       bonusATK: 0
       bonusATKSpd: 0

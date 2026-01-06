@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: UpperE
   m_EditorClassIdentifier: 
   card:
-    id: 
-    name: 
-    cost: 0
+    id: UpperE
+    name: ENEMY_NAME_UPPER_E
+    cost: 6
     cardType: 0
-    attackType: 0
+    attackType: 2
     effectID: 
-    description: 
+    description: ENEMY_DESC_UPPER_E
     stats:
-      baseMaxHp: 0
-      baseATK: 0
-      baseATKSpd: 0
-      baseRange: 0
-      baseSpd: 0
+      baseMaxHp: 40
+      baseATK: 20
+      baseATKSpd: 0.5
+      baseRange: 4
+      baseSpd: 1
       bonusMaxHp: 0
       bonusATK: 0
       bonusATKSpd: 0

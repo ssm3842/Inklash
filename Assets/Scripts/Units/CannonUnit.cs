@@ -10,12 +10,9 @@ public class CannonUnit : Units
             return;
         }
         
-        
-        //GameObject newShell = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
-        //newShell.GetComponent<CannonShell>().targetPos = target.transform.position;
-
-        GameObject newArrow = Instantiate(shellPrefab, transform.position, Quaternion.identity);
-        newArrow.GetComponent<Arrow>().targetPos = target.transform.position;
+    
+        GameObject newShell = Instantiate(shellPrefab, transform.position, Quaternion.identity);
+        newShell.GetComponent<CannonShell>().targetPos = target.transform.position;
 
         target?.StartCoroutine(target.TakeDamage(statController.GetStat(StatType.ATK), 0.2f));
     }

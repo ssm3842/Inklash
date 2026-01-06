@@ -79,5 +79,54 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 343857630251856812, guid: b62f85981057a7d46919ee866face945, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5685696592985769951}
   m_SourcePrefab: {fileID: 100100000, guid: b62f85981057a7d46919ee866face945, type: 3}
+--- !u!114 &356643855177108556 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7729553345636926120, guid: b62f85981057a7d46919ee866face945, type: 3}
+  m_PrefabInstance: {fileID: 8050164966914215652}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7742337380305042760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2723079461734428090 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5367653266981184350, guid: b62f85981057a7d46919ee866face945, type: 3}
+  m_PrefabInstance: {fileID: 8050164966914215652}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7742337380305042760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256a08fe351d1b94d9788d263637dadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &7742337380305042760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 343857630251856812, guid: b62f85981057a7d46919ee866face945, type: 3}
+  m_PrefabInstance: {fileID: 8050164966914215652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5685696592985769951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7742337380305042760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a6690208b70a24f980e7f948bcf445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statController: {fileID: 2723079461734428090}
+  buffController: {fileID: 356643855177108556}
+  healthBar: {fileID: 0}
+  isPlayers: 0
+  canAttack: 1
+  canAttackTimer: 0
+  deathDuration: 0.3
