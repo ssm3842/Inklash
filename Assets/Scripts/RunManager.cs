@@ -19,16 +19,23 @@ public class RunManager : MonoBehaviour
     public UnitDataManager unitDataManager;
     public ResourceManager resourceManager;
 
+    public RandomEventCanvas randomEventCanvas;
+    public GameObject campfireCanvas;
+    public GameObject placeholderCanvas;
+
     int runGold;
 
 
     void Start()
     {
         battleManager.gameObject.SetActive(false); //전투 비활성화
-        battleUICanvas.SetActive(false);
 
-        mapManager.gameObject.SetActive(true);
-    
+        //캔버스들을 미리 비활성화로 돌림.
+        battleUICanvas.SetActive(false);   
+        randomEventCanvas.gameObject.SetActive(false);
+        campfireCanvas.SetActive(false);
+        placeholderCanvas.SetActive(false);
+        
         InitRun();
     }
 
@@ -38,5 +45,6 @@ public class RunManager : MonoBehaviour
         unitDataManager.LoadCsvData(); //유닛 데이터를 csv에서 가져와 초기화.
         deckManager.InitDeck(startingDeckSO.startingDeck); //덱 정보를 시작 덱으로 초기화.
         resourceManager.Init(); // 체력, 돈 확인용
+        mapManager.SetVisible();
     }
 }

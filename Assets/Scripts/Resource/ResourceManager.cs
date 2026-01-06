@@ -7,8 +7,12 @@ public class ResourceManager : MonoBehaviour
     public int currentGold = 100;
     [SerializeField] private TextMeshProUGUI goldText;
 
-    public int maxLives = 2;
-    public int currentLives = 2;
+
+    int playerMaxHP;
+    int playerCurrentHP;
+
+    int maxLives = 2;
+    int currentLives = 2;
     [SerializeField] private TextMeshProUGUI lifeText;
 
     /*
@@ -53,10 +57,10 @@ public class ResourceManager : MonoBehaviour
 
     public void TakeDamage(int damage = 1)
     {
-        currentLives -= damage;
-        if (currentLives <= 0)
+        playerCurrentHP -= damage;
+        if (playerCurrentHP <= 0)
         {
-            currentLives = 0;
+            playerCurrentHP = 0;
             UpdateLifeUI();
             Debug.Log("Game Over");
             return;
@@ -66,7 +70,7 @@ public class ResourceManager : MonoBehaviour
 
     public void HealLife(int amount)
     {
-        currentLives = Mathf.Min(maxLives, currentLives + amount);
+        playerCurrentHP = Mathf.Min(playerMaxHP, playerCurrentHP + amount);
         UpdateLifeUI();
     }
 

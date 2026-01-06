@@ -57,7 +57,7 @@ public class MapDataGenerator : MonoBehaviour
             for (int j = 0; j < MAP_WIDTH; j++)
             {
                 RoomContent roomContent = new RoomContent();
-                Vector2 offset = new Vector2(Random.Range(0, 1f), Random.Range(0, 1f)) * PLACEMENT_RANDOMNESS;
+                Vector2 offset = new Vector2(50f, 150f) + new Vector2(Random.Range(0, 1f), Random.Range(0, 1f)) * PLACEMENT_RANDOMNESS;
 
                 roomContent.position = new Vector2(j * X_DIST, i * Y_DIST) + offset ;
                 roomContent.row = i;

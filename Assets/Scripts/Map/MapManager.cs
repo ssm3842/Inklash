@@ -8,6 +8,9 @@ public class MapManager : MonoBehaviour
     [SerializeField] MapDataGenerator mapGenerator;
     [SerializeField] GameObject scrollContent;
 
+    [SerializeField] Sprite[] icons;
+    Dictionary<RoomType, Sprite> roomIcons;
+
     List<List<RoomContent>> mapData;
     public int floorClimbed;
     public RoomContent lastRoom;
@@ -16,12 +19,31 @@ public class MapManager : MonoBehaviour
     {
         floorClimbed = 0;
         mapData = mapGenerator.GenerateMap();
-        VisualizeMap();
+        InitImageDictionary();
+        DrawMap();
 
         UnlockFloor(0);
     }
 
-    void VisualizeMap()
+    void InitImageDictionary()
+    {
+        //roomIcon이 초기화 되어 있지 않을 때만 실행.
+        if(roomIcons != null) return;
+
+        roomIcons = new Dictionary<RoomType, Sprite>
+        {
+            { RoomType.NOT_ASSIGNED, null },
+            { RoomType.BATTLE, icons[0] },
+            { RoomType.RANDOM_EVENT, icons[4] },
+            { RoomType.TREASURE, icons[1] },
+            { RoomType.CAMPFIRE, icons[2] },
+            { RoomType.SHOP, icons[3] },
+            { RoomType.BOSS, icons[0] }
+        };
+    }
+
+
+    void DrawMap()
     {
         foreach (List<RoomContent> currentFloor in mapData)
         {
@@ -72,7 +94,7 @@ public class MapManager : MonoBehaviour
     void SpawnRoom(RoomContent room)
     {
         MapButton NewMapButton = Instantiate(mapButton, scrollContent.transform);
-        NewMapButton.SetRoom(room);
+        NewMapButton.SetRoom(room, roomIcons[room.roomType]);
 
         ConnectLines(room);
     }
@@ -85,7 +107,7 @@ public class MapManager : MonoBehaviour
         {
             GameObject newMapLine = Instantiate(mapLine, scrollContent.transform);
 
-            newMapLine.transform.localPosition = (next.position + room.position) / 2f + new Vector2(150, 50);
+            newMapLine.transform.localPosition = (next.position + room.position) / 2f + new Vector2(100, 0);
 
             Vector2 direction = next.position - room.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -101,19 +123,19 @@ public class MapManager : MonoBehaviour
                 RunManager.Inst.battleManager.InitBattle();
                 break;
             case RoomType.RANDOM_EVENT:
-                Debug.Log("RANDOM_EVENT Clicked");
+                RunManager.Inst.randomEventCanvas.Init();
                 break;
             case RoomType.TREASURE:
-                Debug.Log("TREASURE Clicked");
+                RunManager.Inst.placeholderCanvas.SetActive(true);
                 break;
             case RoomType.CAMPFIRE:
-                Debug.Log("CAMPFIRE Clicked");
+                RunManager.Inst.campfireCanvas.SetActive(true);
                 break;
             case RoomType.SHOP:
-                Debug.Log("SHOP Clicked");
+                RunManager.Inst.placeholderCanvas.SetActive(true);
                 break;
             case RoomType.BOSS:
-                Debug.Log("BOSS Clicked");
+                RunManager.Inst.battleManager.InitBattle();
                 break;
             default:
                 Debug.Log("Bug Occured");
@@ -123,6 +145,11 @@ public class MapManager : MonoBehaviour
 
         LockSameFloor();
         lastRoom = room;
+    }
+
+    public void ClearLastRoom()
+    {
+        lastRoom.isCleared = true;
 
         floorClimbed++;
         UnlockFloor(floorClimbed);
@@ -130,9 +157,18 @@ public class MapManager : MonoBehaviour
 
     public void SetVisible() //캔버스의 열리는 여부 결정. 열릴 경우 시간 흐름 정지.
     {
-        if (!gameObject.activeSelf) Time.timeScale = 0f;
-        else Time.timeScale = 1f;
-
         gameObject.SetActive(!gameObject.activeSelf);
+
+        if (gameObject.activeSelf)
+        {
+            Time.timeScale = 0f;
+
+            foreach(Transform child in scrollContent.transform)
+            {
+                child.GetComponent<MapButton>()?.UpdateAnimation();
+            }
+        }
+
+        else Time.timeScale = 1f;
     }
 }
