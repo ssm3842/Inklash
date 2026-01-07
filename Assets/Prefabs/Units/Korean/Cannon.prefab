@@ -129,7 +129,7 @@ MonoBehaviour:
   canAttack: 0
   canAttackTimer: 0
   deathDuration: 0.3
-  shellPrefab: {fileID: 6447233336187863339, guid: e788f72a8d6b5f640963e0ca8d842c70, type: 3}
+  shellPrefab: {fileID: 1744318707687331671, guid: 54982cc0de75c6e4da2dcbe5f807c082, type: 3}
 --- !u!114 &6901518867496698976 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7729553345636926120, guid: b62f85981057a7d46919ee866face945, type: 3}
