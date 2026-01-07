@@ -16,4 +16,4 @@ MonoBehaviour:
   enemyDeck:
   - {fileID: 11400000, guid: 3922f7bb764d0b44c8cf8e12e7111aee, type: 2}
   - {fileID: 11400000, guid: 1b577812e35d7a3478e9b77c70bd81d6, type: 2}
-  startingHP: 30
+  startingHP: 110
