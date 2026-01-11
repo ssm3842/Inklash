@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card:
     id: LowerI
-    name: LowerI
+    name: ENEMY_NAME_LOWER_I
     cost: 3
-    type: 0
+    cardType: 0
+    attackType: 2
     effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    description: ENEMY_DESC_LOWER_I
     stats:
-      baseMaxHp: 10
-      baseATK: 1
+      baseMaxHp: 15
+      baseATK: 4
       baseATKSpd: 1
       baseRange: 3
       baseSpd: 1

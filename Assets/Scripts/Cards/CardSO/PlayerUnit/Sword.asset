@@ -16,12 +16,13 @@ MonoBehaviour:
     id: Sword
     name: "\uAC80"
     cost: 2
-    type: 0
+    cardType: 0
+    attackType: 1
     effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    description: 
     stats:
-      baseMaxHp: 20
-      baseATK: 1
+      baseMaxHp: 30
+      baseATK: 5
       baseATKSpd: 1
       baseRange: 1
       baseSpd: 1

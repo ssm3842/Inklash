@@ -21,11 +21,11 @@ MonoBehaviour:
     effectID: 
     description: 
     stats:
-      baseMaxHp: 140
-      baseATK: 15
-      baseATKSpd: 1
+      baseMaxHp: 25
+      baseATK: 4
+      baseATKSpd: 0.75
       baseRange: 2
-      baseSpd: 1.5
+      baseSpd: 1.2
       bonusMaxHp: 0
       bonusATK: 0
       bonusATKSpd: 0

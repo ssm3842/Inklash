@@ -16,14 +16,15 @@ MonoBehaviour:
     id: Lightning
     name: "\uBC88\uAC1C"
     cost: 2
-    type: 1
+    cardType: 1
+    attackType: 0
     effectID: 
     description: 
     stats:
       baseMaxHp: 0
       baseATK: 10
       baseATKSpd: 0
-      baseRange: 0
+      baseRange: 1.5
       baseSpd: 0
       bonusMaxHp: 0
       bonusATK: 0

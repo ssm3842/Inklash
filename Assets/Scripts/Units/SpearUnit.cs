@@ -8,9 +8,6 @@ public class SpearUnit : Units
     float stepSpd = 0.1f;
     float stepAtk = 0.1f;
 
-    private float cachedBaseSpd = 0f;
-    private float cachedBaseAtk = 0f;
-
     private float updateTimer = 0f;
 
 
@@ -21,20 +18,23 @@ public class SpearUnit : Units
             base.Move();
             return;
         }
+        
+        float currentSpd = statController.GetStat(StatType.SPD);
+
+        if (currentSpd <= 0f)
+        {
+            if (accSpeed > 0f || updateTimer > 0f)
+            {
+                ResetBonus();
+            }
+        }
 
         updateTimer += Time.deltaTime;
        if (updateTimer >= 0.1f)
         {
             updateTimer = 0f;
 
-            if (accSpeed <= 0f)
-            {
-                cachedBaseSpd = statController.GetStat(StatType.SPD);
-                cachedBaseAtk = statController.GetStat(StatType.ATK);
-            }
-
-
-            if (accSpeed < 1)
+            if (accSpeed < 0.5)
             {
                 statController.ControlBonusStat(StatType.SPD, stepSpd);
                 statController.ControlBonusStat(StatType.ATK, stepAtk);

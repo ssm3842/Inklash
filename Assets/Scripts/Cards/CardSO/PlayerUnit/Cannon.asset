@@ -15,14 +15,14 @@ MonoBehaviour:
   card:
     id: Cannon
     name: "\uD3EC"
-    cost: 6
+    cost: 7
     cardType: 0
     attackType: 2
     effectID: 
     description: 
     stats:
-      baseMaxHp: 80
-      baseATK: 25
+      baseMaxHp: 10
+      baseATK: 9
       baseATKSpd: 0.8
       baseRange: 6
       baseSpd: 0.5
