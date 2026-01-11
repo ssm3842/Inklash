@@ -14,6 +14,8 @@ public class Units : DamageableObject
     private SpriteRenderer SR;        
     private Collider2D COL;           
     [SerializeField] private float deathDuration = 0.3f; 
+    private bool disruptEffectOccur = false; 
+    public bool DisruptEffectOccur => disruptEffectOccur;
 
     Rigidbody2D RB;
     Animator ANI;
@@ -62,6 +64,8 @@ public class Units : DamageableObject
             //이동속도 0
             RB.linearVelocityX = 0f;
 
+            disruptEffectOccur = true;
+
             return;
         }
         else
@@ -107,6 +111,8 @@ public class Units : DamageableObject
         if (canAttackTimer >= 2f && !canAttack) canAttack = true; //2초마다 공격 가능 상태가 됨.
         else if (canAttackTimer >= 2f && canAttack) { }
         else canAttackTimer += Time.deltaTime * statController.GetStat(StatType.ATKSPD); //공격 속도만큼 빠르게 채워짐.
+        
+        if(DisruptEffectOccur) disruptEffectOccur = false;
     }
 
     public virtual void Move()
