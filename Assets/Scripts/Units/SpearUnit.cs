@@ -11,15 +11,14 @@ public class SpearUnit : Units
     private float updateTimer = 0f;
 
 
-    
+    public override void OnDisruptEffect()
+    {
+        ResetBonus();
+        base.OnDisruptEffect();
+    }
 
     public override void Move()
     {
-        if(DisruptEffectOccur)
-        {
-            ResetBonus(); 
-        }
-        
         if (target || isAttacking)
         {
             base.Move();

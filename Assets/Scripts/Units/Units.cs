@@ -14,8 +14,6 @@ public class Units : DamageableObject
     private SpriteRenderer SR;        
     private Collider2D COL;           
     [SerializeField] private float deathDuration = 0.3f; 
-    private bool disruptEffectOccur = false; 
-    public bool DisruptEffectOccur => disruptEffectOccur;
 
     Rigidbody2D RB;
     Animator ANI;
@@ -51,20 +49,8 @@ public class Units : DamageableObject
         //디버프로 인한 행동불능이 있는지 검사.
         if(buffController.HaveDisruptEffect())
         {
-            //애니메이션 초기화.
-            ANI.speed = 0f;
-            ANI.SetTrigger("Disrupted");
-
-            //공격 초기화
-            target = null;
-            isAttacking = false;
-            canAttackTimer = 0f;
-            canAttack = false;
-
-            //이동속도 0
-            RB.linearVelocityX = 0f;
-
-            disruptEffectOccur = true;
+            //기존 효과를 함수로 이전.
+            OnDisruptEffect();
 
             return;
         }
@@ -114,8 +100,22 @@ public class Units : DamageableObject
         if (canAttackTimer >= statController.GetStat(StatType.ATKTerm) && !canAttack) canAttack = true; //ATKTerm 만큼의 초마다 공격 가능 상태가 됨.
         else if (canAttackTimer >= statController.GetStat(StatType.ATKTerm) && canAttack) { }
         else canAttackTimer += Time.deltaTime * statController.GetStat(StatType.ATKSPD); //공격 속도만큼 빠르게 채워짐.
-        
-        if(DisruptEffectOccur) disruptEffectOccur = false;
+    }
+
+    public virtual void OnDisruptEffect()
+    {
+        //애니메이션 초기화.
+            ANI.speed = 0f;
+            ANI.SetTrigger("Disrupted");
+
+            //공격 초기화
+            target = null;
+            isAttacking = false;
+            canAttackTimer = 0f;
+            canAttack = false;
+
+            //이동속도 0
+            RB.linearVelocityX = 0f;
     }
 
     public virtual void Move()
