@@ -142,7 +142,8 @@ public class UnitDataManager : MonoBehaviour
                 // 각종 수치 할당
                 cardLink.cardContents.card.stats.baseMaxHp = float.Parse(columns[4]);
                 cardLink.cardContents.card.stats.baseATK = float.Parse(columns[5]);
-                cardLink.cardContents.card.stats.baseATKSpd = float.Parse(columns[6]);
+                cardLink.cardContents.card.stats.baseATKTerm = float.Parse(columns[6]);
+                cardLink.cardContents.card.stats.baseATKSpd = 1f;
                 cardLink.cardContents.card.stats.baseRange = float.Parse(columns[7]);
                 cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[8]);
 
@@ -279,7 +280,8 @@ public class UnitDataManager : MonoBehaviour
                 // 각종 수치 할당
                 cardLink.cardContents.card.stats.baseMaxHp = float.Parse(columns[3]);
                 cardLink.cardContents.card.stats.baseATK = float.Parse(columns[4]);
-                cardLink.cardContents.card.stats.baseATKSpd = float.Parse(columns[5]);
+                cardLink.cardContents.card.stats.baseATKTerm = float.Parse(columns[5]);
+                cardLink.cardContents.card.stats.baseATKSpd = 1f;
                 cardLink.cardContents.card.stats.baseRange = float.Parse(columns[6]);
                 cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[7]);
 

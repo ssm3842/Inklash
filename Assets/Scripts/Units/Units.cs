@@ -108,8 +108,8 @@ public class Units : DamageableObject
             ANI.SetTrigger("Attacked");
         }
 
-        if (canAttackTimer >= 2f && !canAttack) canAttack = true; //2초마다 공격 가능 상태가 됨.
-        else if (canAttackTimer >= 2f && canAttack) { }
+        if (canAttackTimer >= statController.GetStat(StatType.ATKTerm) && !canAttack) canAttack = true; //ATKTerm 만큼의 초마다 공격 가능 상태가 됨.
+        else if (canAttackTimer >= statController.GetStat(StatType.ATKTerm) && canAttack) { }
         else canAttackTimer += Time.deltaTime * statController.GetStat(StatType.ATKSPD); //공격 속도만큼 빠르게 채워짐.
         
         if(DisruptEffectOccur) disruptEffectOccur = false;

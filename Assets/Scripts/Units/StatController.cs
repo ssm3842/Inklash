@@ -68,6 +68,8 @@ public class StatController : MonoBehaviour
                 return unitStats.baseMaxHp;
             case StatType.ATK:
                 return unitStats.baseATK * (1 + unitStats.bonusATK);
+            case StatType.ATKTerm:
+                return unitStats.baseATKTerm;
             case StatType.ATKSPD:
                 return unitStats.baseATKSpd * (1 + unitStats.bonusATKSpd) ;
             case StatType.RANGE:
@@ -88,6 +90,7 @@ public class UnitStats
 {
     public float baseMaxHp;
     public float baseATK;
+    public float baseATKTerm;
     public float baseATKSpd;
     public float baseRange;
     public float baseSpd;
@@ -103,14 +106,16 @@ public class UnitStats
     {
         baseMaxHp = newStats.baseMaxHp;
         baseATK = newStats.baseATK;
+        baseATKTerm = newStats.baseATKTerm;
         baseATKSpd = newStats.baseATKSpd;
         baseRange = newStats.baseRange;
         baseSpd = newStats.baseSpd;
     }
-    public UnitStats(float newMaxhp, float newATK, float newATKSpd, float newRange, float MoveSpd)
+    public UnitStats(float newMaxhp, float newATK, float newATKTerm, float newATKSpd, float newRange, float MoveSpd)
     {
         baseMaxHp = newMaxhp;
         baseATK = newATK;
+        baseATKTerm = newATKTerm;
         baseATKSpd = newATKSpd;
         baseRange = newRange;
         baseSpd = MoveSpd;
@@ -119,5 +124,5 @@ public class UnitStats
 
 public enum StatType
 {
-    MAX_HP, ATK, ATKSPD, RANGE, SPD
+    MAX_HP, ATK, ATKTerm, ATKSPD, RANGE, SPD
 }
