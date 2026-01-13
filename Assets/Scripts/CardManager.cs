@@ -151,10 +151,13 @@ public class CardManager : MonoBehaviour
     public void CardRightClicked()
     {
         isDraggingCard = false;
-        draggingCard.transform.SetParent(handLayout.transform);
-        draggingCard.transform.SetSiblingIndex(draggingCard.originalIndex);
-        draggingCard = null;
-
+        if(draggingCard)
+        {
+            draggingCard.transform.SetParent(handLayout.transform);
+            draggingCard.transform.SetSiblingIndex(draggingCard.originalIndex);
+            draggingCard = null;
+        }
+        
         handLayout.AlignCards();
     }
 
