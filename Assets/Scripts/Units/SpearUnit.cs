@@ -8,33 +8,30 @@ public class SpearUnit : Units
     float stepSpd = 0.1f;
     float stepAtk = 0.1f;
 
-    private float cachedBaseSpd = 0f;
-    private float cachedBaseAtk = 0f;
-
     private float updateTimer = 0f;
 
 
+    
+
     public override void Move()
     {
+        if(DisruptEffectOccur)
+        {
+            ResetBonus(); 
+        }
+        
         if (target || isAttacking)
         {
             base.Move();
             return;
-        }
+        }    
 
         updateTimer += Time.deltaTime;
        if (updateTimer >= 0.1f)
         {
             updateTimer = 0f;
 
-            if (accSpeed <= 0f)
-            {
-                cachedBaseSpd = statController.GetStat(StatType.SPD);
-                cachedBaseAtk = statController.GetStat(StatType.ATK);
-            }
-
-
-            if (accSpeed < 1)
+            if (accSpeed < 1.0)
             {
                 statController.ControlBonusStat(StatType.SPD, stepSpd);
                 statController.ControlBonusStat(StatType.ATK, stepAtk);

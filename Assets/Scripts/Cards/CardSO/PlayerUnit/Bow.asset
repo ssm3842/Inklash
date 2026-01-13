@@ -16,14 +16,15 @@ MonoBehaviour:
     id: Bow
     name: "\uD65C"
     cost: 3
-    type: 0
+    cardType: 0
+    attackType: 2
     effectID: 
-    description: "\uC77C\uB2E8 \uBE44\uC6CC\uB193\uAE30"
+    description: 
     stats:
-      baseMaxHp: 10
-      baseATK: 1
-      baseATKSpd: 1
-      baseRange: 3
+      baseMaxHp: 15
+      baseATK: 4
+      baseATKSpd: 1.5
+      baseRange: 5
       baseSpd: 1
       bonusMaxHp: 0
       bonusATK: 0

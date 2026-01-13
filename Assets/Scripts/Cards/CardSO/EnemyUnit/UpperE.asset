@@ -21,9 +21,9 @@ MonoBehaviour:
     effectID: 
     description: ENEMY_DESC_UPPER_E
     stats:
-      baseMaxHp: 40
-      baseATK: 20
-      baseATKSpd: 0.5
+      baseMaxHp: 25
+      baseATK: 10
+      baseATKSpd: 0.6
       baseRange: 4
       baseSpd: 1
       bonusMaxHp: 0
