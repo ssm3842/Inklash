@@ -73,6 +73,9 @@ public class Units : DamageableObject
             ANI.speed = 1f;
         }
 
+        //유닛이 사망하지 않았고 행동불능이 아니라면 애니메이션 속도를 공격속도에 맞게 제어함.
+        ANI.speed = statController.GetStat(StatType.ATKSPD);
+
         //검색한 타겟이 유효한지 검사.
         if (target != null)
         {
