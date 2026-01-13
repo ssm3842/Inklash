@@ -28,7 +28,6 @@ public class DamageableObject : MonoBehaviour
             if (!isPlayers)
             {   //TODO: 플레이어 승리 시 동작
                 RunManager.Inst.battleManager.OnBattleWin();
-                Debug.Log("Player win");
             }
             else
             {   //TODO: 플레이어 패배 시 동작

@@ -45,6 +45,8 @@ public class BattleManager : MonoBehaviour
         newRewardButton.AddRewardButton(RewardType.Gold, 70);
         battleRewardCanvas.gameObject.SetActive(true);
 
+        RunManager.Inst.battleManager.cardManager.CardRightClicked();
+
         RunManager.Inst.mapManager.ClearLastRoom();
     }
 
