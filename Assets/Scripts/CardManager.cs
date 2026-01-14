@@ -105,8 +105,7 @@ public class CardManager : MonoBehaviour
         if (isDraggingCard)
         {
             draggingCard.transform.position = Input.mousePosition;
-
-            Debug.Log(draggingCard.transform.position.y);
+            
             //선택한 카드가 -300보다 높은 위치일 때(임의) 투명도 조절.
             if(draggingCard.transform.position.y >= 250)
             {
@@ -187,7 +186,7 @@ public class CardManager : MonoBehaviour
 
             draggingCard.transform.SetParent(handLayout.transform);
             draggingCard.transform.SetSiblingIndex(draggingCard.originalIndex);
-            
+
             draggingCard = null;
             draggingCardImageComponent = null;
         }
