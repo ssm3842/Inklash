@@ -11,6 +11,8 @@ public class Lightning : SpellBase
         {
             if(enemy.gameObject.GetComponent<DamageableObject>().isPlayers) continue;
             if(enemy.gameObject.GetComponent<Units>() == null) continue;
+
+            enemy.gameObject.GetComponent<BuffController>().GetBuff(new BuffShock());
             StartCoroutine(enemy.gameObject.GetComponent<Units>().TakeDamage(damage));
         }
     }
