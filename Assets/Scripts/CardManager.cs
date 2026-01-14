@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] List<Card> playerHands;
 
     public Card draggingCard;
+    private Image draggingCardImageComponent;
     public bool isDraggingCard = false;
 
     public void Init() //TODO: 이름 바꾸기
@@ -103,6 +105,30 @@ public class CardManager : MonoBehaviour
         if (isDraggingCard)
         {
             draggingCard.transform.position = Input.mousePosition;
+
+            Debug.Log(draggingCard.transform.position.y);
+            //선택한 카드가 -300보다 높은 위치일 때(임의) 투명도 조절.
+            if(draggingCard.transform.position.y >= 250)
+            {
+                if(draggingCardImageComponent.color.a <= 0.2f) return;
+                else
+                {
+                    Color currentColor = draggingCardImageComponent.color;
+                    currentColor.a = 0.2f;
+                    draggingCardImageComponent.color = currentColor;
+                }
+            }
+            //-300보다 낮은 위치(패에 가까운 위치)면 불투명하게 변경.
+            else
+            {
+                if(draggingCardImageComponent.color.a >= 1f) return;
+                else
+                {
+                    Color currentColor = draggingCardImageComponent.color;
+                    currentColor.a = 1f;
+                    draggingCardImageComponent.color = currentColor;
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -119,6 +145,7 @@ public class CardManager : MonoBehaviour
 
             isDraggingCard = true;
             draggingCard = card;
+            draggingCardImageComponent = draggingCard.GetComponent<Image>();
             draggingCard.transform.SetParent(battleUICanvas.transform);
         }
         else //카드가 손에 있을 때 좌클릭 하면 사용.
@@ -151,11 +178,18 @@ public class CardManager : MonoBehaviour
     public void CardRightClicked()
     {
         isDraggingCard = false;
+
         if(draggingCard)
         {
+            Color currentColor = draggingCardImageComponent.color;
+            currentColor.a = 1f;
+            draggingCardImageComponent.color = currentColor;
+
             draggingCard.transform.SetParent(handLayout.transform);
             draggingCard.transform.SetSiblingIndex(draggingCard.originalIndex);
+            
             draggingCard = null;
+            draggingCardImageComponent = null;
         }
         
         handLayout.AlignCards();
