@@ -17,12 +17,17 @@ public class StatController : MonoBehaviour
         unitStats.bonusSpd = 0;
     }
 
+    public void InitMaxHP()
+    {
+        curHP = unitStats.baseMaxHp * (1 + unitStats.bonusMaxHp);
+    }
+
     public void ControlBonusStat(StatType statType, float amount)
     {
         switch (statType)
         {
             case StatType.MAX_HP:
-                // unitStats.baseMaxHp;
+                unitStats.bonusMaxHp += amount;
                 break;
             case StatType.ATK:
                 unitStats.bonusATK += amount;
@@ -45,6 +50,9 @@ public class StatController : MonoBehaviour
     {
         switch (statType)
         {
+            case StatType.MAX_HP:
+                unitStats.bonusMaxHp = 0;
+                break;
             case StatType.ATK:
                 unitStats.bonusATK = 0;
                 break;
@@ -65,7 +73,7 @@ public class StatController : MonoBehaviour
         switch (statType)
         {
             case StatType.MAX_HP:
-                return unitStats.baseMaxHp;
+                return unitStats.baseMaxHp * (1 + unitStats.bonusMaxHp);
             case StatType.ATK:
                 return unitStats.baseATK * (1 + unitStats.bonusATK);
             case StatType.ATKTerm:
