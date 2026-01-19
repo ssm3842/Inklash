@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: EnemyDeck_1
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300000, guid: 329a1f8cca9598f428757648e7a724eb, type: 3}
-  enemyDeck:
-  - {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
-  - {fileID: 11400000, guid: 59be465672e808b4eb1286d4936833e0, type: 2}
-  startingHP: 600
+  maxHP: 600
+  isElite: 0
+  startPatterns:
+  - {fileID: 11400000, guid: aa7d4601ea7472a4ea0db73a62b21be3, type: 2}
+  normalPatterns:
+  - {fileID: 11400000, guid: 1225f71dc9ad9db4ab00dd0e591364d6, type: 2}
+  phase2Patterns:
+  - {fileID: 11400000, guid: b3ec0f68fecf2304b99af301a133ec5c, type: 2}

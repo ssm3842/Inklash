@@ -1433,6 +1433,7 @@ MonoBehaviour:
   unitStats:
     baseMaxHp: 0
     baseATK: 0
+    baseATKTerm: 0
     baseATKSpd: 0
     baseRange: 0
     baseSpd: 0
@@ -3332,6 +3333,7 @@ MonoBehaviour:
   unitStats:
     baseMaxHp: 0
     baseATK: 0
+    baseATKTerm: 0
     baseATKSpd: 0
     baseRange: 0
     baseSpd: 0
@@ -7609,11 +7611,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a1dfb199282f648a5d89347dce4ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPhase: 0
   playerBase: {fileID: 1041127018}
   enemyBase: {fileID: 597376420}
   enemyBaseDatas:
-  - {fileID: 11400000, guid: bcc5a49c5827e7244b79838face5774e, type: 2}
   - {fileID: 11400000, guid: fbe902b05cbb0a94bb49679f1830dc65, type: 2}
+  - {fileID: 11400000, guid: fc24ae12400d10f40b99064e8a91f405, type: 2}
 --- !u!4 &2087044754
 Transform:
   m_ObjectHideFlags: 0

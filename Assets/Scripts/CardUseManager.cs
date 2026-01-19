@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CardUseManager : MonoBehaviour
 {
+
+    public enum SpawnPhase { GameStart, Normal, Phase2 }
+    public SpawnPhase currentPhase = SpawnPhase.GameStart; 
+    private EnemyBaseDataSO currentEnemyData;
+
     float spawnHeight = 0.3f;
     [SerializeField] GameObject playerBase;
     [SerializeField] GameObject enemyBase;
@@ -20,21 +25,16 @@ public class CardUseManager : MonoBehaviour
     public void InitUnitManager()
     {
         //적 데이터 중에서 하나를 랜덤으로 선택.
-        EnemyBaseDataSO enemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
-
-        availableEnemies = new List<CardContent>();
-
-        foreach(CardDataSO enemyCard in enemyData.enemyDeck)
-        {
-            availableEnemies.Add(enemyCard.card);
-        }
+        currentEnemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
 
         stackedWordCardEffect = new List<WordBase>();
 
         playerBase.GetComponent<DamageableObject>().Init(true, new UnitStats(300,0,0,0,0,0)); //TODO: 건물 체력 임시 생성.
-        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(enemyData.startingHP,0,0,0,0,0));
-        enemyBase.GetComponent<SpriteRenderer>().sprite = enemyData.baseSprite;
+        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(currentEnemyData.maxHP,0,0,0,0,0));
+        enemyBase.GetComponent<SpriteRenderer>().sprite = currentEnemyData.baseSprite;
         enemyBase.gameObject.SetActive(true);
+
+        currentPhase = SpawnPhase.GameStart;
 
         if(enemySpawnCoroutine == null) enemySpawnCoroutine = StartCoroutine(SpawnEnemyCoroutine());
     }
@@ -149,14 +149,58 @@ public class CardUseManager : MonoBehaviour
     {
         while (true)
         {
-            int randomIndex = Random.Range(0, availableEnemies.Count);
-            CardContent enemyUnit = availableEnemies[randomIndex];
+            List<EnemyPatternSO> currentPatternList = GetPatternsByPhase(currentPhase);
 
-            GameObject newUnit = Instantiate(enemyUnit.unit, enemyBase.transform.position + new Vector3(-1, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
-            newUnit.transform.SetParent(transform);
-            newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
+            int randomIndex = Random.Range(0, currentPatternList.Count);
+            EnemyPatternSO selectedPattern = currentPatternList[randomIndex];
 
-            yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
+            foreach (CardDataSO cardData in selectedPattern.enemyDeck)
+            {
+                CardContent enemyUnit = cardData.card; 
+
+                GameObject newUnit = Instantiate(enemyUnit.unit, 
+                    enemyBase.transform.position + new Vector3(-1, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), 
+                    Quaternion.identity);
+                
+                newUnit.transform.SetParent(transform);
+                newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
+
+                yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
+            }
+
+            if (currentPhase == SpawnPhase.GameStart)
+            {
+                ChangePhase(SpawnPhase.Normal);
+            }
+            else if (currentPhase == SpawnPhase.Phase2 && currentEnemyData.isElite == false)
+            {
+                ChangePhase(SpawnPhase.Normal);
+            }
         }
+    }
+
+    List<EnemyPatternSO> GetPatternsByPhase(SpawnPhase phase)
+    {
+        switch (phase)
+        {
+            case SpawnPhase.GameStart: return currentEnemyData.startPatterns;
+            case SpawnPhase.Normal:    return currentEnemyData.normalPatterns;
+            case SpawnPhase.Phase2:    return currentEnemyData.phase2Patterns;
+            default: return null;
+        }
+    }
+
+    public void ChangePhase(SpawnPhase newPhase)
+    {
+        if (currentPhase == newPhase) return;
+
+        currentPhase = newPhase;
+        Debug.Log($" 적 페이즈 변경: {currentPhase}");
+
+        if (enemySpawnCoroutine != null)
+        {
+            StopCoroutine(enemySpawnCoroutine);
+        }
+        enemySpawnCoroutine = StartCoroutine(SpawnEnemyCoroutine());
     }
 }

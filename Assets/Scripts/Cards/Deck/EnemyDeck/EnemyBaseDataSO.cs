@@ -5,6 +5,11 @@ using UnityEngine;
 public class EnemyBaseDataSO : ScriptableObject
 {
     public Sprite baseSprite;
-    public List<CardDataSO> enemyDeck;
-    public int startingHP;
+
+    public float maxHP;
+    public bool isElite = false; 
+
+    public List<EnemyPatternSO> startPatterns;
+    public List<EnemyPatternSO> normalPatterns;
+    public List<EnemyPatternSO> phase2Patterns;
 }
