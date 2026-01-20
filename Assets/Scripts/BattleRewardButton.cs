@@ -40,7 +40,7 @@ public class BattleRewardButton : MonoBehaviour
                 RunManager.Inst.resourceManager?.EarnGold(rewardContent);
                 break;
             case RewardType.Card:
-                //TODO: 랜덤한 카드 3개를 선택. 및 표시.
+                RunManager.Inst.cardRewardCanvas.GetComponent<CardRewardUI>().SetReward();
                 break;
             case RewardType.Artifact:
                 break;

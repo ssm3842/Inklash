@@ -5,9 +5,7 @@ public class BattleManager : MonoBehaviour
 {
 
     [SerializeField] GameObject battleUICanvas;
-    [SerializeField] GameObject battleRewardCanvas;
-    [SerializeField] GameObject battleRewardButtonContainer;
-    [SerializeField] BattleRewardButton battleRewardButtonPrefab;
+    [SerializeField] BattleRewardController battleRewardCanvas;
 
     public CardManager cardManager;
     public CardUseManager cardUseManager;
@@ -41,8 +39,9 @@ public class BattleManager : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        BattleRewardButton newRewardButton = Instantiate(battleRewardButtonPrefab, battleRewardButtonContainer.transform);
-        newRewardButton.AddRewardButton(RewardType.Gold, 70);
+        //보상을 설정
+        battleRewardCanvas.AddRewards();
+
         battleRewardCanvas.gameObject.SetActive(true);
 
         cardManager.CardRightClicked();
