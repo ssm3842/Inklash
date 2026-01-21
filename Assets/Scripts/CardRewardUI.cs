@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardRewardUI : MonoBehaviour
 {
     bool isRewardSetted = false;
 
-    List<CardContent> rewards;
-
     [SerializeField]GameObject cardRewardUIPrefab;
     [SerializeField]GameObject cardRewardUIContainer;
     [SerializeField]CardDataLinkSO cardLinkSo;
+
+    List<CardDataSO> rewards;
     List<CardDataSO> cardData;
 
     public void SetReward()
@@ -17,6 +18,7 @@ public class CardRewardUI : MonoBehaviour
         //보상이 이미 설정된 상태라면 생략.
         if(isRewardSetted) return;
 
+        rewards = new List<CardDataSO>();
         cardData = new List<CardDataSO>();
 
         //보상 풀 설정
@@ -39,15 +41,21 @@ public class CardRewardUI : MonoBehaviour
         {
             int randomI = Random.Range(0, cardData.Count);
 
-            GameObject newCardReward = Instantiate(cardRewardUIPrefab);
-            newCardReward.transform.SetParent(cardRewardUIContainer.transform);
-            //newCardReward에서 컴포넌트 가져와서 셋업.
-            //클릭에 리스너 설정해서 보상 클릭 시 덱매니저에 전달.
+            GameObject newCardReward = Instantiate(cardRewardUIPrefab, cardRewardUIContainer.transform);
 
-            // cardData[randomI];
-            // rewards.Add(cardData.)
+            CardDataSO currentCardData = cardData[randomI];
+            rewards.Add(currentCardData);
+
+            newCardReward.GetComponent<CardRewardCardUI>().Setup(currentCardData.card);
+
+            newCardReward.GetComponent<Button>().onClick.AddListener(() => OnCardRewardSelected(currentCardData));;
 
             gameObject.SetActive(true);
         }
+    }
+
+    void OnCardRewardSelected(CardDataSO cardData)
+    {
+        Debug.Log(cardData);
     }
 }
