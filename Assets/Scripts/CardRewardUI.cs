@@ -12,12 +12,15 @@ public class CardRewardUI : MonoBehaviour
 
     List<CardDataSO> rewards;
     List<CardDataSO> cardData;
-
-    public void SetReward()
-    {   
+    public void ShowCardReward()
+    {
         //보상이 이미 설정된 상태라면 생략.
-        if(isRewardSetted) return;
+        if(isRewardSetted) gameObject.SetActive(true);
+        else SetReward();
+    }
 
+    void SetReward()
+    {   
         rewards = new List<CardDataSO>();
         cardData = new List<CardDataSO>();
 
@@ -48,7 +51,7 @@ public class CardRewardUI : MonoBehaviour
 
             newCardReward.GetComponent<CardRewardCardUI>().Setup(currentCardData.card);
 
-            newCardReward.GetComponent<Button>().onClick.AddListener(() => OnCardRewardSelected(currentCardData));;
+            newCardReward.GetComponent<Button>().onClick.AddListener(() => OnCardRewardSelected(currentCardData));
 
             gameObject.SetActive(true);
         }
@@ -56,6 +59,8 @@ public class CardRewardUI : MonoBehaviour
 
     void OnCardRewardSelected(CardDataSO cardData)
     {
-        Debug.Log(cardData);
+        RunManager.Inst.deckManager.AddCardToDeck(cardData.card);
+        isRewardSetted = false;
+        gameObject.SetActive(false);
     }
 }

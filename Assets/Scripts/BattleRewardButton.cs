@@ -38,14 +38,15 @@ public class BattleRewardButton : MonoBehaviour
         {
             case RewardType.Gold:
                 RunManager.Inst.resourceManager?.EarnGold(rewardContent);
+                Destroy(gameObject);
                 break;
             case RewardType.Card:
-                RunManager.Inst.cardRewardCanvas.GetComponent<CardRewardUI>().SetReward();
+                RunManager.Inst.cardRewardCanvas.GetComponent<CardRewardUI>().ShowCardReward();
                 break;
             case RewardType.Artifact:
+                Destroy(gameObject);
                 break;
         }
-        Destroy(gameObject);
     }
 
 }
