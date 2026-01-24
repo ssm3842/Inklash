@@ -14,7 +14,7 @@ public class CardRewardUI : MonoBehaviour
     List<CardDataSO> cardData;
     public void ShowCardReward()
     {
-        //보상이 이미 설정된 상태라면 생략.
+        //보상이 이미 설정된 상태라면 보여주기.
         if(isRewardSetted) gameObject.SetActive(true);
         else SetReward();
     }
