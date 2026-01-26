@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     public CardContent cardContent;
     public int originalIndex;
@@ -16,12 +16,16 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] Renderer[] subObjectsRenderers;
 
+    //좌클릭과 우클릭 시 
     public void OnPointerClick(PointerEventData eventData)
     {
         // 좌클릭
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            cardManager.CardLeftClicked(this);
+            if(!eventData.dragging)
+            {
+                cardManager.CardLeftClicked(this);
+            }
         }
         // 우클릭
         else if (eventData.button == PointerEventData.InputButton.Right)
@@ -29,9 +33,10 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             cardManager.CardRightClicked();
         }
     }
+    //마우스 호버 시
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.SetSiblingIndex(5);
+        transform.SetAsLastSibling();
 
         originalPosition = transform.position;
         transform.position = new Vector3(transform.position.x, 225, 0);
@@ -42,6 +47,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         // Time.timeScale = 0.1f;
     }
+    //마우스 호버 종료 시
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.SetSiblingIndex(originalIndex);
@@ -52,6 +58,33 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         transform.localScale = new Vector3(1f, 1f, 1f);
 
         // Time.timeScale = 1f;
+    }
+
+    //마우스 드래그 시작 시
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            cardManager.StartDraggingCard(this, isSticky: false);
+        }
+    }
+
+    //마우스 드래그 중
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            cardManager.ProcessDraggingCard(eventData);
+        }
+    }
+
+    //마우스 드래그 종료
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            cardManager.EndDraggingCard(this);
+        }
     }
 
     public void Setup(CardManager newCardManager, CardContent content, int newIndex)

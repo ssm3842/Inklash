@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CardManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class CardManager : MonoBehaviour
     public Card draggingCard;
     private Image draggingCardImageComponent;
     public bool isDraggingCard = false;
+    bool isStickyMode = false;
 
     public void Init() //TODO: 이름 바꾸기
     {
@@ -102,31 +104,16 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        if (isDraggingCard)
+        if (isDraggingCard && draggingCard != null)
         {
+            // 드래그 중이거나 Sticky 모드일 때 마우스 추적
             draggingCard.transform.position = Input.mousePosition;
-            
-            //선택한 카드가 -300보다 높은 위치일 때(임의) 투명도 조절.
-            if(draggingCard.transform.position.y >= 250)
+            UpdateCardAlpha();
+
+            // Sticky 모드일 때 우클릭하면 취소 로직은 기존 CardRightClicked 활용
+            if (isStickyMode && Input.GetMouseButtonDown(1))
             {
-                if(draggingCardImageComponent.color.a <= 0.2f) return;
-                else
-                {
-                    Color currentColor = draggingCardImageComponent.color;
-                    currentColor.a = 0.2f;
-                    draggingCardImageComponent.color = currentColor;
-                }
-            }
-            //-300보다 낮은 위치(패에 가까운 위치)면 불투명하게 변경.
-            else
-            {
-                if(draggingCardImageComponent.color.a >= 1f) return;
-                else
-                {
-                    Color currentColor = draggingCardImageComponent.color;
-                    currentColor.a = 1f;
-                    draggingCardImageComponent.color = currentColor;
-                }
+                CardRightClicked();
             }
         }
 
@@ -138,44 +125,22 @@ public class CardManager : MonoBehaviour
 
     public void CardLeftClicked(Card card)
     {
-        if (!isDraggingCard) //카드가 손에 없을 때 좌클릭 되면 마우스 따라 이동.
+        if (!isDraggingCard) 
         {
-            if (!costManager.CheckUseCostAvailable(card.cardContent.cost)) return; //코스트 부족 시 드래그 불가.
-
-            isDraggingCard = true;
-            draggingCard = card;
-            draggingCardImageComponent = draggingCard.GetComponent<Image>();
-            draggingCard.transform.SetParent(battleUICanvas.transform);
+            // 1. 아무것도 안 잡고 있을 때 클릭 -> 따라다니기 시작
+            StartDraggingCard(card, isSticky: true);
         }
-        else //카드가 손에 있을 때 좌클릭 하면 사용.
+        else if (isStickyMode && draggingCard == card)
         {
-            costManager.UseCost(card.cardContent.cost); //실제로 코스트 사용.
-
-            isDraggingCard = false;
-
-            cardUseManager.UseCard(card.cardContent);
-
-            MoveCardToDiscardDeck(draggingCard);
-            draggingCard = null;
-
-            RunManager.Inst.battleManager.OnCardUse();
-
-            if (playerHands.Count <= 0)
-            {
-                costManager.AddCost(3);
-                DrawNewHand(true);
-            }
-
-            // Card temp = draggingCard;
-            // draggingCard = null;
-            // Destroy(temp.gameObject);
-
-            handLayout.AlignCards();
+            // 2. 이미 Sticky 상태로 잡고 있는 카드를 다시 클릭 -> 내려놓기(사용)
+            EndDraggingCard(card);
         }
     }
 
     public void CardRightClicked()
     {
+        if(!isDraggingCard) return;
+        
         isDraggingCard = false;
 
         if(draggingCard)
@@ -232,77 +197,77 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    // public void RefreshHand() //DrawCard와 중복되는 내용 정리 필요
-    // {
+    public void StartDraggingCard(Card card, bool isSticky)
+    {
+        if (!costManager.CheckUseCostAvailable(card.cardContent.cost)) return;
 
-    //     int cardsToDraw = playerHands.Count;
-
-    //     while (playerHands.Count > 0)
-    //     {
-    //         Card card = playerHands[0]; 
-    //         discardBattleDeck.Add(card.cardContent);
-    //         playerHands.RemoveAt(0);
-            
-    //         card.transform.SetParent(null); 
-    //         Destroy(card.gameObject);     
-    //     }
-
-    //     handLayout.AlignCards(); 
-
-    //     for (int i = 0; i < cardsToDraw; i++)
-    //     {
-    //         CardContent cardData = PopCardFromDeck();
-    //         if (cardData == null) break; 
-
-    //         var cardObject = Instantiate(cardPrefab, handLayout.transform); 
-    //         var card = cardObject.GetComponent<Card>();
-    //         card.Setup(this, cardData);
-    //         playerHands.Add(card);
-    //     }
-
-    //     handLayout.AlignCards();
-    // }
-
-// 개별 리롤
-    // private void RerollCardAtIndex(int index)
-    // {
-    //     if (isDraggingCard) return;
-    //     if (index < 0 || index >= playerHands.Count) return;
-
-    //     Card targetCard = playerHands[index];
-    //     RerollSingleCard(targetCard);
-    // }
-
-    // public void RerollSingleCard(Card cardToReroll)
-    // {
-    //     if (cardToReroll == null) return;
-
-    //     int originalIndex = playerHands.IndexOf(cardToReroll);
-
-    //     if (originalIndex == -1) return;
-    //     discardBattleDeck.Add(cardToReroll.cardContent);
+        isDraggingCard = true;
+        isStickyMode = isSticky; // 모드 설정
+        draggingCard = card;
+        draggingCardImageComponent = draggingCard.GetComponent<Image>();
         
-    //     cardToReroll.transform.SetParent(null); 
-    //     Destroy(cardToReroll.gameObject);
+        // 드래그 중인 카드가 패의 다른 카드 뒤로 가지 않도록 캔버스 최상단으로 이동
+        draggingCard.transform.SetParent(battleUICanvas.transform);
+        draggingCard.transform.SetAsLastSibling();
+    }
 
-    //     CardContent newCardData = PopCardFromDeck();
+    // 드래그 중 매 프레임 호출
+    public void ProcessDraggingCard(PointerEventData eventData)
+    {
+        if (!isDraggingCard || draggingCard == null) return;
 
-    //     if (newCardData != null)
-    //     {
-    //         var cardObject = Instantiate(cardPrefab, handLayout.transform);
-    //         var card = cardObject.GetComponent<Card>();
-    //         card.Setup(this, newCardData);
+        // 카드 위치를 마우스 위치로 업데이트
+        draggingCard.transform.position = eventData.position;
 
-    //         playerHands[originalIndex] = card; 
+        // 높이에 따른 투명도 조절 (기존 Update 로직 활용)
+        UpdateCardAlpha();
+    }
 
-    //         card.transform.SetSiblingIndex(originalIndex);
-    //     }
-    //     else
-    //     {
-    //         playerHands.RemoveAt(originalIndex);
-    //     }
+    // 마우스를 뗐을 때 호출
+    public void EndDraggingCard(Card card)
+    {
+        if (!isDraggingCard) return;
 
-    //     // 4. 정렬
-    //     handLayout.AlignCards();
-    // }
+        // 카드를 사용할 수 있는 높이인지 확인 (예: y > 250)
+        if (draggingCard.transform.position.y >= 250)
+        {
+            // 카드 사용 로직
+            UseSelectedCard(card);
+        }
+        else
+        {
+            // 사용 취소: 패로 되돌리기
+            CardRightClicked(); 
+        }
+    }
+
+    private void UseSelectedCard(Card card)
+    {
+        costManager.UseCost(card.cardContent.cost);
+        isDraggingCard = false;
+        cardUseManager.UseCard(card.cardContent);
+        MoveCardToDiscardDeck(card);
+        draggingCard = null;
+        
+        RunManager.Inst.battleManager.OnCardUse();
+        if (playerHands.Count <= 0)
+        {
+            costManager.AddCost(3);
+            DrawNewHand(true);
+        }
+        
+        handLayout.AlignCards();
+    }
+
+    // 투명도 조절 로직 분리
+    private void UpdateCardAlpha()
+    {
+        float targetAlpha = (draggingCard.transform.position.y >= 250) ? 0.2f : 1f;
+        if (!Mathf.Approximately(draggingCardImageComponent.color.a, targetAlpha))
+        {
+            Color c = draggingCardImageComponent.color;
+            c.a = targetAlpha;
+            draggingCardImageComponent.color = c;
+        }
+    }
 }

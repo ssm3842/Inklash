@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class BattleRewardButton : MonoBehaviour
 
     RewardType rewardType;
     int rewardContent;
+    List<CardDataSO> cardRewardList;
 
     public void AddRewardButton(RewardType type, int amount)
     {
@@ -26,6 +28,17 @@ public class BattleRewardButton : MonoBehaviour
             case RewardType.Card:
                 rewardIcon.sprite = iconImages[1];
                 rewardText.text = "Card";
+
+                //카드 보상 후보를 설정 및 3개 추출.
+                cardRewardList = new List<CardDataSO>();
+                List<CardDataSO> allCardRewardPool = RunManager.Inst.unitDataManager.GetCardRewardPool();
+                for(int i=0; i<3; i++)
+                {
+                    int randomI = Random.Range(0, allCardRewardPool.Count);
+
+                    CardDataSO currentCardData = allCardRewardPool[randomI];
+                    cardRewardList.Add(currentCardData);
+                }
                 break;
             case RewardType.Artifact:
                 break;
@@ -38,14 +51,15 @@ public class BattleRewardButton : MonoBehaviour
         {
             case RewardType.Gold:
                 RunManager.Inst.resourceManager?.EarnGold(rewardContent);
+                Destroy(gameObject);
                 break;
             case RewardType.Card:
-                //TODO: 랜덤한 카드 3개를 선택. 및 표시.
+                RunManager.Inst.cardRewardCanvas.GetComponent<CardRewardUI>().ShowCardReward(cardRewardList);
                 break;
             case RewardType.Artifact:
+                Destroy(gameObject);
                 break;
         }
-        Destroy(gameObject);
     }
 
 }

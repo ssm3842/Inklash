@@ -20,6 +20,7 @@ public class RunManager : MonoBehaviour
     public ResourceManager resourceManager;
 
     public RandomEventCanvas randomEventCanvas;
+    public GameObject cardRewardCanvas;
     public GameObject campfireCanvas;
     public GameObject placeholderCanvas;
 
