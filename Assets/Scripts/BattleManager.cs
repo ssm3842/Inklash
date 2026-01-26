@@ -9,6 +9,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject battleRewardButtonContainer;
     [SerializeField] BattleRewardButton battleRewardButtonPrefab;
 
+    [SerializeField] GameObject defeatCanvas;
+
     public CardManager cardManager;
     public CardUseManager cardUseManager;
 
@@ -48,6 +50,28 @@ public class BattleManager : MonoBehaviour
         cardManager.CardRightClicked();
 
         RunManager.Inst.mapManager.ClearLastRoom();
+    }
+
+    public void OnBattleLose()
+    {
+        Time.timeScale = 0f;
+
+        EnemyBaseDataSO currentEnemy = RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData;
+
+        int lifePenalty = currentEnemy.isElite ? 999 : 1 ; //TODO: Elite -> Boss
+        bool isGameOver = RunManager.Inst.resourceManager.DecreaseLife(lifePenalty);
+        if (isGameOver)
+        {
+            cardManager.CardRightClicked();
+            
+            RunManager.Inst.mapManager.FailLastRoom();
+            RunManager.Inst.mapManager.SetVisible();
+        }
+        else
+        {
+            defeatCanvas.gameObject.SetActive(true);
+        }
+
     }
 
     public void OnCardUse()

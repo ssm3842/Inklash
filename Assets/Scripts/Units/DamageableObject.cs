@@ -10,6 +10,8 @@ public class DamageableObject : MonoBehaviour
     [SerializeField]TextMeshPro healthBar;
 
     public bool isPlayers;
+
+    private bool isPhase2Triggered = false;
     
     virtual public void Init(bool players, UnitStats stats)
     {
@@ -31,7 +33,8 @@ public class DamageableObject : MonoBehaviour
             }
             else
             {   //TODO: 플레이어 패배 시 동작
-                Debug.Log("Player Lose");
+                RunManager.Inst.battleManager.OnBattleLose();
+                
             }
 
             //적 스폰 코루틴을 제거.
@@ -42,6 +45,18 @@ public class DamageableObject : MonoBehaviour
         {
             statController.ChangeCurHp(amount);
             if (healthBar) healthBar.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
+        }
+
+        if (!isPlayers && !isPhase2Triggered)
+        {
+            float currentHp = statController.GetCurHp();
+            float maxHp = statController.GetStat(StatType.MAX_HP);
+
+            if (currentHp <= maxHp * 0.5f)
+            {
+                isPhase2Triggered = true;
+                RunManager.Inst.battleManager.cardUseManager.ChangePhase(CardUseManager.SpawnPhase.Phase2);
+            }
         }
     }
 }

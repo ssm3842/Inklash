@@ -15,22 +15,11 @@ public class ResourceManager : MonoBehaviour
     int currentLives = 2;
     [SerializeField] private TextMeshProUGUI lifeText;
 
-    /*
-    public float currentHP;
-    public float maxHP = 100f;
-    [SerializeField] private Slider hpSlider;
-    [SerializeField] private TextMeshProUGUI hpText;
-    */
-
     public void Init()
     {
         UpdateGoldUI();
         UpdateLifeUI();
 
-        /*
-        currentHP = maxHP;
-        UpdateHpUI();
-        */
     }
 
     public void EarnGold(int amount)
@@ -74,6 +63,23 @@ public class ResourceManager : MonoBehaviour
         UpdateLifeUI();
     }
 
+    public bool DecreaseLife(int amount)
+    {
+        currentLives -= amount;
+
+        if (currentLives <= 0)
+        {
+            currentLives = 0;
+            UpdateLifeUI();
+            return false;
+        }
+        else
+        {
+            UpdateLifeUI();
+            return true;
+        }
+    }
+
     private void UpdateLifeUI()
     {        
         if (lifeText != null)
@@ -86,36 +92,5 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    /*
-    public void TakeDamage(float damage)
-    {
-        currentHP -= damage;
-        if (currentHP <= 0)
-        {
-            currentHP = 0;
-            UpdateHpUI();
-            Debug.Log("Game Over");
-            return;
-        }
-        UpdateHpUI();
-    }
-
-    public void RepairBase(float amount)
-    {
-        currentHP = Mathf.Min(maxHP, currentHP + amount);
-        UpdateHpUI();
-    }
-
-    private void UpdateHpUI()
-    {
-        if (hpText != null)
-        {
-            hpText.text = $"{currentHP:F0} / {maxHP}";
-        }
-        if (hpSlider != null)
-        {
-            hpSlider.value = currentHP / maxHP;
-        }
-    }
-    */
+    
 }
