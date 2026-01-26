@@ -4,63 +4,24 @@ using UnityEngine.UI;
 
 public class CardRewardUI : MonoBehaviour
 {
-    bool isRewardSetted = false;
+    [SerializeField]CardRewardCardUI[] cardRewardCardUIs;
+    [SerializeField]BattleRewardController battleRewardController;
 
-    [SerializeField]GameObject cardRewardUIPrefab;
-    [SerializeField]GameObject cardRewardUIContainer;
-    [SerializeField]CardDataLinkSO cardLinkSo;
-
-    List<CardDataSO> rewards;
-    List<CardDataSO> cardData;
-    public void ShowCardReward()
+    public void ShowCardReward(List<CardDataSO> cardRewardList)
     {
-        //보상이 이미 설정된 상태라면 보여주기.
-        if(isRewardSetted) gameObject.SetActive(true);
-        else SetReward();
-    }
-
-    void SetReward()
-    {   
-        rewards = new List<CardDataSO>();
-        cardData = new List<CardDataSO>();
-
-        //보상 풀 설정
-        foreach(CardLink data in cardLinkSo.playerUnits)
-        {
-            cardData.Add(data.cardContents);
-        }
-        foreach(CardLink data in cardLinkSo.playerSpells)
-        {
-            cardData.Add(data.cardContents);
-        }
-        foreach(CardLink data in cardLinkSo.playerWords)
-        {
-            cardData.Add(data.cardContents);
-        }
-
-        isRewardSetted = true;
-
         for(int i=0; i<3; i++)
         {
-            int randomI = Random.Range(0, cardData.Count);
-
-            GameObject newCardReward = Instantiate(cardRewardUIPrefab, cardRewardUIContainer.transform);
-
-            CardDataSO currentCardData = cardData[randomI];
-            rewards.Add(currentCardData);
-
-            newCardReward.GetComponent<CardRewardCardUI>().Setup(currentCardData.card);
-
-            newCardReward.GetComponent<Button>().onClick.AddListener(() => OnCardRewardSelected(currentCardData));
-
-            gameObject.SetActive(true);
+            cardRewardCardUIs[i].Setup(cardRewardList[i].card);
         }
-    }
 
-    void OnCardRewardSelected(CardDataSO cardData)
+        gameObject.SetActive(true);
+    }
+    void OnCardRewardSelected(CardRewardCardUI cardUI)
     {
-        RunManager.Inst.deckManager.AddCardToDeck(cardData.card);
-        isRewardSetted = false;
+        RunManager.Inst.deckManager.AddCardToDeck(cardUI.cardContent);
+
+        battleRewardController.CardRewardAccepted();
+
         gameObject.SetActive(false);
     }
 }

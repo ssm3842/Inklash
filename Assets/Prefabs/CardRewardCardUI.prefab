@@ -18,19 +18,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 689115288408254785, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 689115288408254785, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 689115288408254785, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 689115288408254785, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 689115288408254785, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_SizeDelta.x
@@ -239,7 +239,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8656599778457713097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: 6bbd37edcf2b3734087d904aeaac9655, type: 3}
+        m_TargetAssemblyTypeName: CardRewardUI, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: -8222081148847968042}
+          m_ObjectArgumentAssemblyTypeName: CardRewardCardUI, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5807458114876777155 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4080924894869599096, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}

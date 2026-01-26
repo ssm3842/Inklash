@@ -8,6 +8,8 @@ public class UnitDataManager : MonoBehaviour
 
     // 텍스트 데이터를 저장할 캐시 선언
     private Dictionary<string, string> stringTable = new Dictionary<string, string>();
+    //카드 보상을 받을 보상 풀 설정
+    List<CardDataSO> cardRewardPool;
 
     public void LoadCsvData()
     {
@@ -19,6 +21,9 @@ public class UnitDataManager : MonoBehaviour
         //         allCardTemplates.Add(card.id, card);
         //     }
         // }
+
+        //카드 보상 풀을 초기화
+        cardRewardPool = new List<CardDataSO>();
 
         // 1. StringTable을 가장 먼저 찾아서 로드
         // 다른 카드들이 이름과 설명 데이터를 읽을 때 이 테이블을 참조
@@ -147,6 +152,9 @@ public class UnitDataManager : MonoBehaviour
                 cardLink.cardContents.card.stats.baseRange = float.Parse(columns[7]);
                 cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[8]);
 
+                //카드 보상 풀에 추가
+                cardRewardPool.Add(cardLink.cardContents);
+
                 break;
             }
         }
@@ -194,6 +202,10 @@ public class UnitDataManager : MonoBehaviour
                 cardLink.cardContents.card.stats.baseRange = float.Parse(columns[4]);
 
                 // cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[7]);
+
+                //카드 보상 풀에 추가
+                cardRewardPool.Add(cardLink.cardContents);
+
                 break;
             }
         }
@@ -230,6 +242,9 @@ public class UnitDataManager : MonoBehaviour
 
                 // 코스트 정보
                 cardLink.cardContents.card.cost = int.Parse(columns[2]);
+
+                //카드 보상 풀에 추가
+                cardRewardPool.Add(cardLink.cardContents);
                 
                 break;
             }
@@ -288,5 +303,10 @@ public class UnitDataManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public List<CardDataSO> GetCardRewardPool()
+    {
+        return cardRewardPool;
     }
 }
