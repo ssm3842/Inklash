@@ -8,7 +8,7 @@ public class MapButton : MonoBehaviour
     [SerializeField] Image image;
 
     [SerializeField] GameObject clearMark;
-
+    [SerializeField] GameObject failMark;
     RoomContent room;
 
     public void UpdateAnimation()
@@ -17,6 +17,7 @@ public class MapButton : MonoBehaviour
         else ani.Play("MapButtonDefault");
 
         if(room.isCleared) clearMark.SetActive(true);
+        else if(room.isFailed) failMark.SetActive(true);
     }
 
     public void SetRoom(RoomContent roomData, Sprite buttonImage)
@@ -43,6 +44,7 @@ public class RoomContent
     public List<RoomContent> nextRooms = new List<RoomContent>();
     public bool isInteractable = false;
     public bool isCleared = false;
+    public bool isFailed = false;
 }
 
 public enum RoomType

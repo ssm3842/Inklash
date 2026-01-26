@@ -33,7 +33,8 @@ public class DamageableObject : MonoBehaviour
             }
             else
             {   //TODO: 플레이어 패배 시 동작
-                Debug.Log("Player Lose");
+                RunManager.Inst.battleManager.OnBattleLose();
+                
             }
 
             //적 스폰 코루틴을 제거.

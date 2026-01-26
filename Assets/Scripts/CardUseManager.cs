@@ -8,6 +8,7 @@ public class CardUseManager : MonoBehaviour
     public enum SpawnPhase { GameStart, Normal, Phase2 }
     public SpawnPhase currentPhase = SpawnPhase.GameStart; 
     private EnemyBaseDataSO currentEnemyData;
+    public EnemyBaseDataSO CurrentEnemyData => currentEnemyData;
 
     float spawnHeight = 0.3f;
     [SerializeField] GameObject playerBase;
@@ -19,11 +20,19 @@ public class CardUseManager : MonoBehaviour
     List<WordBase> stackedWordCardEffect;
 
     public Coroutine enemySpawnCoroutine = null;
+    private bool hasPhase2Bursted = false;
 
     bool isCloneCardUsed = false;
+    
 
     public void InitUnitManager()
     {
+        if (enemySpawnCoroutine != null) 
+        {
+            StopCoroutine(enemySpawnCoroutine);
+            enemySpawnCoroutine = null;
+        }
+
         //적 데이터 중에서 하나를 랜덤으로 선택.
         currentEnemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
 
@@ -35,6 +44,7 @@ public class CardUseManager : MonoBehaviour
         enemyBase.gameObject.SetActive(true);
 
         currentPhase = SpawnPhase.GameStart;
+        hasPhase2Bursted = false;
 
         if(enemySpawnCoroutine == null) enemySpawnCoroutine = StartCoroutine(SpawnEnemyCoroutine());
     }
@@ -149,6 +159,7 @@ public class CardUseManager : MonoBehaviour
     {
         while (true)
         {
+            SpawnPhase patternPhase = currentPhase;
             List<EnemyPatternSO> currentPatternList = GetPatternsByPhase(currentPhase);
 
             int randomIndex = Random.Range(0, currentPatternList.Count);
@@ -156,6 +167,8 @@ public class CardUseManager : MonoBehaviour
 
             foreach (CardDataSO cardData in selectedPattern.enemyDeck)
             {
+                if (currentPhase != patternPhase) break;
+
                 CardContent enemyUnit = cardData.card; 
 
                 GameObject newUnit = Instantiate(enemyUnit.unit, 
@@ -165,16 +178,45 @@ public class CardUseManager : MonoBehaviour
                 newUnit.transform.SetParent(transform);
                 newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
 
-                yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
+                float waitTime = GameRule.ENEMY_SPAWN_SECONDS;
+
+                if (currentPhase == SpawnPhase.Phase2 && !hasPhase2Bursted)
+                {
+                    waitTime = 0.01f;
+                }
+
+                float elapsed = 0f;
+                while(elapsed < waitTime)
+                {
+                    elapsed += Time.deltaTime;
+                    
+                    if (currentPhase != patternPhase) 
+                    {
+                        break; 
+                    }
+                    
+                    yield return null;
+                }
             }
+
+            if (currentPhase != patternPhase)    continue; 
 
             if (currentPhase == SpawnPhase.GameStart)
             {
                 ChangePhase(SpawnPhase.Normal);
             }
-            else if (currentPhase == SpawnPhase.Phase2 && currentEnemyData.isElite == false)
+            else if (currentPhase == SpawnPhase.Phase2)
             {
-                ChangePhase(SpawnPhase.Normal);
+                if (!hasPhase2Bursted)
+                {
+                    hasPhase2Bursted = true; 
+                    yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
+
+                    if (!currentEnemyData.isElite)
+                    {
+                        ChangePhase(SpawnPhase.Normal);
+                    }
+                }
             }
         }
     }
@@ -196,11 +238,5 @@ public class CardUseManager : MonoBehaviour
 
         currentPhase = newPhase;
         Debug.Log($" 적 페이즈 변경: {currentPhase}");
-
-        if (enemySpawnCoroutine != null)
-        {
-            StopCoroutine(enemySpawnCoroutine);
-        }
-        enemySpawnCoroutine = StartCoroutine(SpawnEnemyCoroutine());
     }
 }

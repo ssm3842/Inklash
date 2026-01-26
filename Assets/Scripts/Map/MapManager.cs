@@ -155,6 +155,14 @@ public class MapManager : MonoBehaviour
         UnlockFloor(floorClimbed);
     }
 
+    public void FailLastRoom()
+    {
+        lastRoom.isFailed = true;
+
+        floorClimbed++;
+        UnlockFloor(floorClimbed);
+    }
+
     public void SetVisible() //캔버스의 열리는 여부 결정. 열릴 경우 시간 흐름 정지.
     {
         gameObject.SetActive(!gameObject.activeSelf);

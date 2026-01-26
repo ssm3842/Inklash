@@ -20,6 +20,9 @@ public class Units : DamageableObject
 
     protected DamageableObject target;
 
+    private bool isKnockedBack = false;
+    private Coroutine currentKnockbackRoutine = null;
+
     void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
@@ -34,6 +37,7 @@ public class Units : DamageableObject
         base.Init(isplayers, stats);
 
         isDead = false; 
+        isKnockedBack = false;
 
         canAttack = true;
         canAttackTimer = 0f;
@@ -46,6 +50,11 @@ public class Units : DamageableObject
         //사망 시 행동 불능.
         if (isDead) return;
 
+        if (isKnockedBack)
+        {
+            if (RB != null) RB.linearVelocity = Vector2.zero;
+            return;
+        }
         //디버프로 인한 행동불능이 있는지 검사.
         if(buffController.HaveDisruptEffect())
         {
@@ -59,15 +68,27 @@ public class Units : DamageableObject
             ANI.speed = 1f;
         }
 
-        //유닛이 사망하지 않았고 행동불능이 아니라면 애니메이션 속도를 공격속도에 맞게 제어함.
         ANI.speed = statController.GetStat(StatType.ATKSPD);
 
-        //검색한 타겟이 유효한지 검사.
         if (target != null)
         {
             Units targetUnit = target.GetComponent<Units>();
             if (targetUnit != null && targetUnit.IsDead) target = null;    
+            else 
+            {
+                float distance = Mathf.Abs(target.transform.position.x - transform.position.x);
+                
+                float myRange = statController.GetStat(StatType.RANGE);
+
+
+                if (distance > myRange + 0.1f) 
+                {
+                    target = null;      
+                    isAttacking = false; 
+                }
+            }
         }
+        
 
         Move();
 
@@ -136,9 +157,43 @@ public class Units : DamageableObject
         else statController.ChangeCurHp(amount); //아니면 체력 계산.
     }
 
+    public IEnumerator TakeDamage(float amount, bool isKnockback, float distance, float duration, float delayTime = 0f)
+    {
+        // 1. 기본 데미지 처리 (위의 함수 재사용)
+        yield return StartCoroutine(this.TakeDamage(amount, delayTime));
+
+        // 2. 살아있고, 넉백 공격이라면 실행
+        if (!isDead && statController.GetCurHp() > 0 && isKnockback)
+        {
+            ApplyKnockback(distance, duration);
+        }
+    }
+
     public virtual void _AttackEnemy() //공격은 애니메이션에서 진행.
     {
-        target?.StartCoroutine(target.TakeDamage(statController.GetStat(StatType.ATK), 0f));
+        Units targetUnit = target?.GetComponent<Units>();
+        float damage = statController.GetStat(StatType.ATK);
+
+        if (targetUnit != null)
+        {
+            // ★ 핵심: 내 몸에 'KnockbackAttacker' 컴포넌트가 있는지 확인
+            KnockBack kb = GetComponent<KnockBack>();
+
+            if (kb != null)
+            {
+                // 넉백 컴포넌트가 있다면, 거기에 설정된 거리와 시간을 전달
+                target.StartCoroutine(targetUnit.TakeDamage(damage, true, kb.pushDistance, kb.pushDuration));
+            }
+            else
+            {
+                // 넉백 컴포넌트가 없으면 일반 공격 (false)
+                target.StartCoroutine(targetUnit.TakeDamage(damage, false, 0, 0));
+            }
+        }
+        else if (target != null) // 건물이거나 Units 컴포넌트가 없는 경우
+        {
+            target.StartCoroutine(target.TakeDamage(damage, 0f));
+        }
     }
 
     public void _OnAttackStart() //공격 애니메이션 시작 시 관련 변수를 초기화.
@@ -156,6 +211,7 @@ public class Units : DamageableObject
     private void Die()
     {
         isDead = true; 
+        isKnockedBack = false;
 
         if (RB != null) RB.linearVelocity = Vector2.zero;
         if (ANI != null) ANI.enabled = false; 
@@ -191,5 +247,38 @@ public class Units : DamageableObject
         }
 
         Destroy(this.gameObject);
+    }
+
+    void ApplyKnockback(float distance, float duration)
+    {
+        if (currentKnockbackRoutine != null)
+        {
+            StopCoroutine(currentKnockbackRoutine);
+        }
+        currentKnockbackRoutine = StartCoroutine(KnockbackRoutine(distance, duration));
+    }
+
+    IEnumerator KnockbackRoutine(float distance, float duration)
+    {
+        isKnockedBack = true;
+        
+        float elapsed = 0f;
+        Vector3 startPos = transform.position;
+        // 아군이면 왼쪽으로, 적이면 오른쪽으로 밀림
+        Vector3 pushDir = isPlayers ? Vector3.left : Vector3.right;
+        Vector3 targetPos = startPos + (pushDir * distance);
+
+        while (elapsed < duration)
+        {
+            if (isDead) break;
+
+            transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (!isDead) transform.position = targetPos;
+        isKnockedBack = false;
+        currentKnockbackRoutine = null;
     }
 }
