@@ -139,6 +139,8 @@ public class CardManager : MonoBehaviour
 
     public void CardRightClicked()
     {
+        if(!isDraggingCard) return;
+        
         isDraggingCard = false;
 
         if(draggingCard)
