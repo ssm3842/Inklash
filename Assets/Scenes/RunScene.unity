@@ -6262,6 +6262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleUICanvas: {fileID: 741746634}
   battleRewardCanvas: {fileID: 988922717}
+  defeatCanvas: {fileID: 0}
   cardManager: {fileID: 1061190628}
   cardUseManager: {fileID: 2087044753}
   CardUse:
@@ -6600,7 +6601,6 @@ RectTransform:
   m_Children:
   - {fileID: 236007610}
   - {fileID: 302908552}
-  - {fileID: 1638013198}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7026,7 +7026,6 @@ GameObject:
   - component: {fileID: 1607249506}
   - component: {fileID: 1607249505}
   - component: {fileID: 1607249508}
-  - component: {fileID: 1607249509}
   m_Layer: 0
   m_Name: RunManager
   m_TagString: Untagged
@@ -8813,7 +8812,7 @@ MonoBehaviour:
   playerBase: {fileID: 1041127018}
   enemyBase: {fileID: 597376420}
   enemyBaseDatas:
-  - {fileID: 11400000, guid: fbe902b05cbb0a94bb49679f1830dc65, type: 2}
+  - {fileID: 11400000, guid: bcc5a49c5827e7244b79838face5774e, type: 2}
   - {fileID: 11400000, guid: fc24ae12400d10f40b99064e8a91f405, type: 2}
 --- !u!4 &2087044754
 Transform:
@@ -9080,3 +9079,4 @@ SceneRoots:
   - {fileID: 458227797}
   - {fileID: 1205517282}
   - {fileID: 969832352}
+  - {fileID: 1462330702}
