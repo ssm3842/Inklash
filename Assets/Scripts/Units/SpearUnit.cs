@@ -2,11 +2,7 @@ using UnityEngine;
 
 public class SpearUnit : Units
 {
-    private float accSpeed = 0f;
-    private float accAttack = 0f;
-
-    float stepSpd = 0.1f;
-    float stepAtk = 0.1f;
+        private bool isAccelerated = false;
 
     private float updateTimer = 0f;
 
@@ -26,17 +22,15 @@ public class SpearUnit : Units
         }    
 
         updateTimer += Time.deltaTime;
-       if (updateTimer >= 0.1f)
+       if (updateTimer >= 1f)
         {
             updateTimer = 0f;
 
-            if (accSpeed < 1.0)
+            if (!isAccelerated)
             {
-                statController.ControlBonusStat(StatType.SPD, stepSpd);
-                statController.ControlBonusStat(StatType.ATK, stepAtk);
-
-                accSpeed += stepSpd;
-                accAttack += stepAtk;
+                statController.ControlBonusStat(StatType.SPD, 1);
+                statController.ControlBonusStat(StatType.ATK, 1);
+                isAccelerated = true;
             }
         }
 
@@ -51,12 +45,12 @@ public class SpearUnit : Units
 
     private void ResetBonus()
     {
-        statController.ControlBonusStat(StatType.SPD, -accSpeed);
-        statController.ControlBonusStat(StatType.ATK, -accAttack);
-            
-        accSpeed = 0f;
-        accAttack = 0f;
+        if(isAccelerated){
+        statController.ControlBonusStat(StatType.SPD, -1);
+        statController.ControlBonusStat(StatType.ATK, -1);
 
+        isAccelerated = false;
         updateTimer = 0f;
+        }
     }
 }
