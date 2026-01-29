@@ -57,7 +57,8 @@ public class BattleManager : MonoBehaviour
 
         EnemyBaseDataSO currentEnemy = RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData;
 
-        int lifePenalty = currentEnemy.isElite ? 999 : 1 ; //TODO: Elite -> Boss
+        //int lifePenalty = currentEnemy.isElite ? 999 : 1 ; //TODO: Elite -> Boss
+        int lifePenalty = 1;
         bool isGameOver = RunManager.Inst.resourceManager.DecreaseLife(lifePenalty);
         if (isGameOver)
         {
