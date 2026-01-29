@@ -126,12 +126,10 @@ MonoBehaviour:
   buffController: {fileID: 6901518867496698976}
   healthBar: {fileID: 0}
   isPlayers: 0
+  stateController: {fileID: 9150823225447671190}
+  isAttacking: 0
   canAttack: 0
   canAttackTimer: 0
-  deathDuration: 0.3
-  speedStep: 0.2
-  attackStep: 0.5
-  maxSpeedLimit: 5
 --- !u!114 &6901518867496698976 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7729553345636926120, guid: b62f85981057a7d46919ee866face945, type: 3}

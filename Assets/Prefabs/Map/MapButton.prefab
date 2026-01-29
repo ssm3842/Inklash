@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 51.039978, y: 51.039978}
+  m_AnchoredPosition: {x: 51.04004, y: 51.04004}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &162042897093176948
@@ -150,6 +150,7 @@ MonoBehaviour:
   ani: {fileID: 741260463743779916}
   image: {fileID: 3921418344303431736}
   clearMark: {fileID: 9110076499419740712}
+  failMark: {fileID: 9110076499419740712}
 --- !u!95 &741260463743779916
 Animator:
   serializedVersion: 7

@@ -56,4 +56,14 @@ public class BuffController : MonoBehaviour
         }
         return false;
     }
+
+    public bool HasBuff(string name)
+    {
+        foreach (Buffs buff in buffList)
+        {
+            if (buff.buffName == name) return true;
+        }
+        return false;
+    }
+
 }

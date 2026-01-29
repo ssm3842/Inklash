@@ -2,55 +2,38 @@ using UnityEngine;
 
 public class SpearUnit : Units
 {
-        private bool isAccelerated = false;
+    protected override void SetDefaultState() => ChangeState(new SpearMoveState(this));
+}
 
-    private float updateTimer = 0f;
+public class SpearMoveState : MoveState
+{
+    private float timer = 0;
+    private bool isAcc = false;
+    public SpearMoveState(SpearUnit unit) : base(unit) { }
 
-
-    public override void OnDisruptEffect()
+    public override void Execute()
     {
-        ResetBonus();
-        base.OnDisruptEffect();
-    }
-
-    public override void Move()
-    {
-        if (target || isAttacking)
+        base.Execute(); 
+        
+        if (u.Target == null && !u.isAttacking)
         {
-            base.Move();
-            return;
-        }    
-
-        updateTimer += Time.deltaTime;
-       if (updateTimer >= 1f)
-        {
-            updateTimer = 0f;
-
-            if (!isAccelerated)
-            {
-                statController.ControlBonusStat(StatType.SPD, 1);
-                statController.ControlBonusStat(StatType.ATK, 1);
-                isAccelerated = true;
+            timer += Time.deltaTime;
+            if (timer >= 1f && !isAcc) 
+            { 
+                u.StatControl.ControlBonusStat(StatType.SPD, 1);
+                u.StatControl.ControlBonusStat(StatType.ATK, 1);
+                isAcc = true; 
             }
         }
-
-        base.Move();
     }
 
-    public override void _AttackEnemy()
+    public override void Exit()
     {
-        base._AttackEnemy(); 
-        ResetBonus(); 
-    }
-
-    private void ResetBonus()
-    {
-        if(isAccelerated){
-        statController.ControlBonusStat(StatType.SPD, -1);
-        statController.ControlBonusStat(StatType.ATK, -1);
-
-        isAccelerated = false;
-        updateTimer = 0f;
+        if (isAcc) 
+        { 
+            u.StatControl.ControlBonusStat(StatType.SPD, -1);
+            u.StatControl.ControlBonusStat(StatType.ATK, -1);
         }
+        base.Exit();
     }
 }

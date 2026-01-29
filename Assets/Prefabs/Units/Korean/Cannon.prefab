@@ -126,9 +126,10 @@ MonoBehaviour:
   buffController: {fileID: 6901518867496698976}
   healthBar: {fileID: 0}
   isPlayers: 0
+  stateController: {fileID: 9150823225447671190}
+  isAttacking: 0
   canAttack: 0
   canAttackTimer: 0
-  deathDuration: 0.3
   shellPrefab: {fileID: 1744318707687331671, guid: 54982cc0de75c6e4da2dcbe5f807c082, type: 3}
 --- !u!114 &6901518867496698976 stripped
 MonoBehaviour:

@@ -128,6 +128,7 @@ MonoBehaviour:
   buffController: {fileID: 356643855177108556}
   healthBar: {fileID: 0}
   isPlayers: 0
+  stateController: {fileID: 2723079461734428090}
+  isAttacking: 0
   canAttack: 1
   canAttackTimer: 0
-  deathDuration: 0.3
