@@ -38,6 +38,7 @@ public class MapButton : MonoBehaviour
 public class RoomContent
 {
     public RoomType roomType;
+    public EventRoomType eventRoomType;
     public int row;
     public int column;
     public Vector2 position;
@@ -49,5 +50,9 @@ public class RoomContent
 
 public enum RoomType
 {
-    NOT_ASSIGNED, BATTLE, RANDOM_EVENT, TREASURE, CAMPFIRE, SHOP, BOSS,
+    NOT_ASSIGNED, BATTLE, SHOP, EVENT, BOSS,
+}
+public enum EventRoomType
+{
+    NOT_EVENT, CAMPFIRE, ADDCARD, MIXCARD, MOVEFLAG,
 }

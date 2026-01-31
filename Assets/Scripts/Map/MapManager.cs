@@ -10,6 +10,7 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] Sprite[] icons;
     Dictionary<RoomType, Sprite> roomIcons;
+    Dictionary<EventRoomType, Sprite> randomRoomIcons;
 
     List<List<RoomContent>> mapData;
     public int floorClimbed;
@@ -34,11 +35,16 @@ public class MapManager : MonoBehaviour
         {
             { RoomType.NOT_ASSIGNED, null },
             { RoomType.BATTLE, icons[0] },
-            { RoomType.RANDOM_EVENT, icons[4] },
-            { RoomType.TREASURE, icons[1] },
-            { RoomType.CAMPFIRE, icons[2] },
-            { RoomType.SHOP, icons[3] },
+            { RoomType.SHOP, icons[1] },
             { RoomType.BOSS, icons[0] }
+        };
+
+        randomRoomIcons = new Dictionary<EventRoomType, Sprite>
+        {
+            { EventRoomType.ADDCARD, icons[2] },
+            { EventRoomType.CAMPFIRE, icons[3] },
+            { EventRoomType.MIXCARD, icons[4] },
+            { EventRoomType.MOVEFLAG, icons[5] }
         };
     }
 
@@ -54,8 +60,8 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        int middle = Mathf.FloorToInt(7 * 0.5f); //TODO
-        SpawnRoom(mapData[15 - 1][middle]);
+        int middle = Mathf.FloorToInt(MapDataGenerator.MAP_WIDTH * 0.5f); //TODO
+        SpawnRoom(mapData[MapDataGenerator.FLOORS - 1][middle]);
     }
 
     public void UnlockFloor(int floorIndex)
@@ -94,7 +100,9 @@ public class MapManager : MonoBehaviour
     void SpawnRoom(RoomContent room)
     {
         MapButton NewMapButton = Instantiate(mapButton, scrollContent.transform);
-        NewMapButton.SetRoom(room, roomIcons[room.roomType]);
+
+        if(room.roomType == RoomType.EVENT) NewMapButton.SetRoom(room, randomRoomIcons[room.eventRoomType]);
+        else NewMapButton.SetRoom(room, roomIcons[room.roomType]);
 
         ConnectLines(room);
     }
@@ -122,13 +130,8 @@ public class MapManager : MonoBehaviour
             case RoomType.BATTLE:
                 RunManager.Inst.battleManager.InitBattle();
                 break;
-            case RoomType.RANDOM_EVENT:
-                RunManager.Inst.randomEventCanvas.Init();
-                break;
-            case RoomType.TREASURE:
-                RunManager.Inst.placeholderCanvas.SetActive(true);
-                break;
-            case RoomType.CAMPFIRE:
+            case RoomType.EVENT:
+                //TODO: EventRoomType에 따라 행동 결정.
                 RunManager.Inst.campfireCanvas.SetActive(true);
                 break;
             case RoomType.SHOP:
