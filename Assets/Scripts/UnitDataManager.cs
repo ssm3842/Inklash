@@ -13,15 +13,6 @@ public class UnitDataManager : MonoBehaviour
 
     public void LoadCsvData()
     {
-        // Dictionary<string, CardContent> allCardTemplates = new Dictionary<string, CardContent>();
-        // foreach (CardContent card in cardContentSO.cardContents)
-        // {
-        //     if (!allCardTemplates.ContainsKey(card.id)) //카드 아이디를 키로 해서 카드 정보를 딕셔너리로 신규 생성.
-        //     {
-        //         allCardTemplates.Add(card.id, card);
-        //     }
-        // }
-
         //카드 보상 풀을 초기화
         cardRewardPool = new List<CardDataSO>();
 

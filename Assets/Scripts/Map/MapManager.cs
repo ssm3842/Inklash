@@ -132,7 +132,22 @@ public class MapManager : MonoBehaviour
                 break;
             case RoomType.EVENT:
                 //TODO: EventRoomType에 따라 행동 결정.
-                RunManager.Inst.campfireCanvas.SetActive(true);
+                switch(room.eventRoomType)
+                {
+                    case EventRoomType.ADDCARD:
+                        Debug.Log("!");
+                        break;
+                    case EventRoomType.CAMPFIRE:
+                        Debug.Log("!");
+                        break;
+                    case EventRoomType.MIXCARD:
+                        Debug.Log("!");
+                        break;
+                    case EventRoomType.MOVEFLAG:
+                        Debug.Log("!");
+                        break;
+                }
+                RunManager.Inst.eventCanvas.SetActive(true);
                 break;
             case RoomType.SHOP:
                 RunManager.Inst.placeholderCanvas.SetActive(true);
