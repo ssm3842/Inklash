@@ -1,0 +1,62 @@
+using UnityEngine;
+
+public class EventManager : MonoBehaviour
+{
+    // [SerializeField]GameObject addCardObjects;
+    [SerializeField]CampfireEvent campfireObjects;
+    [SerializeField]GameObject mixCardObjects;
+    [SerializeField]GameObject moveFlagObjects;
+
+    [SerializeField]BattleRewardController battleRewardCanvas;
+
+
+    public void SetEventCanvas(RoomContent room)
+    {
+        switch(room.eventRoomType)
+        {
+            case EventRoomType.ADDCARD:
+                battleRewardCanvas.AddRewards(goldButtons: 0, cardButtons: 2);
+                break;
+            case EventRoomType.CAMPFIRE:
+                //0이면 체력, 1이면 공격력을 올리는 방이 됨.
+                StatType targetStat = UnityEngine.Random.Range(0, 2) == 0? StatType.MAX_HP : StatType.ATK;
+
+                campfireObjects.gameObject.SetActive(true);
+                mixCardObjects.SetActive(false);
+                moveFlagObjects.SetActive(false);
+
+                campfireObjects.FilterDeckCard(targetStat, CardType.Unit);
+                break;
+            case EventRoomType.MIXCARD:
+                campfireObjects.gameObject.SetActive(false);
+                mixCardObjects.SetActive(true);
+                moveFlagObjects.SetActive(false);
+                break;
+            case EventRoomType.MOVEFLAG:
+                campfireObjects.gameObject.SetActive(false);
+                mixCardObjects.SetActive(false);
+                moveFlagObjects.SetActive(true);
+                break;
+        }
+        gameObject.SetActive(true);
+        RunManager.Inst.mapManager.ClearLastRoom();
+    }
+
+    public void _OnEventEnd()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void _OnCampfireButtonClicked()
+    {
+        //휴식 공간 효과 발동.
+        RunManager.Inst.resourceManager.HealLife(10);
+
+        //클리어 판정.
+        RunManager.Inst.mapManager.ClearLastRoom();
+        
+        //다시 맵 표시.
+        gameObject.SetActive(false);
+        RunManager.Inst.mapManager.SetVisible();
+    }
+}

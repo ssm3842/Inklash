@@ -8,11 +8,27 @@ public class BattleRewardController : MonoBehaviour
 
     GameObject targetCardRewardButton = null;
 
-    public void AddRewards()
+    public void AddRewards(int goldButtons, int cardButtons)
     {
-        AddGoldReward();
-        AddCardReward();
-        AddCardReward();
+        //이전에 남아 있는 보상버튼 삭제
+        foreach(Transform reward in battleRewardButtonContainer.transform)
+        {
+            Destroy(reward.gameObject);
+        }
+
+        //골드 보상 생성.
+        for(int i = 0; i < goldButtons; i++)
+        {
+            AddGoldReward();
+        }
+
+        //카드 보상 생성.
+        for(int i = 0; i < cardButtons; i++)
+        {
+            AddCardReward();
+        }
+
+        gameObject.SetActive(true);
     }
 
     void AddGoldReward()

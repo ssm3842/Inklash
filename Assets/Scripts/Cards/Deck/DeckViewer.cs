@@ -63,6 +63,7 @@ public class DeckViewer : MonoBehaviour
                 Debug.LogError("Card 프리팹에 Card.cs 스크립트가 없습니다!");
             }
         }
+        cardListContent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((cardListContent.childCount - 1) / 5) + 1) * 470 + 50);
 
         OpenPanel();
     }

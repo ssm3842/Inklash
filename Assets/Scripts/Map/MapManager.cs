@@ -125,29 +125,16 @@ public class MapManager : MonoBehaviour
     
     public void EnterRoom(RoomContent room)
     {
+        LockSameFloor();
+        lastRoom = room;
+
         switch (room.roomType)
         {
             case RoomType.BATTLE:
                 RunManager.Inst.battleManager.InitBattle();
                 break;
             case RoomType.EVENT:
-                //TODO: EventRoomType에 따라 행동 결정.
-                switch(room.eventRoomType)
-                {
-                    case EventRoomType.ADDCARD:
-                        Debug.Log("!");
-                        break;
-                    case EventRoomType.CAMPFIRE:
-                        Debug.Log("!");
-                        break;
-                    case EventRoomType.MIXCARD:
-                        Debug.Log("!");
-                        break;
-                    case EventRoomType.MOVEFLAG:
-                        Debug.Log("!");
-                        break;
-                }
-                RunManager.Inst.eventCanvas.SetActive(true);
+                RunManager.Inst.eventCanvas.SetEventCanvas(room);
                 break;
             case RoomType.SHOP:
                 RunManager.Inst.placeholderCanvas.SetActive(true);
@@ -160,9 +147,6 @@ public class MapManager : MonoBehaviour
                 break;
         }
         gameObject.SetActive(false);
-
-        LockSameFloor();
-        lastRoom = room;
     }
 
     public void ClearLastRoom()

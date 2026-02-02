@@ -21,7 +21,7 @@ public class RunManager : MonoBehaviour
 
     public RandomEventCanvas randomEventCanvas;
     public GameObject cardRewardCanvas;
-    public GameObject eventCanvas;
+    public EventManager eventCanvas;
     public GameObject placeholderCanvas;
 
     int runGold;
@@ -34,7 +34,7 @@ public class RunManager : MonoBehaviour
         //캔버스들을 미리 비활성화로 돌림.
         battleUICanvas.SetActive(false);   
         randomEventCanvas.gameObject.SetActive(false);
-        eventCanvas.SetActive(false);
+        eventCanvas.gameObject.SetActive(false);
         placeholderCanvas.SetActive(false);
         
         InitRun();

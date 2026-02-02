@@ -42,9 +42,7 @@ public class BattleManager : MonoBehaviour
         Time.timeScale = 0f;
 
         //보상을 설정
-        battleRewardCanvas.AddRewards();
-
-        battleRewardCanvas.gameObject.SetActive(true);
+        battleRewardCanvas.AddRewards(goldButtons: 1, cardButtons: 2);
 
         cardManager.CardRightClicked();
 
