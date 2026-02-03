@@ -249,7 +249,6 @@ public class CardManager : MonoBehaviour
         MoveCardToDiscardDeck(card);
         draggingCard = null;
         
-        RunManager.Inst.battleManager.OnCardUse();
         if (playerHands.Count <= 0)
         {
             costManager.AddCost(3);

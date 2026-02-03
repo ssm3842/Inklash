@@ -4,7 +4,7 @@ public class EventManager : MonoBehaviour
 {
     // [SerializeField]GameObject addCardObjects;
     [SerializeField]CampfireEvent campfireObjects;
-    [SerializeField]GameObject mixCardObjects;
+    [SerializeField]MixCardEvent mixCardObjects;
     [SerializeField]GameObject moveFlagObjects;
 
     [SerializeField]BattleRewardController battleRewardCanvas;
@@ -22,19 +22,21 @@ public class EventManager : MonoBehaviour
                 StatType targetStat = UnityEngine.Random.Range(0, 2) == 0? StatType.MAX_HP : StatType.ATK;
 
                 campfireObjects.gameObject.SetActive(true);
-                mixCardObjects.SetActive(false);
+                mixCardObjects.gameObject.SetActive(false);
                 moveFlagObjects.SetActive(false);
 
                 campfireObjects.FilterDeckCard(targetStat, CardType.Unit);
                 break;
             case EventRoomType.MIXCARD:
                 campfireObjects.gameObject.SetActive(false);
-                mixCardObjects.SetActive(true);
+                mixCardObjects.gameObject.SetActive(true);
                 moveFlagObjects.SetActive(false);
+
+                mixCardObjects.FilterDeckCard();
                 break;
             case EventRoomType.MOVEFLAG:
                 campfireObjects.gameObject.SetActive(false);
-                mixCardObjects.SetActive(false);
+                mixCardObjects.gameObject.SetActive(false);
                 moveFlagObjects.SetActive(true);
                 break;
         }
@@ -44,6 +46,7 @@ public class EventManager : MonoBehaviour
 
     public void _OnEventEnd()
     {
+        RunManager.Inst.mapManager.SetVisible();
         gameObject.SetActive(false);
     }
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class BattleManager : MonoBehaviour
 {
@@ -11,8 +10,6 @@ public class BattleManager : MonoBehaviour
 
     public CardManager cardManager;
     public CardUseManager cardUseManager;
-
-    public UnityEvent CardUse;
 
     public void InitBattle()
     {
@@ -69,10 +66,5 @@ public class BattleManager : MonoBehaviour
             defeatCanvas.gameObject.SetActive(true);
         }
 
-    }
-
-    public void OnCardUse()
-    {
-        CardUse?.Invoke();
     }
 }

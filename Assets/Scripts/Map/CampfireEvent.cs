@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CampfireEvent : MonoBehaviour
 {
+    [SerializeField] EventManager eventManager;
     [SerializeField]Transform content;
     [SerializeField]GameObject cardPrefab;
     [SerializeField]TextMeshProUGUI text;
+
     public void FilterDeckCard(StatType maptype, CardType cardType)
     {
         if(maptype == StatType.MAX_HP)
@@ -32,10 +35,19 @@ public class CampfireEvent : MonoBehaviour
             {
                 GameObject cardUI = Instantiate(cardPrefab, content);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
+                cardUI.GetComponent<Button>().onClick.AddListener(() => UpgradeCard(card, maptype));
             }
         }
 
         //카드 수에 따라 스크롤 뷰 높이를 변경.
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
+    }
+
+    void UpgradeCard(CardContent targetCard, StatType targetStat)
+    {
+        if(targetStat == StatType.MAX_HP) targetCard.stats.baseMaxHp += 10;
+        else if(targetStat == StatType.ATK) targetCard.stats.baseATK += 5;
+
+        eventManager._OnEventEnd();
     }
 }
