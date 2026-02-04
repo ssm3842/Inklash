@@ -10,6 +10,8 @@ public class MixCardEvent : MonoBehaviour
 
     Dictionary<string, int> cardCountDict;
 
+    CardContent firstCard = null;
+
     public void FilterDeckCard()
     {
         //기존에 있던 카드 오브젝트 삭제.
@@ -18,6 +20,7 @@ public class MixCardEvent : MonoBehaviour
             Destroy(child.gameObject);
         }
         
+        firstCard = null;
         List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
 
         //덱에 있는 카드들의 매수를 구함.
@@ -36,11 +39,55 @@ public class MixCardEvent : MonoBehaviour
             {
                 GameObject cardUI = Instantiate(cardPrefab, content);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                // cardUI.GetComponent<Button>().onClick.AddListener(() => UpgradeCard(card, maptype));
+                cardUI.GetComponent<Button>().onClick.AddListener(() => AddMixCardQueue(card));
+
             }
         }
 
         //카드 수에 따라 스크롤 뷰 높이를 변경.
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
+    }
+
+    void AddMixCardQueue(CardContent targetCard)
+    {
+        Debug.Log(firstCard);
+        //두번째 카드를 고른 경우
+        if(firstCard != null)
+        {
+            Debug.Log(3);
+            //첫번째 카드와 두번째 카드가 다른 종류일 경우 선택 불가.
+            if(firstCard.id != targetCard.id) return;
+            else
+            {
+                MixCard(firstCard, targetCard);
+                return;
+            }
+        }
+        //이미 선택된 카드를 고른 경우
+        else if(firstCard == targetCard)
+        {
+            Debug.Log(2);
+            firstCard = null;
+            return;
+        }
+        //카드를 한장도 고르지 않은 경우
+        else
+        {
+            Debug.Log(1);
+            firstCard = targetCard;
+            return;
+        }
+        
+    }
+
+    void MixCard(CardContent targetCard1, CardContent targetCard2)
+    {
+        targetCard1.stats.baseATK += targetCard2.stats.baseATK;
+        targetCard1.stats.baseMaxHp += targetCard2.stats.baseMaxHp;
+
+        //두번째 카드는 삭제하고 첫번째 카드의 스탯을 조정.
+        RunManager.Inst.deckManager.RemoveCardToDeck(targetCard2);
+
+        eventManager._OnEventEnd();
     }
 }
