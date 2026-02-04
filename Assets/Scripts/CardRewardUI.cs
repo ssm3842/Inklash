@@ -16,7 +16,7 @@ public class CardRewardUI : MonoBehaviour
 
         gameObject.SetActive(true);
     }
-    void OnCardRewardSelected(CardRewardCardUI cardUI)
+    public void OnCardRewardSelected(CardRewardCardUI cardUI)
     {
         RunManager.Inst.deckManager.AddCardToDeck(cardUI.cardContent);
 

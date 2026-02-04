@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -13,8 +14,12 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     [SerializeField] TMP_Text costText;
     [SerializeField] TMP_Text nameText;
-    [SerializeField] TMP_Text descriptionText;
+    [SerializeField] TMP_Text ATKText;
+    [SerializeField] TMP_Text HPText;
+
     [SerializeField] Renderer[] subObjectsRenderers;
+
+    [SerializeField] Sprite[] cardBackground;
 
     //좌클릭과 우클릭 시 
     public void OnPointerClick(PointerEventData eventData)
@@ -93,9 +98,24 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         cardContent = content;
         originalIndex = newIndex;
 
+        switch(cardContent.cardType)
+        {
+            case CardType.Unit:
+                GetComponent<Image>().sprite = cardBackground[0];
+                break;
+            case CardType.Spell:
+                GetComponent<Image>().sprite = cardBackground[1];
+                break;
+            case CardType.Word:
+                GetComponent<Image>().sprite = cardBackground[2];
+                break;
+        }
+
         costText.text = content.cost.ToString();
         nameText.text = content.name;
-        descriptionText.text = content.description;
+
+        ATKText.text = content.stats.baseATK.ToString();
+        HPText.text = content.stats.baseMaxHp.ToString();
     }
 
     public int GetOriginalIndex()

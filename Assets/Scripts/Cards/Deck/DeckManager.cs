@@ -10,7 +10,7 @@ public class DeckManager : MonoBehaviour
         deck = new List<CardContent>();
         foreach(CardDataSO cardData in newDeck)
         {
-            deck.Add(cardData.card);
+            deck.Add(new CardContent(cardData.card));
         }
     }
 

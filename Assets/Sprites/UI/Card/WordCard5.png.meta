@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1a8f2abd07cf33043b538590fee594ac
+guid: 71db87dc7e287d44baca52e47b1916c5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1243088233304305709
-    second: CardUI2_0
+      213: 7525766440619242560
+    second: WordCard5_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CardUI2_0
+      name: WordCard5_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 19
-        width: 486
-        height: 661
+        x: 5
+        y: 0
+        width: 546
+        height: 837
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3dfcd6586d9afbee0800000000000000
-      internalID: -1243088233304305709
+      spriteID: 0447aab54b4e07860800000000000000
+      internalID: 7525766440619242560
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CardUI2_0: -1243088233304305709
+      WordCard5_0: 7525766440619242560
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

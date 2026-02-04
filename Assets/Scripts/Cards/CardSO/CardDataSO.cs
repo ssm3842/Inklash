@@ -19,6 +19,19 @@ public class CardContent
     public string description;
     public UnitStats stats;
     public GameObject unit;
+
+    public CardContent(CardContent baseCardContent)
+    {
+        id = baseCardContent.id;
+        name = baseCardContent.name;
+        cost = baseCardContent.cost;
+        cardType = baseCardContent.cardType;
+        attackType = baseCardContent.attackType;
+        effectID = baseCardContent.effectID;
+        description = baseCardContent.description;
+        stats = new UnitStats(baseCardContent.stats);
+        unit = baseCardContent.unit;
+    }
 }
 
 public enum CardType
