@@ -8394,7 +8394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Content: {fileID: 1976256306}
+  m_Content: {fileID: 608789033}
   m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
@@ -9874,10 +9874,6 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2321773565869809045, guid: ceb310cd5045e1548a9c9e250b1ee66f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2321773565869809045, guid: ceb310cd5045e1548a9c9e250b1ee66f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 394045605}
@@ -9886,19 +9882,11 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2321773565869809045, guid: ceb310cd5045e1548a9c9e250b1ee66f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2321773565869809045, guid: ceb310cd5045e1548a9c9e250b1ee66f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnCardRewardSelected
       objectReference: {fileID: 0}
     - target: {fileID: 2321773565869809045, guid: ceb310cd5045e1548a9c9e250b1ee66f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CardRewardUI, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2321773565869809045, guid: ceb310cd5045e1548a9c9e250b1ee66f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: CardRewardUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2321773565869809045, guid: ceb310cd5045e1548a9c9e250b1ee66f, type: 3}

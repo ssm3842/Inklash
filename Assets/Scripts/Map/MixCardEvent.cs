@@ -50,30 +50,28 @@ public class MixCardEvent : MonoBehaviour
 
     void AddMixCardQueue(CardContent targetCard)
     {
-        Debug.Log(firstCard);
-        //두번째 카드를 고른 경우
+        //두번째 카드를 고르는 경우
         if(firstCard != null)
         {
-            Debug.Log(3);
             //첫번째 카드와 두번째 카드가 다른 종류일 경우 선택 불가.
             if(firstCard.id != targetCard.id) return;
+
+            //이미 선택된 카드를 고른 경우
+            else if(firstCard == targetCard)
+            {
+                firstCard = null;
+                return;
+            }
+
             else
             {
                 MixCard(firstCard, targetCard);
                 return;
             }
         }
-        //이미 선택된 카드를 고른 경우
-        else if(firstCard == targetCard)
-        {
-            Debug.Log(2);
-            firstCard = null;
-            return;
-        }
         //카드를 한장도 고르지 않은 경우
         else
         {
-            Debug.Log(1);
             firstCard = targetCard;
             return;
         }
