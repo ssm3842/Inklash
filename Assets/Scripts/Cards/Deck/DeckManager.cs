@@ -10,7 +10,9 @@ public class DeckManager : MonoBehaviour
         deck = new List<CardContent>();
         foreach(CardDataSO cardData in newDeck)
         {
-            deck.Add(cardData.card);
+            CardDataSO clonedSO = Instantiate(cardData);
+            
+            deck.Add(clonedSO.card);
         }
     }
 
