@@ -38,7 +38,7 @@ public class CardManager : MonoBehaviour
     void StartBattle()
     {
         Shuffle(currentBattleDeck);
-        DrawNewHand();
+        DrawNewHand(true);
     }
 
     void DrawCard()
@@ -59,13 +59,13 @@ public class CardManager : MonoBehaviour
         handLayout.AlignCards();
     }
 
-    public void DrawNewHand() //패가 가득 찰 때까지 카드를 뽑음.
+    public void DrawNewHand(bool isFree) //패가 가득 찰 때까지 카드를 뽑음.
     {   
-        // if(!isFree) //전투 시작 시 또는 패를 다 사용했을 때는 비용 없이 카드 다시뽑기.
-        // {
-        //     if (!costManager.CheckUseCostAvailable(playerHands.Count + 1)) return;
-        //     costManager.UseCost(playerHands.Count + 1);
-        // }
+        if(!isFree) //전투 시작 시 또는 패를 다 사용했을 때는 비용 없이 카드 다시뽑기.
+        {
+            if (!costManager.CheckUseCostAvailable(playerHands.Count + 1)) return;
+            costManager.UseCost(playerHands.Count + 1);
+        }
 
         for (int i = playerHands.Count - 1; i >= 0; i--) //에러 방지를 위해 역순으로 묘지로 이동
         {
@@ -78,15 +78,6 @@ public class CardManager : MonoBehaviour
         }
         
         handLayout.AlignCards();
-    }
-
-    public void DiscardCard()
-    {
-        Card randomCard = playerHands[UnityEngine.Random.Range(0, playerHands.Count)];
-
-        //Card 스크립트에 OnDiscard를 받는 변수 생성 후 각 기능은 상속 후 오버라이드 해서 구현
-
-        MoveCardToDiscardDeck(randomCard);
     }
 
     CardContent PopCardFromDeck()
@@ -128,7 +119,7 @@ public class CardManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            DrawNewHand();
+            DrawNewHand(false);
         }
     }
 
@@ -261,7 +252,7 @@ public class CardManager : MonoBehaviour
         if (playerHands.Count <= 0)
         {
             costManager.AddCost(3);
-            DrawNewHand();
+            DrawNewHand(true);
         }
         
         handLayout.AlignCards();
