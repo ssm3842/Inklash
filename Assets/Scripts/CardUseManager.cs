@@ -15,15 +15,12 @@ public class CardUseManager : MonoBehaviour
     [SerializeField] GameObject enemyBase;
     [SerializeField] EnemyBaseDataSO[] enemyBaseDatas;
 
-    List<CardContent> availableEnemies;
-
     List<WordBase> stackedWordCardEffect;
 
     public Coroutine enemySpawnCoroutine = null;
     private bool hasPhase2Bursted = false;
 
     bool isCloneCardUsed = false;
-    
 
     public void InitUnitManager()
     {
@@ -74,6 +71,15 @@ public class CardUseManager : MonoBehaviour
         GameObject newUnit = Instantiate(card.unit, playerBase.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
         newUnit.transform.SetParent(transform);
         newUnit.GetComponent<Units>().Init(true, card.stats);
+        
+        //유닛 Seal 적용
+        if (card.seals != null && card.seals.Count > 0)
+        {
+            foreach (SealType seal in card.seals)
+            {
+                SealManager.Inst.ApplySeal(newUnit, seal);
+            }
+        }
 
         //유닛 생성 후 버프 적용
         foreach(WordBase wordCard in stackedWordCardEffect)

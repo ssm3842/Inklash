@@ -1,284 +1,241 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public interface IUnitState { void Enter(); void Execute(); void Exit(); }
+
+[RequireComponent(typeof(UnitStatusHandler))]
 public class Units : DamageableObject
 {
-    protected bool isAttacking = false;
+    protected IUnitState currentState;
+    public StatController StatControl => statController; 
+    protected UnitStatusHandler statusHandler;
 
-    [SerializeField] protected bool canAttack;
-    [SerializeField] protected float canAttackTimer;
+    protected DamageableObject target; 
+    public DamageableObject Target { get => target; set => target = value; }
 
-    private bool isDead = false;       
-    public bool IsDead => isDead;
-    private SpriteRenderer SR;        
-    private Collider2D COL;           
-    [SerializeField] private float deathDuration = 0.3f; 
+    public Rigidbody2D RB { get; private set; }
+    public Animator ANI { get; private set; }
+    protected Collider2D COL;
+    public Action<DamageableObject> OnAttackPerformed;
 
-    Rigidbody2D RB;
-    Animator ANI;
+    public bool isAttacking = false;
+    public bool canAttack = true;
+    public float canAttackTimer = 0f;
+    public bool isDead = false;
+    private Vector3 originalScale;
 
-    protected DamageableObject target;
+    // 내 몸에 붙은 특수 공격 부품들 (bool 변수 대신 사용)
+    private List<AttackEffect> attackEffects = new List<AttackEffect>();
 
-    private bool isKnockedBack = false;
-    private Coroutine currentKnockbackRoutine = null;
-
-    void Awake()
+    protected virtual void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
         ANI = GetComponent<Animator>();
-
-        SR = GetComponent<SpriteRenderer>();
         COL = GetComponent<Collider2D>();
+        statusHandler = GetComponent<UnitStatusHandler>();
+        originalScale = transform.localScale;
     }
 
-    override public void Init(bool isplayers, UnitStats stats)
+    public override void Init(bool players, UnitStats stats)
     {
-        base.Init(isplayers, stats);
-
-        isDead = false; 
-        isKnockedBack = false;
-
-        canAttack = true;
-        canAttackTimer = 0f;
-
-        GetComponent<Renderer>().sortingOrder = -Mathf.CeilToInt((transform.position.y - 0.3f) * 100f);
+        base.Init(players, stats);
+        isDead = false; canAttack = true; isAttacking = false;
+        if (COL) COL.enabled = true;
+        if (ANI) ANI.enabled = true;
+        transform.localScale = originalScale;
+        SetDefaultState();
     }
 
-    void Update()
+    protected virtual void SetDefaultState() => ChangeState(new MoveState(this));
+
+    public HitEffectPacket GetFinalHitPacket(DamageableObject victim)
     {
-        //사망 시 행동 불능.
+        HitEffectPacket packet = CreateHitPacket(victim);
+
+        var effects = GetComponents<AttackEffect>();
+        foreach (var effect in effects)
+        {
+            effect.ApplyEffect(packet);
+        }
+
+        return packet;
+    }
+    public void ChangeState(IUnitState newState)
+    {
         if (isDead) return;
-
-        if (isKnockedBack)
-        {
-            if (RB != null) RB.linearVelocity = Vector2.zero;
-            return;
-        }
-        //디버프로 인한 행동불능이 있는지 검사.
-        if(buffController.HaveDisruptEffect())
-        {
-            //기존 효과를 함수로 이전.
-            OnDisruptEffect();
-
-            return;
-        }
-        else
-        {
-            ANI.speed = 1f;
-        }
-
-        ANI.speed = statController.GetStat(StatType.ATKSPD);
-
-        if (target != null)
-        {
-            Units targetUnit = target.GetComponent<Units>();
-            if (targetUnit != null && targetUnit.IsDead) target = null;    
-            else 
-            {
-                float distance = Mathf.Abs(target.transform.position.x - transform.position.x);
-                
-                float myRange = statController.GetStat(StatType.RANGE);
-
-
-                if (distance > myRange + 0.1f) 
-                {
-                    target = null;      
-                    isAttacking = false; 
-                }
-            }
-        }
-        
-
-        Move();
-
-        if (!target) //타겟이 없을 때만 새로 검사.
-        {
-            RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, new Vector2(statController.GetStat(StatType.RANGE), 0.6f), 0f, isPlayers ? Vector3.right : Vector3.left, 0f);
-            //검사된 오브젝트들을 필터링 및 정렬.
-            hits = hits 
-                .Where(hit => hit.collider != null && hit.collider.CompareTag("Units") && hit.collider.GetComponent<DamageableObject>().isPlayers != isPlayers) //상대 유닛만 검사 포함.
-                .OrderBy(hit => Vector3.Distance(hit.transform.position, transform.position)) //오름차순으로 정렬(가까운 오브젝트가 제일 앞에 옴)
-                .ToArray();
-
-            if (hits.Length <= 0) target = null; //자신만 감지된 경우 타겟 없음.
-            else target = hits[0].collider.GetComponent<DamageableObject>();
-        }
-
-        //목표가 없고 공격 모션이 끝나면 이동.
-        if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD);
-        //목표가 있거나 공격 모션이 재생중이면 이동 불가.
-        else RB.linearVelocityX = 0f;
-        ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
-
-        //공격이 가능하고 타겟이 있다면 애니메이션 재생으로 공격 실행.
-        if (canAttack && target != null) 
-        {
-            canAttack = false;
-            ANI.SetTrigger("Attacked");
-        }
-
-        if (canAttackTimer >= statController.GetStat(StatType.ATKTerm) && !canAttack) canAttack = true; //ATKTerm 만큼의 초마다 공격 가능 상태가 됨.
-        else if (canAttackTimer >= statController.GetStat(StatType.ATKTerm) && canAttack) { }
-        else canAttackTimer += Time.deltaTime * statController.GetStat(StatType.ATKSPD); //공격 속도만큼 빠르게 채워짐.
+        currentState?.Exit();
+        currentState = newState;
+        currentState.Enter();
     }
 
-    public virtual void OnDisruptEffect()
+    protected virtual void Update()
     {
-        //애니메이션 초기화.
-            ANI.speed = 0f;
-            ANI.SetTrigger("Disrupted");
-
-            //공격 초기화
-            target = null;
-            isAttacking = false;
-            canAttackTimer = 0f;
-            canAttack = false;
-
-            //이동속도 0
-            RB.linearVelocityX = 0f;
+        if (isDead || StatControl == null) return;
+        HandleDisruptStatus();
+        currentState?.Execute();
+        UpdateAttackTimer();
     }
 
-    public virtual void Move()
-    {
-        if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD); //목표가 없으면 이동.
-        else RB.linearVelocityX = 0f;   //목표가 있으면 정지
-
-        ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
-
-    }
-
-    override public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
+    public override IEnumerator TakeDamage(float amount, float delayTime = 0f)
     {
         if (isDead) yield break;
-
         yield return new WaitForSeconds(delayTime);
-        if (statController.GetCurHp() <= amount) Die(); //남은 체력보다 데미지가 크면 오브젝트 파괴.
-        else statController.ChangeCurHp(amount); //아니면 체력 계산.
+        if (StatControl.GetCurHp() <= amount) Die();
+        else StatControl.ChangeCurHp(amount);
     }
 
-    public IEnumerator TakeDamage(float amount, bool isKnockback, float distance, float duration, float delayTime = 0f)
+    protected virtual void Die()
     {
-        // 1. 기본 데미지 처리 (위의 함수 재사용)
-        yield return StartCoroutine(this.TakeDamage(amount, delayTime));
+        if (isDead) return;
+        isDead = true;
+        if (RB) RB.linearVelocity = Vector2.zero;
+        if (ANI) ANI.enabled = false;
+        if (COL) COL.enabled = false;
+        StartCoroutine(DeathEffect());
+    }
 
-        // 2. 살아있고, 넉백 공격이라면 실행
-        if (!isDead && statController.GetCurHp() > 0 && isKnockback)
+    private IEnumerator DeathEffect()
+    {
+        float t = 0;
+        Vector3 s = transform.localScale;
+        while (t < 0.3f) { t += Time.deltaTime; transform.localScale = Vector3.Lerp(s, Vector3.zero, t / 0.3f); yield return null; }
+        Destroy(gameObject);
+    }
+
+    private void HandleDisruptStatus()
+    {
+        if (buffController == null) return;
+        bool hasDisrupt = buffController.HaveDisruptEffect();
+        if (hasDisrupt && currentState is not DisruptedState) ChangeState(new DisruptedState(this));
+        else if (!hasDisrupt && currentState is DisruptedState) SetDefaultState();
+    }
+
+    private void UpdateAttackTimer()
+    {
+        float term = StatControl.GetStat(StatType.ATKTerm);
+        float spd = StatControl.GetStat(StatType.ATKSPD);
+        if (canAttackTimer >= term) canAttack = true;
+        else canAttackTimer += Time.deltaTime * spd;
+    }
+
+    public virtual void _AttackEnemy() 
+    { 
+        if (target == null) return;
+
+        target.StartCoroutine(target.TakeDamage(StatControl.GetStat(StatType.ATK), 0f)); 
+
+        HitEffectPacket packet = CreateHitPacket(target);
+
+        attackEffects.Clear();
+        GetComponents<AttackEffect>(attackEffects);
+        foreach (var effect in attackEffects)
         {
-            ApplyKnockback(distance, duration);
+            effect.ApplyEffect(packet);
         }
+
+        var targetHandler = target.GetComponent<UnitStatusHandler>();
+        if (targetHandler != null) targetHandler.ProcessHitEffects(packet);
+
+        OnAttackPerformed?.Invoke(target); 
     }
 
-    public virtual void _AttackEnemy() //공격은 애니메이션에서 진행.
+    private HitEffectPacket CreateHitPacket(DamageableObject victim)
     {
-        Units targetUnit = target?.GetComponent<Units>();
-        float damage = statController.GetStat(StatType.ATK);
-
-        if (targetUnit != null)
+        return new HitEffectPacket
         {
-            // ★ 핵심: 내 몸에 'KnockbackAttacker' 컴포넌트가 있는지 확인
-            KnockBack kb = GetComponent<KnockBack>();
+            // 방향에 따른 넉백 힘 설정
+            KnockbackForce = Vector2.zero,
+            IsFreezeAttack = false 
+        };
+    }
 
-            if (kb != null)
+    public void _OnAttackStart() { canAttackTimer = 0f; canAttack = false; isAttacking = true; }
+    public void _OnAttackEnd() { isAttacking = false; }
+}
+
+public class MoveState : IUnitState
+{
+    protected Units u;
+    public MoveState(Units unit) => u = unit;
+    public virtual void Enter() { if(u.ANI) u.ANI.SetBool("IsMoving", true); }
+    
+    public virtual void Execute()
+    {
+        // 1. 타겟이 없으면 탐색
+        if (u.Target == null)
+        {
+            float searchRange = 10f; // 탐색 범위
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(u.transform.position, new Vector2(searchRange, 0.6f), 0f, u.isPlayers ? Vector3.right : Vector3.left, 0f);
+            var validHit = hits.Where(h => h.collider != null && h.collider.CompareTag("Units"))
+                               .Select(h => new { h, d = h.collider.GetComponent<DamageableObject>() })
+                               .Where(x => x.d != null && x.d.isPlayers != u.isPlayers)
+                               .OrderBy(x => Vector3.Distance(x.h.transform.position, u.transform.position)).FirstOrDefault();
+            if (validHit != null) u.Target = validHit.d;
+        }
+
+        // 2. 타겟이 있고 '사거리 안'에 들어오면 공격 상태로 전환
+        if (u.Target != null) 
+        {
+            float dist = Vector2.Distance(u.transform.position, u.Target.transform.position);
+            float attackRange = u.StatControl.GetStat(StatType.RANGE);
+
+            if (dist <= attackRange)
             {
-                // 넉백 컴포넌트가 있다면, 거기에 설정된 거리와 시간을 전달
-                target.StartCoroutine(targetUnit.TakeDamage(damage, true, kb.pushDistance, kb.pushDuration));
-            }
-            else
-            {
-                // 넉백 컴포넌트가 없으면 일반 공격 (false)
-                target.StartCoroutine(targetUnit.TakeDamage(damage, false, 0, 0));
+                u.ChangeState(new AttackState(u));
+                return;
             }
         }
-        else if (target != null) // 건물이거나 Units 컴포넌트가 없는 경우
+
+        // 3. 사거리 밖이라면 계속 이동
+        u.RB.linearVelocityX = u.isPlayers ? u.StatControl.GetStat(StatType.SPD) : -u.StatControl.GetStat(StatType.SPD);
+    }
+    public virtual void Exit() { if(u.RB) u.RB.linearVelocityX = 0f; if(u.ANI) u.ANI.SetBool("IsMoving", false); }
+}
+
+public class AttackState : IUnitState
+{
+    protected Units u;
+    public AttackState(Units unit) => u = unit;
+    public void Enter() { if(u.RB) u.RB.linearVelocityX = 0f; }
+    
+    public void Execute()
+    {
+        if (u.Target == null) { u.ChangeState(new MoveState(u)); return; }
+
+        // 넉백 등으로 타겟이 사거리 밖으로 벗어났는지 체크
+        float dist = Vector2.Distance(u.transform.position, u.Target.transform.position);
+        float attackRange = u.StatControl.GetStat(StatType.RANGE);
+
+        if (dist > attackRange && !u.isAttacking) // 공격 중이 아닐 때만 추격 시작
         {
-            target.StartCoroutine(target.TakeDamage(damage, 0f));
-        }
-    }
-
-    public void _OnAttackStart() //공격 애니메이션 시작 시 관련 변수를 초기화.
-    {
-        canAttackTimer = 0f;
-        canAttack = false;
-        isAttacking = true;
-    }
-    public void _OnAttackEnd() //공격 애니메이션 종료 시 이동할 수 있도록 변수 초기화.
-    {
-        isAttacking = false;
-    }
-
-    //사망모션 임의 구현
-    private void Die()
-    {
-        isDead = true; 
-        isKnockedBack = false;
-
-        if (RB != null) RB.linearVelocity = Vector2.zero;
-        if (ANI != null) ANI.enabled = false; 
-
-        if (COL != null) COL.enabled = false;
-
-        StartCoroutine(DeathEffectCoroutine());
-    }
-
-    private IEnumerator DeathEffectCoroutine()
-    {
-        float timer = 0f;
-        
-        Vector3 initialScale = transform.localScale;
-        Color initialColor = (SR != null) ? SR.color : Color.white;
-
-        while (timer < deathDuration)
-        {
-            timer += Time.deltaTime;
-            float progress = timer / deathDuration; 
-
-            transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, progress);
-
-            /* 투명하게
-            if (SR != null)
-            {
-                Color newColor = initialColor;
-                newColor.a = Mathf.Lerp(initialColor.a, 0f, progress);
-                SR.color = newColor;
-            }
-            */
-            yield return null; 
+            u.ChangeState(new MoveState(u));
+            return;
         }
 
-        Destroy(this.gameObject);
+        if (u.canAttack && u.Target != null) u.ANI.SetTrigger("Attacked");
     }
+    public void Exit() { }
+}
 
-    void ApplyKnockback(float distance, float duration)
-    {
-        if (currentKnockbackRoutine != null)
-        {
-            StopCoroutine(currentKnockbackRoutine);
-        }
-        currentKnockbackRoutine = StartCoroutine(KnockbackRoutine(distance, duration));
-    }
+public class DisruptedState : IUnitState
+{
+    protected Units u;
+    public DisruptedState(Units unit) => u = unit;
+    public void Enter() { if(u.ANI) u.ANI.speed = 0f; if(u.RB) u.RB.linearVelocityX = 0f; u.isAttacking = false; }
+    public void Execute() { }
+    public void Exit() { if(u.ANI) u.ANI.speed = 1f; }
+}
 
-    IEnumerator KnockbackRoutine(float distance, float duration)
-    {
-        isKnockedBack = true;
-        
-        float elapsed = 0f;
-        Vector3 startPos = transform.position;
-        // 아군이면 왼쪽으로, 적이면 오른쪽으로 밀림
-        Vector3 pushDir = isPlayers ? Vector3.left : Vector3.right;
-        Vector3 targetPos = startPos + (pushDir * distance);
-
-        while (elapsed < duration)
-        {
-            if (isDead) break;
-
-            transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        if (!isDead) transform.position = targetPos;
-        isKnockedBack = false;
-        currentKnockbackRoutine = null;
-    }
+public class KnockbackState : IUnitState
+{
+    private Units u;
+    private Vector2 force;
+    private float duration;
+    public KnockbackState(Units unit, Vector2 f, float d) { u = unit; force = f; duration = d; }
+    public void Enter() { if (u.RB) u.RB.AddForce(force, ForceMode2D.Impulse); }
+    public void Execute() { duration -= Time.deltaTime; if (duration <= 0) u.ChangeState(new MoveState(u)); }
+    public void Exit() { if (u.RB) u.RB.linearVelocity = Vector2.zero; }
 }

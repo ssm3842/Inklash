@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "CardData", menuName ="Scriptable Object/CardData")]
 public class CardDataSO : ScriptableObject
@@ -32,6 +33,7 @@ public class CardContent
         stats = new UnitStats(baseCardContent.stats);
         unit = baseCardContent.unit;
     }
+    public List<SealType> seals = new();
 }
 
 public enum CardType
@@ -42,4 +44,9 @@ public enum CardType
 public enum AttackType
 {
     None, Melee, Ranged,
+}
+
+public enum SealType 
+{
+     None, StartCost, Test
 }

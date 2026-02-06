@@ -10,27 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ac64787e8df6a945a23d7f52e6c8d82, type: 3}
-  m_Name: Sword
+  m_Name: Cold
   m_EditorClassIdentifier: 
   card:
-    id: Sword
-    name: "\uAC80"
+    id: Cold
+    name: "\uCC28\uAC00\uC6B4"
     cost: 2
-    cardType: 0
-    attackType: 1
+    cardType: 2
+    attackType: 0
     effectID: 
     description: 
     stats:
-      baseMaxHp: 30
-      baseATK: 5
-      baseATKTerm: 2
-      baseATKSpd: 1
-      baseRange: 1
-      baseSpd: 1
+      baseMaxHp: 0
+      baseATK: 0
+      baseATKTerm: 0
+      baseATKSpd: 0
+      baseRange: 0
+      baseSpd: 0
       bonusMaxHp: 0
       bonusATK: 0
       bonusATKSpd: 0
       bonusRange: 0
       bonusSpd: 0
-    unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
-    seals: 
+    unit: {fileID: 5987035957441481829, guid: 4421737ca272b794a87c94b396858ada, type: 3}

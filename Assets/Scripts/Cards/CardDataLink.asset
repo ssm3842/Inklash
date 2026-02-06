@@ -39,6 +39,8 @@ MonoBehaviour:
     cardContents: {fileID: 11400000, guid: f54409085164b4c4581c8ed3f44dd8d5, type: 2}
   - id: Quick
     cardContents: {fileID: 11400000, guid: b72e039a23326db4199bd9b069342bc9, type: 2}
+  - id: Cold
+    cardContents: {fileID: 11400000, guid: 45055dc501df2a241b053b7456ed97b8, type: 2}
   EnemyUnits:
   - id: LowerI
     cardContents: {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
