@@ -8,5 +8,4 @@ public class GameRule : MonoBehaviour
     public static int MAX_COST = 10;
 
     public static float ENEMY_SPAWN_SECONDS = 5f;
-    public static float REROLL_WAIT_SCEOND = 15f;
 }
