@@ -248,16 +248,6 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &49697295
 CanvasRenderer:
-  m_GameObject: {fileID: 40731107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43ec49c9f48dca54da4eac3ba8be5af5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  qSeal: 1
-  wSeal: 2
---- !u!4 &40731109
-Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
