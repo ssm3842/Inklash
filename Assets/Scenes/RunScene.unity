@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 119397e417ef28b47ac699da41086c1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88771d83e989e124ea0df4328322c1c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -207,7 +207,6 @@ GameObject:
   - component: {fileID: 49697294}
   m_Layer: 5
   m_Name: MoveFlag
-  - component: {fileID: 40731109}
   - component: {fileID: 40731108}
   m_Layer: 0
   m_Name: SealTest
@@ -5590,7 +5589,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d5ea4038a39f8614fa71b9e86a4489e4, type: 3}
+  m_Sprite: {fileID: 3391867055471111865, guid: d5ea4038a39f8614fa71b9e86a4489e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10023,4 +10022,3 @@ SceneRoots:
   - {fileID: 1941545477}
   - {fileID: 969832352}
   - {fileID: 1462330702}
-  - {fileID: 40731109}
