@@ -23,6 +23,7 @@ MonoBehaviour:
     stats:
       baseMaxHp: 30
       baseATK: 5
+      baseATKTerm: 2
       baseATKSpd: 1
       baseRange: 1
       baseSpd: 1
@@ -32,3 +33,4 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
+    onDiscardType: 1
