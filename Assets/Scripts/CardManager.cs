@@ -38,7 +38,7 @@ public class CardManager : MonoBehaviour
     void StartBattle()
     {
         Shuffle(currentBattleDeck);
-        DrawNewHand(true);
+        DrawNewHand();
     }
 
     void DrawCard()
@@ -59,13 +59,13 @@ public class CardManager : MonoBehaviour
         handLayout.AlignCards();
     }
 
-    public void DrawNewHand(bool isFree) //패가 가득 찰 때까지 카드를 뽑음.
+    public void DrawNewHand() //패가 가득 찰 때까지 카드를 뽑음.
     {   
-        if(!isFree) //전투 시작 시 또는 패를 다 사용했을 때는 비용 없이 카드 다시뽑기.
-        {
-            if (!costManager.CheckUseCostAvailable(playerHands.Count + 1)) return;
-            costManager.UseCost(playerHands.Count + 1);
-        }
+        // if(!isFree) //전투 시작 시 또는 패를 다 사용했을 때는 비용 없이 카드 다시뽑기.
+        // {
+        //     if (!costManager.CheckUseCostAvailable(playerHands.Count + 1)) return;
+        //     costManager.UseCost(playerHands.Count + 1);
+        // }
 
         for (int i = playerHands.Count - 1; i >= 0; i--) //에러 방지를 위해 역순으로 묘지로 이동
         {
@@ -78,6 +78,25 @@ public class CardManager : MonoBehaviour
         }
         
         handLayout.AlignCards();
+    }
+
+    public void DiscardCard()
+    {
+        Card randomCard = playerHands[UnityEngine.Random.Range(0, playerHands.Count)];
+
+        switch(randomCard.cardContent.onDiscardType)
+        {
+            case OnDiscardType.Draw:
+                DrawCard();
+                break;
+            case OnDiscardType.Summon:
+                Debug.Log("Summon Unit on Discard");
+                break;
+        }
+
+        MoveCardToDiscardDeck(randomCard);
+        
+        CheckHandLeft();
     }
 
     CardContent PopCardFromDeck()
@@ -119,7 +138,7 @@ public class CardManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            DrawNewHand(false);
+            DiscardCard();
         }
     }
 
@@ -249,10 +268,15 @@ public class CardManager : MonoBehaviour
         MoveCardToDiscardDeck(card);
         draggingCard = null;
         
+        CheckHandLeft();
+    }
+
+    void CheckHandLeft()
+    {
         if (playerHands.Count <= 0)
         {
             costManager.AddCost(3);
-            DrawNewHand(true);
+            DrawNewHand();
         }
         
         handLayout.AlignCards();

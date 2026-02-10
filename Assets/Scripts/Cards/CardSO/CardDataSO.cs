@@ -19,6 +19,7 @@ public class CardContent
     public string description;
     public UnitStats stats;
     public GameObject unit;
+    public OnDiscardType onDiscardType;
 
     public CardContent(CardContent baseCardContent)
     {
@@ -31,6 +32,7 @@ public class CardContent
         description = baseCardContent.description;
         stats = new UnitStats(baseCardContent.stats);
         unit = baseCardContent.unit;
+        onDiscardType = baseCardContent.onDiscardType;
     }
 }
 
@@ -42,4 +44,9 @@ public enum CardType
 public enum AttackType
 {
     None, Melee, Ranged,
+}
+
+public enum OnDiscardType
+{
+    None, Draw, Summon,
 }
