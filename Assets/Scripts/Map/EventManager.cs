@@ -39,7 +39,7 @@ public class EventManager : MonoBehaviour
                 mixCardObjects.gameObject.SetActive(false);
                 makeFlagObjects.gameObject.SetActive(true);
 
-                makeFlagObjects.FilterDeckCard();
+                makeFlagObjects.SetEvent();
                 break;
         }
         gameObject.SetActive(true);
