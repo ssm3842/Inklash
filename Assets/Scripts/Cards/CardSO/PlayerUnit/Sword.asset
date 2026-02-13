@@ -34,3 +34,5 @@ MonoBehaviour:
       bonusSpd: 0
     unit: {fileID: 3478570815177045348, guid: fb61f02cbbbe39043921f0b74d2c73cd, type: 3}
     onDiscardType: 1
+    firstInfo: 1
+    secondInfo: 2

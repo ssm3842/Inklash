@@ -80,7 +80,7 @@ public class MakeFlagEvent : MonoBehaviour
 
     void UpgradeCard(CardContent targetUseCard, CardContent targetWordCard)
     {
-        Debug.Log(targetUseCard.name + "에게 " + targetWordCard.name + "효과를 부여함");
+        Debug.Log(targetUseCard.name + "에게 " + targetWordCard.name + " 효과를 부여함");
         RunManager.Inst.deckManager.RemoveCardToDeck(targetWordCard);
 
         eventManager._OnEventEnd();

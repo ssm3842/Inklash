@@ -12,6 +12,10 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     [SerializeField] CardManager cardManager;
 
+    [SerializeField] Image ATKImageUI;
+    [SerializeField] Image HPImageUI;
+    [SerializeField] Image TimeImageUI;
+
     [SerializeField] TMP_Text costText;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text ATKText;
@@ -111,11 +115,42 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 break;
         }
 
-        costText.text = content.cost.ToString();
-        nameText.text = content.name;
+        switch(cardContent.firstInfo)
+        {
+            case CardUIInfo.None:
+                ATKImageUI.gameObject.SetActive(false);
+                TimeImageUI.gameObject.SetActive(false);
+                ATKText.gameObject.SetActive(false);
+                break;
+            case CardUIInfo.ATK:
+                ATKImageUI.gameObject.SetActive(true);
+                TimeImageUI.gameObject.SetActive(false);
+                ATKText.gameObject.SetActive(true);
+                break;
+            case CardUIInfo.Time:
+                ATKImageUI.gameObject.SetActive(false);
+                TimeImageUI.gameObject.SetActive(true);
+                ATKText.gameObject.SetActive(true);
+                break;
+        }
 
-        ATKText.text = content.stats.baseATK.ToString();
-        HPText.text = content.stats.baseMaxHp.ToString();
+        switch(cardContent.secondInfo)
+        {
+            case CardUIInfo.None:
+                HPImageUI.gameObject.SetActive(false);
+                HPText.gameObject.SetActive(false);
+                break;
+            case CardUIInfo.HP:
+                HPImageUI.gameObject.SetActive(true);
+                HPText.gameObject.SetActive(true);
+                break;
+        }
+
+        costText.text = cardContent.cost.ToString();
+        nameText.text = cardContent.name;
+
+        ATKText.text = cardContent.stats.baseATK.ToString();
+        HPText.text = cardContent.stats.baseMaxHp.ToString();
     }
 
     public int GetOriginalIndex()
