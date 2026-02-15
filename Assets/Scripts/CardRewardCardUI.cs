@@ -6,6 +6,8 @@ public class CardRewardCardUI : MonoBehaviour
 {
     public CardContent cardContent;
 
+    [SerializeField] Image cardImage;
+
     [SerializeField] Image ATKImageUI;
     [SerializeField] Image HPImageUI;
     [SerializeField] Image TimeImageUI;
@@ -20,6 +22,9 @@ public class CardRewardCardUI : MonoBehaviour
     public void Setup(CardContent content)
     {
         cardContent = content;
+
+        if(cardContent.cardImage == null) cardImage.color = new Color(0,0,0,0);
+        else cardImage.sprite = cardContent.cardImage;
 
         switch(cardContent.cardType)
         {

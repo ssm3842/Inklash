@@ -21,6 +21,8 @@ public class CardContent
     public GameObject unit;
     public OnDiscardType onDiscardType;
 
+    public Sprite cardImage; 
+
     public CardUIInfo firstInfo;
     public CardUIInfo secondInfo;
 
@@ -36,6 +38,8 @@ public class CardContent
         stats = new UnitStats(baseCardContent.stats);
         unit = baseCardContent.unit;
         onDiscardType = baseCardContent.onDiscardType;
+
+        cardImage = baseCardContent.cardImage;
 
         firstInfo = baseCardContent.firstInfo;
         secondInfo = baseCardContent.secondInfo;

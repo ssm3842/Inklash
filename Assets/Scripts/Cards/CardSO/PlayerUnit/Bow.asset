@@ -34,5 +34,6 @@ MonoBehaviour:
       bonusSpd: 0
     unit: {fileID: 3478570815177045348, guid: e1caf6c23c1d59848b4d20cfd5f68288, type: 3}
     onDiscardType: 2
+    cardImage: {fileID: 21300000, guid: 13973dcce67fac443a5f74ce1c00036d, type: 3}
     firstInfo: 1
     secondInfo: 2

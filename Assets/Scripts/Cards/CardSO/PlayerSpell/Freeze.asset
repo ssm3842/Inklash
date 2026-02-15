@@ -15,17 +15,17 @@ MonoBehaviour:
   card:
     id: Freeze
     name: "\uBE59\uACB0"
-    cost: 4
-    cardType: 0
+    cost: 3
+    cardType: 1
     attackType: 0
     effectID: 
     description: 
     stats:
       baseMaxHp: 0
-      baseATK: 0
+      baseATK: 3
       baseATKTerm: 0
       baseATKSpd: 0
-      baseRange: 0
+      baseRange: 2
       baseSpd: 0
       bonusMaxHp: 0
       bonusATK: 0
@@ -34,5 +34,6 @@ MonoBehaviour:
       bonusSpd: 0
     unit: {fileID: 165430342810149062, guid: a3a6f61f8e9b3d544bc84665455d30c0, type: 3}
     onDiscardType: 0
+    cardImage: {fileID: 21300000, guid: 7e6083f467450f746b5fc3297d3d1315, type: 3}
     firstInfo: 3
     secondInfo: 0

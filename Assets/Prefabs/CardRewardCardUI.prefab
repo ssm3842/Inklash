@@ -112,6 +112,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 149
       objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -65
+      objectReference: {fileID: 0}
     - target: {fileID: 3922267919118985877, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_fontSize
       value: 30
@@ -262,8 +274,10 @@ MonoBehaviour:
       bonusSpd: 0
     unit: {fileID: 0}
     onDiscardType: 0
+    cardImage: {fileID: 0}
     firstInfo: 0
     secondInfo: 0
+  cardImage: {fileID: 7006962890152782285}
   ATKImageUI: {fileID: 7865488537759583681}
   HPImageUI: {fileID: 6524798305309400139}
   TimeImageUI: {fileID: 6131473492983884539}
@@ -372,6 +386,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7006962890152782285 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 650731031302125686, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+  m_PrefabInstance: {fileID: 7510429622386856379}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7865488537759583681 stripped

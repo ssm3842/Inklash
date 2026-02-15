@@ -12,6 +12,8 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     [SerializeField] CardManager cardManager;
 
+    [SerializeField] Image cardImage;
+
     [SerializeField] Image ATKImageUI;
     [SerializeField] Image HPImageUI;
     [SerializeField] Image TimeImageUI;
@@ -101,6 +103,9 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         cardManager = newCardManager;
         cardContent = content;
         originalIndex = newIndex;
+
+        if(cardContent.cardImage == null) cardImage.color = new Color(0,0,0,0);
+        else cardImage.sprite = cardContent.cardImage;
 
         switch(cardContent.cardType)
         {
