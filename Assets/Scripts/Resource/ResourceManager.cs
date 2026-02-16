@@ -39,6 +39,12 @@ public class ResourceManager : MonoBehaviour
         return false;
     }
 
+    public bool CheckEnoughGold(int amount)
+    {
+        if(currentGold >= amount) return true;
+        else return false; 
+    }
+
     private void UpdateGoldUI()
     {
         if (goldText != null) goldText.text = $"{currentGold} G";

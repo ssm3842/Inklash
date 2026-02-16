@@ -12,6 +12,9 @@ public class ShopEvent : MonoBehaviour
 
     [SerializeField] GameObject cardPrefab;
 
+    [SerializeField] GameObject cardDeleteDeckView;
+    [SerializeField] Transform content; 
+
 
     public void EnterShop()
     {
@@ -60,6 +63,7 @@ public class ShopEvent : MonoBehaviour
         }
 
         gameObject.SetActive(true);
+        cardDeleteDeckView.SetActive(false);
     }
 
     void BuyCard(int cost, CardContent cardData, CanvasGroup cardObject, int index)
@@ -74,5 +78,44 @@ public class ShopEvent : MonoBehaviour
 
             cardTextContainer[index].text = "";
         }
+    }
+    
+    public void OnCardDeleteButtonClicked()
+    {   
+        if(!RunManager.Inst.resourceManager.CheckEnoughGold(50)) return;
+
+        cardDeleteDeckView.SetActive(true);
+
+        //기존에 있던 카드 오브젝트 삭제.
+        foreach (Transform child in content.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        List<CardContent> cardList = RunManager.Inst.deckManager.GetDeckdata();
+        foreach(CardContent card in cardList)
+        {
+            GameObject cardUI = Instantiate(cardPrefab, content);
+            cardUI.GetComponent<CardRewardCardUI>().Setup(card);
+            cardUI.GetComponent<Button>().onClick.AddListener(() => DeleteCard(card));
+        }
+
+        //카드 수에 따라 스크롤 뷰 높이를 변경.
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
+    }
+
+    void DeleteCard(CardContent targetCard)
+    {
+        RunManager.Inst.resourceManager.SpendGold(50);
+        RunManager.Inst.deckManager.RemoveCardToDeck(targetCard);
+
+        cardDeleteDeckView.SetActive(false);
+    }
+
+    public void ExitShop()
+    {
+        RunManager.Inst.mapManager.ClearLastRoom();
+        RunManager.Inst.mapManager.SetVisible();
+        gameObject.SetActive(false);
     }
 }
