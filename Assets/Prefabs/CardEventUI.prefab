@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -20.5
       objectReference: {fileID: 0}
+    - target: {fileID: 650731031302125686, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 689115288408254785, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -113,16 +117,40 @@ PrefabInstance:
       value: 149
       objectReference: {fileID: 0}
     - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 200
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3534937794550296602, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -65
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3922267919118985877, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_fontSize
@@ -154,7 +182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6531397089859223516, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_Name
-      value: CardRewardCardUI
+      value: CardEventUI
       objectReference: {fileID: 0}
     - target: {fileID: 7468449431483696885, guid: a8b511d95fb5cd349a1b855b294d0f34, type: 3}
       propertyPath: m_AnchoredPosition.x

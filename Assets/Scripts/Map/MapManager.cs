@@ -137,7 +137,7 @@ public class MapManager : MonoBehaviour
                 RunManager.Inst.eventCanvas.SetEventCanvas(room);
                 break;
             case RoomType.SHOP:
-                RunManager.Inst.placeholderCanvas.SetActive(true);
+                RunManager.Inst.shopCanvas.EnterShop();
                 break;
             case RoomType.BOSS:
                 RunManager.Inst.battleManager.InitBattle();

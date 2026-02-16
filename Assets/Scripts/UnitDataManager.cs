@@ -10,11 +10,15 @@ public class UnitDataManager : MonoBehaviour
     private Dictionary<string, string> stringTable = new Dictionary<string, string>();
     //카드 보상을 받을 보상 풀 설정
     List<CardDataSO> cardRewardPool;
+    List<CardContent> shopUseCardPool;
+    List<CardContent> shopWordCardPool;
 
     public void LoadCsvData()
     {
-        //카드 보상 풀을 초기화
+        //카드 풀을 초기화
         cardRewardPool = new List<CardDataSO>();
+        shopUseCardPool = new List<CardContent>();
+        shopWordCardPool = new List<CardContent>();
 
         // 1. StringTable을 가장 먼저 찾아서 로드
         // 다른 카드들이 이름과 설명 데이터를 읽을 때 이 테이블을 참조
@@ -145,6 +149,7 @@ public class UnitDataManager : MonoBehaviour
 
                 //카드 보상 풀에 추가
                 cardRewardPool.Add(cardLink.cardContents);
+                shopUseCardPool.Add(cardLink.cardContents.card);
 
                 break;
             }
@@ -196,6 +201,7 @@ public class UnitDataManager : MonoBehaviour
 
                 //카드 보상 풀에 추가
                 cardRewardPool.Add(cardLink.cardContents);
+                shopUseCardPool.Add(cardLink.cardContents.card);
 
                 break;
             }
@@ -236,6 +242,7 @@ public class UnitDataManager : MonoBehaviour
 
                 //카드 보상 풀에 추가
                 cardRewardPool.Add(cardLink.cardContents);
+                shopWordCardPool.Add(cardLink.cardContents.card);
                 
                 break;
             }
@@ -300,4 +307,13 @@ public class UnitDataManager : MonoBehaviour
     {
         return cardRewardPool;
     }
+    public List<CardContent> GetShopUseCardPool()
+    {
+        return shopUseCardPool;
+    }
+    public List<CardContent> GetShopWordCardPool()
+    {
+        return shopWordCardPool;
+    }
+    
 }
