@@ -12,12 +12,16 @@ public class ShopEvent : MonoBehaviour
 
     [SerializeField] GameObject cardPrefab;
 
+    [SerializeField] Button deleteButton;
+
     [SerializeField] GameObject cardDeleteDeckView;
     [SerializeField] Transform content; 
 
 
     public void EnterShop()
     {
+        deleteButton.gameObject.SetActive(true);
+
         //기존에 있던 유닛, 마법 카드 오브젝트 삭제.
         foreach (Transform child in useCardContainer.transform)
         {
@@ -108,6 +112,7 @@ public class ShopEvent : MonoBehaviour
     {
         RunManager.Inst.resourceManager.SpendGold(50);
         RunManager.Inst.deckManager.RemoveCardToDeck(targetCard);
+        deleteButton.gameObject.SetActive(false);
 
         cardDeleteDeckView.SetActive(false);
     }

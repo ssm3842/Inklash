@@ -5067,6 +5067,7 @@ MonoBehaviour:
   - {fileID: 136220810}
   - {fileID: 1224176150}
   cardPrefab: {fileID: 3647433010365902439, guid: ceb310cd5045e1548a9c9e250b1ee66f, type: 3}
+  deleteButton: {fileID: 141961622}
   cardDeleteDeckView: {fileID: 1388805328}
   content: {fileID: 1226026884}
 --- !u!1 &988922712
