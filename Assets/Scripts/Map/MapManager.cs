@@ -36,7 +36,7 @@ public class MapManager : MonoBehaviour
             { RoomType.NOT_ASSIGNED, null },
             { RoomType.BATTLE, icons[0] },
             { RoomType.SHOP, icons[1] },
-            { RoomType.BOSS, icons[0] }
+            { RoomType.BOSS, icons[6] }
         };
 
         randomRoomIcons = new Dictionary<EventRoomType, Sprite>

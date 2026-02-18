@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class DeckManager : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI deckCountText;
+
     List<CardContent> deck = null;
 
     public void InitDeck(List<CardDataSO> newDeck)
@@ -12,6 +15,7 @@ public class DeckManager : MonoBehaviour
         {
             deck.Add(new CardContent(cardData.card));
         }
+        UpdateDeckCountUI();
     }
 
     public List<CardContent> GetDeckdata()
@@ -22,11 +26,18 @@ public class DeckManager : MonoBehaviour
     public void AddCardToDeck(CardContent newCard)
     {
         deck.Add(newCard);
+        UpdateDeckCountUI();
     }
 
     public void RemoveCardToDeck(CardContent targetCard)
     {
         deck.Remove(targetCard);
+        UpdateDeckCountUI();
+    }
+
+    void UpdateDeckCountUI()
+    {
+        if (deckCountText != null) deckCountText.text = deck.Count.ToString();
     }
 
 }

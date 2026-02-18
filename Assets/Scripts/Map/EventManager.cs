@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -15,6 +16,16 @@ public class EventManager : MonoBehaviour
         switch(room.eventRoomType)
         {
             case EventRoomType.ADDCARD:
+                // List<CardDataSO> cardRewardList = new List<CardDataSO>();
+                // List<CardDataSO> allCardRewardPool = RunManager.Inst.unitDataManager.GetCardRewardPool();
+                // for(int i=0; i<3; i++)
+                // {
+                //     int randomI = Random.Range(0, allCardRewardPool.Count);
+
+                //     CardDataSO currentCardData = allCardRewardPool[randomI];
+                //     cardRewardList.Add(currentCardData);
+                // }
+                // RunManager.Inst.cardRewardCanvas.GetComponent<CardRewardUI>().ShowCardReward(cardRewardList);
                 battleRewardCanvas.AddRewards(goldButtons: 0, cardButtons: 2);
                 break;
             case EventRoomType.CAMPFIRE:
