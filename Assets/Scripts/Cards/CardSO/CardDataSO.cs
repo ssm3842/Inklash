@@ -23,6 +23,11 @@ public class CardContent
     public OnDiscardType onDiscardType;
     public SealType seals;
 
+    public Sprite cardImage; 
+
+    public CardUIInfo firstInfo;
+    public CardUIInfo secondInfo;
+
     public CardContent(CardContent baseCardContent)
     {
         id = baseCardContent.id;
@@ -36,6 +41,11 @@ public class CardContent
         unit = baseCardContent.unit;
         onDiscardType = baseCardContent.onDiscardType;
         seals = baseCardContent.seals;
+
+        cardImage = baseCardContent.cardImage;
+
+        firstInfo = baseCardContent.firstInfo;
+        secondInfo = baseCardContent.secondInfo;
     }
 }
 
@@ -65,4 +75,8 @@ public enum SealType
     Pierce       = 1 << 4, // 16
     Discard      = 1 << 5, // 32
     StartCost    = 1 << 6  // 64
+}
+public enum CardUIInfo
+{
+    None, ATK, HP, Time,
 }

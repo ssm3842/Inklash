@@ -41,6 +41,7 @@ public class MapDataGenerator : MonoBehaviour
         }
 
         SetupBossRoom(); //최상단에 보스룸 생성
+
         SetupRandomRoomWeights(); //맵 타입 가중치 설정.
         SetupRoomTypes(); //맵 타입 설정.
 
@@ -60,11 +61,11 @@ public class MapDataGenerator : MonoBehaviour
                 RoomContent roomContent = new RoomContent();
                 Vector2 offset = new Vector2(50f, 150f) + new Vector2(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f)) * PLACEMENT_RANDOMNESS;
 
-                roomContent.position = new Vector2(j * X_DIST, i * Y_DIST) + offset ;
+                roomContent.position = new Vector2(i * X_DIST, j * Y_DIST) + offset ;
                 roomContent.row = i;
                 roomContent.column = j;
 
-                if (i == FLOORS - 1) roomContent.position.y = (i + 1) * Y_DIST; //보스룸의 경우 위치 고정.
+                if (i == FLOORS - 1) roomContent.position.y = (j + 1) * Y_DIST; //보스룸의 경우 위치 고정.
 
                 adjacentRooms.Add(roomContent);
             }

@@ -35,3 +35,6 @@ MonoBehaviour:
     unit: {fileID: 3478570815177045348, guid: 1790bdad525837c40bafc0c144d96cee, type: 3}
     onDiscardType: 0
     seals: 0
+    cardImage: {fileID: 21300000, guid: 7977cd5164f7a0844b0ffed6f3f169ce, type: 3}
+    firstInfo: 1
+    secondInfo: 2

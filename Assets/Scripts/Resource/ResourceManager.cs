@@ -19,7 +19,6 @@ public class ResourceManager : MonoBehaviour
     {
         UpdateGoldUI();
         UpdateLifeUI();
-
     }
 
     public void EarnGold(int amount)
@@ -39,9 +38,15 @@ public class ResourceManager : MonoBehaviour
         return false;
     }
 
+    public bool CheckEnoughGold(int amount)
+    {
+        if(currentGold >= amount) return true;
+        else return false; 
+    }
+
     private void UpdateGoldUI()
     {
-        if (goldText != null) goldText.text = $"{currentGold} G";
+        if (goldText != null) goldText.text = currentGold.ToString();
     }
 
     public void TakeDamage(int damage = 1)
@@ -82,14 +87,15 @@ public class ResourceManager : MonoBehaviour
 
     private void UpdateLifeUI()
     {        
-        if (lifeText != null)
-        {
-            string hearts = "";
-            for (int i = 0; i < currentLives; i++) hearts += "<color=red>O</color> ";
-            for (int i = 0; i < maxLives - currentLives; i++) hearts += "<color=#888888>O</color> ";
+        // if (lifeText != null)
+        // {
+        //     string hearts = "";
+        //     for (int i = 0; i < currentLives; i++) hearts += "<color=red>O</color> ";
+        //     for (int i = 0; i < maxLives - currentLives; i++) hearts += "<color=#888888>O</color> ";
 
-            lifeText.text = hearts;
-        }
+        //     lifeText.text = hearts;
+        // }
+        if (lifeText != null) lifeText.text = currentLives.ToString();
     }
 
     

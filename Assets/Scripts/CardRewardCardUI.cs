@@ -6,6 +6,12 @@ public class CardRewardCardUI : MonoBehaviour
 {
     public CardContent cardContent;
 
+    [SerializeField] Image cardImage;
+
+    [SerializeField] Image ATKImageUI;
+    [SerializeField] Image HPImageUI;
+    [SerializeField] Image TimeImageUI;
+
     [SerializeField] TMP_Text costText;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TextMeshProUGUI ATKText;
@@ -17,6 +23,9 @@ public class CardRewardCardUI : MonoBehaviour
     {
         cardContent = content;
 
+        if(cardContent.cardImage == null) cardImage.color = new Color(0,0,0,0);
+        else cardImage.sprite = cardContent.cardImage;
+
         switch(cardContent.cardType)
         {
             case CardType.Unit:
@@ -27,6 +36,37 @@ public class CardRewardCardUI : MonoBehaviour
                 break;
             case CardType.Word:
                 GetComponent<Image>().sprite = cardBackground[2];
+                break;
+        }
+
+        switch(cardContent.firstInfo)
+        {
+            case CardUIInfo.None:
+                ATKImageUI.gameObject.SetActive(false);
+                TimeImageUI.gameObject.SetActive(false);
+                ATKText.gameObject.SetActive(false);
+                break;
+            case CardUIInfo.ATK:
+                ATKImageUI.gameObject.SetActive(true);
+                TimeImageUI.gameObject.SetActive(false);
+                ATKText.gameObject.SetActive(true);
+                break;
+            case CardUIInfo.Time:
+                ATKImageUI.gameObject.SetActive(false);
+                TimeImageUI.gameObject.SetActive(true);
+                ATKText.gameObject.SetActive(true);
+                break;
+        }
+
+        switch(cardContent.secondInfo)
+        {
+            case CardUIInfo.None:
+                HPImageUI.gameObject.SetActive(false);
+                HPText.gameObject.SetActive(false);
+                break;
+            case CardUIInfo.HP:
+                HPImageUI.gameObject.SetActive(true);
+                HPText.gameObject.SetActive(true);
                 break;
         }
 

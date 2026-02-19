@@ -6,54 +6,82 @@ using System.Collections.Generic;
 public class MakeFlagEvent : MonoBehaviour
 {
     [SerializeField]EventManager eventManager;
-    [SerializeField]GameObject containerGroup;
     [SerializeField]Transform useCardcontainer;
+    [SerializeField]GameObject useCardScrollView;
     [SerializeField]Transform wordCardcontainer;
+    [SerializeField]GameObject wordCardScrollView;
     [SerializeField]GameObject cardPrefab;
     [SerializeField]TextMeshProUGUI text;
 
-    public void FilterDeckCard()
+    CardContent useCard = null;
+
+    public void SetEvent()
     {
-        //기존에 있던 카드 오브젝트 삭제.
+        SetUseCardContent();
+    }
+
+    void SetUseCardContent()
+    {
+        useCardScrollView.SetActive(true);
+        wordCardScrollView.SetActive(false);
+
+        List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
+
+        //유닛, 마법 카드를 표시할 캔버스를 먼저 초기화
         foreach (Transform child in useCardcontainer)
         {
             Destroy(child.gameObject);
         }
-        foreach (Transform child in wordCardcontainer)
-        {
-            Destroy(child.gameObject);
-        }
-
         //카드 타입이 유닛, 마법인 카드만 골라 표시.
-        List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
         foreach(CardContent card in deck)
         {
             if(card.cardType == CardType.Unit || card.cardType == CardType.Spell)
             {
                 GameObject cardUI = Instantiate(cardPrefab, useCardcontainer);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                // cardUI.GetComponent<Button>().onClick.AddListener(() => UpgradeCard(card, maptype));
+                cardUI.GetComponent<Button>().onClick.AddListener(() => SelectUseCard(card));
             }
         }
+        useCard = null;
+        //카드 수에 따라 스크롤 뷰 높이를 변경.
+        useCardcontainer.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((useCardcontainer.childCount - 1) / 5) + 1) * 470 + 50);
+    }
+    void SetWordCardContent()
+    {
+        useCardScrollView.SetActive(false);
+        wordCardScrollView.SetActive(true);
+
+        List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
+
+        //단어카드 캔버드를 초기화
+        foreach (Transform child in wordCardcontainer)
+        {
+            Destroy(child.gameObject);
+        }
+
         foreach(CardContent card in deck)
         {
             if(card.cardType == CardType.Word)
             {
                 GameObject cardUI = Instantiate(cardPrefab, wordCardcontainer);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                // cardUI.GetComponent<Button>().onClick.AddListener(() => UpgradeCard(card, maptype));
+                cardUI.GetComponent<Button>().onClick.AddListener(() => UpgradeCard(useCard, card));
             }
         }
-
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        int manyCard = Mathf.Max(useCardcontainer.transform.childCount, wordCardcontainer.transform.childCount);
-        containerGroup.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((manyCard - 1) / 5) + 1) * 470 + 50);
+        wordCardcontainer.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((wordCardcontainer.childCount - 1) / 5) + 1) * 470 + 50);
+    }
+    void SelectUseCard(CardContent card)
+    {
+        useCard = card;
+
+        SetWordCardContent();
     }
 
-    void UpgradeCard(CardContent targetCard, StatType targetStat)
+    void UpgradeCard(CardContent targetUseCard, CardContent targetWordCard)
     {
-        if(targetStat == StatType.MAX_HP) targetCard.stats.baseMaxHp += 10;
-        else if(targetStat == StatType.ATK) targetCard.stats.baseATK += 5;
+        Debug.Log(targetUseCard.name + "에게 " + targetWordCard.name + " 효과를 부여함");
+        RunManager.Inst.deckManager.RemoveCardToDeck(targetWordCard);
 
         eventManager._OnEventEnd();
     }

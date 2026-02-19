@@ -23,6 +23,7 @@ MonoBehaviour:
     stats:
       baseMaxHp: 0
       baseATK: 10
+      baseATKTerm: 0
       baseATKSpd: 0
       baseRange: 1.5
       baseSpd: 0
@@ -32,3 +33,7 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
+    onDiscardType: 0
+    cardImage: {fileID: 21300000, guid: a6ff9405bb8df604b830092b7ad84808, type: 3}
+    firstInfo: 1
+    secondInfo: 0

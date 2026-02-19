@@ -22,7 +22,7 @@ public class RunManager : MonoBehaviour
     public RandomEventCanvas randomEventCanvas;
     public GameObject cardRewardCanvas;
     public EventManager eventCanvas;
-    public GameObject placeholderCanvas;
+    public ShopEvent shopCanvas;
 
     int runGold;
 
@@ -35,7 +35,7 @@ public class RunManager : MonoBehaviour
         battleUICanvas.SetActive(false);   
         randomEventCanvas.gameObject.SetActive(false);
         eventCanvas.gameObject.SetActive(false);
-        placeholderCanvas.SetActive(false);
+        shopCanvas.gameObject.SetActive(false);
         
         InitRun();
     }

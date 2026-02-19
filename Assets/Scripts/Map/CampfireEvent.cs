@@ -5,18 +5,30 @@ using UnityEngine.UI;
 
 public class CampfireEvent : MonoBehaviour
 {
-    [SerializeField] EventManager eventManager;
+    [SerializeField]EventManager eventManager;
+
+    [SerializeField]CardRewardCardUI cardPreviewBefore;
+    [SerializeField]CardRewardCardUI cardPreviewAfter;
+    [SerializeField]TextMeshProUGUI atkText;
+    [SerializeField]TextMeshProUGUI hpText;
+
     [SerializeField]Transform content;
     [SerializeField]GameObject cardPrefab;
     [SerializeField]TextMeshProUGUI text;
 
-    public void FilterDeckCard(StatType maptype, CardType cardType)
+    StatType mapType;
+    CardContent selectCard;
+
+    public void FilterDeckCard(StatType newMaptype, CardType cardType)
     {
-        if(maptype == StatType.MAX_HP)
+        mapType = newMaptype;
+        selectCard = null;
+        
+        if(newMaptype == StatType.MAX_HP)
         {
             text.text = "체력강화";
         }
-        else if(maptype == StatType.ATK)
+        else if(newMaptype == StatType.ATK)
         {
             text.text = "공격력강화";
         }
@@ -35,7 +47,7 @@ public class CampfireEvent : MonoBehaviour
             {
                 GameObject cardUI = Instantiate(cardPrefab, content);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                cardUI.GetComponent<Button>().onClick.AddListener(() => UpgradeCard(card, maptype));
+                cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(card, newMaptype));
             }
         }
 
@@ -43,10 +55,31 @@ public class CampfireEvent : MonoBehaviour
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
     }
 
-    void UpgradeCard(CardContent targetCard, StatType targetStat)
+    void SelectCard(CardContent targetCard, StatType targetStat)
     {
-        if(targetStat == StatType.MAX_HP) targetCard.stats.baseMaxHp += 10;
-        else if(targetStat == StatType.ATK) targetCard.stats.baseATK += 5;
+        selectCard = targetCard;
+
+        hpText.color = Color.black;
+        atkText.color = Color.black;
+
+        cardPreviewBefore.Setup(targetCard);
+        cardPreviewAfter.Setup(targetCard);
+        if(targetStat == StatType.MAX_HP)
+        {
+            hpText.text = (targetCard.stats.baseMaxHp + 10).ToString();
+            hpText.color = Color.red;
+        }
+        else if(targetStat == StatType.ATK)
+        {
+            atkText.text = (targetCard.stats.baseATK + 5).ToString();
+            atkText.color = Color.red;
+        }
+    }
+
+    public void ConfirmUpgradeCard()
+    {
+        if(mapType == StatType.MAX_HP) selectCard.stats.baseMaxHp += 10;
+        else if(mapType == StatType.ATK) selectCard.stats.baseATK += 5;
 
         eventManager._OnEventEnd();
     }

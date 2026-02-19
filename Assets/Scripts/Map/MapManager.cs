@@ -36,7 +36,7 @@ public class MapManager : MonoBehaviour
             { RoomType.NOT_ASSIGNED, null },
             { RoomType.BATTLE, icons[0] },
             { RoomType.SHOP, icons[1] },
-            { RoomType.BOSS, icons[0] }
+            { RoomType.BOSS, icons[6] }
         };
 
         randomRoomIcons = new Dictionary<EventRoomType, Sprite>
@@ -137,7 +137,7 @@ public class MapManager : MonoBehaviour
                 RunManager.Inst.eventCanvas.SetEventCanvas(room);
                 break;
             case RoomType.SHOP:
-                RunManager.Inst.placeholderCanvas.SetActive(true);
+                RunManager.Inst.shopCanvas.EnterShop();
                 break;
             case RoomType.BOSS:
                 RunManager.Inst.battleManager.InitBattle();

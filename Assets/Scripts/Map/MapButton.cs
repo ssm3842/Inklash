@@ -23,7 +23,14 @@ public class MapButton : MonoBehaviour
     public void SetRoom(RoomContent roomData, Sprite buttonImage)
     {
         room = roomData;
+
         transform.localPosition = room.position + new Vector2(100, 0);
+
+        if(room.roomType == RoomType.BOSS)
+        {
+            transform.localScale = new Vector3(2f, 2f, 1f);
+            transform.localPosition += new Vector3(100, 0, 0);
+        }
 
         image.sprite = buttonImage;
     }
