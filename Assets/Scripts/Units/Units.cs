@@ -23,6 +23,16 @@ public class Units : DamageableObject
     private bool isKnockedBack = false;
     private Coroutine currentKnockbackRoutine = null;
 
+    public bool hasBaseBurn;      // 불 유닛 여부
+    public bool hasBaseKnockback; // 철퇴 유닛 여부
+    public bool hasBaseDouble;    // 검 유닛 여부
+
+    public bool isBurnAttack = false;
+    public bool isColdAttack = false;
+    public bool isDoubleAttack = false;
+    public bool isPierceAttack = false;
+    public bool isKnockbackEnhanced;
+
     void Awake()
     {
         RB = GetComponent<Rigidbody2D>();
@@ -174,19 +184,29 @@ public class Units : DamageableObject
         Units targetUnit = target?.GetComponent<Units>();
         float damage = statController.GetStat(StatType.ATK);
 
+        if (hasBaseDouble || isDoubleAttack)
+        {
+            PerformHit(target, damage);
+
+            // TODO: 둘 다 있으면 추가타를 더 빠르게 혹은 더 많이 (현재는 2회 고정)
+            StartCoroutine(DoubleHitCoroutine(target, damage));
+        }
+        else
+        {
+            PerformHit(target, damage);
+        }
+        
+
         if (targetUnit != null)
         {
-            // ★ 핵심: 내 몸에 'KnockbackAttacker' 컴포넌트가 있는지 확인
             KnockBack kb = GetComponent<KnockBack>();
 
             if (kb != null)
             {
-                // 넉백 컴포넌트가 있다면, 거기에 설정된 거리와 시간을 전달
                 target.StartCoroutine(targetUnit.TakeDamage(damage, true, kb.pushDistance, kb.pushDuration));
             }
             else
             {
-                // 넉백 컴포넌트가 없으면 일반 공격 (false)
                 target.StartCoroutine(targetUnit.TakeDamage(damage, false, 0, 0));
             }
         }
@@ -234,15 +254,6 @@ public class Units : DamageableObject
             float progress = timer / deathDuration; 
 
             transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, progress);
-
-            /* 투명하게
-            if (SR != null)
-            {
-                Color newColor = initialColor;
-                newColor.a = Mathf.Lerp(initialColor.a, 0f, progress);
-                SR.color = newColor;
-            }
-            */
             yield return null; 
         }
 
@@ -280,5 +291,74 @@ public class Units : DamageableObject
         if (!isDead) transform.position = targetPos;
         isKnockedBack = false;
         currentKnockbackRoutine = null;
+    }
+
+   private void ApplyColdEffect(DamageableObject hitTarget)
+    {
+        ColdEffect effect = hitTarget.GetComponent<ColdEffect>();
+        
+        if (effect == null)
+        {
+            effect = hitTarget.gameObject.AddComponent<ColdEffect>();
+            effect.casterID = gameObject.GetInstanceID().ToString();
+        }
+        
+        effect.AddStack();
+    }
+    
+    private void PerformHit(DamageableObject hitTarget, float dmg)
+    {
+        if (hasBaseBurn || isBurnAttack) // 발화
+        {
+            ApplyBurnEffect(hitTarget);
+        }
+
+        if (isColdAttack) // 냉기
+        {
+            ApplyColdEffect(hitTarget);
+        }
+
+       KnockBack myKb = GetComponent<KnockBack>(); // 넉백
+
+        if (myKb != null)
+        {
+            float finalDist = isKnockbackEnhanced ? myKb.pushDistance * 2f : myKb.pushDistance;
+
+            Units targetUnit = hitTarget as Units;
+            if (targetUnit != null)
+            {
+                targetUnit.ApplyKnockback(finalDist, myKb.pushDuration);
+            }
+        }
+    }
+
+    private void ApplyBurnEffect(DamageableObject hitTarget)
+    {
+        string myID = gameObject.GetInstanceID().ToString();
+        BurnEffect effect = hitTarget.GetComponent<BurnEffect>();
+
+        float finalBurnDmg = (hasBaseBurn && isBurnAttack) ? 4f : 2f;
+
+        if (effect != null && effect.casterID == myID)
+        {
+            effect.damageAmount = finalBurnDmg;
+            effect.ResetTimer();
+        }
+        else
+        {
+            BurnEffect newFX = hitTarget.gameObject.AddComponent<BurnEffect>();
+            newFX.casterID = myID;
+            newFX.damageAmount = finalBurnDmg;
+        }
+    }
+
+    private IEnumerator DoubleHitCoroutine(DamageableObject currentTarget, float dmg)
+    {
+        yield return new WaitForSeconds(0.15f); // 공격 딜레이
+        
+        if (currentTarget != null && !currentTarget.gameObject.activeSelf == false)
+        {
+            PerformHit(currentTarget, dmg);
+        }
     }
 }

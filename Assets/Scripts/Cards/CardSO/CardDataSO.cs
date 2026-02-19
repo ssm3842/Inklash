@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardData", menuName ="Scriptable Object/CardData")]
@@ -20,6 +21,7 @@ public class CardContent
     public UnitStats stats;
     public GameObject unit;
     public OnDiscardType onDiscardType;
+    public SealType seals;
 
     public CardContent(CardContent baseCardContent)
     {
@@ -33,6 +35,7 @@ public class CardContent
         stats = new UnitStats(baseCardContent.stats);
         unit = baseCardContent.unit;
         onDiscardType = baseCardContent.onDiscardType;
+        seals = baseCardContent.seals;
     }
 }
 
@@ -49,4 +52,17 @@ public enum AttackType
 public enum OnDiscardType
 {
     None, Draw, Summon,
+}
+
+[System.Flags]
+public enum SealType
+{
+    None         = 0,
+    Burn         = 1 << 0, // 1
+    Cold         = 1 << 1, // 2
+    DoubleAttack = 1 << 2, // 4
+    KnockBack    = 1 << 3, // 8
+    Pierce       = 1 << 4, // 16
+    Discard      = 1 << 5, // 32
+    StartCost    = 1 << 6  // 64
 }

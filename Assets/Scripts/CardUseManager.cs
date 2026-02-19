@@ -73,8 +73,12 @@ public class CardUseManager : MonoBehaviour
         //유닛 생성.
         GameObject newUnit = Instantiate(card.unit, playerBase.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
         newUnit.transform.SetParent(transform);
-        newUnit.GetComponent<Units>().Init(true, card.stats);
+        
+        Units unitComponent = newUnit.GetComponent<Units>();
+        unitComponent.Init(true, card.stats);
 
+        SealManager.ApplySeals(newUnit, card.seals);
+        
         //유닛 생성 후 버프 적용
         foreach(WordBase wordCard in stackedWordCardEffect)
         {
@@ -178,6 +182,8 @@ public class CardUseManager : MonoBehaviour
                 
                 newUnit.transform.SetParent(transform);
                 newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
+
+                SealManager.ApplySeals(newUnit, enemyUnit.seals);
 
                 float waitTime = GameRule.ENEMY_SPAWN_SECONDS;
 

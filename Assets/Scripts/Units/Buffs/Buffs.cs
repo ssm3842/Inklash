@@ -22,11 +22,11 @@ public class Buffs
             return true;
         }
     }
-
-    public virtual void OnGetBuff() //버프를 받았을 때 효과 처리.
+    public virtual void OnGetBuff(DamageableObject owner) //버프를 받았을 때 효과 처리.
     {
         return;
     }
+
     public virtual void OnBuffEnd() //버프 끝났을 때 처리.
     {
         return;

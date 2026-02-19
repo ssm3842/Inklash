@@ -9,7 +9,7 @@ public class BuffRage : Buffs
         remainTime = 3f;
         order = 0;
     }
-    public override void OnGetBuff() //버프를 받았을 때 효과 처리.
+    public override void OnGetBuff(DamageableObject owner) //버프를 받았을 때 효과 처리.
     {
         statController.ControlBonusStat(StatType.ATKSPD, amount);
         statController.ControlBonusStat(StatType.SPD, amount);
