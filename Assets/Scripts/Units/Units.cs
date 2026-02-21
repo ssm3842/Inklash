@@ -163,6 +163,9 @@ public class Units : DamageableObject
         if (isDead) yield break;
 
         yield return new WaitForSeconds(delayTime);
+
+        DamageTextCanvas.Inst.InstDamageText(amount, transform.position);
+               
         if (statController.GetCurHp() <= amount) Die(); //남은 체력보다 데미지가 크면 오브젝트 파괴.
         else statController.ChangeCurHp(amount); //아니면 체력 계산.
     }

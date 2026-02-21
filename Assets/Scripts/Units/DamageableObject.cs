@@ -25,6 +25,9 @@ public class DamageableObject : MonoBehaviour
     virtual public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
     {
         yield return new WaitForSeconds(delayTime);
+
+        DamageTextCanvas.Inst.InstDamageText(amount, transform.position, Color.white);
+
         if (statController.GetCurHp() <= amount)
         {
             if (!isPlayers)

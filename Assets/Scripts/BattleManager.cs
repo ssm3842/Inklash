@@ -21,6 +21,9 @@ public class BattleManager : MonoBehaviour
         cardManager.Init();
         battleUICanvas.SetActive(true);
 
+        //데미지 텍스트 삭제
+        DamageTextCanvas.Inst.Init();
+
         Time.timeScale = 1f;
         gameObject.SetActive(true);
 

@@ -6,7 +6,8 @@ public class RunManager : MonoBehaviour
     public static RunManager Inst { get; private set; }
     void Awake()
     {
-        Inst = this;
+        if(Inst == null) Inst = this;
+        else Destroy(gameObject);
     }
     [SerializeField] GameObject battleUICanvas;
 
