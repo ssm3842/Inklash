@@ -7,6 +7,9 @@ public class CampfireEvent : MonoBehaviour
 {
     [SerializeField]EventManager eventManager;
 
+    [SerializeField]GameObject emptySlot;
+    [SerializeField]GameObject selectSlot;
+
     [SerializeField]CardRewardCardUI cardPreviewBefore;
     [SerializeField]CardRewardCardUI cardPreviewAfter;
     [SerializeField]TextMeshProUGUI atkText;
@@ -17,10 +20,13 @@ public class CampfireEvent : MonoBehaviour
     [SerializeField]TextMeshProUGUI text;
 
     StatType mapType;
-    CardContent selectCard;
+    CardRewardCardUI selectCard;
 
     public void FilterDeckCard(StatType newMaptype, CardType cardType)
-    {
+    {   
+        emptySlot.SetActive(true);
+        selectSlot.SetActive(false);
+
         mapType = newMaptype;
         selectCard = null;
         
@@ -47,7 +53,7 @@ public class CampfireEvent : MonoBehaviour
             {
                 GameObject cardUI = Instantiate(cardPrefab, content);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(card, newMaptype));
+                cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), newMaptype));
             }
         }
 
@@ -55,31 +61,36 @@ public class CampfireEvent : MonoBehaviour
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
     }
 
-    void SelectCard(CardContent targetCard, StatType targetStat)
+    void SelectCard(CardRewardCardUI targetCard, StatType targetStat)
     {
+        emptySlot.SetActive(false);
+        selectSlot.SetActive(true);
+
+        if(selectCard != null) selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
         selectCard = targetCard;
+        selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 0.3f;
 
         hpText.color = Color.black;
         atkText.color = Color.black;
 
-        cardPreviewBefore.Setup(targetCard);
-        cardPreviewAfter.Setup(targetCard);
+        cardPreviewBefore.Setup(targetCard.cardContent);
+        cardPreviewAfter.Setup(targetCard.cardContent);
         if(targetStat == StatType.MAX_HP)
         {
-            hpText.text = (targetCard.stats.baseMaxHp + 10).ToString();
+            hpText.text = (targetCard.cardContent.stats.baseMaxHp + 10).ToString();
             hpText.color = Color.red;
         }
         else if(targetStat == StatType.ATK)
         {
-            atkText.text = (targetCard.stats.baseATK + 5).ToString();
+            atkText.text = (targetCard.cardContent.stats.baseATK + 5).ToString();
             atkText.color = Color.red;
         }
     }
 
     public void ConfirmUpgradeCard()
     {
-        if(mapType == StatType.MAX_HP) selectCard.stats.baseMaxHp += 10;
-        else if(mapType == StatType.ATK) selectCard.stats.baseATK += 5;
+        if(mapType == StatType.MAX_HP) selectCard.cardContent.stats.baseMaxHp += 10;
+        else if(mapType == StatType.ATK) selectCard.cardContent.stats.baseATK += 5;
 
         eventManager._OnEventEnd();
     }

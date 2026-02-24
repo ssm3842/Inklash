@@ -76,4 +76,10 @@ public class CardRewardCardUI : MonoBehaviour
         ATKText.text = content.stats.baseATK.ToString();
         HPText.text = content.stats.baseMaxHp.ToString();
     }
+    public void SetTransparent(bool boolean)
+    {   
+        GetComponent<CanvasGroup>().alpha = boolean ? 0f : 1f;
+        GetComponent<CanvasGroup>().interactable = !boolean;
+        GetComponent<CanvasGroup>().blocksRaycasts = boolean;
+    }
 }

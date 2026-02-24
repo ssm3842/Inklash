@@ -14,7 +14,7 @@ public class DamageTextCanvas : MonoBehaviour
 
     public void Init()
     {
-        foreach(Transform child in transform) Destroy(child.transform);
+        foreach(Transform child in transform) Destroy(child.gameObject);
     }
 
     public void InstDamageText(float amount, Vector3 spawnPos, Color textColor)

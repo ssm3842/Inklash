@@ -21,4 +21,9 @@ public class DamageText : MonoBehaviour
             Destroy(gameObject);
         });
     }
+
+    void OnDestory()
+    {
+        transform.DOKill();
+    }
 }
