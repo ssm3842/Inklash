@@ -6,7 +6,7 @@ public class EventManager : MonoBehaviour
     // [SerializeField]GameObject addCardObjects;
     [SerializeField]CampfireEvent campfireObjects;
     [SerializeField]MixCardEvent mixCardObjects;
-    [SerializeField]MakeFlagEvent makeFlagObjects;
+    [SerializeField]MakeSealEvent makeSealObjects;
 
     [SerializeField]BattleRewardController battleRewardCanvas;
 
@@ -34,23 +34,23 @@ public class EventManager : MonoBehaviour
 
                 campfireObjects.gameObject.SetActive(true);
                 mixCardObjects.gameObject.SetActive(false);
-                makeFlagObjects.gameObject.SetActive(false);
+                makeSealObjects.gameObject.SetActive(false);
 
                 campfireObjects.FilterDeckCard(targetStat, CardType.Unit);
                 break;
             case EventRoomType.MIXCARD:
                 campfireObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(true);
-                makeFlagObjects.gameObject.SetActive(false);
+                makeSealObjects.gameObject.SetActive(false);
 
                 mixCardObjects.FilterDeckCard();
                 break;
-            case EventRoomType.MOVEFLAG:
+            case EventRoomType.MAKESEAL:
                 campfireObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(false);
-                makeFlagObjects.gameObject.SetActive(true);
+                makeSealObjects.gameObject.SetActive(true);
 
-                makeFlagObjects.SetEvent();
+                makeSealObjects.SetEvent();
                 break;
         }
         gameObject.SetActive(true);

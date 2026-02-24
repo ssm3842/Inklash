@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
-public class MakeFlagEvent : MonoBehaviour
+public class MakeSealEvent : MonoBehaviour
 {
     [SerializeField]EventManager eventManager;
     [SerializeField]Transform useCardcontainer;

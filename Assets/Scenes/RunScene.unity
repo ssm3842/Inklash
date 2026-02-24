@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 49697294}
   - component: {fileID: 49697297}
   m_Layer: 5
-  m_Name: MakeFlag
+  m_Name: MakeSeal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17945,7 +17945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   campfireObjects: {fileID: 832512692}
   mixCardObjects: {fileID: 478691036}
-  makeFlagObjects: {fileID: 49697297}
+  makeSealObjects: {fileID: 49697297}
   battleRewardCanvas: {fileID: 988922717}
 --- !u!114 &1941545474
 MonoBehaviour:

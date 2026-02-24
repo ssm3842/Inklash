@@ -9,11 +9,11 @@ public class Lightning : SpellBase
 
         foreach (Collider2D enemy in enemies)
         {
-            if(enemy.gameObject.GetComponent<DamageableObject>().isPlayers) continue;
-            if(enemy.gameObject.GetComponent<Units>() == null) continue;
+            if(enemy.gameObject.GetComponent<DamageableObject>().isPlayers) continue; //아군 제외
+            if(enemy.gameObject.GetComponent<DamageableObject>() == null) continue; //건물 제외
 
             enemy.gameObject.GetComponent<BuffController>().GetBuff(new BuffShock());
-            StartCoroutine(enemy.gameObject.GetComponent<Units>().TakeDamage(damage));
+            StartCoroutine(enemy.gameObject.GetComponent<DamageableObject>().TakeDamage(damage));
         }
     }
 }

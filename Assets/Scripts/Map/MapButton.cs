@@ -61,5 +61,5 @@ public enum RoomType
 }
 public enum EventRoomType
 {
-    NOT_EVENT, CAMPFIRE, ADDCARD, MIXCARD, MOVEFLAG,
+    NOT_EVENT, CAMPFIRE, ADDCARD, MIXCARD, MAKESEAL,
 }

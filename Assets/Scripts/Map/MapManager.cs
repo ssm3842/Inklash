@@ -44,7 +44,7 @@ public class MapManager : MonoBehaviour
             { EventRoomType.ADDCARD, icons[2] },
             { EventRoomType.CAMPFIRE, icons[3] },
             { EventRoomType.MIXCARD, icons[4] },
-            { EventRoomType.MOVEFLAG, icons[5] }
+            { EventRoomType.MAKESEAL, icons[5] }
         };
     }
 
