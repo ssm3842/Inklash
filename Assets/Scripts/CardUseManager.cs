@@ -15,9 +15,7 @@ public class CardUseManager : MonoBehaviour
     [SerializeField] GameObject enemyBase;
     [SerializeField] EnemyBaseDataSO[] enemyBaseDatas;
 
-    List<CardContent> availableEnemies;
-
-    List<WordBase> stackedWordCardEffect;
+    List<SealType> stackedWordCardEffect;
 
     public Coroutine enemySpawnCoroutine = null;
     private bool hasPhase2Bursted = false;
@@ -36,7 +34,7 @@ public class CardUseManager : MonoBehaviour
         //적 데이터 중에서 하나를 랜덤으로 선택.
         currentEnemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
 
-        stackedWordCardEffect = new List<WordBase>();
+        stackedWordCardEffect = new List<SealType>();
 
         playerBase.GetComponent<DamageableObject>().Init(true, new UnitStats(300,0,0,0,0,0)); //TODO: 건물 체력 임시 생성.
         enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(currentEnemyData.maxHP,0,0,0,0,0));
@@ -55,21 +53,19 @@ public class CardUseManager : MonoBehaviour
         switch (card.cardType)
         {
             case CardType.Unit:
-                StartCoroutine(SpawnPlayerUnit(card));
+                SpawnPlayerUnit(card);
                 break;
             case CardType.Spell:
-                StartCoroutine(CastPlayerSpell(card));
+                CastPlayerSpell(card);
                 break;
             case CardType.Word:
-                AddWordCard(card);
+                UseWordCard(card);
                 break;
         }
     }
 
-    IEnumerator SpawnPlayerUnit(CardContent card)
+    void SpawnPlayerUnit(CardContent card)
     {
-        FilterWordCard(WordCardType.Unit);
-
         //유닛 생성.
         GameObject newUnit = Instantiate(card.unit, playerBase.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
         newUnit.transform.SetParent(transform);
@@ -77,81 +73,58 @@ public class CardUseManager : MonoBehaviour
         Units unitComponent = newUnit.GetComponent<Units>();
         unitComponent.Init(true, card.stats);
 
-        SealManager.ApplySeals(newUnit, card.seals);
-        
-        //유닛 생성 후 버프 적용
-        foreach(WordBase wordCard in stackedWordCardEffect)
-        {
-            wordCard.ApplyBuff(newUnit.GetComponent<BuffController>());
-        }
-
-        //복제 카드 사용 시 버프까지 복사해서 생성.
-        if(isCloneCardUsed)
-        {
-            yield return new WaitForSeconds(0.15f);
-
-            isCloneCardUsed = false;
-            StartCoroutine(SpawnPlayerUnit(card));
-        }
+        SealManager.ApplySeals(newUnit, FilterWordCard(card));
 
         //단어카드 리스트 초기화.
-        stackedWordCardEffect = new List<WordBase>();
+        stackedWordCardEffect = new List<SealType>();
     }
 
-    IEnumerator CastPlayerSpell(CardContent card)
+    void CastPlayerSpell(CardContent card)
     {
-        FilterWordCard(WordCardType.Spell);
+        // FilterWordCard();
 
         GameObject newSpell = Instantiate(card.unit);
         float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
         newSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, card.stats.baseRange, targetPos);
-
-        //복제 카드 사용 시 두번 시전.
-        if(isCloneCardUsed)
-        {
-            yield return new WaitForSeconds(0.3f);
-
-            GameObject clonedSpell = Instantiate(card.unit);
-            clonedSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, card.stats.baseRange, targetPos);
-            isCloneCardUsed = false;
-        }
     }
 
-    void FilterWordCard(WordCardType wordCardType)
+    List<SealType> FilterWordCard(CardContent card)
     {
-        List<WordBase> toRemove = new List<WordBase>();
-
-        foreach(WordBase wordcard in stackedWordCardEffect)
+        List<SealType> sealList = new List<SealType>();
+        
+        // 비트 플래그 체크. 유닛 카드에 있는 인장을 가져옴.
+        foreach (SealType type in System.Enum.GetValues(typeof(SealType)))
         {
-            if(!wordcard.wordCardType.HasFlag(wordCardType))
+            if (type != SealType.None && (card.seals & type) == type)
             {
-                toRemove.Add(wordcard);
+                sealList.Add(type);
+                //인장이 3개 이상일 경우 바로 리턴.
+                if(sealList.Count >= 3) return sealList;
             }
         }
-
-        foreach(WordBase wordcard in toRemove)
+        //유닛이 소지한 인장이 3개 미만일 경우 사용한 단어카드 리스트를 검사함.
+        foreach(SealType type in stackedWordCardEffect)
         {
-            stackedWordCardEffect.Remove(wordcard);
+            //유닛이 가진 인장과 단어카드 인장이 중복이면 추가하지 않음.
+            if(!sealList.Contains(type))
+            {
+                sealList.Add(type);
+                if(sealList.Count >= 3) break;
+            }
         }
+        
+        return sealList;
     }
     
-    public void AddWordCard(CardContent card)
+    public void UseWordCard(CardContent card)
     {
-        WordBase targetWordCard = card.unit.GetComponent<WordBase>();
-
-        //복제카드의 경우 별도로 처리하고 리턴.
-        if(targetWordCard.cardName == "Clone")
+        //중복이 있으면 단어카드 스택안함.
+        foreach(SealType type in stackedWordCardEffect)
         {
-            isCloneCardUsed = true;
-            return;
+            if(type == card.seals) return;
         }
-
-        //쌓인 카드 효과중 중복이 있으면 아무효과 X.
-        foreach(WordBase type in stackedWordCardEffect)
-        {
-            if(type.cardName == targetWordCard.cardName) return;
-        }
-        stackedWordCardEffect.Add(targetWordCard); //중복이 아니면 효과 스택.
+        stackedWordCardEffect.Add(card.seals);
+        foreach(SealType type in stackedWordCardEffect) Debug.Log(type);
     }
 
     public void StopSpawnEnemyCoroutine()
@@ -183,7 +156,7 @@ public class CardUseManager : MonoBehaviour
                 newUnit.transform.SetParent(transform);
                 newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
 
-                SealManager.ApplySeals(newUnit, enemyUnit.seals);
+                SealManager.ApplySeals(newUnit, FilterWordCard(enemyUnit));
 
                 float waitTime = GameRule.ENEMY_SPAWN_SECONDS;
 

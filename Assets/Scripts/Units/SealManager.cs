@@ -1,22 +1,50 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 public static class SealManager
 {
-    public static void ApplySeals(GameObject unitObj, SealType seals)
+    public static void ApplySeals(GameObject unitObj, List<SealType> seals)
     {
-        if (unitObj == null || seals == SealType.None) return;
+        if (unitObj == null || seals.Count == 0) return;
         BuffController bc = unitObj.GetComponent<BuffController>();
         if (bc == null) return;
 
-        // 비트 플래그 체크 (중첩 가능)
-        if ((seals & SealType.Burn) != 0) bc.GetBuff(new BuffBurn());
-        if ((seals & SealType.Cold) != 0) bc.GetBuff(new BuffCold());
-        if ((seals & SealType.DoubleAttack) != 0) bc.GetBuff(new BuffDoubleAttack());
-        if ((seals & SealType.KnockBack) != 0) bc.GetBuff(new BuffKnockback());
-        if ((seals & SealType.Pierce) != 0) bc.GetBuff(new BuffPierce());
-        if ((seals & SealType.Discard) != 0) bc.GetBuff(new BuffDiscard());
-        if ((seals & SealType.StartCost) != 0) bc.GetBuff(new BuffStartCost());
+        foreach(SealType type in seals)
+        {
+            switch(type)
+            {
+                case SealType.Burn:
+                    bc.GetBuff(new BuffBurn());
+                    break;
+                case SealType.Cold:
+                    bc.GetBuff(new BuffCold());
+                    break;
+                case SealType.DoubleAttack:
+                    bc.GetBuff(new BuffDoubleAttack());
+                    break;
+                case SealType.KnockBack:
+                    bc.GetBuff(new BuffKnockback());
+                    break;
+                case SealType.Pierce:
+                    bc.GetBuff(new BuffPierce());
+                    break;
+            }
+        }
     }
+
+    public static int GetSealCount(CardContent card)
+    {
+        // 몇개의 인장이 활성화 되었는지 검사
+        int count = 0;
+        foreach (SealType type in System.Enum.GetValues(typeof(SealType)))
+        {
+            if (type != SealType.None && (card.seals & type) == type)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     // 인장 추가
     public static void AddSealToCard(CardContent card, SealType newSeal)
     {

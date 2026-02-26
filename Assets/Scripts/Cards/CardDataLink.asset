@@ -29,16 +29,12 @@ MonoBehaviour:
   - id: Freeze
     cardContents: {fileID: 11400000, guid: ea8d2e5a208c85d479e9df7f530743b3, type: 2}
   playerWords:
-  - id: Strong
-    cardContents: {fileID: 11400000, guid: 941fd050668c2fd4ea856bb644f9b875, type: 2}
-  - id: Clone
-    cardContents: {fileID: 11400000, guid: 0b9818b296ad5bf42936aa0467713cc0, type: 2}
-  - id: Healthy
-    cardContents: {fileID: 11400000, guid: c1d6ab58c5bf4a64ab546711a18322ad, type: 2}
-  - id: Fast
-    cardContents: {fileID: 11400000, guid: f54409085164b4c4581c8ed3f44dd8d5, type: 2}
-  - id: Quick
-    cardContents: {fileID: 11400000, guid: b72e039a23326db4199bd9b069342bc9, type: 2}
+  - id: Ignite
+    cardContents: {fileID: 11400000, guid: ea37a5e6a2e5daf4283c98b997367f89, type: 2}
+  - id: ExtraHit
+    cardContents: {fileID: 11400000, guid: 7d71e35399ba0f140ab66a8684663b2e, type: 2}
+  - id: Cold
+    cardContents: {fileID: 11400000, guid: 5b19a05cb68514341b8bc9beb1c22a4e, type: 2}
   EnemyUnits:
   - id: LowerI
     cardContents: {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
