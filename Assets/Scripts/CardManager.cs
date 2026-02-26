@@ -80,25 +80,6 @@ public class CardManager : MonoBehaviour
         handLayout.AlignCards();
     }
 
-    public void DiscardCard()
-    {
-        Card randomCard = playerHands[UnityEngine.Random.Range(0, playerHands.Count)];
-
-        switch(randomCard.cardContent.onDiscardType)
-        {
-            case OnDiscardType.Draw:
-                DrawCard();
-                break;
-            case OnDiscardType.Summon:
-                Debug.Log("Summon Unit on Discard");
-                break;
-        }
-
-        MoveCardToDiscardDeck(randomCard);
-        
-        CheckHandLeft();
-    }
-
     CardContent PopCardFromDeck()
     {
 
@@ -134,11 +115,6 @@ public class CardManager : MonoBehaviour
             {
                 CardRightClicked();
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DiscardCard();
         }
     }
 

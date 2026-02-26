@@ -20,7 +20,6 @@ public class CardContent
     public string description;
     public UnitStats stats;
     public GameObject unit;
-    public OnDiscardType onDiscardType;
     public SealType seals;
 
     public Sprite cardImage; 
@@ -39,7 +38,6 @@ public class CardContent
         description = baseCardContent.description;
         stats = new UnitStats(baseCardContent.stats);
         unit = baseCardContent.unit;
-        onDiscardType = baseCardContent.onDiscardType;
         seals = baseCardContent.seals;
 
         cardImage = baseCardContent.cardImage;
@@ -59,11 +57,6 @@ public enum AttackType
     None, Melee, Ranged,
 }
 
-public enum OnDiscardType
-{
-    None, Draw, Summon,
-}
-
 [System.Flags]
 public enum SealType
 {
@@ -73,8 +66,6 @@ public enum SealType
     DoubleAttack = 1 << 2, // 4
     KnockBack    = 1 << 3, // 8
     Pierce       = 1 << 4, // 16
-    Discard      = 1 << 5, // 32
-    StartCost    = 1 << 6  // 64
 }
 public enum CardUIInfo
 {
