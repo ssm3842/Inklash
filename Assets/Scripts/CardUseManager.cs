@@ -19,8 +19,6 @@ public class CardUseManager : MonoBehaviour
 
     public Coroutine enemySpawnCoroutine = null;
     private bool hasPhase2Bursted = false;
-
-    bool isCloneCardUsed = false;
     
 
     public void InitUnitManager()

@@ -15,15 +15,10 @@ public class DamageText : MonoBehaviour
         transform.position = startPos;
 
         // 위로 솟구치며 사라지는 연출
-        transform.DOMoveY(startPos.y + 1f, lifeTime); // 0.5초 동안 위로 1만큼 이동
-        tmpro.DOFade(0f, lifeTime).OnComplete(() => {
-            // 연출이 끝나면 오브젝트 풀로 반환 (나중에 설명)
-            Destroy(gameObject);
+        transform.DOMoveY(startPos.y + 1f, lifeTime).SetLink(gameObject); // 0.5초 동안 위로 1만큼 이동
+        tmpro.DOFade(0f, lifeTime).SetLink(gameObject).OnComplete(() => {
+            // 연출이 끝나면 오브젝트 풀로 반환
+            if(this != null && gameObject != null) Destroy(gameObject);
         });
-    }
-
-    void OnDestory()
-    {
-        transform.DOKill();
     }
 }

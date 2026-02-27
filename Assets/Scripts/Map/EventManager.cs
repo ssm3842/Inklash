@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    // [SerializeField]GameObject addCardObjects;
+    [SerializeField]AddCardEvent addCardObjects;
     [SerializeField]CampfireEvent campfireObjects;
     [SerializeField]MixCardEvent mixCardObjects;
     [SerializeField]MakeSealEvent makeSealObjects;
@@ -16,22 +16,18 @@ public class EventManager : MonoBehaviour
         switch(room.eventRoomType)
         {
             case EventRoomType.ADDCARD:
-                // List<CardDataSO> cardRewardList = new List<CardDataSO>();
-                // List<CardDataSO> allCardRewardPool = RunManager.Inst.unitDataManager.GetCardRewardPool();
-                // for(int i=0; i<3; i++)
-                // {
-                //     int randomI = Random.Range(0, allCardRewardPool.Count);
+                addCardObjects.gameObject.SetActive(true);
+                campfireObjects.gameObject.SetActive(false);
+                mixCardObjects.gameObject.SetActive(false);
+                makeSealObjects.gameObject.SetActive(false);
 
-                //     CardDataSO currentCardData = allCardRewardPool[randomI];
-                //     cardRewardList.Add(currentCardData);
-                // }
-                // RunManager.Inst.cardRewardCanvas.GetComponent<CardRewardUI>().ShowCardReward(cardRewardList);
-                battleRewardCanvas.AddRewards(goldButtons: 0, cardButtons: 2);
+                addCardObjects.SetEvent();
                 break;
             case EventRoomType.CAMPFIRE:
                 //0이면 체력, 1이면 공격력을 올리는 방이 됨.
                 StatType targetStat = UnityEngine.Random.Range(0, 2) == 0? StatType.MAX_HP : StatType.ATK;
 
+                addCardObjects.gameObject.SetActive(false);
                 campfireObjects.gameObject.SetActive(true);
                 mixCardObjects.gameObject.SetActive(false);
                 makeSealObjects.gameObject.SetActive(false);
@@ -39,6 +35,7 @@ public class EventManager : MonoBehaviour
                 campfireObjects.FilterDeckCard(targetStat, CardType.Unit);
                 break;
             case EventRoomType.MIXCARD:
+                addCardObjects.gameObject.SetActive(false);
                 campfireObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(true);
                 makeSealObjects.gameObject.SetActive(false);
@@ -46,6 +43,7 @@ public class EventManager : MonoBehaviour
                 mixCardObjects.FilterDeckCard();
                 break;
             case EventRoomType.MAKESEAL:
+                addCardObjects.gameObject.SetActive(false);
                 campfireObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(false);
                 makeSealObjects.gameObject.SetActive(true);
