@@ -14,30 +14,26 @@ public class CampfireEvent : MonoBehaviour
     [SerializeField]CardRewardCardUI cardPreviewAfter;
     [SerializeField]TextMeshProUGUI atkText;
     [SerializeField]TextMeshProUGUI hpText;
+    [SerializeField]TextMeshProUGUI costText;
 
     [SerializeField]Transform content;
     [SerializeField]GameObject cardPrefab;
     [SerializeField]TextMeshProUGUI text;
 
-    StatType mapType;
+    [SerializeField]Button confirmButton;
+
+    CampfireType mapType;
     CardRewardCardUI selectCard;
 
-    public void FilterDeckCard(StatType newMaptype, CardType cardType)
+    public void FilterDeckCard()
     {   
         emptySlot.SetActive(true);
         selectSlot.SetActive(false);
 
-        mapType = newMaptype;
+        confirmButton.interactable = false;
+
+        mapType = (CampfireType)Random.Range(0, System.Enum.GetValues(typeof(CampfireType)).Length);
         selectCard = null;
-        
-        if(newMaptype == StatType.MAX_HP)
-        {
-            text.text = "체력강화";
-        }
-        else if(newMaptype == StatType.ATK)
-        {
-            text.text = "공격력강화";
-        }
 
         //기존에 있던 카드 오브젝트 삭제.
         foreach (Transform child in content)
@@ -45,15 +41,49 @@ public class CampfireEvent : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        if(mapType == CampfireType.UnitHP)
+        {
+            text.text = "유닛 체력 강화";
+        }
+        else if(mapType == CampfireType.UnitATK)
+        {
+            text.text = "유닛 공격력 강화";
+        }
+        else if(mapType == CampfireType.SpellCost)
+        {
+            text.text = "마법 코스트 감소";
+        }
+
         //카드 타입이 같은 카드만 골라 표시.
         List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
         foreach(CardContent card in deck)
         {
-            if(card.cardType == cardType)
+            switch(mapType)
             {
-                GameObject cardUI = Instantiate(cardPrefab, content);
-                cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), newMaptype));
+                case CampfireType.UnitHP:
+                    if(card.cardType == CardType.Unit)
+                    {
+                        GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.GetComponent<CardRewardCardUI>().Setup(card);
+                        cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
+                    }
+                    break;
+                case CampfireType.UnitATK:
+                    if(card.cardType == CardType.Unit)
+                    {
+                        GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.GetComponent<CardRewardCardUI>().Setup(card);
+                        cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
+                    }
+                    break;
+                case CampfireType.SpellCost:
+                    if(card.cardType == CardType.Spell)
+                    {
+                        GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.GetComponent<CardRewardCardUI>().Setup(card);
+                        cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
+                    }
+                    break;
             }
         }
 
@@ -61,37 +91,52 @@ public class CampfireEvent : MonoBehaviour
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
     }
 
-    void SelectCard(CardRewardCardUI targetCard, StatType targetStat)
+    void SelectCard(CardRewardCardUI targetCard, CampfireType targetStat)
     {
         emptySlot.SetActive(false);
         selectSlot.SetActive(true);
 
-        if(selectCard != null) selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
         selectCard = targetCard;
         selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 0.3f;
 
+        if(selectCard != null) selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+
+        confirmButton.interactable = selectCard != null;
+
         hpText.color = Color.black;
         atkText.color = Color.black;
+        costText.color = Color.white;
 
         cardPreviewBefore.Setup(targetCard.cardContent);
         cardPreviewAfter.Setup(targetCard.cardContent);
-        if(targetStat == StatType.MAX_HP)
+        if(targetStat == CampfireType.UnitHP)
         {
             hpText.text = (targetCard.cardContent.stats.baseMaxHp + 10).ToString();
             hpText.color = Color.red;
         }
-        else if(targetStat == StatType.ATK)
+        else if(targetStat == CampfireType.UnitATK)
         {
             atkText.text = (targetCard.cardContent.stats.baseATK + 5).ToString();
             atkText.color = Color.red;
+        }
+        else if(targetStat == CampfireType.SpellCost)
+        {
+            costText.text = Mathf.Max(0, selectCard.cardContent.cost - 1).ToString();
+            costText.color = Color.red;
         }
     }
 
     public void ConfirmUpgradeCard()
     {
-        if(mapType == StatType.MAX_HP) selectCard.cardContent.stats.baseMaxHp += 10;
-        else if(mapType == StatType.ATK) selectCard.cardContent.stats.baseATK += 5;
+        if(mapType == CampfireType.UnitHP) selectCard.cardContent.stats.baseMaxHp += 10;
+        else if(mapType == CampfireType.UnitATK) selectCard.cardContent.stats.baseATK += 5;
+        else if(mapType == CampfireType.SpellCost) selectCard.cardContent.cost = Mathf.Max(0, selectCard.cardContent.cost - 1);
 
         eventManager._OnEventEnd();
     }
+
+    public enum CampfireType
+    {
+        UnitATK, UnitHP, SpellCost,
+    }    
 }

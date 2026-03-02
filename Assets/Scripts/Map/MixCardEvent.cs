@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,10 @@ public class MixCardEvent : MonoBehaviour
     [SerializeField]GameObject firstCardSlot;
     [SerializeField]GameObject secondCardSlot;
     [SerializeField]GameObject lastCardSlot;
+
+    [SerializeField]TextMeshProUGUI atkText;
+    [SerializeField]TextMeshProUGUI hpText;
+    [SerializeField]TextMeshProUGUI costText;
 
     [SerializeField]Button confirmButton;
 
@@ -170,6 +176,13 @@ public class MixCardEvent : MonoBehaviour
 
             lastCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(false);
             lastCardSlot.GetComponent<CardRewardCardUI>().Setup(firstCard.cardContent);
+
+            atkText.color = Color.red;
+            atkText.text = (firstCard.cardContent.stats.baseATK + secondCard.cardContent.stats.baseATK).ToString();
+            hpText.color = Color.red;
+            hpText.text = (firstCard.cardContent.stats.baseMaxHp += secondCard.cardContent.stats.baseMaxHp).ToString();
+            // costText.color = Color.red;
+            costText.text = Mathf.Min(firstCard.cardContent.cost, secondCard.cardContent.cost).ToString();
         }
         else
         {
@@ -181,6 +194,7 @@ public class MixCardEvent : MonoBehaviour
 
     public void MixCard()
     {
+        firstCard.cardContent.cost = Mathf.Min(firstCard.cardContent.cost, secondCard.cardContent.cost);
         firstCard.cardContent.stats.baseATK += secondCard.cardContent.stats.baseATK;
         firstCard.cardContent.stats.baseMaxHp += secondCard.cardContent.stats.baseMaxHp;
 

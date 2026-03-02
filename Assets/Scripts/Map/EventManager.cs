@@ -24,15 +24,12 @@ public class EventManager : MonoBehaviour
                 addCardObjects.SetEvent();
                 break;
             case EventRoomType.CAMPFIRE:
-                //0이면 체력, 1이면 공격력을 올리는 방이 됨.
-                StatType targetStat = UnityEngine.Random.Range(0, 2) == 0? StatType.MAX_HP : StatType.ATK;
-
                 addCardObjects.gameObject.SetActive(false);
                 campfireObjects.gameObject.SetActive(true);
                 mixCardObjects.gameObject.SetActive(false);
                 makeSealObjects.gameObject.SetActive(false);
 
-                campfireObjects.FilterDeckCard(targetStat, CardType.Unit);
+                campfireObjects.FilterDeckCard();
                 break;
             case EventRoomType.MIXCARD:
                 addCardObjects.gameObject.SetActive(false);
