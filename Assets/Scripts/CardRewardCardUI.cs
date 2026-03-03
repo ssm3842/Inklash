@@ -80,6 +80,6 @@ public class CardRewardCardUI : MonoBehaviour
     {   
         GetComponent<CanvasGroup>().alpha = boolean ? 0f : 1f;
         GetComponent<CanvasGroup>().interactable = !boolean;
-        GetComponent<CanvasGroup>().blocksRaycasts = boolean;
+        GetComponent<CanvasGroup>().blocksRaycasts = !boolean;
     }
 }

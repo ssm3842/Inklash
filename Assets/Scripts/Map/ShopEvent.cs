@@ -37,7 +37,7 @@ public class ShopEvent : MonoBehaviour
             cardTextContainer[i].text = newCardCost.ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, useCardContainer.transform);
-            cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
 
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
@@ -59,7 +59,7 @@ public class ShopEvent : MonoBehaviour
             cardTextContainer[i].text = newCardCost.ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, wordCardContainer.transform);
-            cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
 
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
@@ -76,7 +76,7 @@ public class ShopEvent : MonoBehaviour
             cardTextContainer[i].text = newCardCost.ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, wordCardContainer.transform);
-            cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
             
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);

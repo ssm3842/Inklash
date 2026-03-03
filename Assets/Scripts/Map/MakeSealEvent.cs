@@ -41,17 +41,21 @@ public class MakeSealEvent : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        int spawnedCount = 0;
         foreach(CardContent card in deck)
         {
             if(card.cardType == CardType.Unit || card.cardType == CardType.Spell)
             {
                 GameObject cardUI = Instantiate(cardPrefab, useCardcontainer);
+                cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                 cardUI.GetComponent<Button>().onClick.AddListener(() => SelectUseCard(cardUI.GetComponent<CanvasGroup>(), cardUI.GetComponent<CardRewardCardUI>()));
+                spawnedCount++;
             }
         }
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        useCardcontainer.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((useCardcontainer.childCount - 1) / 5) + 1) * 470 + 50);
+        useCardcontainer.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((spawnedCount - 1) / 4) + 1) * 270);
 
         //단어카드 캔버스를 초기화
         foreach (Transform child in wordCardcontainer)
@@ -59,27 +63,30 @@ public class MakeSealEvent : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        spawnedCount = 0;
         foreach(CardContent card in deck)
         {
             if(card.cardType == CardType.Word)
             {
                 GameObject cardUI = Instantiate(cardPrefab, wordCardcontainer);
+                cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                 cardUI.GetComponent<Button>().onClick.AddListener(() => SelectWordCard(cardUI.GetComponent<CanvasGroup>(), cardUI.GetComponent<CardRewardCardUI>()));
+                spawnedCount++;
             }
         }
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        wordCardcontainer.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((wordCardcontainer.childCount - 1) / 5) + 1) * 470 + 50);
+        wordCardcontainer.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((spawnedCount - 1) / 4) + 1) * 270);
 
         SetUseCardContent();
     }
 
-    void SetUseCardContent()
+    public void SetUseCardContent()
     {
         useCardScrollView.SetActive(true);
         wordCardScrollView.SetActive(false);
     }
-    void SetWordCardContent()
+    public void SetWordCardContent()
     {
         useCardScrollView.SetActive(false);
         wordCardScrollView.SetActive(true);
@@ -98,7 +105,7 @@ public class MakeSealEvent : MonoBehaviour
         else
         {
             //이미 선택한 카드를 빼야 다른 카드 선택 가능.
-            if(selectUseCard != null) return;
+            if(selectUseCard != null) selectUseCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
 
             selectUseCard = targetCard;
 
@@ -124,12 +131,11 @@ public class MakeSealEvent : MonoBehaviour
             selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
             
             cardCanvasgroup.alpha = 1f;
-            SetUseCardContent();
         }
         else
         {
             //이미 선택한 카드를 빼야 다른 카드 선택 가능.
-            if(selectWordCard != null) return;
+            if(selectWordCard != null) selectWordCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;;
 
             selectWordCard = targetCard;
 

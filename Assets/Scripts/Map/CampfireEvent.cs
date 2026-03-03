@@ -64,6 +64,7 @@ public class CampfireEvent : MonoBehaviour
                     if(card.cardType == CardType.Unit)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
                     }
@@ -72,6 +73,7 @@ public class CampfireEvent : MonoBehaviour
                     if(card.cardType == CardType.Unit)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
                     }
@@ -80,6 +82,7 @@ public class CampfireEvent : MonoBehaviour
                     if(card.cardType == CardType.Spell)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
                     }
@@ -88,7 +91,7 @@ public class CampfireEvent : MonoBehaviour
         }
 
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 4) + 1) * 270);
     }
 
     void SelectCard(CardRewardCardUI targetCard, CampfireType targetStat)
@@ -96,10 +99,20 @@ public class CampfireEvent : MonoBehaviour
         emptySlot.SetActive(false);
         selectSlot.SetActive(true);
 
+        if(selectCard == targetCard)
+        {
+            selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+            selectCard = null;
+            emptySlot.SetActive(true);
+            selectSlot.SetActive(false);
+            return;
+        }
+
+        //이미 선택된 카드를 선택해제.
+        if(selectCard != null)selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+
         selectCard = targetCard;
         selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 0.3f;
-
-        if(selectCard != null) selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
 
         confirmButton.interactable = selectCard != null;
 

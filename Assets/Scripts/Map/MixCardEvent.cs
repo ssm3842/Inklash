@@ -51,24 +51,28 @@ public class MixCardEvent : MonoBehaviour
             else cardCountDict.Add(card.id, 1);
         }
         
+        int spawnedCount = 0;
         foreach(CardContent card in deck)
         {
             //카드가 2장 이상 있을 경우에만 카드UI를 생성.
             if(cardCountDict[card.id] >= 2)
             {
                 GameObject cardUI = Instantiate(cardPrefab, content);
+                cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                 cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CanvasGroup>(), cardUI.GetComponent<CardRewardCardUI>()));
+                spawnedCount++;
 
             }
         }
 
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((spawnedCount - 1) / 4) + 1) * 270);
     }
 
     void FilterDeckCard(CardContent selectCard)
     {
+        int activatedCount = 0;
         foreach (Transform child in content)
         {
             //다른 카드들은 비활성화.
@@ -79,8 +83,10 @@ public class MixCardEvent : MonoBehaviour
             else
             {
                 child.gameObject.SetActive(true);
+                activatedCount++;
             }
         }
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((activatedCount - 1) / 4) + 1) * 270);
     }
 
     void SelectCard(CanvasGroup cardCanvasgroup, CardRewardCardUI targetCard)
@@ -180,7 +186,7 @@ public class MixCardEvent : MonoBehaviour
             atkText.color = Color.red;
             atkText.text = (firstCard.cardContent.stats.baseATK + secondCard.cardContent.stats.baseATK).ToString();
             hpText.color = Color.red;
-            hpText.text = (firstCard.cardContent.stats.baseMaxHp += secondCard.cardContent.stats.baseMaxHp).ToString();
+            hpText.text = (firstCard.cardContent.stats.baseMaxHp + secondCard.cardContent.stats.baseMaxHp).ToString();
             // costText.color = Color.red;
             costText.text = Mathf.Min(firstCard.cardContent.cost, secondCard.cardContent.cost).ToString();
         }

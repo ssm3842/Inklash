@@ -36,6 +36,7 @@ public class AddCardEvent : MonoBehaviour
         foreach(CardDataSO cardDataSO in cardRewardList)
         {
             GameObject cardUI = Instantiate(cardPrefab, cardRewardContainer);
+            cardUI.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
             cardUI.GetComponent<CardRewardCardUI>().Setup(cardDataSO.card);
             cardUI.GetComponent<Button>().onClick.AddListener(() => selectCard(cardUI.GetComponent<CardRewardCardUI>()));
         }
@@ -43,6 +44,12 @@ public class AddCardEvent : MonoBehaviour
 
     void selectCard(CardRewardCardUI card)
     {
+        foreach(Transform child in cardRewardContainer)
+        {
+            child.gameObject.GetComponent<CanvasGroup>().alpha = 0.5f;
+        }
+        card.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+
         rewardCard = card;
         confirmButton.interactable = true;
     }
