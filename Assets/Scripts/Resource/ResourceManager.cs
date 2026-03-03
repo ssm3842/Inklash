@@ -11,7 +11,6 @@ public class ResourceManager : MonoBehaviour
     int playerMaxHP;
     int playerCurrentHP;
 
-    int maxLives = 2;
     int currentLives = 2;
     [SerializeField] private TextMeshProUGUI lifeText;
 

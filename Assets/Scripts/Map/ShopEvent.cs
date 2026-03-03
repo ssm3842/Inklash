@@ -28,16 +28,16 @@ public class ShopEvent : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        //유닛, 마법 카드만 골라 표시.
-        List<CardContent> cardList = RunManager.Inst.unitDataManager.GetShopUseCardPool();
-        for(int i = 0; i < 4; i++)
+        //유닛 카드만 표시.
+        List<CardContent> cardList = RunManager.Inst.unitDataManager.GetShopUnitCardPool();
+        for(int i = 0; i < 3; i++)
         {
             int cardIndex = i;
             int newCardCost = UnityEngine.Random.Range(60, 80);
-
             cardTextContainer[i].text = newCardCost.ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, useCardContainer.transform);
+            cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
             CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
 
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
@@ -50,7 +50,23 @@ public class ShopEvent : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        //유닛, 마법 카드만 골라 표시.
+        //마법 카드 추가
+        cardList = RunManager.Inst.unitDataManager.GetShopSpellCardPool();
+        for(int i = 3; i < 4; i++)
+        {
+            int cardIndex = i;
+            int newCardCost = UnityEngine.Random.Range(60, 80);
+            cardTextContainer[i].text = newCardCost.ToString();
+
+            GameObject cardUI = Instantiate(cardPrefab, wordCardContainer.transform);
+            cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
+
+            cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
+            cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(newCardCost, targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
+        }
+
+        //단어 카드 표시.
         cardList = RunManager.Inst.unitDataManager.GetShopWordCardPool();
         for(int i = 4; i < 6; i++)
         {
@@ -60,6 +76,7 @@ public class ShopEvent : MonoBehaviour
             cardTextContainer[i].text = newCardCost.ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, wordCardContainer.transform);
+            cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
             CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
             
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);

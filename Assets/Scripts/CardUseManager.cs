@@ -122,7 +122,6 @@ public class CardUseManager : MonoBehaviour
             if(type == card.seals) return;
         }
         stackedWordCardEffect.Add(card.seals);
-        foreach(SealType type in stackedWordCardEffect) Debug.Log(type);
     }
 
     public void StopSpawnEnemyCoroutine()

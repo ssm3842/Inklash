@@ -28,6 +28,8 @@ MonoBehaviour:
     cardContents: {fileID: 11400000, guid: 632b4a85891000e439f8fcd1a9a5e7f6, type: 2}
   - id: Freeze
     cardContents: {fileID: 11400000, guid: ea8d2e5a208c85d479e9df7f530743b3, type: 2}
+  - id: Fireball
+    cardContents: {fileID: 11400000, guid: 863f1b0639299f14db290d495f96dc4e, type: 2}
   playerWords:
   - id: Ignite
     cardContents: {fileID: 11400000, guid: ea37a5e6a2e5daf4283c98b997367f89, type: 2}

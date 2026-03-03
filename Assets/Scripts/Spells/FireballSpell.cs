@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Lightning : SpellBase
+public class Fireball : SpellBase
 {
     public override void CastSpell(float damage, float range, float castXPosition)
     {
@@ -12,7 +12,6 @@ public class Lightning : SpellBase
             if(enemy.gameObject.GetComponent<DamageableObject>().isPlayers) continue; //아군 제외
             if(enemy.gameObject.GetComponent<DamageableObject>() == null) continue; //데미지 계산이 불가능한 오브젝트 제외
 
-            enemy.gameObject.GetComponent<BuffController>().GetBuff(new BuffShock());
             StartCoroutine(enemy.gameObject.GetComponent<DamageableObject>().TakeDamage(damage));
         }
     }
