@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 957719f3f672db442baf990c83c42797
+guid: 9fd7c4a381a3e4c44b8ad66f3b0b5885
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6836188873781052559
-    second: WordStrike_0
+      213: -3312956870338606229
+    second: WordSplit_0
+  - first:
+      213: 5533783936626237637
+    second: WordSplit_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WordStrike_0
+      name: WordSplit_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 0
-        width: 1347
-        height: 990
+        x: 0
+        y: 115
+        width: 979
+        height: 767
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 17b7dc0607af021a0800000000000000
-      internalID: -6836188873781052559
+      spriteID: b6b074b77430602d0800000000000000
+      internalID: -3312956870338606229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WordSplit_1
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 829
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c0ae5ecb23fbcc40800000000000000
+      internalID: 5533783936626237637
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      WordStrike_0: -6836188873781052559
+      WordSplit_0: -3312956870338606229
+      WordSplit_1: 5533783936626237637
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

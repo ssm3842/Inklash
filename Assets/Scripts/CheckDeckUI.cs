@@ -78,6 +78,7 @@ public class CheckDeckUI : MonoBehaviour
 
         List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
         
+        int spawnedCount = 0;
         switch(typeIndex)
         {
             case 0: //모두 보기
@@ -86,8 +87,10 @@ public class CheckDeckUI : MonoBehaviour
                     if(card.cardType == CardType.Unit)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
+                        spawnedCount++;
                     }
                 }
                 foreach(CardContent card in deck)
@@ -96,8 +99,10 @@ public class CheckDeckUI : MonoBehaviour
                     {
 
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
+                        spawnedCount++;
                     }
                 }
                 foreach(CardContent card in deck)
@@ -105,8 +110,10 @@ public class CheckDeckUI : MonoBehaviour
                     if(card.cardType == CardType.Word)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
+                        spawnedCount++;
                     }
                 }
                 break;
@@ -116,8 +123,10 @@ public class CheckDeckUI : MonoBehaviour
                     if(card.cardType == CardType.Unit)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
+                        spawnedCount++;
                     }
                 }
                 break;
@@ -128,8 +137,10 @@ public class CheckDeckUI : MonoBehaviour
                     {
 
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
+                        spawnedCount++;
                     }
                 }
                 break;
@@ -139,14 +150,16 @@ public class CheckDeckUI : MonoBehaviour
                     if(card.cardType == CardType.Word)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
+                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
+                        spawnedCount++;
                     }
                 }
                 break;
         }
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((spawnedCount - 1) / 4) + 1) * 370);
     }
 
     void Update()

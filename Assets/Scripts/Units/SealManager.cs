@@ -12,13 +12,13 @@ public static class SealManager
         {
             switch(type)
             {
-                case SealType.Burn:
+                case SealType.Ignite:
                     bc.GetBuff(new BuffBurn());
                     break;
                 case SealType.Cold:
                     bc.GetBuff(new BuffCold());
                     break;
-                case SealType.DoubleAttack:
+                case SealType.ExtraHit:
                     bc.GetBuff(new BuffDoubleAttack());
                     break;
                 case SealType.KnockBack:

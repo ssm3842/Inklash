@@ -61,9 +61,9 @@ public enum AttackType
 public enum SealType
 {
     None         = 0,
-    Burn         = 1 << 0, // 1
+    Ignite       = 1 << 0, // 1
     Cold         = 1 << 1, // 2
-    DoubleAttack = 1 << 2, // 4
+    ExtraHit     = 1 << 2, // 4
     KnockBack    = 1 << 3, // 8
     Pierce       = 1 << 4, // 16
 }
