@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class CardManager : MonoBehaviour
 {
@@ -265,7 +266,17 @@ public class CardManager : MonoBehaviour
         costManager.UseCost(card.cardContent.cost);
         isDraggingCard = false;
         cardUseManager.UseCard(card.cardContent);
-        MoveCardToDiscardDeck(card);
+
+        if (card.cardContent.isCopied == true)
+        {
+            playerHands.Remove(card);
+            Destroy(card.gameObject);
+        }
+        else
+        {
+            MoveCardToDiscardDeck(card);
+        }
+
         draggingCard = null;
         
         CheckHandLeft();
@@ -293,4 +304,63 @@ public class CardManager : MonoBehaviour
             draggingCardImageComponent.color = c;
         }
     }
+
+    public void ExecuteCopyEffect()
+    {
+        if (draggingCard == null) return;
+
+        CardContent copyContent = new CardContent(draggingCard.cardContent);
+        copyContent.cost = 0;
+
+        SealManager.RemoveSealFromCard(copyContent, SealType.Copy);
+
+        var cardObject = Instantiate(cardPrefab, handLayout.transform);
+        var card = cardObject.GetComponent<Card>();
+        card.Setup(this, copyContent, 0);
+        card.cardContent.isCopied = true;
+
+        card.Setup(this, copyContent, 0);
+        playerHands.Insert(0, card);
+        cardObject.transform.SetAsFirstSibling();
+
+        handLayout.AlignCards();
+    }
+
+    public void ExecutePurityEffect()
+    {
+        if (draggingCard == null) return;
+
+        CardContent originalContent = new CardContent(draggingCard.cardContent);
+        SealManager.RemoveSealFromCard(originalContent, SealType.Purity);
+
+        for (int i = playerHands.Count - 1; i >= 0; i--)
+        {   
+            Card target = playerHands[i];
+            if (target == draggingCard) continue;
+            if (target.cardContent.isCopied == true)
+            {
+                playerHands.Remove(target);
+                Destroy(target.gameObject);
+            }
+            else
+            {
+                MoveCardToDiscardDeck(target);
+            }
+
+        }
+        
+        // 현재 카드의 복제본 5장 생성
+        for (int i = 0; i < 5; i++)
+        {
+            var cardObject = Instantiate(cardPrefab, handLayout.transform);
+            var card = cardObject.GetComponent<Card>();
+            card.Setup(this, originalContent, i);
+            playerHands.Add(card);
+            
+            card.cardContent.isCopied = true;
+        }
+
+        handLayout.AlignCards();
+    }
+
 }

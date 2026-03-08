@@ -45,17 +45,14 @@ public static class SealManager
                     break;
                 case SealType.Chill:
                     bc.GetBuff(new BuffChiller());
-                    break; 
-                
+                    break;
+                case SealType.Purity:
+                    bc.GetBuff(new BuffPurity());  
+                    break;
+                case SealType.Copy:
+                    bc.GetBuff(new BuffCopy());
+                    break;
             }
-        }
-    }
-
-    private static void AddOnHitTag(DamageableObject unit, string tagName)
-    {
-        if (!unit.onHitBuffTags.Contains(tagName))
-        {
-            unit.onHitBuffTags.Add(tagName);
         }
     }
 

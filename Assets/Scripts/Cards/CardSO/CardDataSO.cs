@@ -21,7 +21,7 @@ public class CardContent
     public UnitStats stats;
     public GameObject unit;
     public OnDiscardType onDiscardType;
-    public SealType seals;
+    public bool isCopied;    public SealType seals;
 
     public Sprite cardImage; 
 
@@ -40,6 +40,7 @@ public class CardContent
         stats = new UnitStats(baseCardContent.stats);
         unit = baseCardContent.unit;
         onDiscardType = baseCardContent.onDiscardType;
+        isCopied = false;
         seals = baseCardContent.seals;
 
         cardImage = baseCardContent.cardImage;
@@ -79,6 +80,8 @@ public enum SealType
     Ultimate      = 1 << 10, // 1024
     Split        = 1 << 11, // 2048
     Explosion     = 1 << 12, // 4096
+    Purity      = 1 << 13, // 8192
+    Copy        = 1 << 14, // 16384
 }
 public enum CardUIInfo
 {

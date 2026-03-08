@@ -7,8 +7,4 @@ public class BuffSplit : Buffs
         buffName = "Split";
         remainTime = -1;    
     }
-    protected override void ApplyUnit(Units unit)
-    {
-            unit.hasSplit = true;
-    }
 }

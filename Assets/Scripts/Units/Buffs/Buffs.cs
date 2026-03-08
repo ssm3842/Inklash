@@ -35,6 +35,9 @@ public class Buffs
         {
             ApplySpell(target.GetComponent<SpellBase>());
         }
+        
+        CardManager cm = Object.FindAnyObjectByType<CardManager>();
+        if (cm != null) ApplyCardSystem(cm);
     }
     public virtual void OnBuffEnd() //버프 끝났을 때 처리.
     {
@@ -43,4 +46,5 @@ public class Buffs
 
     protected virtual void ApplyUnit(Units unit) { }
     protected virtual void ApplySpell(SpellBase spell) { }
+    protected virtual void ApplyCardSystem(CardManager cardManager) { }
 }
