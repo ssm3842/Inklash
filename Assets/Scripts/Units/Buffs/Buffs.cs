@@ -11,7 +11,8 @@ public class Buffs
 
     public bool CheckBuffValid()
     {
-        if(remainTime <= 0) 
+        if(remainTime == -1) return true;
+        else if(remainTime <= 0) 
         {
             OnBuffEnd();
             return false;
@@ -22,13 +23,24 @@ public class Buffs
             return true;
         }
     }
-    public virtual void OnGetBuff(DamageableObject owner) //버프를 받았을 때 효과 처리.
+   public virtual void OnGetBuff(DamageableObject target)
     {
-        return;
+        // 1. 유닛인 경우
+        if (target is Units unit)
+        {
+            ApplyUnit(unit);
+        }
+        // 2. 마법인 경우
+        else if (target.GetComponent<SpellBase>() != null)
+        {
+            ApplySpell(target.GetComponent<SpellBase>());
+        }
     }
-
     public virtual void OnBuffEnd() //버프 끝났을 때 처리.
     {
         return;
     }
+
+    protected virtual void ApplyUnit(Units unit) { }
+    protected virtual void ApplySpell(SpellBase spell) { }
 }

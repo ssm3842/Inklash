@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ public class DamageableObject : MonoBehaviour
     public bool isPlayers;
 
     private bool isPhase2Triggered = false;
+
+    public List<string> onHitBuffTags = new List<string>();
     
     virtual public void Init(bool players, UnitStats stats)
-    {
+    {        
         statController.InitStat(stats);
         if(healthBar) healthBar.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
 
@@ -25,6 +28,7 @@ public class DamageableObject : MonoBehaviour
     virtual public IEnumerator TakeDamage(float amount, float delayTime = 0f) //delayTime이 있다면 지연된 시간 후에 데미지.
     {
         yield return new WaitForSeconds(delayTime);
+
         if (statController.GetCurHp() <= amount)
         {
             if (!isPlayers)

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5807951413123796674}
   - component: {fileID: -1867106798427623198}
   - component: {fileID: 4455122222548868405}
+  - component: {fileID: -7908292845926266697}
   m_Layer: 0
   m_Name: RageSpell
   m_TagString: Untagged
@@ -170,3 +171,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.6, y: 0.85}
   m_EdgeRadius: 0
+--- !u!114 &-7908292845926266697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165430342810149062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7585cbf217524d47bf5f47e57f6b211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statController: {fileID: 0}

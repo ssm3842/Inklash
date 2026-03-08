@@ -4,7 +4,7 @@ using UnityEngine;
 public class BuffController : MonoBehaviour
 {
     [SerializeField] StatController statController;
-    List<Buffs> buffList = new List<Buffs>();
+    public List<Buffs> buffList = new List<Buffs>();
     List<Buffs> buffsToRemove = new List<Buffs>();
 
     void Update()
@@ -42,7 +42,7 @@ public class BuffController : MonoBehaviour
         newBuff.OnGetBuff(this.gameObject.GetComponent<DamageableObject>());
 
         //단어 카드의 강화카드는 추적해서 시간에따라 제거하지 않음.
-        if(newBuff.remainTime == -1) return;
+        //if(newBuff.remainTime == -1) return;
 
         //지속시간 추적이 필요한 버프는 리스트에 추가.
         buffList.Add(newBuff);
@@ -56,4 +56,18 @@ public class BuffController : MonoBehaviour
         }
         return false;
     }
+
+    public List<Buffs> GetInheritableBuffs()
+{
+    List<Buffs> inheritable = new List<Buffs>();
+    foreach (var buff in buffList)
+    {
+        // Split 버프를 제외하고 나머지 복사
+        if (buff.buffName != "Split")
+        {
+            inheritable.Add(buff);
+        }
+    }
+    return inheritable;
+}
 }

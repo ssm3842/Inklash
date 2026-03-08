@@ -68,13 +68,17 @@ public enum OnDiscardType
 public enum SealType
 {
     None         = 0,
-    Burn         = 1 << 0, // 1
+    Ignite       = 1 << 0, // 1
     Cold         = 1 << 1, // 2
-    DoubleAttack = 1 << 2, // 4
+    ExtraHit     = 1 << 2, // 4
     KnockBack    = 1 << 3, // 8
     Pierce       = 1 << 4, // 16
-    Discard      = 1 << 5, // 32
-    StartCost    = 1 << 6  // 64
+    Weak         = 1 << 7, // 128
+    Mark         = 1 << 8, // 256
+    Chill        = 1 << 9, // 512
+    Ultimate      = 1 << 10, // 1024
+    Split        = 1 << 11, // 2048
+    Explosion     = 1 << 12, // 4096
 }
 public enum CardUIInfo
 {
