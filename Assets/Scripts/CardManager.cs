@@ -27,7 +27,7 @@ public class CardManager : MonoBehaviour
     {
         // List<CardContent> playerCardPool = DataManager.Inst.playerCardDatas.Values.ToList();
 
-        currentBattleDeck = new List<CardContent>(RunManager.Inst.deckManager.GetDeckdata());
+        currentBattleDeck = new List<CardContent>(DeckManager.Inst.GetDeckdata());
         discardBattleDeck = new List<CardContent>();
 
         costManager.Init();

@@ -40,7 +40,7 @@ public class MixCardEvent : MonoBehaviour
         confirmButton.interactable = false;
         SetPreview();
 
-        List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
+        List<CardContent> deck = DeckManager.Inst.GetDeckdata();
 
         //덱에 있는 카드들의 매수를 구함.
         cardCountDict = new Dictionary<string, int>();
@@ -205,7 +205,7 @@ public class MixCardEvent : MonoBehaviour
         firstCard.cardContent.stats.baseMaxHp += secondCard.cardContent.stats.baseMaxHp;
 
         //두번째 카드는 삭제하고 첫번째 카드의 스탯을 조정.
-        RunManager.Inst.deckManager.RemoveCardToDeck(secondCard.cardContent);
+        DeckManager.Inst.RemoveCardToDeck(secondCard.cardContent);
 
         eventManager._OnEventEnd();
     }

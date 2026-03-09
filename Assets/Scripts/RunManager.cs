@@ -11,11 +11,9 @@ public class RunManager : MonoBehaviour
     }
     [SerializeField] GameObject battleUICanvas;
 
-    [SerializeField] DeckSO startingDeckSO;
-
+    [SerializeField] DeckSO debugDeckSO;
 
     public MapManager mapManager;
-    public DeckManager deckManager;
     public BattleManager battleManager;
     public UnitDataManager unitDataManager;
     public ResourceManager resourceManager;
@@ -24,9 +22,6 @@ public class RunManager : MonoBehaviour
     public GameObject cardRewardCanvas;
     public EventManager eventCanvas;
     public ShopEvent shopCanvas;
-
-    int runGold;
-
 
     void Start()
     {
@@ -43,9 +38,18 @@ public class RunManager : MonoBehaviour
 
     public void InitRun() //런 시작 시 게임 초기화.
     {
+        if(DeckManager.Inst == null)
+        {
+            GameObject deckManagerOBJ = new GameObject("RunManager (Auto Generated)");
+            DeckManager deckManager = deckManagerOBJ.AddComponent<DeckManager>();
+            deckManager.SetStartDeck(debugDeckSO);
+            
+            DontDestroyOnLoad(deckManagerOBJ);
+        }
+
         mapManager.InitMapdata(); //맵 정보를 생성
         unitDataManager.LoadCsvData(); //유닛 데이터를 csv에서 가져와 초기화.
-        deckManager.InitDeck(startingDeckSO.startingDeck); //덱 정보를 시작 덱으로 초기화.
+        DeckManager.Inst.InitDeck(); //덱 정보를 시작 덱으로 초기화.
         resourceManager.Init(); // 체력, 돈 확인용
         mapManager.SetVisible();
     }

@@ -4,12 +4,32 @@ using TMPro;
 
 public class DeckManager : MonoBehaviour
 {
+    public static DeckManager Inst { get; private set; }
+    private void Awake()
+    {
+        if (Inst != null && Inst != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Inst = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    DeckSO selectedStartDeck = null;
     List<CardContent> deck = null;
 
-    public void InitDeck(List<CardDataSO> newDeck)
+    public void SetStartDeck(DeckSO selectedDeck)
+    {
+        selectedStartDeck = selectedDeck;
+    }
+
+    public void InitDeck()
     {
         deck = new List<CardContent>();
-        foreach(CardDataSO cardData in newDeck)
+        foreach(CardDataSO cardData in selectedStartDeck.startingDeck)
         {
             deck.Add(new CardContent(cardData.card));
         }

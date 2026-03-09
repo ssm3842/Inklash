@@ -56,7 +56,7 @@ public class AddCardEvent : MonoBehaviour
 
     public void GetCard()
     {
-        RunManager.Inst.deckManager.AddCardToDeck(rewardCard.cardContent);
+        DeckManager.Inst.AddCardToDeck(rewardCard.cardContent);
 
         eventManager._OnEventEnd();
     }

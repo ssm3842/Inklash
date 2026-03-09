@@ -3,8 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
-    public void LoadSceneByName(string sceneName)
+    public void ChangeSceneToRun()
     {
-        SceneManager.LoadScene(sceneName);
+        PlayerPrefs.SetInt("HasSaveData", 1);
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene(1);
     }
 }

@@ -35,7 +35,7 @@ public class MakeSealEvent : MonoBehaviour
         selectUseCard = null;
         selectWordCard = null;
 
-        List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
+        List<CardContent> deck = DeckManager.Inst.GetDeckdata();
         //유닛, 마법 카드를 표시할 캔버스를 먼저 초기화
         foreach (Transform child in useCardcontainer)
         {
@@ -153,7 +153,7 @@ public class MakeSealEvent : MonoBehaviour
     public void UpgradeCard()
     {
         SealManager.AddSealToCard(selectUseCard.cardContent, selectWordCard.cardContent.seals);
-        RunManager.Inst.deckManager.RemoveCardToDeck(selectWordCard.cardContent);
+        DeckManager.Inst.RemoveCardToDeck(selectWordCard.cardContent);
 
         eventManager._OnEventEnd();
     }

@@ -18724,7 +18724,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1607249506}
   - component: {fileID: 1607249505}
-  - component: {fileID: 1607249508}
   m_Layer: 0
   m_Name: RunManager
   m_TagString: Untagged
@@ -18745,9 +18744,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleUICanvas: {fileID: 741746634}
-  startingDeckSO: {fileID: 11400000, guid: a6e3ad89e08b76041a5cbf843f4e17c7, type: 2}
+  debugDeckSO: {fileID: 11400000, guid: a6e3ad89e08b76041a5cbf843f4e17c7, type: 2}
   mapManager: {fileID: 83669496}
-  deckManager: {fileID: 1607249508}
   battleManager: {fileID: 1400227293}
   unitDataManager: {fileID: 1308273236}
   resourceManager: {fileID: 291266482}
@@ -18770,18 +18768,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1607249508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607249504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398297a6fed65dd42859a22ede38dd53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1610614747
 GameObject:
   m_ObjectHideFlags: 0

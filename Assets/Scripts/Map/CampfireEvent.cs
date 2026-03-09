@@ -55,7 +55,7 @@ public class CampfireEvent : MonoBehaviour
         }
 
         //카드 타입이 같은 카드만 골라 표시.
-        List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
+        List<CardContent> deck = DeckManager.Inst.GetDeckdata();
         foreach(CardContent card in deck)
         {
             switch(mapType)

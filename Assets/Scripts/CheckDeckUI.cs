@@ -30,7 +30,7 @@ public class CheckDeckUI : MonoBehaviour
         int count = 0;
         int totalCost = 0;
 
-        List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
+        List<CardContent> deck = DeckManager.Inst.GetDeckdata();
         allCardText.text = deck.Count.ToString();
         foreach(CardContent card in deck)
         {
@@ -65,7 +65,7 @@ public class CheckDeckUI : MonoBehaviour
         wordCardText.text = count.ToString();
 
         //반올림 안하고 자리 버림.
-        float average = Mathf.Floor((float)totalCost / RunManager.Inst.deckManager.GetDeckdata().Count * 10f);
+        float average = Mathf.Floor((float)totalCost /DeckManager.Inst.GetDeckdata().Count * 10f);
         averageCostText.text = (average / 10).ToString("F1");
     }
 
@@ -76,7 +76,7 @@ public class CheckDeckUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        List<CardContent> deck = RunManager.Inst.deckManager.GetDeckdata();
+        List<CardContent> deck = DeckManager.Inst.GetDeckdata();
         
         int spawnedCount = 0;
         switch(typeIndex)

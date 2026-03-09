@@ -91,7 +91,7 @@ public class ShopEvent : MonoBehaviour
     {
         if(RunManager.Inst.resourceManager.SpendGold(cost))
         {
-            RunManager.Inst.deckManager.AddCardToDeck(cardData);
+            DeckManager.Inst.AddCardToDeck(cardData);
 
             cardObject.interactable = false;
             cardObject.alpha = 0;
@@ -113,7 +113,7 @@ public class ShopEvent : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        List<CardContent> cardList = RunManager.Inst.deckManager.GetDeckdata();
+        List<CardContent> cardList = DeckManager.Inst.GetDeckdata();
         foreach(CardContent card in cardList)
         {
             GameObject cardUI = Instantiate(cardPrefab, content);
@@ -128,7 +128,7 @@ public class ShopEvent : MonoBehaviour
     void DeleteCard(CardContent targetCard)
     {
         RunManager.Inst.resourceManager.SpendGold(50);
-        RunManager.Inst.deckManager.RemoveCardToDeck(targetCard);
+        DeckManager.Inst.RemoveCardToDeck(targetCard);
         deleteButton.gameObject.SetActive(false);
 
         cardDeleteDeckView.SetActive(false);

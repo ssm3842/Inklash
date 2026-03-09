@@ -18,7 +18,7 @@ public class CardRewardUI : MonoBehaviour
     }
     public void OnCardRewardSelected(CardRewardCardUI cardUI)
     {
-        RunManager.Inst.deckManager.AddCardToDeck(cardUI.cardContent);
+        DeckManager.Inst.AddCardToDeck(cardUI.cardContent);
 
         battleRewardController.CardRewardAccepted();
 

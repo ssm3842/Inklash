@@ -1,12 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MainMenuControll : MonoBehaviour
 {
 
     public GameObject loadGameButton;
+    [SerializeField] GameObject deckSelectCanvas;
 
-  void Awake()
+    void Awake()
     {
         bool hasSaveData = (PlayerPrefs.GetInt("HasSaveData", 0) == 1);
 
@@ -19,12 +19,23 @@ public class MainMenuControll : MonoBehaviour
             LoadGameState(false);
         }
     }
-
-    public void OnClickNewGame()
+    void Start()
     {
-        PlayerPrefs.SetInt("HasSaveData", 1);
-        PlayerPrefs.Save();
+        gameObject.SetActive(true);
+        deckSelectCanvas.SetActive(false);
     }
+
+    public void _OnClickNewGame()
+    {
+        gameObject.SetActive(false);
+        deckSelectCanvas.SetActive(true);
+    }
+    public void _OnClickReturnToNewGame()
+    {
+        gameObject.SetActive(true);
+        deckSelectCanvas.SetActive(false);
+    }
+    
 
     public void LoadGameState(bool state)
     {
