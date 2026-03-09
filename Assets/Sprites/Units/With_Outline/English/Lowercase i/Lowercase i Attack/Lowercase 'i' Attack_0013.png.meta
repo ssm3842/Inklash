@@ -78,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,10 +106,10 @@ TextureImporter:
       name: Lowercase 'i' Attack_0013_0
       rect:
         serializedVersion: 2
-        x: 888
-        y: 1138
-        width: 207
-        height: 207
+        x: 887
+        y: 1137
+        width: 209
+        height: 209
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,10 +128,10 @@ TextureImporter:
       name: Lowercase 'i' Attack_0013_1
       rect:
         serializedVersion: 2
-        x: 764
+        x: 789
         y: 633
-        width: 459
-        height: 494
+        width: 407
+        height: 496
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
