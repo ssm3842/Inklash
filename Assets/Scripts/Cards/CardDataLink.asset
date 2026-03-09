@@ -39,6 +39,26 @@ MonoBehaviour:
     cardContents: {fileID: 11400000, guid: f54409085164b4c4581c8ed3f44dd8d5, type: 2}
   - id: Quick
     cardContents: {fileID: 11400000, guid: b72e039a23326db4199bd9b069342bc9, type: 2}
+  - id: Weak
+    cardContents: {fileID: 11400000, guid: f0c885ad3207b4c40b366857d17f9200, type: 2}
+  - id: Ignite
+    cardContents: {fileID: 11400000, guid: b123ed38639ce8b40892b97946ebd18d, type: 2}
+  - id: Chill
+    cardContents: {fileID: 11400000, guid: 068da1a845fd90b4f983a454029ace00, type: 2}
+  - id: Cold
+    cardContents: {fileID: 11400000, guid: 2c4897e35c9277443a777fed29239f63, type: 2}
+  - id: Copy
+    cardContents: {fileID: 11400000, guid: 28de8cb4ec256254eaff7699dca1fdba, type: 2}
+  - id: Explosion
+    cardContents: {fileID: 11400000, guid: ab1e2d10a9fe1604a851a677dfe5d5f3, type: 2}
+  - id: Mark
+    cardContents: {fileID: 11400000, guid: 44585e3ba2a1e0f4bbf05d159e646bd6, type: 2}
+  - id: Purity
+    cardContents: {fileID: 11400000, guid: 5af072ba5c16ef645aded1718be00d80, type: 2}
+  - id: Split
+    cardContents: {fileID: 11400000, guid: 02a95beba6f8bdf4880238526eba6879, type: 2}
+  - id: Ultimate
+    cardContents: {fileID: 11400000, guid: 3ca5a2f3b0c035a4fafa467c4beb44df, type: 2}
   EnemyUnits:
   - id: LowerI
     cardContents: {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}

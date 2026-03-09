@@ -4755,6 +4755,7 @@ MonoBehaviour:
   buffController: {fileID: 597376425}
   healthBar: {fileID: 1127777735}
   isPlayers: 0
+  onHitBuffTags: []
 --- !u!114 &597376425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8805,6 +8806,7 @@ MonoBehaviour:
   buffController: {fileID: 1041127023}
   healthBar: {fileID: 2033325837}
   isPlayers: 1
+  onHitBuffTags: []
 --- !u!114 &1041127023
 MonoBehaviour:
   m_ObjectHideFlags: 0

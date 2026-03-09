@@ -57,17 +57,4 @@ public class BuffController : MonoBehaviour
         return false;
     }
 
-    public List<Buffs> GetInheritableBuffs()
-{
-    List<Buffs> inheritable = new List<Buffs>();
-    foreach (var buff in buffList)
-    {
-        // Split 버프를 제외하고 나머지 복사
-        if (buff.buffName != "Split")
-        {
-            inheritable.Add(buff);
-        }
-    }
-    return inheritable;
-}
 }

@@ -416,7 +416,7 @@ public class Units : DamageableObject
 
             childBC.buffList.RemoveAll(b => b.buffName == "Split");
 
-            List<Buffs> inheritedBuffs = buffController.GetInheritableBuffs();
+            List<Buffs> inheritedBuffs = buffController.buffList;
             foreach (var b in inheritedBuffs)
             {
                 if (b.buffName != "Split") 
