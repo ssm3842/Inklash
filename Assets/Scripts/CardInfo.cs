@@ -22,10 +22,18 @@ public class CardInfo : MonoBehaviour
         sealIconDict = new Dictionary<SealType, Sprite>
         {
             { SealType.Ignite, sealSprites[0] },
-            { SealType.ExtraHit, sealSprites[1] },
             { SealType.Cold, sealSprites[2] },
+            { SealType.ExtraHit, sealSprites[1] },
             { SealType.KnockBack, null },
             { SealType.Pierce, null },
+            { SealType.Weak, null },
+            { SealType.Mark, null },
+            { SealType.Chill, null },
+            { SealType.Ultimate, null },
+            { SealType.Split, null },
+            { SealType.Explosion, null },
+            { SealType.Purity, null },
+            { SealType.Copy, null },
         };
     }
 

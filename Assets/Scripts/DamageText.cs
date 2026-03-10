@@ -9,15 +9,14 @@ public class DamageText : MonoBehaviour
     {
         TextMeshProUGUI tmpro = GetComponent<TextMeshProUGUI>();
 
-        tmpro.text = damage.ToString();
+        tmpro.text = damage.ToString("F0");
         tmpro.alpha = 1f;
         tmpro.color = textColor;
-        transform.position = startPos;
+        transform.position = startPos + new Vector3(Random.Range(-0.2f, 0.2f), 0.5f, 0f);
 
         // 위로 솟구치며 사라지는 연출
-        transform.DOMoveY(startPos.y + 1f, lifeTime).SetLink(gameObject); // 0.5초 동안 위로 1만큼 이동
+        transform.DOMoveY(startPos.y + 1.5f, lifeTime).SetLink(gameObject); // lifeTime만큼의 초 동안 위로 이동
         tmpro.DOFade(0f, lifeTime).SetLink(gameObject).OnComplete(() => {
-            // 연출이 끝나면 오브젝트 풀로 반환
             if(this != null && gameObject != null) Destroy(gameObject);
         });
     }

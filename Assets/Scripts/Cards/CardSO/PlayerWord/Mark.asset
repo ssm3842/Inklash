@@ -32,10 +32,9 @@ MonoBehaviour:
       bonusATKSpd: 0
       bonusRange: 0
       bonusSpd: 0
-    unit: {fileID: 7871789751944359045, guid: d1a4a6f38835a2344994a1e99b8fda66, type: 3}
-    onDiscardType: 0
-    isCopied: 0
+    unit: {fileID: 0}
     seals: 256
+    isCopied: 0
     cardImage: {fileID: 0}
     firstInfo: 0
     secondInfo: 0
