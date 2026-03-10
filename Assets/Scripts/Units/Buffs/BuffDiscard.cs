@@ -1,3 +1,4 @@
+using UnityEngine;
 public class BuffDiscard : Buffs
 {
     public BuffDiscard()
@@ -6,7 +7,7 @@ public class BuffDiscard : Buffs
         this.remainTime = -1;
     }
 
-    public override void OnGetBuff(DamageableObject owner)
+    public override void OnGetBuff(GameObject owner)
     {
         CardManager cardManager = UnityEngine.Object.FindAnyObjectByType<CardManager>();
         if (cardManager != null)

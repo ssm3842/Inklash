@@ -14,6 +14,8 @@ public class Freeze : SpellBase
             if(enemy.gameObject.GetComponent<BuffController>() == null) continue;
             
             enemy.gameObject.GetComponent<BuffController>().GetBuff(new BuffFreeze(amount));
+            PerformHit(enemy,amount);
+
         }
     }
 }

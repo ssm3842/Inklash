@@ -6,7 +6,7 @@ public static class SealManager
     public static void ApplySeals(GameObject unitObj, List<SealType> seals)
     {
         if (unitObj == null || seals.Count == 0) return;
-        BuffController bc = unitObj.GetComponent<BuffController>();
+        IBuffable bc = unitObj.GetComponent<IBuffable>();
         if (bc == null) return;
 
         foreach(SealType type in seals)

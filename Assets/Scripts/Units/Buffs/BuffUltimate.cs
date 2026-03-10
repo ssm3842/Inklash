@@ -16,6 +16,6 @@ public class BuffUltimate : Buffs
 
     protected override void ApplySpell(SpellBase spell)
     {
-
+        
     }
 }

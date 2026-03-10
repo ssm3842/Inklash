@@ -447,7 +447,7 @@ public class Units : DamageableObject
             // 대상이 존재하고, 나랑 팀이 다른 경우에만 데미지
             if (targetObj != null && targetObj.isPlayers != this.isPlayers)
             {
-                StartCoroutine(targetObj.TakeDamage(damage));
+                StartCoroutine(targetObj.TakeDamage(damage,0.5f));
             }
         }
     }

@@ -23,17 +23,17 @@ public class Buffs
             return true;
         }
     }
-   public virtual void OnGetBuff(DamageableObject target)
+   public virtual void OnGetBuff(GameObject target)
     {
-        // 1. 유닛인 경우
-        if (target is Units unit)
+        Units unit = target.GetComponent<Units>();
+        if (unit != null)
         {
             ApplyUnit(unit);
         }
-        // 2. 마법인 경우
-        else if (target.GetComponent<SpellBase>() != null)
+        SpellBase spell = target.GetComponent<SpellBase>();
+        if (spell != null)
         {
-            ApplySpell(target.GetComponent<SpellBase>());
+            ApplySpell(spell);
         }
         
         CardManager cm = Object.FindAnyObjectByType<CardManager>();

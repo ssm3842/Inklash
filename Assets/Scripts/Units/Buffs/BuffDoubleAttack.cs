@@ -7,9 +7,4 @@ public class BuffDoubleAttack : Buffs
         this.buffName = "DoubleAttack";
         this.remainTime = -1;
     }
-
-    public override void OnGetBuff(DamageableObject owner)
-    {
-        
-    }
 }

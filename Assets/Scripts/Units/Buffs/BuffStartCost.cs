@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BuffStartCost : Buffs
 {
     private int refundAmount = 2;
@@ -9,7 +11,7 @@ public class BuffStartCost : Buffs
         this.refundAmount = amount;
     }
 
-    public override void OnGetBuff(DamageableObject owner)
+    public override void OnGetBuff(GameObject owner)
     {
         CostManager costManager = UnityEngine.Object.FindAnyObjectByType<CostManager>();
         if (costManager != null)
