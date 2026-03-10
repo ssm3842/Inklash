@@ -12,7 +12,7 @@ public class BurnEffect : MonoBehaviour
     IEnumerator Start()
     {
         DamageableObject target = GetComponent<DamageableObject>();
-        while (elapsed < 3f)
+        while (elapsed <= 3f)
         {
             yield return new WaitForSeconds(1f);
             elapsed += 1f;

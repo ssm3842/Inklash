@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffController : MonoBehaviour
+public class BuffController : MonoBehaviour , IBuffable
 {
     [SerializeField] StatController statController;
-    List<Buffs> buffList = new List<Buffs>();
+    public List<Buffs> buffList = new List<Buffs>();
     List<Buffs> buffsToRemove = new List<Buffs>();
 
     void Update()
@@ -39,10 +39,10 @@ public class BuffController : MonoBehaviour
         }
         //반복문을 다 돌아도 같은 이름의 버프가 없으면 버프추가.
         newBuff.statController = statController;
-        newBuff.OnGetBuff(this.gameObject.GetComponent<DamageableObject>());
+        newBuff.OnGetBuff(this.gameObject);
 
         //단어 카드의 강화카드는 추적해서 시간에따라 제거하지 않음.
-        if(newBuff.remainTime == -1) return;
+        //if(newBuff.remainTime == -1) return;
 
         //지속시간 추적이 필요한 버프는 리스트에 추가.
         buffList.Add(newBuff);
@@ -56,4 +56,5 @@ public class BuffController : MonoBehaviour
         }
         return false;
     }
+
 }

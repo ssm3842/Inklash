@@ -14,6 +14,7 @@ public class Lightning : SpellBase
 
             enemy.gameObject.GetComponent<BuffController>().GetBuff(new BuffShock());
             StartCoroutine(enemy.gameObject.GetComponent<DamageableObject>().TakeDamage(damage));
+            PerformHit(enemy);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardUseManager : MonoBehaviour
@@ -20,7 +21,6 @@ public class CardUseManager : MonoBehaviour
     public Coroutine enemySpawnCoroutine = null;
     private bool hasPhase2Bursted = false;
     
-
     public void InitUnitManager()
     {
         if (enemySpawnCoroutine != null) 
@@ -54,7 +54,7 @@ public class CardUseManager : MonoBehaviour
                 SpawnPlayerUnit(card);
                 break;
             case CardType.Spell:
-                CastPlayerSpell(card);
+                StartCoroutine(CastPlayerSpell(card));
                 break;
             case CardType.Word:
                 UseWordCard(card);
@@ -77,13 +77,34 @@ public class CardUseManager : MonoBehaviour
         stackedWordCardEffect = new List<SealType>();
     }
 
-    void CastPlayerSpell(CardContent card)
+    IEnumerator CastPlayerSpell(CardContent card)
     {
         // FilterWordCard();
-
+        int castCount = 1;
         GameObject newSpell = Instantiate(card.unit);
         float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
-        newSpell.GetComponent<SpellBase>().CastSpell(card.stats.baseATK, card.stats.baseRange, targetPos);
+        SealManager.ApplySeals(newSpell, FilterWordCard(card));
+        SpellBase spell = newSpell.GetComponent<SpellBase>();
+
+        if(spell.buffList.Exists(b => b.buffName.Equals("Split"))) castCount =3;
+        Destroy(newSpell);
+
+        for (int i = 0; i < castCount; i++)
+        {
+            GameObject fireSpell = Instantiate(card.unit);
+            SealManager.ApplySeals(fireSpell, FilterWordCard(card));
+            
+            SpellBase currentSpell = fireSpell.GetComponent<SpellBase>();
+            
+            currentSpell.ProcessSpell(card.stats.baseATK, card.stats.baseRange, targetPos);
+
+            if (i < castCount - 1)
+            {
+                yield return new WaitForSeconds(0.75f); 
+            }
+        }
+        
+        stackedWordCardEffect = new List<SealType>();
     }
 
     List<SealType> FilterWordCard(CardContent card)

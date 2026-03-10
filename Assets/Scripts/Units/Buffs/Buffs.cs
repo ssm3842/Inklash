@@ -11,7 +11,8 @@ public class Buffs
 
     public bool CheckBuffValid()
     {
-        if(remainTime <= 0) 
+        if(remainTime == -1) return true;
+        else if(remainTime <= 0) 
         {
             OnBuffEnd();
             return false;
@@ -22,13 +23,28 @@ public class Buffs
             return true;
         }
     }
-    public virtual void OnGetBuff(DamageableObject owner) //버프를 받았을 때 효과 처리.
+   public virtual void OnGetBuff(GameObject target)
     {
-        return;
+        Units unit = target.GetComponent<Units>();
+        if (unit != null)
+        {
+            ApplyUnit(unit);
+        }
+        SpellBase spell = target.GetComponent<SpellBase>();
+        if (spell != null)
+        {
+            ApplySpell(spell);
+        }
+        
+        CardManager cm = Object.FindAnyObjectByType<CardManager>();
+        if (cm != null) ApplyCardSystem(cm);
     }
-
     public virtual void OnBuffEnd() //버프 끝났을 때 처리.
     {
         return;
     }
+
+    protected virtual void ApplyUnit(Units unit) { }
+    protected virtual void ApplySpell(SpellBase spell) { }
+    protected virtual void ApplyCardSystem(CardManager cardManager) { }
 }

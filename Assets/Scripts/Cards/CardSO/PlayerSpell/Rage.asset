@@ -16,16 +16,16 @@ MonoBehaviour:
     id: Rage
     name: "\uBD84\uB178"
     cost: 2
-    cardType: 0
+    cardType: 1
     attackType: 0
     effectID: 
     description: 
     stats:
       baseMaxHp: 0
-      baseATK: 0
+      baseATK: 0.2
       baseATKTerm: 0
       baseATKSpd: 0
-      baseRange: 0
+      baseRange: 2.5
       baseSpd: 0
       bonusMaxHp: 0
       bonusATK: 0
@@ -34,5 +34,8 @@ MonoBehaviour:
       bonusSpd: 0
     unit: {fileID: 165430342810149062, guid: 7bec21aef2af94c408ec5b138b62f32f, type: 3}
     onDiscardType: 0
+    isCopied: 0
+    seals: 0
+    cardImage: {fileID: 0}
     firstInfo: 1
     secondInfo: 3

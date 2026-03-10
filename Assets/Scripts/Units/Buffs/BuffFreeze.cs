@@ -8,7 +8,7 @@ public class BuffFreeze : Buffs
         remainTime = newRemainTime;
         order = 1;
     }
-    public override void OnGetBuff(DamageableObject owner) //버프를 받았을 때 효과 처리.
+    public override void OnGetBuff(GameObject owner) //버프를 받았을 때 효과 처리.
     {
         statController.gameObject.GetComponent<EffectController>().SetFreezeEffect(true);
     }

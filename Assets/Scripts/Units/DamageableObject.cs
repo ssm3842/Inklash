@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ public class DamageableObject : MonoBehaviour
     public bool isPlayers;
 
     private bool isPhase2Triggered = false;
+
+    public List<string> onHitBuffTags = new List<string>();
     
     virtual public void Init(bool players, UnitStats stats)
-    {
+    {        
         statController.InitStat(stats);
         if(healthBar) healthBar.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
 

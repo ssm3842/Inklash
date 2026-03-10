@@ -1,6 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Units : DamageableObject
 {
@@ -27,11 +31,9 @@ public class Units : DamageableObject
     public bool hasBaseKnockback; // 철퇴 유닛 여부
     public bool hasBaseDouble;    // 검 유닛 여부
 
-    public bool isBurnAttack = false;
-    public bool isColdAttack = false;
-    public bool isDoubleAttack = false;
-    public bool isPierceAttack = false;
     public bool isKnockbackEnhanced;
+    public SealType mySeals;
+
 
     void Awake()
     {
@@ -162,12 +164,21 @@ public class Units : DamageableObject
     {
         if (isDead) yield break;
 
+        float finalDamage = amount;
+
+        // 표식 버프가 있다면 25% 증폭
+        if (buffController.buffList.Exists(b => b.buffName == "Marking"))
+        {
+            finalDamage = amount * 1.25f; 
+        }
+
+
         yield return new WaitForSeconds(delayTime);
 
         DamageTextCanvas.Inst.InstDamageText(amount, transform.position);
                
-        if (statController.GetCurHp() <= amount) Die(); //남은 체력보다 데미지가 크면 오브젝트 파괴.
-        else statController.ChangeCurHp(amount); //아니면 체력 계산.
+        if (statController.GetCurHp() <= finalDamage) Die(); //남은 체력보다 데미지가 크면 오브젝트 파괴.
+        else statController.ChangeCurHp(finalDamage); //아니면 체력 계산.
     }
 
     public IEnumerator TakeDamage(float amount, bool isKnockback, float distance, float duration, float delayTime = 0f)
@@ -187,7 +198,7 @@ public class Units : DamageableObject
         Units targetUnit = target?.GetComponent<Units>();
         float damage = statController.GetStat(StatType.ATK);
 
-        if (hasBaseDouble || isDoubleAttack)
+        if (hasBaseDouble || HasBuff("DoubleAttack")) // 검 유닛의 추가 공격
         {
             PerformHit(target, damage);
 
@@ -235,6 +246,8 @@ public class Units : DamageableObject
     {
         isDead = true; 
         isKnockedBack = false;
+
+        HandleOnDeathEffects();
 
         if (RB != null) RB.linearVelocity = Vector2.zero;
         if (ANI != null) ANI.enabled = false; 
@@ -311,12 +324,28 @@ public class Units : DamageableObject
     
     private void PerformHit(DamageableObject hitTarget, float dmg)
     {
-        if (hasBaseBurn || isBurnAttack) // 발화
+        
+        if (HasBuff("Marker")) // 표식
+        {
+            hitTarget.buffController.GetBuff(new BuffMarking(3f)); 
+        }
+
+        if(HasBuff("Chiller")) // 냉기
+        {
+            hitTarget.buffController.GetBuff(new BuffChilling(3f)); 
+        }
+
+        if(HasBuff("Weaker")) // 약화
+        {
+            hitTarget.buffController.GetBuff(new BuffWeaken(3f)); 
+        }
+
+        if (hasBaseBurn || HasBuff("Burn")) // 발화
         {
             ApplyBurnEffect(hitTarget);
         }
 
-        if (isColdAttack) // 냉기
+        if (HasBuff("Cold")) // 차가운
         {
             ApplyColdEffect(hitTarget);
         }
@@ -340,7 +369,7 @@ public class Units : DamageableObject
         string myID = gameObject.GetInstanceID().ToString();
         BurnEffect effect = hitTarget.GetComponent<BurnEffect>();
 
-        float finalBurnDmg = (hasBaseBurn && isBurnAttack) ? 4f : 2f;
+        float finalBurnDmg = (hasBaseBurn && HasBuff("Burn")) ? 4f : 2f;
 
         if (effect != null && effect.casterID == myID)
         {
@@ -363,5 +392,71 @@ public class Units : DamageableObject
         {
             PerformHit(currentTarget, dmg);
         }
+    }
+
+    public void HandleOnDeathEffects()
+    {
+        HandleSplit();
+        HandleExplosion();
+    }
+
+    private void HandleSplit()
+    {
+        if (!HasBuff("Split")) return;
+
+        for (int i = 0; i < 2; i++)
+        {
+            Vector3 spawnPos = transform.position + new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
+            GameObject child = Instantiate(this.gameObject, spawnPos, Quaternion.identity);
+            
+            Units childUnit = child.GetComponent<Units>();
+            
+            StatController childSC = child.GetComponent<StatController>();
+            childSC.ControlBonusStat(StatType.MAX_HP, -0.5f);
+            childSC.ControlBonusStat(StatType.ATK, -0.5f);
+            childSC.InitMaxHP(); // 변경된 최대 체력 적용
+            BuffController childBC = child.GetComponent<BuffController>();
+
+            childBC.buffList.RemoveAll(b => b.buffName == "Split");
+
+            List<Buffs> inheritedBuffs = buffController.buffList;
+            foreach (var b in inheritedBuffs)
+            {
+                if (b.buffName != "Split") 
+                {
+                    childBC.GetBuff(b);
+                }
+            }
+
+            // 사이즈 조정
+            child.transform.localScale = this.transform.localScale * 0.7f;
+        }
+    }
+
+    public void HandleExplosion()
+    {
+        if (!HasBuff("Explosion")) return;
+
+        float explosionRange = 1.5f; // 폭발 범위
+        float damage = 1f; // 폭발 데미지
+
+        // 범위 내의 모든 Collider2D 탐색
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, explosionRange);
+
+        foreach (var hit in hitEnemies)
+        {
+            DamageableObject targetObj = hit.GetComponent<DamageableObject>();
+            
+            // 대상이 존재하고, 나랑 팀이 다른 경우에만 데미지
+            if (targetObj != null && targetObj.isPlayers != this.isPlayers)
+            {
+                StartCoroutine(targetObj.TakeDamage(damage,0.5f));
+            }
+        }
+    }
+
+    public bool HasBuff(string buffName)
+    {
+        return buffController.buffList.Exists(b => b.buffName == buffName);
     }
 }
