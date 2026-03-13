@@ -39,6 +39,8 @@ public class CardInfo : MonoBehaviour
 
     public void Setup(CardContent cardContent)
     {
+        HideContent(false);
+        
         cardInfoImage.sprite = cardContent.cardImage;
         cardInfoName.text = cardContent.name;
         cardInfoCost.text = cardContent.cost.ToString();
@@ -63,5 +65,24 @@ public class CardInfo : MonoBehaviour
                 index++;
             }
         }
+    }
+    
+    public void HideContent(bool isHide)
+    {
+        if(isHide)
+        {
+            foreach(Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach(Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+        
     }
 }

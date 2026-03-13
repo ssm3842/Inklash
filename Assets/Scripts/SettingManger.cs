@@ -6,6 +6,20 @@ using TMPro;
 
 public class SettingManger : MonoBehaviour
 {
+    public static SettingManger Inst { get; private set; }
+    private void Awake()
+    {
+        if (Inst != null && Inst != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Inst = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
+    
     [Header("메인 창")]
     public GameObject SettingWindow; 
     
@@ -31,7 +45,6 @@ public class SettingManger : MonoBehaviour
 
     void Start()
     {
-        SettingWindow.SetActive(false); 
         ShowPanel("Graphic");
 
         screenModes = new List<FullScreenMode> { FullScreenMode.Windowed, FullScreenMode.FullScreenWindow };

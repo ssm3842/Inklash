@@ -616,7 +616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 119397e417ef28b47ac699da41086c1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c763c7a0d298b3746a1ae6ea83354836, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6040,6 +6040,7 @@ GameObject:
   - component: {fileID: 512193691}
   - component: {fileID: 512193690}
   - component: {fileID: 512193689}
+  - component: {fileID: 512193692}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -6110,13 +6111,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 512193692}
+        m_TargetAssemblyTypeName: SettingButton, Assembly-CSharp
+        m_MethodName: ShowSettingCanvas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6160,6 +6161,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512193687}
   m_CullTransparentMesh: 1
+--- !u!114 &512193692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512193687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49aad4620acc70548bf131d4bf3b647d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingCavnasPrefab: {fileID: 5386575559973808640, guid: 68341bb71c84a8b4a848a2f132cf65a2, type: 3}
 --- !u!1 &516019975
 GameObject:
   m_ObjectHideFlags: 0
@@ -9300,7 +9314,7 @@ GameObject:
   - component: {fileID: 832512694}
   - component: {fileID: 832512692}
   m_Layer: 5
-  m_Name: Campfire
+  m_Name: Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21576,7 +21590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   addCardObjects: {fileID: 1351735734}
-  UpgradeObjects: {fileID: 0}
+  UpgradeObjects: {fileID: 832512692}
   mixCardObjects: {fileID: 478691036}
   makeSealObjects: {fileID: 49697297}
   battleRewardCanvas: {fileID: 988922717}

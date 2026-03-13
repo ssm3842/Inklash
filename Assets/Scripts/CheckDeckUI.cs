@@ -19,6 +19,7 @@ public class CheckDeckUI : MonoBehaviour
     public void OpenCheckDeckScreen()
     {
         gameObject.SetActive(true);
+        cardInfo.HideContent(true);
 
         InitText();
 
