@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CampfireEvent : MonoBehaviour
+public class UpgradeEvent : MonoBehaviour
 {
     [SerializeField]EventManager eventManager;
 
@@ -22,7 +22,7 @@ public class CampfireEvent : MonoBehaviour
 
     [SerializeField]Button confirmButton;
 
-    CampfireType mapType;
+    UpgradeType mapType;
     CardRewardCardUI selectCard;
 
     public void FilterDeckCard()
@@ -32,7 +32,7 @@ public class CampfireEvent : MonoBehaviour
 
         confirmButton.interactable = false;
 
-        mapType = (CampfireType)Random.Range(0, System.Enum.GetValues(typeof(CampfireType)).Length);
+        mapType = (UpgradeType)Random.Range(0, System.Enum.GetValues(typeof(UpgradeType)).Length);
         selectCard = null;
 
         //기존에 있던 카드 오브젝트 삭제.
@@ -41,15 +41,15 @@ public class CampfireEvent : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        if(mapType == CampfireType.UnitHP)
+        if(mapType == UpgradeType.UnitHP)
         {
             text.text = "유닛 체력 강화";
         }
-        else if(mapType == CampfireType.UnitATK)
+        else if(mapType == UpgradeType.UnitATK)
         {
             text.text = "유닛 공격력 강화";
         }
-        else if(mapType == CampfireType.SpellCost)
+        else if(mapType == UpgradeType.SpellCost)
         {
             text.text = "마법 코스트 감소";
         }
@@ -60,7 +60,7 @@ public class CampfireEvent : MonoBehaviour
         {
             switch(mapType)
             {
-                case CampfireType.UnitHP:
+                case UpgradeType.UnitHP:
                     if(card.cardType == CardType.Unit)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
@@ -69,7 +69,7 @@ public class CampfireEvent : MonoBehaviour
                         cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
                     }
                     break;
-                case CampfireType.UnitATK:
+                case UpgradeType.UnitATK:
                     if(card.cardType == CardType.Unit)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
@@ -78,7 +78,7 @@ public class CampfireEvent : MonoBehaviour
                         cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
                     }
                     break;
-                case CampfireType.SpellCost:
+                case UpgradeType.SpellCost:
                     if(card.cardType == CardType.Spell)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
@@ -94,7 +94,7 @@ public class CampfireEvent : MonoBehaviour
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 4) + 1) * 270);
     }
 
-    void SelectCard(CardRewardCardUI targetCard, CampfireType targetStat)
+    void SelectCard(CardRewardCardUI targetCard, UpgradeType targetStat)
     {
         emptySlot.SetActive(false);
         selectSlot.SetActive(true);
@@ -122,17 +122,17 @@ public class CampfireEvent : MonoBehaviour
 
         cardPreviewBefore.Setup(targetCard.cardContent);
         cardPreviewAfter.Setup(targetCard.cardContent);
-        if(targetStat == CampfireType.UnitHP)
+        if(targetStat == UpgradeType.UnitHP)
         {
             hpText.text = (targetCard.cardContent.stats.baseMaxHp + 10).ToString();
             hpText.color = Color.red;
         }
-        else if(targetStat == CampfireType.UnitATK)
+        else if(targetStat == UpgradeType.UnitATK)
         {
             atkText.text = (targetCard.cardContent.stats.baseATK + 5).ToString();
             atkText.color = Color.red;
         }
-        else if(targetStat == CampfireType.SpellCost)
+        else if(targetStat == UpgradeType.SpellCost)
         {
             costText.text = Mathf.Max(0, selectCard.cardContent.cost - 1).ToString();
             costText.color = Color.red;
@@ -141,14 +141,14 @@ public class CampfireEvent : MonoBehaviour
 
     public void ConfirmUpgradeCard()
     {
-        if(mapType == CampfireType.UnitHP) selectCard.cardContent.stats.baseMaxHp += 10;
-        else if(mapType == CampfireType.UnitATK) selectCard.cardContent.stats.baseATK += 5;
-        else if(mapType == CampfireType.SpellCost) selectCard.cardContent.cost = Mathf.Max(0, selectCard.cardContent.cost - 1);
+        if(mapType == UpgradeType.UnitHP) selectCard.cardContent.stats.baseMaxHp += 10;
+        else if(mapType == UpgradeType.UnitATK) selectCard.cardContent.stats.baseATK += 5;
+        else if(mapType == UpgradeType.SpellCost) selectCard.cardContent.cost = Mathf.Max(0, selectCard.cardContent.cost - 1);
 
         eventManager._OnEventEnd();
     }
 
-    public enum CampfireType
+    public enum UpgradeType
     {
         UnitATK, UnitHP, SpellCost,
     }    

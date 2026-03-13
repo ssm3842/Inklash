@@ -42,7 +42,7 @@ public class MapManager : MonoBehaviour
         randomRoomIcons = new Dictionary<EventRoomType, Sprite>
         {
             { EventRoomType.ADDCARD, icons[2] },
-            { EventRoomType.CAMPFIRE, icons[3] },
+            { EventRoomType.Upgrade, icons[3] },
             { EventRoomType.MIXCARD, icons[4] },
             { EventRoomType.MAKESEAL, icons[5] }
         };

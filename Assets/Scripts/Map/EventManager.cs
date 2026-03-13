@@ -4,7 +4,7 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
     [SerializeField]AddCardEvent addCardObjects;
-    [SerializeField]CampfireEvent campfireObjects;
+    [SerializeField]UpgradeEvent UpgradeObjects;
     [SerializeField]MixCardEvent mixCardObjects;
     [SerializeField]MakeSealEvent makeSealObjects;
 
@@ -17,23 +17,23 @@ public class EventManager : MonoBehaviour
         {
             case EventRoomType.ADDCARD:
                 addCardObjects.gameObject.SetActive(true);
-                campfireObjects.gameObject.SetActive(false);
+                UpgradeObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(false);
                 makeSealObjects.gameObject.SetActive(false);
 
                 addCardObjects.SetEvent();
                 break;
-            case EventRoomType.CAMPFIRE:
+            case EventRoomType.Upgrade:
                 addCardObjects.gameObject.SetActive(false);
-                campfireObjects.gameObject.SetActive(true);
+                UpgradeObjects.gameObject.SetActive(true);
                 mixCardObjects.gameObject.SetActive(false);
                 makeSealObjects.gameObject.SetActive(false);
 
-                campfireObjects.FilterDeckCard();
+                UpgradeObjects.FilterDeckCard();
                 break;
             case EventRoomType.MIXCARD:
                 addCardObjects.gameObject.SetActive(false);
-                campfireObjects.gameObject.SetActive(false);
+                UpgradeObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(true);
                 makeSealObjects.gameObject.SetActive(false);
 
@@ -41,7 +41,7 @@ public class EventManager : MonoBehaviour
                 break;
             case EventRoomType.MAKESEAL:
                 addCardObjects.gameObject.SetActive(false);
-                campfireObjects.gameObject.SetActive(false);
+                UpgradeObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(false);
                 makeSealObjects.gameObject.SetActive(true);
 
@@ -56,18 +56,5 @@ public class EventManager : MonoBehaviour
     {
         RunManager.Inst.mapManager.SetVisible();
         gameObject.SetActive(false);
-    }
-
-    public void _OnCampfireButtonClicked()
-    {
-        //휴식 공간 효과 발동.
-        RunManager.Inst.resourceManager.HealLife(10);
-
-        //클리어 판정.
-        RunManager.Inst.mapManager.ClearLastRoom();
-        
-        //다시 맵 표시.
-        gameObject.SetActive(false);
-        RunManager.Inst.mapManager.SetVisible();
     }
 }

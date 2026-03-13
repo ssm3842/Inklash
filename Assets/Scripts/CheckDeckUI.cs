@@ -87,7 +87,7 @@ public class CheckDeckUI : MonoBehaviour
                     if(card.cardType == CardType.Unit)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                        cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
                         spawnedCount++;
@@ -99,7 +99,7 @@ public class CheckDeckUI : MonoBehaviour
                     {
 
                         GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                        cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
                         spawnedCount++;
@@ -110,7 +110,7 @@ public class CheckDeckUI : MonoBehaviour
                     if(card.cardType == CardType.Word)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                        cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
                         spawnedCount++;
@@ -123,7 +123,7 @@ public class CheckDeckUI : MonoBehaviour
                     if(card.cardType == CardType.Unit)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                        cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
                         spawnedCount++;
@@ -137,7 +137,7 @@ public class CheckDeckUI : MonoBehaviour
                     {
 
                         GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                        cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
                         spawnedCount++;
@@ -150,7 +150,7 @@ public class CheckDeckUI : MonoBehaviour
                     if(card.cardType == CardType.Word)
                     {
                         GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                        cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                         cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                         cardUI.GetComponent<Button>().onClick.AddListener(() => cardInfo.Setup(card));
                         spawnedCount++;
@@ -159,7 +159,7 @@ public class CheckDeckUI : MonoBehaviour
                 break;
         }
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((spawnedCount - 1) / 4) + 1) * 370);
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((spawnedCount - 1) / 4) + 1) * 330);
     }
 
     void Update()
