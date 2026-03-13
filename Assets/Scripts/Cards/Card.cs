@@ -23,9 +23,10 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     [SerializeField] TMP_Text ATKText;
     [SerializeField] TMP_Text HPText;
 
-    [SerializeField] Renderer[] subObjectsRenderers;
+    [SerializeField] Image[] sealImageComponents;
+    [SerializeField] CanvasGroup[] sealBackgroundImageComponents;
 
-    [SerializeField] Sprite[] cardBackground;
+    [SerializeField] Renderer[] subObjectsRenderers;
 
     //좌클릭과 우클릭 시 
     public void OnPointerClick(PointerEventData eventData)
@@ -107,17 +108,23 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         if(cardContent.cardImage == null) cardImage.color = new Color(0,0,0,0);
         else cardImage.sprite = cardContent.cardImage;
 
-        switch(cardContent.cardType)
+        GetComponent<Image>().sprite = SpriteDataContainer.Inst.GetCardBackgroundSprite(content.cardType);
+
+        //인장 이미지 일단 비활성화 후 있으면 활성화
+        for(int i=0; i<sealImageComponents.Length; i++)
         {
-            case CardType.Unit:
-                GetComponent<Image>().sprite = cardBackground[0];
-                break;
-            case CardType.Spell:
-                GetComponent<Image>().sprite = cardBackground[1];
-                break;
-            case CardType.Word:
-                GetComponent<Image>().sprite = cardBackground[2];
-                break;
+            sealBackgroundImageComponents[i].alpha = 0f;
+        }
+        
+        int index = 0;
+        foreach (SealType type in System.Enum.GetValues(typeof(SealType)))
+        {
+            if (type != SealType.None && (cardContent.seals & type) == type)
+            {
+                sealBackgroundImageComponents[index].alpha = 1f;
+                sealImageComponents[index].sprite = SpriteDataContainer.Inst.GetSealSprite(type);
+                index++;
+            }
         }
 
         switch(cardContent.firstInfo)

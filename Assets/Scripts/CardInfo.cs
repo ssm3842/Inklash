@@ -12,30 +12,7 @@ public class CardInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI cardInfoHP;
     [SerializeField] TextMeshProUGUI cardInfoATKTerm;
     [SerializeField] TextMeshProUGUI cardInfoSpd;
-
-    [SerializeField]Dictionary<SealType, Sprite> sealIconDict;
-    [SerializeField]Sprite[] sealSprites;
     [SerializeField]Image[] sealImageUI;
-
-    public void OnEnable()
-    {
-        sealIconDict = new Dictionary<SealType, Sprite>
-        {
-            { SealType.Ignite, sealSprites[0] },
-            { SealType.Cold, sealSprites[2] },
-            { SealType.ExtraHit, sealSprites[1] },
-            { SealType.KnockBack, null },
-            { SealType.Pierce, null },
-            { SealType.Weak, null },
-            { SealType.Mark, null },
-            { SealType.Chill, null },
-            { SealType.Ultimate, null },
-            { SealType.Split, null },
-            { SealType.Explosion, null },
-            { SealType.Purity, null },
-            { SealType.Copy, null },
-        };
-    }
 
     public void Setup(CardContent cardContent)
     {
@@ -61,7 +38,7 @@ public class CardInfo : MonoBehaviour
             if (type != SealType.None && (cardContent.seals & type) == type)
             {
                 sealImageUI[index].gameObject.SetActive(true);
-                sealImageUI[index].sprite = sealIconDict[type];
+                sealImageUI[index].sprite = SpriteDataContainer.Inst.GetSealSprite(type);
                 index++;
             }
         }
