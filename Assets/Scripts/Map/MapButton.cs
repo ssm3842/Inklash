@@ -61,5 +61,5 @@ public enum RoomType
 }
 public enum EventRoomType
 {
-    NOT_EVENT, Upgrade, ADDCARD, MIXCARD, MAKESEAL,
+    NOT_EVENT, UPGRADE, ADDCARD, MIXCARD, MAKESEAL,
 }

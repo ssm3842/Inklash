@@ -32,8 +32,6 @@ public class Units : DamageableObject
     public bool hasBaseDouble;    // 검 유닛 여부
 
     public bool isKnockbackEnhanced;
-    public SealType mySeals;
-
 
     void Awake()
     {

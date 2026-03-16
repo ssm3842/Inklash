@@ -10,11 +10,10 @@ public class MapDataGenerator : MonoBehaviour
     public const int FLOORS = 8;
     public const int MAP_WIDTH = 4;
     const int PATHS = 4;
-    const float BATTLE_ROOM_WEIGHT = 10;
-    const float EVENT_ROOM_WEIGHT = 2.5f;
 
     const int MIN_EVENT_COUNT = 4;
-    const int MAX_EVENT_COUNT = 6;
+    const int MAX_EVENT_COUNT = 5;
+    const float EVENT_ROOMS_BASE_WEIGHT = 3f;
     int spawnedEventRoomCount = 0;
 
     Dictionary<RoomType, float> randomRoomTypeWeights = new Dictionary<RoomType, float>
@@ -23,7 +22,14 @@ public class MapDataGenerator : MonoBehaviour
         { RoomType.EVENT, 0f },
     };
 
-    float randomRoomTypeTotalWeight = 0f;
+    Dictionary<EventRoomType, float> randomEventRoomTypeWeights = new Dictionary<EventRoomType, float>
+    {
+        { EventRoomType.ADDCARD, EVENT_ROOMS_BASE_WEIGHT },
+        { EventRoomType.UPGRADE, EVENT_ROOMS_BASE_WEIGHT },
+        { EventRoomType.MIXCARD, EVENT_ROOMS_BASE_WEIGHT },
+        { EventRoomType.MAKESEAL, EVENT_ROOMS_BASE_WEIGHT },
+    };
+
     [SerializeField] List<List<RoomContent>> mapData;
 
     public List<List<RoomContent>> GenerateMap()
@@ -42,7 +48,6 @@ public class MapDataGenerator : MonoBehaviour
 
         SetupBossRoom(); //최상단에 보스룸 생성
 
-        SetupRandomRoomWeights(); //맵 타입 가중치 설정.
         SetupRoomTypes(); //맵 타입 설정.
 
         return mapData;
@@ -152,13 +157,6 @@ public class MapDataGenerator : MonoBehaviour
         }
         bossRoom.roomType = RoomType.BOSS;
     }
-    void SetupRandomRoomWeights()
-    {
-        randomRoomTypeWeights[RoomType.BATTLE] = BATTLE_ROOM_WEIGHT;
-        randomRoomTypeWeights[RoomType.EVENT] = randomRoomTypeWeights[RoomType.BATTLE] + EVENT_ROOM_WEIGHT;
-
-        randomRoomTypeTotalWeight = randomRoomTypeWeights[RoomType.EVENT];
-    }
 
     void SetupRoomTypes()
     {
@@ -176,6 +174,10 @@ public class MapDataGenerator : MonoBehaviour
 
         //이벤트 방 개수 보정을 위한 리스트
         List<RoomContent> battleRoomList = new List<RoomContent>();
+        foreach(RoomContent room in battleRoomList)
+        {
+            if(room.nextRooms.Count <= 0) battleRoomList.Remove(room);
+        }
 
         //할당되지 않은 방의 타입을 결정.
         foreach (List<RoomContent> currentFloor in mapData) 
@@ -203,18 +205,21 @@ public class MapDataGenerator : MonoBehaviour
                 RoomContent targetRoom = battleRoomList[randomIndex];
 
                 SetEventRoom(targetRoom);
+                battleRoomList.Remove(targetRoom);
             }
             //4개 이상인 경우 확률적으로 추가. 6개를 넘으면 종료.
             else
             {
-                //10퍼센트 확률로 이벤트 노드 생성.
-                if(UnityEngine.Random.Range(0, 100) < 10)
+                //30퍼센트 확률로 이벤트 노드 생성.
+                if(UnityEngine.Random.Range(0, 100) < 30)
                 {
                     int randomIndex = UnityEngine.Random.Range(0, battleRoomList.Count);
                     RoomContent targetRoom = battleRoomList[randomIndex];
 
                     SetEventRoom(targetRoom);
+                    battleRoomList.Remove(targetRoom);
                 }
+                else spawnedEventRoomCount ++;
             }
         }
     }
@@ -258,9 +263,13 @@ public class MapDataGenerator : MonoBehaviour
 
         spawnedEventRoomCount ++;
 
-        Array values = Enum.GetValues(typeof(EventRoomType));
-        int randomIndex = UnityEngine.Random.Range(1, values.Length);
-        roomToSet.eventRoomType = (EventRoomType)values.GetValue(randomIndex);
+        EventRoomType targetEventRoomType = GetRandomEventRoomTypeByWeight();
+        roomToSet.eventRoomType = targetEventRoomType;
+
+        foreach(EventRoomType i in randomEventRoomTypeWeights.Keys)
+        {
+            Debug.Log(i + ": " + randomEventRoomTypeWeights[i]);
+        }
     }
 
     bool RoomHasParentOfType(RoomContent room, RoomType type) //아래층 부모 노드에 특정 방 타입이 있는지 검사
@@ -294,16 +303,26 @@ public class MapDataGenerator : MonoBehaviour
         return false;
     }
 
-    RoomType GetRandomRoomTypeByWeight()
+    EventRoomType GetRandomEventRoomTypeByWeight()
     {
-        float roll = UnityEngine.Random.Range(0f, randomRoomTypeTotalWeight);
+        float total = 0f;
+        foreach(float value in randomEventRoomTypeWeights.Values) total += value;
 
-        foreach (RoomType type in randomRoomTypeWeights.Keys)
+        float roll = UnityEngine.Random.Range(0f, total);
+        float current = 0f;
+
+        foreach (EventRoomType type in randomEventRoomTypeWeights.Keys)
         {
-            if (randomRoomTypeWeights[type] > roll)
+            current += randomEventRoomTypeWeights[type];
+            if (roll <= current)
+            {
+                //선택된 이벤트 타입의 확률을 감소시킴.
+                if (randomEventRoomTypeWeights[type] >= 3f) randomEventRoomTypeWeights[type] = 0.1f;
+
                 return type;
+            }
         }
 
-        return RoomType.BATTLE;
+        return EventRoomType.ADDCARD;
     }
 }

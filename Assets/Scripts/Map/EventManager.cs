@@ -23,7 +23,7 @@ public class EventManager : MonoBehaviour
 
                 addCardObjects.SetEvent();
                 break;
-            case EventRoomType.Upgrade:
+            case EventRoomType.UPGRADE:
                 addCardObjects.gameObject.SetActive(false);
                 UpgradeObjects.gameObject.SetActive(true);
                 mixCardObjects.gameObject.SetActive(false);
