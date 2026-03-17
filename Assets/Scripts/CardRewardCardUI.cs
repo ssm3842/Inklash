@@ -83,6 +83,42 @@ public class CardRewardCardUI : MonoBehaviour
         ATKText.text = content.stats.baseATK.ToString();
         HPText.text = content.stats.baseMaxHp.ToString();
     }
+
+    public void SetCardDark(bool isTrue)
+    {
+        if(isTrue)
+        {
+            GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f);
+
+            cardImage.color = new Color(0.25f, 0.25f, 0.25f);
+            ATKImageUI.color = new Color(0.25f, 0.25f, 0.25f);
+            HPImageUI.color = new Color(0.25f, 0.25f, 0.25f);
+            TimeImageUI.color = new Color(0.25f, 0.25f, 0.25f);
+
+            costText.color = new Color(0.25f, 0.25f, 0.25f);
+
+            for(int i=0; i<sealImageComponents.Length; i++)
+            {
+                sealBackgroundImageComponents[i].gameObject.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f);
+            }
+        }
+        else
+        {
+            GetComponent<Image>().color = Color.white;
+
+            cardImage.color = Color.white;
+            ATKImageUI.color = Color.white;
+            HPImageUI.color = Color.white;
+            TimeImageUI.color = Color.white;
+
+            costText.color = Color.white;
+
+            for(int i=0; i<sealImageComponents.Length; i++)
+            {
+                sealBackgroundImageComponents[i].gameObject.GetComponent<Image>().color = Color.white;
+            }
+        }
+    }
     public void SetTransparent(bool boolean)
     {   
         GetComponent<CanvasGroup>().alpha = boolean ? 0f : 1f;

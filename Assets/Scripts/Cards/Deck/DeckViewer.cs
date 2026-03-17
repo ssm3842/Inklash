@@ -51,8 +51,9 @@ public class DeckViewer : MonoBehaviour
         foreach (CardContent cardData in sortedList)
         {
             GameObject cardObj = Instantiate(cardPrefab, cardListContent);
+            cardObj.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
             
-            DeckViewCard cardScript = cardObj.GetComponent<DeckViewCard>();
+            CardRewardCardUI cardScript = cardObj.GetComponent<CardRewardCardUI>();
 
             if (cardScript != null)
             {

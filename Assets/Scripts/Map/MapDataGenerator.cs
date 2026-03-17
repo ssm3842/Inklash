@@ -265,11 +265,6 @@ public class MapDataGenerator : MonoBehaviour
 
         EventRoomType targetEventRoomType = GetRandomEventRoomTypeByWeight();
         roomToSet.eventRoomType = targetEventRoomType;
-
-        foreach(EventRoomType i in randomEventRoomTypeWeights.Keys)
-        {
-            Debug.Log(i + ": " + randomEventRoomTypeWeights[i]);
-        }
     }
 
     bool RoomHasParentOfType(RoomContent room, RoomType type) //아래층 부모 노드에 특정 방 타입이 있는지 검사

@@ -28,7 +28,6 @@ public class AddCardEvent : MonoBehaviour
             cardRewardList.Add(currentCardData);
         }
 
-        //유닛, 마법 카드를 표시할 캔버스를 먼저 초기화
         foreach (Transform child in cardRewardContainer)
         {
             Destroy(child.gameObject);

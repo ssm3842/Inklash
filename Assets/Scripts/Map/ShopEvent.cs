@@ -8,7 +8,8 @@ public class ShopEvent : MonoBehaviour
     [SerializeField] GameObject useCardContainer;
     [SerializeField] GameObject wordCardContainer;
 
-    [SerializeField] TextMeshProUGUI[] cardTextContainer;
+    [SerializeField] TextMeshProUGUI[] cardGoldTexts;
+    [SerializeField] GameObject[] goldImage;
 
     [SerializeField] GameObject cardPrefab;
 
@@ -34,7 +35,7 @@ public class ShopEvent : MonoBehaviour
         {
             int cardIndex = i;
             int newCardCost = UnityEngine.Random.Range(60, 80);
-            cardTextContainer[i].text = newCardCost.ToString();
+            cardGoldTexts[i].text = newCardCost.ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, useCardContainer.transform);
             cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
@@ -56,7 +57,7 @@ public class ShopEvent : MonoBehaviour
         {
             int cardIndex = i;
             int newCardCost = UnityEngine.Random.Range(60, 80);
-            cardTextContainer[i].text = newCardCost.ToString();
+            cardGoldTexts[i].text = newCardCost.ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, wordCardContainer.transform);
             cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
@@ -73,7 +74,7 @@ public class ShopEvent : MonoBehaviour
             int cardIndex = i;
             int newCardCost = UnityEngine.Random.Range(100, 120);
 
-            cardTextContainer[i].text = newCardCost.ToString();
+            cardGoldTexts[i].text = newCardCost.ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, wordCardContainer.transform);
             cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
@@ -97,7 +98,8 @@ public class ShopEvent : MonoBehaviour
             cardObject.alpha = 0;
             cardObject.blocksRaycasts = false;
 
-            cardTextContainer[index].text = "";
+            cardGoldTexts[index].text = "";
+            goldImage[index].SetActive(false);
         }
     }
     
