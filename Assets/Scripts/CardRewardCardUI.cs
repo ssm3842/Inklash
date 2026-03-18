@@ -35,15 +35,11 @@ public class CardRewardCardUI : MonoBehaviour
             sealBackgroundImageComponents[i].alpha = 0f;
         }
         
-        int index = 0;
-        foreach (SealType type in System.Enum.GetValues(typeof(SealType)))
+        //카드에 부착된 인장 수 만큼 반복.
+        for(int i=0; i<cardContent.seals.Count; i++)
         {
-            if (type != SealType.None && (cardContent.seals & type) == type)
-            {
-                sealBackgroundImageComponents[index].alpha = 1f;
-                sealImageComponents[index].sprite = SpriteDataContainer.Inst.GetSealSprite(type);
-                index++;
-            }
+            sealBackgroundImageComponents[i].alpha = 1f;
+            sealImageComponents[i].sprite = SpriteDataContainer.Inst.GetSealSprite(cardContent.seals[i]);
         }
 
         switch(cardContent.firstInfo)

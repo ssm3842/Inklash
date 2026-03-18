@@ -45,6 +45,8 @@ public class MakeSealEvent : MonoBehaviour
         int spawnedCount = 0;
         foreach(CardContent card in deck)
         {
+            if(card.seals.Count >= 3) continue; //인장이 3개인 카드는 스킵.
+            //if(selectWordCard != null && SealManager.IsHaveSomeSeal(card, selectUseCard.cardContent.seals[0])) continue; //이미 선택한 인장을 가지고 있는 카드는 스킵.
             if(card.cardType == CardType.Unit || card.cardType == CardType.Spell)
             {
                 GameObject cardUI = Instantiate(cardPrefab, useCardcontainer);
@@ -152,7 +154,7 @@ public class MakeSealEvent : MonoBehaviour
 
     public void UpgradeCard()
     {
-        SealManager.AddSealToCard(selectUseCard.cardContent, selectWordCard.cardContent.seals);
+        SealManager.AddSealToCard(selectUseCard.cardContent, selectWordCard.cardContent.seals[0]);
         DeckManager.Inst.RemoveCardToDeck(selectWordCard.cardContent);
 
         eventManager._OnEventEnd();

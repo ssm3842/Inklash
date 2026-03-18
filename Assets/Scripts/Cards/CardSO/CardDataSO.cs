@@ -20,7 +20,7 @@ public class CardContent
     public string description;
     public UnitStats stats;
     public GameObject unit;
-    public SealType seals;
+    public List<SealType> seals;
     public bool isCopied;
 
     public Sprite cardImage; 

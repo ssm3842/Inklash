@@ -56,26 +56,17 @@ public static class SealManager
         }
     }
 
-    public static int GetSealCount(CardContent card)
-    {
-        // 몇개의 인장이 활성화 되었는지 검사
-        int count = 0;
-        foreach (SealType type in System.Enum.GetValues(typeof(SealType)))
-        {
-            if (type != SealType.None && (card.seals & type) == type)
-            {
-                count++;
-            }
-        }
-        return count;
-    }
-
     // 인장 추가
     public static void AddSealToCard(CardContent card, SealType newSeal)
     {
         if (card == null) return;
 
-        card.seals |= newSeal;
+        card.seals.Add(newSeal);
+    }
+
+    public static bool IsHaveSomeSeal(CardContent card, SealType someSeal)
+    {
+        return card.seals.Contains(someSeal);
     }
 
     // 인장 제거
@@ -83,6 +74,6 @@ public static class SealManager
     {
         if (card == null) return;
 
-        card.seals &= ~targetSeal;
+        card.seals.Remove(targetSeal);
     }
 }

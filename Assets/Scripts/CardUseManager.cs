@@ -109,17 +109,13 @@ public class CardUseManager : MonoBehaviour
     List<SealType> FilterWordCard(CardContent card)
     {
         List<SealType> sealList = new List<SealType>();
-        
-        // 비트 플래그 체크. 유닛 카드에 있는 인장을 가져옴.
-        foreach (SealType type in System.Enum.GetValues(typeof(SealType)))
+
+        foreach(SealType type in card.seals)
         {
-            if (type != SealType.None && (card.seals & type) == type)
-            {
-                sealList.Add(type);
-                //인장이 3개 이상일 경우 바로 리턴.
-                if(sealList.Count >= 3) return sealList;
-            }
+            sealList.Add(type);
+            if(sealList.Count >= 3) return sealList;
         }
+
         //유닛이 소지한 인장이 3개 미만일 경우 사용한 단어카드 리스트를 검사함.
         foreach(SealType type in stackedWordCardEffect)
         {
@@ -136,12 +132,13 @@ public class CardUseManager : MonoBehaviour
     
     public void UseWordCard(CardContent card)
     {
+
         //중복이 있으면 단어카드 스택안함.
         foreach(SealType type in stackedWordCardEffect)
         {
-            if(type == card.seals) return;
+            if(card.seals.Contains(type)) return;
         }
-        stackedWordCardEffect.Add(card.seals);
+        stackedWordCardEffect.Add(card.seals[0]);
     }
 
     public void StopSpawnEnemyCoroutine()

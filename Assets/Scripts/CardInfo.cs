@@ -32,15 +32,11 @@ public class CardInfo : MonoBehaviour
             sealImageUI[i].gameObject.SetActive(false);
         }
         
-        int index = 0;
-        foreach (SealType type in System.Enum.GetValues(typeof(SealType)))
+        //카드에 부착된 인장 수 만큼 반복.
+        for(int i=0; i<cardContent.seals.Count; i++)
         {
-            if (type != SealType.None && (cardContent.seals & type) == type)
-            {
-                sealImageUI[index].gameObject.SetActive(true);
-                sealImageUI[index].sprite = SpriteDataContainer.Inst.GetSealSprite(type);
-                index++;
-            }
+            sealImageUI[i].gameObject.SetActive(true);
+            sealImageUI[i].sprite = SpriteDataContainer.Inst.GetSealSprite(cardContent.seals[i]);
         }
     }
     
