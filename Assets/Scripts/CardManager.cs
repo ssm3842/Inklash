@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
 
 public class CardManager : MonoBehaviour
 {
@@ -19,8 +18,10 @@ public class CardManager : MonoBehaviour
     [SerializeField] List<CardContent> discardBattleDeck;
     [SerializeField] List<Card> playerHands;
 
+    [SerializeField]SpellAreaViewer spellAreaViewer;
+
     public Card draggingCard;
-    private Image draggingCardImageComponent;
+    private CanvasGroup draggingCardCanvasGroupComponent;
     public bool isDraggingCard = false;
     bool isStickyMode = false;
 
@@ -30,6 +31,8 @@ public class CardManager : MonoBehaviour
 
         currentBattleDeck = new List<CardContent>(DeckManager.Inst.GetDeckdata());
         discardBattleDeck = new List<CardContent>();
+
+        spellAreaViewer.gameObject.SetActive(false);
 
         costManager.Init();
 
@@ -109,7 +112,7 @@ public class CardManager : MonoBehaviour
         {
             // 드래그 중이거나 Sticky 모드일 때 마우스 추적
             draggingCard.transform.position = Input.mousePosition;
-            UpdateCardAlpha();
+            UpdateCardAlpha(Input.mousePosition);
 
             // Sticky 모드일 때 우클릭하면 취소 로직은 기존 CardRightClicked 활용
             if (isStickyMode && Input.GetMouseButtonDown(1))
@@ -141,17 +144,16 @@ public class CardManager : MonoBehaviour
 
         if(draggingCard)
         {
-            Color currentColor = draggingCardImageComponent.color;
-            currentColor.a = 1f;
-            draggingCardImageComponent.color = currentColor;
+            draggingCardCanvasGroupComponent.alpha = 1f;
 
             draggingCard.transform.SetParent(handLayout.transform);
             draggingCard.transform.SetSiblingIndex(draggingCard.originalIndex);
 
             draggingCard = null;
-            draggingCardImageComponent = null;
+            draggingCardCanvasGroupComponent = null;
         }
         
+        spellAreaViewer.gameObject.SetActive(false);
         handLayout.AlignCards();
     }
 
@@ -200,7 +202,7 @@ public class CardManager : MonoBehaviour
         isDraggingCard = true;
         isStickyMode = isSticky; // 모드 설정
         draggingCard = card;
-        draggingCardImageComponent = draggingCard.GetComponent<Image>();
+        draggingCardCanvasGroupComponent = draggingCard.GetComponent<CanvasGroup>();
         
         // 드래그 중인 카드가 패의 다른 카드 뒤로 가지 않도록 캔버스 최상단으로 이동
         draggingCard.transform.SetParent(battleUICanvas.transform);
@@ -216,7 +218,8 @@ public class CardManager : MonoBehaviour
         draggingCard.transform.position = eventData.position;
 
         // 높이에 따른 투명도 조절 (기존 Update 로직 활용)
-        UpdateCardAlpha();
+        UpdateCardAlpha(eventData.position);
+        
     }
 
     // 마우스를 뗐을 때 호출
@@ -235,6 +238,7 @@ public class CardManager : MonoBehaviour
             // 사용 취소: 패로 되돌리기
             CardRightClicked(); 
         }
+        spellAreaViewer.gameObject.SetActive(false);
     }
 
     private void UseSelectedCard(Card card)
@@ -270,15 +274,27 @@ public class CardManager : MonoBehaviour
     }
 
     // 투명도 조절 로직 분리
-    private void UpdateCardAlpha()
+    private void UpdateCardAlpha(Vector3 mousePos)
     {
-        float targetAlpha = (draggingCard.transform.position.y >= 250) ? 0.2f : 1f;
-        if (!Mathf.Approximately(draggingCardImageComponent.color.a, targetAlpha))
+        float targetAlpha = 1f;
+        if(draggingCard.transform.position.y >= 350)
         {
-            Color c = draggingCardImageComponent.color;
-            c.a = targetAlpha;
-            draggingCardImageComponent.color = c;
+            targetAlpha = 0.35f;
+            if(draggingCard.cardContent.cardType == CardType.Spell)
+            {
+                targetAlpha = 0f;
+                spellAreaViewer.gameObject.SetActive(true);
+                spellAreaViewer.SetAreaWidth(draggingCard.cardContent.stats.baseRange);
+                spellAreaViewer.transform.position = new Vector3(mousePos.x, 465, 0f);
+            }
         }
+        else
+        {
+            spellAreaViewer.gameObject.SetActive(false);
+            targetAlpha = 1f;
+        }
+        
+        draggingCardCanvasGroupComponent.alpha = targetAlpha;
     }
 
     public void ExecuteCopyEffect()
