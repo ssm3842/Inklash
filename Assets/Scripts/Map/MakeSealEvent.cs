@@ -45,8 +45,6 @@ public class MakeSealEvent : MonoBehaviour
         int spawnedCount = 0;
         foreach(CardContent card in deck)
         {
-            if(card.seals.Count >= 3) continue; //인장이 3개인 카드는 스킵.
-            //if(selectWordCard != null && SealManager.IsHaveSomeSeal(card, selectUseCard.cardContent.seals[0])) continue; //이미 선택한 인장을 가지고 있는 카드는 스킵.
             if(card.cardType == CardType.Unit || card.cardType == CardType.Spell)
             {
                 GameObject cardUI = Instantiate(cardPrefab, useCardcontainer);
@@ -87,11 +85,26 @@ public class MakeSealEvent : MonoBehaviour
     {
         useCardScrollView.SetActive(true);
         wordCardScrollView.SetActive(false);
+
+        foreach (Transform child in useCardcontainer)
+        {
+            child.gameObject.SetActive(true);
+            CardContent card = child.gameObject.GetComponent<CardRewardCardUI>().cardContent;
+            if(card.seals.Count >= 3) child.gameObject.SetActive(false); //인장이 3개인 카드는 스킵.
+            if(selectWordCard != null && SealManager.IsHaveSomeSeal(card, selectWordCard.cardContent.seals[0])) child.gameObject.SetActive(false); //이미 선택한 인장을 가지고 있는 카드는 스킵.
+        }
     }
     public void SetWordCardContent()
     {
         useCardScrollView.SetActive(false);
         wordCardScrollView.SetActive(true);
+
+        foreach (Transform child in wordCardcontainer)
+        {
+            child.gameObject.SetActive(true);
+            CardContent card = child.gameObject.GetComponent<CardRewardCardUI>().cardContent;
+            if(selectUseCard != null && SealManager.IsHaveSomeSeal(selectUseCard.cardContent, card.seals[0])) child.gameObject.SetActive(false); //이미 선택한 인장을 가지고 있는 카드는 스킵.
+        }
     }
     void SelectUseCard(CanvasGroup cardCanvasgroup, CardRewardCardUI targetCard)
     {

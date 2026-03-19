@@ -40,7 +40,7 @@ public class CardContent
         stats = new UnitStats(baseCardContent.stats);
         unit = baseCardContent.unit;
         isCopied = false;
-        seals = baseCardContent.seals;
+        seals = new List<SealType>(baseCardContent.seals);
 
         cardImage = baseCardContent.cardImage;
 
@@ -59,23 +59,22 @@ public enum AttackType
     None, Melee, Ranged,
 }
 
-[System.Flags]
 public enum SealType
 {
-    None         = 0,
-    Ignite       = 1 << 0, // 1
-    Cold         = 1 << 1, // 2
-    ExtraHit     = 1 << 2, // 4
-    KnockBack    = 1 << 3, // 8
-    Pierce       = 1 << 4, // 16
-    Weak         = 1 << 7, // 128
-    Mark         = 1 << 8, // 256
-    Chill        = 1 << 9, // 512
-    Ultimate      = 1 << 10, // 1024
-    Split        = 1 << 11, // 2048
-    Explosion     = 1 << 12, // 4096
-    Purity      = 1 << 13, // 8192
-    Copy        = 1 << 14, // 16384
+    None,
+    Ignite,
+    Cold,
+    ExtraHit,
+    KnockBack,
+    Pierce,
+    Weak,
+    Mark,
+    Chill,
+    Ultimate,
+    Split,
+    Explosion,
+    Purity,
+    Copy,
 }
 public enum CardUIInfo
 {
