@@ -64,13 +64,13 @@ public class MapDataGenerator : MonoBehaviour
             for (int j = 0; j < MAP_WIDTH; j++)
             {
                 RoomContent roomContent = new RoomContent();
-                Vector2 offset = new Vector2(50f, 150f) + new Vector2(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f)) * PLACEMENT_RANDOMNESS;
+                Vector2 offset = new Vector2(600f, 320f) + new Vector2(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f)) * PLACEMENT_RANDOMNESS;
 
                 roomContent.position = new Vector2(i * X_DIST, j * Y_DIST) + offset ;
                 roomContent.row = i;
                 roomContent.column = j;
 
-                if (i == FLOORS - 1) roomContent.position.y = (j + 1) * Y_DIST; //보스룸의 경우 위치 고정.
+                if (i == FLOORS - 1) roomContent.position.y = (j + 1) * Y_DIST + 130f; //보스룸의 경우 위치 고정.
 
                 adjacentRooms.Add(roomContent);
             }
