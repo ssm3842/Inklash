@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,9 +103,9 @@ TextureImporter:
       name: Lowercase 'i' Attack_0000_0
       rect:
         serializedVersion: 2
-        x: 764
+        x: 797
         y: 633
-        width: 459
+        width: 392
         height: 741
       alignment: 0
       pivot: {x: 0, y: 0}

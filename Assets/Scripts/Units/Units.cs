@@ -19,8 +19,8 @@ public class Units : DamageableObject
     private Collider2D COL;           
     [SerializeField] private float deathDuration = 0.3f; 
 
-    Rigidbody2D RB;
-    Animator ANI;
+    protected Rigidbody2D RB;
+    protected Animator ANI;
 
     protected DamageableObject target;
 
@@ -127,12 +127,17 @@ public class Units : DamageableObject
         if (canAttack && target != null) 
         {
             canAttack = false;
-            ANI.SetTrigger("Attacked");
+            PlayAttackAnimation();
         }
 
         if (canAttackTimer >= statController.GetStat(StatType.ATKTerm) && !canAttack) canAttack = true; //ATKTerm 만큼의 초마다 공격 가능 상태가 됨.
         else if (canAttackTimer >= statController.GetStat(StatType.ATKTerm) && canAttack) { }
         else canAttackTimer += Time.deltaTime * statController.GetStat(StatType.ATKSPD); //공격 속도만큼 빠르게 채워짐.
+    }
+
+    protected virtual void PlayAttackAnimation()
+    {
+        ANI.SetTrigger("Attacked");
     }
 
     public virtual void OnDisruptEffect()
