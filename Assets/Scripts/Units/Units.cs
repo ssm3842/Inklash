@@ -115,11 +115,11 @@ public class Units : DamageableObject
             else target = hits[0].collider.GetComponent<DamageableObject>();
         }
 
-        //목표가 없고 공격 모션이 끝나면 이동.
-        if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD);
-        //목표가 있거나 공격 모션이 재생중이면 이동 불가.
-        else RB.linearVelocityX = 0f;
-        ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
+        // //목표가 없고 공격 모션이 끝나면 이동.
+        // if (!target && !isAttacking) RB.linearVelocityX = isPlayers ? statController.GetStat(StatType.SPD) : -statController.GetStat(StatType.SPD);
+        // //목표가 있거나 공격 모션이 재생중이면 이동 불가.
+        // else RB.linearVelocityX = 0f;
+        // ANI.SetBool("IsMoving", RB.linearVelocity.magnitude > 0f);
 
         //공격이 가능하고 타겟이 있다면 애니메이션 재생으로 공격 실행.
         if (canAttack && target != null) 

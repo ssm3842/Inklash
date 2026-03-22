@@ -16,18 +16,25 @@ public class SpearUnit : Units
         if (target || isAttacking)
         {
             updateTimer = 0f;
-            base.Move();
+            RB.linearVelocityX = 0f;
+            ANI.SetBool("IsMoving", false);
+            ANI.SetBool("IsDashing", false);
             return;
         }    
 
-        updateTimer += Time.deltaTime;
-       if (updateTimer >= 1f && !isAccelerated)
+        RB.linearVelocityX = isPlayers 
+        ? statController.GetStat(StatType.SPD) 
+        : -statController.GetStat(StatType.SPD);
+
+        ANI.SetBool("IsMoving", true);
+
+       updateTimer += Time.deltaTime;
+        if (updateTimer >= 1f && !isAccelerated)
         {
             StartAcceleration();
         }
 
-        base.Move();
-        ANI.SetBool("IsDashing", isAccelerated);
+        if (!IsDead) ANI.SetBool("IsDashing", isAccelerated);
     }
 
     private void StartAcceleration()
@@ -47,7 +54,7 @@ public class SpearUnit : Units
         }
         else
         {
-            base.PlayAttackAnimation();
+            ANI.SetTrigger("Attacked");
         }
     }
 
