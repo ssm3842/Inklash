@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: ce9fb292bc4d71c43a721184ae293e22
+guid: 21db4f426f26731419a1be1515a6ce2e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6074009253265931444
-    second: EventTooltip_0
+      213: -7125706784735150865
+    second: UltimateIcon_0
+  - first:
+      213: 3999095311862381072
+    second: UltimateIcon_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EventTooltip_0
+      name: UltimateIcon_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 32
-        height: 32
+        y: 1
+        width: 274
+        height: 299
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4bcf95ffb373b4450800000000000000
-      internalID: 6074009253265931444
+      spriteID: fec3542de676c1d90800000000000000
+      internalID: -7125706784735150865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateIcon_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01abc7e7ff3af7730800000000000000
+      internalID: 3999095311862381072
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EventTooltip_0: 6074009253265931444
+      UltimateIcon_0: -7125706784735150865
+      UltimateIcon_1: 3999095311862381072
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ce9fb292bc4d71c43a721184ae293e22
+guid: af382d2bf665fda44aca26091c1960d7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6074009253265931444
-    second: EventTooltip_0
+      213: -8902839454697794943
+    second: MapIcon_Boss_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EventTooltip_0
+      name: MapIcon_Boss_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 300
+        height: 300
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4bcf95ffb373b4450800000000000000
-      internalID: 6074009253265931444
+      spriteID: 182d76a6fa2c27480800000000000000
+      internalID: -8902839454697794943
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EventTooltip_0: 6074009253265931444
+      MapIcon_Boss_0: -8902839454697794943
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: ce9fb292bc4d71c43a721184ae293e22
+guid: 4ec7142343b0e9640a9e1884565995ed
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6074009253265931444
-    second: EventTooltip_0
+      213: -596049610236110151
+    second: WeakenIcon_0
+  - first:
+      213: 8575220414883737987
+    second: WeakenIcon_1
+  - first:
+      213: -8546574848859906301
+    second: WeakenIcon_2
+  - first:
+      213: 6456552775543359010
+    second: WeakenIcon_3
+  - first:
+      213: -6797731100605524966
+    second: WeakenIcon_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EventTooltip_0
+      name: WeakenIcon_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 32
-        height: 32
+        y: 201
+        width: 10
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4bcf95ffb373b4450800000000000000
-      internalID: 6074009253265931444
+      spriteID: 9badd5999086ab7f0800000000000000
+      internalID: -596049610236110151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeakenIcon_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 201
+        width: 11
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 381b2dba88d410770800000000000000
+      internalID: 8575220414883737987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeakenIcon_2
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 211
+        width: 11
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30fda67e477746980800000000000000
+      internalID: -8546574848859906301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeakenIcon_3
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 219
+        width: 10
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22603d38a884a9950800000000000000
+      internalID: 6456552775543359010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeakenIcon_4
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 0
+        width: 191
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1458c5749b99a1a0800000000000000
+      internalID: -6797731100605524966
       vertices: []
       indices: 
       edges: []
@@ -135,7 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EventTooltip_0: 6074009253265931444
+      WeakenIcon_0: -596049610236110151
+      WeakenIcon_1: 8575220414883737987
+      WeakenIcon_2: -8546574848859906301
+      WeakenIcon_3: 6456552775543359010
+      WeakenIcon_4: -6797731100605524966
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

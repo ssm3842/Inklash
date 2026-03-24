@@ -20,7 +20,7 @@ public class MapButton : MonoBehaviour
         else if(room.isFailed) failMark.SetActive(true);
     }
 
-    public void SetRoom(RoomContent roomData, Sprite buttonImage)
+    public void SetRoom(RoomContent roomData)
     {
         room = roomData;
 
@@ -32,7 +32,8 @@ public class MapButton : MonoBehaviour
             transform.localPosition += new Vector3(100, 0, 0);
         }
 
-        image.sprite = buttonImage;
+        if(room.roomType == RoomType.EVENT) { image.sprite = SpriteDataContainer.Inst.GetMapEventIconBlack(room.eventRoomType); }
+        else { image.sprite = SpriteDataContainer.Inst.GetMapIconBlack(room.roomType); }
     }
 
     public void OnButtonClicked()

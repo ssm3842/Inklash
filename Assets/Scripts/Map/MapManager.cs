@@ -20,7 +20,7 @@ public class MapManager : MonoBehaviour
     {
         floorClimbed = 0;
         mapData = mapGenerator.GenerateMap();
-        InitImageDictionary();
+        // InitImageDictionary();
         DrawMap();
 
         UnlockFloor(0);
@@ -101,8 +101,8 @@ public class MapManager : MonoBehaviour
     {
         MapButton NewMapButton = Instantiate(mapButton, scrollContent.transform);
 
-        if(room.roomType == RoomType.EVENT) NewMapButton.SetRoom(room, randomRoomIcons[room.eventRoomType]);
-        else NewMapButton.SetRoom(room, roomIcons[room.roomType]);
+        if(room.roomType == RoomType.EVENT) NewMapButton.SetRoom(room);
+        else NewMapButton.SetRoom(room);
 
         ConnectLines(room);
     }
