@@ -42,19 +42,19 @@ AnimationClip:
       value: {fileID: 21300000, guid: 97ce4d2b82035de47b8b5960bb604490, type: 3}
     - time: 0.8333333
       value: {fileID: 21300000, guid: b5ce0704dc6f48f4196471b1bdd12131, type: 3}
-    - time: 0.9166667
-      value: {fileID: 21300000, guid: 6818946be301de745ad04d0f3debdb9f, type: 3}
-    - time: 1
-      value: {fileID: 21300000, guid: 1bfdd579a360ba6438c87e80558712c5, type: 3}
     - time: 1.0833334
-      value: {fileID: 21300000, guid: ea79873c1141f054e8cf2afd6a47c6be, type: 3}
+      value: {fileID: 21300000, guid: 6818946be301de745ad04d0f3debdb9f, type: 3}
     - time: 1.1666666
-      value: {fileID: 21300000, guid: 3d0fad4f4f4af7c4b81296779ace5dbc, type: 3}
+      value: {fileID: 21300000, guid: 1bfdd579a360ba6438c87e80558712c5, type: 3}
     - time: 1.25
-      value: {fileID: 21300000, guid: 8c5c9754c6b7d79489cedf6fe5af5b08, type: 3}
+      value: {fileID: 21300000, guid: ea79873c1141f054e8cf2afd6a47c6be, type: 3}
     - time: 1.3333334
-      value: {fileID: 21300000, guid: dbc6d66c4d2ed6e4ea3806d88aad6734, type: 3}
+      value: {fileID: 21300000, guid: 3d0fad4f4f4af7c4b81296779ace5dbc, type: 3}
     - time: 1.4166666
+      value: {fileID: 21300000, guid: 8c5c9754c6b7d79489cedf6fe5af5b08, type: 3}
+    - time: 1.5
+      value: {fileID: 21300000, guid: dbc6d66c4d2ed6e4ea3806d88aad6734, type: 3}
+    - time: 1.5833334
       value: {fileID: 21300000, guid: cd152c945c0a64c4cb1978a4218cfb79, type: 3}
     attribute: m_Sprite
     path: 
@@ -101,7 +101,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.5
+    m_StopTime: 1.6666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -128,14 +128,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.25
+  - time: 0.6666667
     functionName: _AttackEnemy
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5833333
+  - time: 1.5833334
     functionName: _OnAttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

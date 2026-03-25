@@ -22,25 +22,25 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: d34e46824e4f3c94189eb6e28dd5829c, type: 3}
-    - time: 0.1
+    - time: 0.11666667
       value: {fileID: 21300000, guid: d16779e833246394488219b4748f2a02, type: 3}
-    - time: 0.2
+    - time: 0.23333333
       value: {fileID: 21300000, guid: 7aac0dfea748a3940972213125c8c98d, type: 3}
     - time: 0.3
       value: {fileID: 21300000, guid: 368935da9f6e9e643a27bdf57369e237, type: 3}
-    - time: 0.4
+    - time: 0.36666667
       value: {fileID: 21300000, guid: 93d79f83f3bf15f449a8d40886a35c95, type: 3}
-    - time: 0.51666665
+    - time: 0.6666667
       value: {fileID: 21300000, guid: eb1ea694812957f49ae0845e6a283d67, type: 3}
-    - time: 0.6
+    - time: 0.76666665
       value: {fileID: 21300000, guid: cf2be631a3995a349838633886d7148c, type: 3}
-    - time: 0.7
+    - time: 0.8833333
       value: {fileID: 21300000, guid: 52f454e2a7102e1479f54684dc73d4dc, type: 3}
-    - time: 0.8
-      value: {fileID: 21300000, guid: 3642addd264930348ab9a53e8c8fa571, type: 3}
-    - time: 0.9
-      value: {fileID: 21300000, guid: 19b02e2e28575864eabafb5810ec0d78, type: 3}
     - time: 1
+      value: {fileID: 21300000, guid: 3642addd264930348ab9a53e8c8fa571, type: 3}
+    - time: 1.0666667
+      value: {fileID: 21300000, guid: 19b02e2e28575864eabafb5810ec0d78, type: 3}
+    - time: 1.1833333
       value: {fileID: 21300000, guid: 053b3bf2ae4d3024898f151824a15d79, type: 3}
     attribute: m_Sprite
     path: 
@@ -80,7 +80,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.0166667
+    m_StopTime: 1.1999999
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -99,4 +99,25 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: _OnAttackStart
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.23333333
+    functionName: _AttackEnemy
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.1833333
+    functionName: _OnAttackEnd
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpearUnit : Units
+public class XUnit : Units
 {
     private bool isAccelerated = false;
     private float updateTimer = 0f;
@@ -18,7 +18,6 @@ public class SpearUnit : Units
             updateTimer = 0f;
             RB.linearVelocityX = 0f;
             ANI.SetBool("IsMoving", false);
-            ANI.SetBool("IsDashing", false);
             return;
         }    
 
@@ -33,8 +32,6 @@ public class SpearUnit : Units
         {
             StartAcceleration();
         }
-
-        if (!IsDead) ANI.SetBool("IsDashing", isAccelerated);
     }
 
     private void StartAcceleration()
@@ -42,20 +39,11 @@ public class SpearUnit : Units
         statController.ControlBonusStat(StatType.SPD, 1);
         statController.ControlBonusStat(StatType.ATK, 1);
         isAccelerated = true;
-
-        ANI.SetTrigger("StartTrans");
     }
 
     protected override void PlayAttackAnimation()
     {
-        if (isAccelerated)
-        {
-            ANI.SetTrigger("Attack2");
-        }
-        else
-        {
             ANI.SetTrigger("Attacked");
-        }
     }
 
     public override void _AttackEnemy()
@@ -72,8 +60,6 @@ public class SpearUnit : Units
 
         isAccelerated = false;
         updateTimer = 0f;
-
-        ANI.SetBool("IsDashing", false);
         }
     }
 }
