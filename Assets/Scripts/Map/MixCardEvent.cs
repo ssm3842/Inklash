@@ -10,8 +10,6 @@ public class MixCardEvent : MonoBehaviour
     [SerializeField]Transform content;
     [SerializeField]GameObject cardPrefab;
 
-    [SerializeField]GameObject firstEmptySlot;
-    [SerializeField]GameObject secondEmptySlot;
     [SerializeField]GameObject lastEmptySlot;
     [SerializeField]GameObject firstCardSlot;
     [SerializeField]GameObject secondCardSlot;
@@ -150,35 +148,27 @@ public class MixCardEvent : MonoBehaviour
     {
         if(firstCard == null)
         {
-            firstEmptySlot.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-
             firstCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
         }
         else
         {
-            firstEmptySlot.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-
             firstCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(false);
             firstCardSlot.GetComponent<CardRewardCardUI>().Setup(firstCard.cardContent);
         }
 
         if(secondCard == null)
         {
-            secondEmptySlot.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-
             secondCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
         }
         else
         {
-            secondEmptySlot.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-
             secondCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(false);
             secondCardSlot.GetComponent<CardRewardCardUI>().Setup(secondCard.cardContent);
         }
 
         if(firstCard != null && secondCard != null)
         {
-            lastEmptySlot.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            // lastEmptySlot.GetComponent<Image>().color = new Color(1, 1, 1, 0);
 
             lastCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(false);
             lastCardSlot.GetComponent<CardRewardCardUI>().Setup(firstCard.cardContent);

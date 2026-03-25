@@ -7,7 +7,6 @@ public class UpgradeEvent : MonoBehaviour
 {
     [SerializeField]EventManager eventManager;
 
-    [SerializeField]GameObject emptySlot;
     [SerializeField]GameObject selectSlot;
 
     [SerializeField]CardRewardCardUI cardPreviewBefore;
@@ -25,9 +24,8 @@ public class UpgradeEvent : MonoBehaviour
     UpgradeType mapType;
     CardRewardCardUI selectCard;
 
-    public void FilterDeckCard()
-    {   
-        emptySlot.SetActive(true);
+    public void SetEvent()
+    {
         selectSlot.SetActive(false);
 
         confirmButton.interactable = false;
@@ -96,14 +94,12 @@ public class UpgradeEvent : MonoBehaviour
 
     void SelectCard(CardRewardCardUI targetCard, UpgradeType targetStat)
     {
-        emptySlot.SetActive(false);
         selectSlot.SetActive(true);
 
         if(selectCard == targetCard)
         {
             selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
             selectCard = null;
-            emptySlot.SetActive(true);
             selectSlot.SetActive(false);
             return;
         }

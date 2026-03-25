@@ -12,9 +12,6 @@ public class MakeSealEvent : MonoBehaviour
     [SerializeField]GameObject useCardScrollView;
     [SerializeField]Transform wordCardcontainer;
     [SerializeField]GameObject wordCardScrollView;
-
-    [SerializeField]GameObject emptyUseCardSlot;
-    [SerializeField]GameObject emptyWordCardSlot;
     [SerializeField]GameObject selectUseCardSlot;
     [SerializeField]GameObject selectWordCardSlot;
 
@@ -25,8 +22,6 @@ public class MakeSealEvent : MonoBehaviour
 
     public void SetEvent()
     {
-        emptyUseCardSlot.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        emptyWordCardSlot.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         selectUseCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
         selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
 
@@ -112,7 +107,6 @@ public class MakeSealEvent : MonoBehaviour
         {
             selectUseCard = null;
 
-            emptyUseCardSlot.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             selectUseCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
 
             cardCanvasgroup.alpha = 1f;
@@ -126,7 +120,6 @@ public class MakeSealEvent : MonoBehaviour
 
             selectUseCardSlot.GetComponent<CardRewardCardUI>().Setup(selectUseCard.cardContent);
             selectUseCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(false);
-            emptyUseCardSlot.GetComponent<Image>().color = new Color(1, 1, 1, 0);
 
             cardCanvasgroup.alpha = 0.3f;
 
@@ -142,7 +135,6 @@ public class MakeSealEvent : MonoBehaviour
         {
             selectWordCard = null;
 
-            emptyWordCardSlot.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
             
             cardCanvasgroup.alpha = 1f;
@@ -156,7 +148,6 @@ public class MakeSealEvent : MonoBehaviour
 
             selectWordCardSlot.GetComponent<CardRewardCardUI>().Setup(selectWordCard.cardContent);
             selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(false);
-            emptyWordCardSlot.GetComponent<Image>().color = new Color(1, 1, 1, 0);
 
             cardCanvasgroup.alpha = 0.3f;
         }

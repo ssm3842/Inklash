@@ -29,7 +29,7 @@ public class EventManager : MonoBehaviour
                 mixCardObjects.gameObject.SetActive(false);
                 makeSealObjects.gameObject.SetActive(false);
 
-                UpgradeObjects.FilterDeckCard();
+                UpgradeObjects.SetEvent();
                 break;
             case EventRoomType.MIXCARD:
                 addCardObjects.gameObject.SetActive(false);
