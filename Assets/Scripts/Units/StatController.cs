@@ -46,6 +46,30 @@ public class StatController : MonoBehaviour
         }
     }
 
+    public void ControlBaseStat(StatType statType, float amount)
+    {
+        switch (statType)
+        {
+            case StatType.MAX_HP:
+                unitStats.baseMaxHp *= amount;
+                break;
+            case StatType.ATK:
+                unitStats.baseATK *= amount;
+                break;
+            case StatType.ATKSPD:
+                unitStats.baseATKSpd *= amount;
+                break;
+            case StatType.RANGE:
+                unitStats.baseRange *= amount;
+                break;
+            case StatType.SPD:
+                unitStats.baseSpd *= amount;
+                break;
+            default:
+                return ;
+        }
+    }
+
     public void ResetBonusStat(StatType statType)
     {
         switch (statType)

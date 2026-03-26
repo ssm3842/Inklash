@@ -10,31 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ac64787e8df6a945a23d7f52e6c8d82, type: 3}
-  m_Name: Lightning
+  m_Name: UpperO
   m_EditorClassIdentifier: 
   card:
-    id: Lightning
-    name: "\uBC88\uAC1C"
-    cost: 2
-    cardType: 1
-    attackType: 0
+    id: UpperX
+    name: ENEMY_NAME_UPPER_X
+    cost: 5
+    cardType: 0
+    attackType: 1
     effectID: 
-    description: 
+    description: ENEMY_DESC_UPPER_X
     stats:
-      baseMaxHp: 0
-      baseATK: 10
-      baseATKTerm: 0
-      baseATKSpd: 0
-      baseRange: 1.5
-      baseSpd: 0
+      baseMaxHp: 35
+      baseATK: 5
+      baseATKSpd: 0.9
+      baseRange: 1
+      baseSpd: 1
       bonusMaxHp: 0
       bonusATK: 0
       bonusATKSpd: 0
       bonusRange: 0
       bonusSpd: 0
-    unit: {fileID: 165430342810149062, guid: 26b27f4d85d0f0b45bffb450de9fbb87, type: 3}
-    seals: 6144
-    isCopied: 0
-    cardImage: {fileID: 21300000, guid: a6ff9405bb8df604b830092b7ad84808, type: 3}
-    firstInfo: 1
-    secondInfo: 0
+    unit: {fileID: 7742337380305042760, guid: bdfe0e2038e5f524ab1b8a60bcd4e693, type: 3}

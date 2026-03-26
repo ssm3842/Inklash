@@ -75,7 +75,7 @@ public enum SealType
     Split        = 1 << 11, // 2048
     Explosion     = 1 << 12, // 4096
     Purity      = 1 << 13, // 8192
-    Copy        = 1 << 14, // 16384
+    Copy        = 1 << 14, // 16384    
 }
 public enum CardUIInfo
 {

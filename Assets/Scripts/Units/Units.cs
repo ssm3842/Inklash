@@ -27,10 +27,6 @@ public class Units : DamageableObject
     private bool isKnockedBack = false;
     private Coroutine currentKnockbackRoutine = null;
 
-    public bool hasBaseBurn;      // 불 유닛 여부
-    public bool hasBaseKnockback; // 철퇴 유닛 여부
-    public bool hasBaseDouble;    // 검 유닛 여부
-
     public bool isKnockbackEnhanced;
     public SealType mySeals;
 
@@ -203,7 +199,7 @@ public class Units : DamageableObject
         Units targetUnit = target?.GetComponent<Units>();
         float damage = statController.GetStat(StatType.ATK);
 
-        if (hasBaseDouble || HasBuff("DoubleAttack")) // 검 유닛의 추가 공격
+        if (HasBuff("DoubleAttack")) // 검 유닛의 추가 공격
         {
             PerformHit(target, damage);
 
@@ -345,10 +341,7 @@ public class Units : DamageableObject
             hitTarget.buffController.GetBuff(new BuffWeaken(3f)); 
         }
 
-        if (hasBaseBurn || HasBuff("Burn")) // 발화
-        {
-            ApplyBurnEffect(hitTarget);
-        }
+        ApplyBurnEffect(hitTarget);
 
         if (HasBuff("Cold")) // 차가운
         {
@@ -369,23 +362,25 @@ public class Units : DamageableObject
         }
     }
 
-    private void ApplyBurnEffect(DamageableObject hitTarget)
+    protected virtual void ApplyBurnEffect(DamageableObject hitTarget)
     {
+        if (!HasBuff("Burn")) return;
+        
         string myID = gameObject.GetInstanceID().ToString();
         BurnEffect effect = hitTarget.GetComponent<BurnEffect>();
 
-        float finalBurnDmg = (hasBaseBurn && HasBuff("Burn")) ? 4f : 2f;
+        float burnDmg = 2f;
 
         if (effect != null && effect.casterID == myID)
         {
-            effect.damageAmount = finalBurnDmg;
+            effect.damageAmount = burnDmg;
             effect.ResetTimer();
         }
         else
         {
             BurnEffect newFX = hitTarget.gameObject.AddComponent<BurnEffect>();
             newFX.casterID = myID;
-            newFX.damageAmount = finalBurnDmg;
+            newFX.damageAmount = burnDmg;
         }
     }
 
@@ -409,30 +404,23 @@ public class Units : DamageableObject
     {
         if (!HasBuff("Split")) return;
 
+        Transform parentTransform = GameObject.Find("BattleManager/CardUseManager")?.transform;
+
         for (int i = 0; i < 2; i++)
         {
             Vector3 spawnPos = transform.position + new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
-            GameObject child = Instantiate(this.gameObject, spawnPos, Quaternion.identity);
-            
+            GameObject child = Instantiate(this.gameObject, spawnPos, Quaternion.identity,parentTransform);
+
             Units childUnit = child.GetComponent<Units>();
             
             StatController childSC = child.GetComponent<StatController>();
-            childSC.ControlBonusStat(StatType.MAX_HP, -0.5f);
-            childSC.ControlBonusStat(StatType.ATK, -0.5f);
+            childSC.ControlBaseStat(StatType.MAX_HP,0.5f);
+            childSC.ControlBaseStat(StatType.ATK,0.5f);
             childSC.InitMaxHP(); // 변경된 최대 체력 적용
             BuffController childBC = child.GetComponent<BuffController>();
 
             childBC.buffList.RemoveAll(b => b.buffName == "Split");
-
-            List<Buffs> inheritedBuffs = buffController.buffList;
-            foreach (var b in inheritedBuffs)
-            {
-                if (b.buffName != "Split") 
-                {
-                    childBC.GetBuff(b);
-                }
-            }
-
+            
             // 사이즈 조정
             child.transform.localScale = this.transform.localScale * 0.7f;
         }
