@@ -15,7 +15,11 @@ PrefabInstance:
     - target: {fileID: 898252856215440199, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c4de73f1e6fd0b342acf5a04aa3138d5, type: 3}
+      objectReference: {fileID: 21300000, guid: 24719ac84a9f69e41b1c1fbd46bbc98c, type: 3}
+    - target: {fileID: 898252856215440199, guid: b62f85981057a7d46919ee866face945, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2489958423184310239, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_Controller
       value: 
@@ -84,6 +88,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 343857630251856812, guid: b62f85981057a7d46919ee866face945, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5685696592985769951}
+    - targetCorrespondingSourceObject: {fileID: 343857630251856812, guid: b62f85981057a7d46919ee866face945, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7658163899894137862}
   m_SourcePrefab: {fileID: 100100000, guid: b62f85981057a7d46919ee866face945, type: 3}
 --- !u!114 &356643855177108556 stripped
 MonoBehaviour:
@@ -119,7 +126,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7742337380305042760}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28a6690208b70a24f980e7f948bcf445, type: 3}
   m_Name: 
@@ -131,3 +138,38 @@ MonoBehaviour:
   canAttack: 1
   canAttackTimer: 0
   deathDuration: 0.3
+  hasBaseBurn: 0
+  hasBaseKnockback: 0
+  hasBaseDouble: 0
+  isBurnAttack: 0
+  isColdAttack: 0
+  isDoubleAttack: 0
+  isPierceAttack: 0
+  isKnockbackEnhanced: 0
+--- !u!114 &7658163899894137862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7742337380305042760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec2eec70a981391428fa14f644877c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statController: {fileID: 2723079461734428090}
+  buffController: {fileID: 356643855177108556}
+  healthBar: {fileID: 0}
+  isPlayers: 0
+  canAttack: 1
+  canAttackTimer: 0
+  deathDuration: 0.3
+  hasBaseBurn: 0
+  hasBaseKnockback: 0
+  hasBaseDouble: 0
+  isBurnAttack: 0
+  isColdAttack: 0
+  isDoubleAttack: 0
+  isPierceAttack: 0
+  isKnockbackEnhanced: 0
