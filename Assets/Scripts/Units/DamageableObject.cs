@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DamageableObject : MonoBehaviour
 {
     [SerializeField]protected StatController statController;
     [SerializeField]public BuffController buffController;
 
-    [SerializeField]TextMeshPro healthBar;
+    [SerializeField]Slider healthBarSlider;
+    [SerializeField]TextMeshProUGUI healthBarText;
 
     public bool isPlayers;
 
@@ -19,8 +21,11 @@ public class DamageableObject : MonoBehaviour
     virtual public void Init(bool players, UnitStats stats)
     {        
         statController.InitStat(stats);
-        if(healthBar) healthBar.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
-
+        if(healthBarSlider) 
+        {
+            healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
+            healthBarText.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
+        }
         isPlayers = players;
     }
 
@@ -50,7 +55,11 @@ public class DamageableObject : MonoBehaviour
         else
         {
             statController.ChangeCurHp(amount);
-            if (healthBar) healthBar.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
+            if (healthBarSlider)
+            {
+                healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
+                healthBarText.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
+            }
         }
 
         if (!isPlayers && !isPhase2Triggered)

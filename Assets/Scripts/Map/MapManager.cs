@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -8,9 +9,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] MapDataGenerator mapGenerator;
     [SerializeField] GameObject scrollContent;
 
-    [SerializeField] Sprite[] icons;
-    Dictionary<RoomType, Sprite> roomIcons;
-    Dictionary<EventRoomType, Sprite> randomRoomIcons;
+    [SerializeField]TextMeshProUGUI mapText;
 
     List<List<RoomContent>> mapData;
     public int floorClimbed;
@@ -24,28 +23,6 @@ public class MapManager : MonoBehaviour
         DrawMap();
 
         UnlockFloor(0);
-    }
-
-    void InitImageDictionary()
-    {
-        //roomIcon이 초기화 되어 있지 않을 때만 실행.
-        if(roomIcons != null) return;
-
-        roomIcons = new Dictionary<RoomType, Sprite>
-        {
-            { RoomType.NOT_ASSIGNED, null },
-            { RoomType.BATTLE, icons[0] },
-            { RoomType.SHOP, icons[1] },
-            { RoomType.BOSS, icons[6] }
-        };
-
-        randomRoomIcons = new Dictionary<EventRoomType, Sprite>
-        {
-            { EventRoomType.ADDCARD, icons[2] },
-            { EventRoomType.UPGRADE, icons[3] },
-            { EventRoomType.MIXCARD, icons[4] },
-            { EventRoomType.MAKESEAL, icons[5] }
-        };
     }
 
 
@@ -131,12 +108,30 @@ public class MapManager : MonoBehaviour
         switch (room.roomType)
         {
             case RoomType.BATTLE:
+                mapText.text = "전 투";
                 RunManager.Inst.battleManager.InitBattle();
                 break;
             case RoomType.EVENT:
+                switch (room.eventRoomType)
+                {
+                    case EventRoomType.ADDCARD:
+                        mapText.text = "카 드   획 득";
+                        break;
+                    case EventRoomType.UPGRADE:
+                        mapText.text = "카 드   강 화";
+                        break;
+                    case EventRoomType.MIXCARD:
+                        mapText.text = "카 드   융 합";
+                        break;
+                    case EventRoomType.MAKESEAL:
+                        mapText.text = "인 장   부 여";
+                        break;
+
+                }
                 RunManager.Inst.eventCanvas.SetEventCanvas(room);
                 break;
             case RoomType.SHOP:
+                mapText.text = "상 점";
                 RunManager.Inst.shopCanvas.EnterShop();
                 break;
             case RoomType.BOSS:
@@ -172,6 +167,8 @@ public class MapManager : MonoBehaviour
         if (gameObject.activeSelf)
         {
             Time.timeScale = 0f;
+
+            mapText.text = "지 도";
 
             foreach(Transform child in scrollContent.transform)
             {

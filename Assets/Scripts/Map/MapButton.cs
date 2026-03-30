@@ -13,7 +13,11 @@ public class MapButton : MonoBehaviour
 
     public void UpdateAnimation()
     {
-        if(room.isInteractable) ani.Play("MapButtonOpen");
+        if(room.isInteractable)
+        {
+            if(room.roomType == RoomType.BOSS) ani.Play("BossMapButtonOpen");
+            else ani.Play("MapButtonOpen");
+        }
         else ani.Play("MapButtonDefault");
 
         if(room.isCleared) clearMark.SetActive(true);

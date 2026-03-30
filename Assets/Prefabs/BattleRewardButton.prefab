@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconImages:
-  - {fileID: 21300000, guid: ee3ba1c7cdab068438bea33d96426623, type: 3}
-  - {fileID: 21300000, guid: 468adb6c8fb746b48b7fe18e0d9544b9, type: 3}
+  - {fileID: 21300000, guid: fb8f7012ae362f8419c8a86ac68adb54, type: 3}
+  - {fileID: 21300000, guid: 42b72efb74348a843989222bd42d9ea3, type: 3}
   rewardIcon: {fileID: 5490421102321752573}
   rewardText: {fileID: 6588553082651462951}
 --- !u!1 &7758589906038500256
@@ -330,6 +330,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
