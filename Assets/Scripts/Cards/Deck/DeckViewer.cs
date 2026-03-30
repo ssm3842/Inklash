@@ -36,7 +36,7 @@ public class DeckViewer : MonoBehaviour
 
     private void PopulatePanel(List<CardContent> cardList, string title)
     {
-        titleText.text = $"{title} ({cardList.Count}장)";
+        RunManager.Inst.mapManager.SetMapText(title);
 
         foreach (Transform child in cardListContent)
         {
@@ -65,6 +65,7 @@ public class DeckViewer : MonoBehaviour
             }
         }
         cardListContent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((cardListContent.childCount - 1) / 5) + 1) * 470 + 50);
+        // cardListContent.GetComponent<RectTransform>().localPosition = Vector3.zero;
 
         OpenPanel();
     }
@@ -77,6 +78,7 @@ public class DeckViewer : MonoBehaviour
 
     public void ClosePanel()
     {
+        RunManager.Inst.mapManager.SetMapText("전 투");
         gameObject.SetActive(false);
         Time.timeScale = 1f; 
     }

@@ -16,6 +16,7 @@ public class EventManager : MonoBehaviour
         switch(room.eventRoomType)
         {
             case EventRoomType.ADDCARD:
+                RunManager.Inst.mapManager.SetMapText("카 드   획 득");
                 addCardObjects.gameObject.SetActive(true);
                 UpgradeObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(false);
@@ -24,6 +25,7 @@ public class EventManager : MonoBehaviour
                 addCardObjects.SetEvent();
                 break;
             case EventRoomType.UPGRADE:
+                RunManager.Inst.mapManager.SetMapText("카 드   강 화");
                 addCardObjects.gameObject.SetActive(false);
                 UpgradeObjects.gameObject.SetActive(true);
                 mixCardObjects.gameObject.SetActive(false);
@@ -32,6 +34,7 @@ public class EventManager : MonoBehaviour
                 UpgradeObjects.SetEvent();
                 break;
             case EventRoomType.MIXCARD:
+                RunManager.Inst.mapManager.SetMapText("카 드   융 합");
                 addCardObjects.gameObject.SetActive(false);
                 UpgradeObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(true);
@@ -40,6 +43,7 @@ public class EventManager : MonoBehaviour
                 mixCardObjects.FilterDeckCard();
                 break;
             case EventRoomType.MAKESEAL:
+                RunManager.Inst.mapManager.SetMapText("인 장   부 여");
                 addCardObjects.gameObject.SetActive(false);
                 UpgradeObjects.gameObject.SetActive(false);
                 mixCardObjects.gameObject.SetActive(false);

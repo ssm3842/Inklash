@@ -32,6 +32,7 @@ public class UpgradeEvent : MonoBehaviour
 
         mapType = (UpgradeType)Random.Range(0, System.Enum.GetValues(typeof(UpgradeType)).Length);
         selectCard = null;
+        int childCount = 0;
 
         //기존에 있던 카드 오브젝트 삭제.
         foreach (Transform child in content)
@@ -56,6 +57,7 @@ public class UpgradeEvent : MonoBehaviour
         List<CardContent> deck = DeckManager.Inst.GetDeckdata();
         foreach(CardContent card in deck)
         {
+            childCount++;
             switch(mapType)
             {
                 case UpgradeType.UnitHP:
@@ -89,7 +91,7 @@ public class UpgradeEvent : MonoBehaviour
         }
 
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 4) + 1) * 270);
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((childCount - 1) / 4) + 1) * 270);
     }
 
     void SelectCard(CardRewardCardUI targetCard, UpgradeType targetStat)

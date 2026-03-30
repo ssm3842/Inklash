@@ -105,6 +105,7 @@ public class ShopEvent : MonoBehaviour
     
     public void OnCardDeleteButtonClicked()
     {   
+        int childCount = 0;
         if(!RunManager.Inst.resourceManager.CheckEnoughGold(50)) return;
 
         cardDeleteDeckView.SetActive(true);
@@ -119,12 +120,14 @@ public class ShopEvent : MonoBehaviour
         foreach(CardContent card in cardList)
         {
             GameObject cardUI = Instantiate(cardPrefab, content);
+            cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             cardUI.GetComponent<CardRewardCardUI>().Setup(card);
             cardUI.GetComponent<Button>().onClick.AddListener(() => DeleteCard(card));
+            childCount += 1;
         }
 
         //카드 수에 따라 스크롤 뷰 높이를 변경.
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((content.childCount - 1) / 5) + 1) * 470 + 50);
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((childCount - 1) / 5) + 1) * 330 + 400);
     }
 
     void DeleteCard(CardContent targetCard)

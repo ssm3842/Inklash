@@ -108,33 +108,18 @@ public class MapManager : MonoBehaviour
         switch (room.roomType)
         {
             case RoomType.BATTLE:
-                mapText.text = "전 투";
+                SetMapText("전 투");
                 RunManager.Inst.battleManager.InitBattle();
                 break;
             case RoomType.EVENT:
-                switch (room.eventRoomType)
-                {
-                    case EventRoomType.ADDCARD:
-                        mapText.text = "카 드   획 득";
-                        break;
-                    case EventRoomType.UPGRADE:
-                        mapText.text = "카 드   강 화";
-                        break;
-                    case EventRoomType.MIXCARD:
-                        mapText.text = "카 드   융 합";
-                        break;
-                    case EventRoomType.MAKESEAL:
-                        mapText.text = "인 장   부 여";
-                        break;
-
-                }
                 RunManager.Inst.eventCanvas.SetEventCanvas(room);
                 break;
             case RoomType.SHOP:
-                mapText.text = "상 점";
+                SetMapText("상 점");
                 RunManager.Inst.shopCanvas.EnterShop();
                 break;
             case RoomType.BOSS:
+                SetMapText("전 투");
                 RunManager.Inst.battleManager.InitBattle();
                 break;
             default:
@@ -168,7 +153,7 @@ public class MapManager : MonoBehaviour
         {
             Time.timeScale = 0f;
 
-            mapText.text = "지 도";
+            SetMapText("지 도");
 
             foreach(Transform child in scrollContent.transform)
             {
@@ -177,5 +162,10 @@ public class MapManager : MonoBehaviour
         }
 
         else Time.timeScale = 1f;
+    }
+
+    public void SetMapText(string text)
+    {
+        mapText.text = text;
     }
 }
