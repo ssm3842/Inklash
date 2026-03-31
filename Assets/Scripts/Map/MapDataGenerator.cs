@@ -163,7 +163,7 @@ public class MapDataGenerator : MonoBehaviour
         //시작은 항상 전투.
         foreach (RoomContent room in mapData[0]) 
         {
-            if (room.nextRooms.Count > 0) room.roomType = RoomType.BATTLE;
+            if (room.nextRooms.Count > 0) room.roomType = RoomType.BOSS;
         }
 
         //5번째 노드는 항상 상점.

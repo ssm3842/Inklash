@@ -6,7 +6,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject battleUICanvas;
     [SerializeField] BattleRewardController battleRewardCanvas;
 
-    [SerializeField] GameObject defeatCanvas;
+    [SerializeField] RunEndCanvas runEndCanvas;
 
     public CardManager cardManager;
     public CardUseManager cardUseManager;
@@ -66,8 +66,13 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            defeatCanvas.gameObject.SetActive(true);
+            runEndCanvas.SetCanvas("패배했습니다.");
         }
 
+    }
+
+    public void OnRunEnd(string text)
+    {
+        runEndCanvas.SetCanvas("승리했습니다");
     }
 }
