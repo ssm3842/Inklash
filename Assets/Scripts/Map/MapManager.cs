@@ -109,7 +109,7 @@ public class MapManager : MonoBehaviour
         {
             case RoomType.BATTLE:
                 SetMapText("전 투");
-                RunManager.Inst.battleManager.InitBattle();
+                RunManager.Inst.battleManager.InitBattle(false);
                 break;
             case RoomType.EVENT:
                 RunManager.Inst.eventCanvas.SetEventCanvas(room);
@@ -120,7 +120,7 @@ public class MapManager : MonoBehaviour
                 break;
             case RoomType.BOSS:
                 SetMapText("전 투");
-                RunManager.Inst.battleManager.InitBattle();
+                RunManager.Inst.battleManager.InitBattle(true);
                 break;
             default:
                 Debug.Log("Bug Occured");

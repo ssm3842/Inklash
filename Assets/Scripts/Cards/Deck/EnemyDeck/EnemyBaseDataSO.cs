@@ -7,7 +7,7 @@ public class EnemyBaseDataSO : ScriptableObject
     public Sprite baseSprite;
 
     public float maxHP;
-    public bool isElite = false; 
+    public bool isBoss = false; 
 
     public List<EnemyPatternSO> startPatterns;
     public List<EnemyPatternSO> normalPatterns;

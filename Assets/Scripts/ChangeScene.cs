@@ -10,4 +10,11 @@ public class ChangeScene : MonoBehaviour
 
         SceneManager.LoadScene(1);
     }
+    public void ChangeSceneToMain()
+    {
+        PlayerPrefs.SetInt("HasSaveData", 1);
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene(0);
+    }
 }

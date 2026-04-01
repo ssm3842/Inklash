@@ -11,7 +11,7 @@ public class BattleManager : MonoBehaviour
     public CardManager cardManager;
     public CardUseManager cardUseManager;
 
-    public void InitBattle()
+    public void InitBattle(bool isBoss)
     {
         battleRewardCanvas.gameObject.SetActive(false);
 
@@ -34,19 +34,27 @@ public class BattleManager : MonoBehaviour
         }
         
         //각 기지를 초기화하고 적 유닛풀 설정.
-        cardUseManager.InitUnitManager();
+        cardUseManager.InitUnitManager(isBoss);
     }
 
     public void OnBattleWin()
     {
         Time.timeScale = 0f;
 
-        //보상을 설정
-        battleRewardCanvas.AddRewards(goldButtons: 1, cardButtons: 2);
+        EnemyBaseDataSO currentEnemy = RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData;
+        if(currentEnemy.isBoss)
+        {
+            runEndCanvas.SetCanvas("승리했습니다!");
+        }
+        else
+        {
+            //보상을 설정
+            battleRewardCanvas.AddRewards(goldButtons: 1, cardButtons: 2);
 
-        cardManager.CardRightClicked();
+            cardManager.CardRightClicked();
 
-        RunManager.Inst.mapManager.ClearLastRoom();
+            RunManager.Inst.mapManager.ClearLastRoom();
+        }
     }
 
     public void OnBattleLose()
@@ -55,7 +63,7 @@ public class BattleManager : MonoBehaviour
 
         EnemyBaseDataSO currentEnemy = RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData;
 
-        int lifePenalty = currentEnemy.isElite ? 999 : 1 ; //TODO: Elite -> Boss
+        int lifePenalty = currentEnemy.isBoss ? 999 : 1 ;
         bool isGameOver = RunManager.Inst.resourceManager.DecreaseLife(lifePenalty);
         if (isGameOver)
         {
@@ -66,13 +74,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            runEndCanvas.SetCanvas("패배했습니다.");
+            runEndCanvas.SetCanvas("패배했습니다");
         }
-
-    }
-
-    public void OnRunEnd(string text)
-    {
-        runEndCanvas.SetCanvas("승리했습니다");
     }
 }

@@ -14,13 +14,14 @@ public class CardUseManager : MonoBehaviour
     [SerializeField] GameObject playerBase;
     [SerializeField] GameObject enemyBase;
     [SerializeField] EnemyBaseDataSO[] enemyBaseDatas;
+    [SerializeField] EnemyBaseDataSO[] bossEnemyBaseDatas;
 
     List<SealType> stackedWordCardEffect;
 
     public Coroutine enemySpawnCoroutine = null;
     private bool hasPhase2Bursted = false;
     
-    public void InitUnitManager()
+    public void InitUnitManager(bool isBoss)
     {
         if (enemySpawnCoroutine != null) 
         {
@@ -29,7 +30,8 @@ public class CardUseManager : MonoBehaviour
         }
 
         //적 데이터 중에서 하나를 랜덤으로 선택.
-        currentEnemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
+        if(isBoss) currentEnemyData = bossEnemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
+        else currentEnemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
 
         stackedWordCardEffect = new List<SealType>();
 
@@ -206,7 +208,7 @@ public class CardUseManager : MonoBehaviour
                     hasPhase2Bursted = true; 
                     yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
 
-                    if (!currentEnemyData.isElite)
+                    if (!currentEnemyData.isBoss)
                     {
                         ChangePhase(SpawnPhase.Normal);
                     }
