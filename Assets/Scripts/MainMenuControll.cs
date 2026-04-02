@@ -3,11 +3,22 @@ using UnityEngine;
 public class MainMenuControll : MonoBehaviour
 {
     [SerializeField] GameObject deckSelectCanvas;
+    [SerializeField]GameObject settingCavnas;
 
     void Start()
     {
         gameObject.SetActive(true);
         deckSelectCanvas.SetActive(false);
+
+        if(SettingManger.Inst == null)
+        {
+            Instantiate(settingCavnas);
+        }
+        else
+        {
+            settingCavnas.GetComponent<SettingManger>().LoadSetting();
+            settingCavnas.SetActive(false);
+        }
     }
 
     public void _OnClickNewGame()

@@ -97,6 +97,8 @@ public class MapManager : MonoBehaviour
             Vector2 direction = next.position - room.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             newMapLine.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+            // newMapLine.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 500);
         }
     }
     

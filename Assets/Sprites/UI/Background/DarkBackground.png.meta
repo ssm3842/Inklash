@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f2971b37ca8ce0b469a2f8a433db32fd
+guid: 7bac64f053332594dafa70d39f0c4cc8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3570672522939865240
-    second: RerollButton_0
+      213: -780270719354799666
+    second: DarkBackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RerollButton_0
+      name: DarkBackground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 226
-        height: 226
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 898141bcdb39d8130800000000000000
-      internalID: 3570672522939865240
+      spriteID: ec9f7303aebeb25f0800000000000000
+      internalID: -780270719354799666
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RerollButton_0: 3570672522939865240
+      DarkBackground_0: -780270719354799666
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

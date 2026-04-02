@@ -26,8 +26,8 @@ public class SettingManger : MonoBehaviour
     [Header("탭 관리")]
     public GameObject panelGraphics;
     public GameObject panelSound;    
-    public GameObject panelControls; 
-    public GameObject panelEtc;    
+    // public GameObject panelControls; 
+    // public GameObject panelEtc;    
     
     [Header("사운드 설정 (Sound Panel)")]
     public AudioMixer mainMixer; 
@@ -47,6 +47,18 @@ public class SettingManger : MonoBehaviour
     {
         ShowPanel("Graphic");
 
+        prevButton.onClick.AddListener(() => OnClickScreenMode(-1));
+        nextButton.onClick.AddListener(() => OnClickScreenMode(1));
+        
+        masterSlider.onValueChanged.AddListener(SetMasterVolume);
+        bgmSlider.onValueChanged.AddListener(SetBGMVolume);
+        sfxSlider.onValueChanged.AddListener(SetEffectVolume);
+
+        LoadSetting();
+    }
+
+    public void LoadSetting()
+    {
         screenModes = new List<FullScreenMode> { FullScreenMode.Windowed, FullScreenMode.FullScreenWindow };
         currentModeIndex = PlayerPrefs.GetInt("ScreenModeIndex", 0);
         UpdateScreenMode();
@@ -62,13 +74,6 @@ public class SettingManger : MonoBehaviour
         float sfxVol = PlayerPrefs.GetFloat("SFXVolume", 1f);
         sfxSlider.value = sfxVol;
         SetEffectVolume(sfxVol);
-
-        prevButton.onClick.AddListener(() => OnClickScreenMode(-1));
-        nextButton.onClick.AddListener(() => OnClickScreenMode(1));
-        
-        masterSlider.onValueChanged.AddListener(SetMasterVolume);
-        bgmSlider.onValueChanged.AddListener(SetBGMVolume);
-        sfxSlider.onValueChanged.AddListener(SetEffectVolume);
     }
 
     public void Update()
@@ -84,17 +89,17 @@ public class SettingManger : MonoBehaviour
     {
         panelGraphics.SetActive(false);
         panelSound.SetActive(false);
-        panelControls.SetActive(false);
-        panelEtc.SetActive(false);
+        // panelControls.SetActive(false);
+        // panelEtc.SetActive(false);
 
         if (panelName == "Graphic")
             panelGraphics.SetActive(true);
         else if (panelName == "Sound")
             panelSound.SetActive(true);
-        else if (panelName == "Control")
-            panelControls.SetActive(true);
-        else if (panelName == "Etc")
-            panelEtc.SetActive(true);
+        // else if (panelName == "Control")
+        //     panelControls.SetActive(true);
+        // else if (panelName == "Etc")
+        //     panelEtc.SetActive(true);
     }
 
    // 사운드

@@ -18,7 +18,6 @@ public class RunManager : MonoBehaviour
     public UnitDataManager unitDataManager;
     public ResourceManager resourceManager;
 
-    public RandomEventCanvas randomEventCanvas;
     public GameObject cardRewardCanvas;
     public EventManager eventCanvas;
     public ShopEvent shopCanvas;
@@ -28,8 +27,7 @@ public class RunManager : MonoBehaviour
         battleManager.gameObject.SetActive(false); //전투 비활성화
 
         //캔버스들을 미리 비활성화로 돌림.
-        battleUICanvas.SetActive(false);   
-        randomEventCanvas.gameObject.SetActive(false);
+        battleUICanvas.SetActive(false);
         eventCanvas.gameObject.SetActive(false);
         shopCanvas.gameObject.SetActive(false);
         
