@@ -17,7 +17,7 @@ public class SpriteDataContainer : MonoBehaviour
     }
 
     [SerializeField]Sprite[] cardBackgrounds;
-    [SerializeField]Sprite[] sealSprites;
+    [SerializeField]SealDataSO[] sealDatas;
     [SerializeField]Sprite[] mapIconWhite;
     [SerializeField]Sprite[] mapIconBlack;
 
@@ -37,34 +37,34 @@ public class SpriteDataContainer : MonoBehaviour
         }
     }
 
-    public Sprite GetSealSprite(SealType sealType)
+    public SealDataSO GetSealData(SealType sealType)
     {
         switch(sealType)
         {
             case SealType.Ignite:
-                return sealSprites[0];
+                return sealDatas[0];
             case SealType.Cold:
-                return sealSprites[1];
+                return sealDatas[1];
             case SealType.ExtraHit:
-                return sealSprites[2];
+                return sealDatas[2];
             case SealType.KnockBack:
-                return sealSprites[3];
+                return sealDatas[3];
             case SealType.Pierce:
-                return sealSprites[4];
+                return sealDatas[4];
             case SealType.Weak:
-                return sealSprites[5];
+                return sealDatas[5];
             case SealType.Mark:
-                return sealSprites[6];
+                return sealDatas[6];
             case SealType.Ultimate:
-                return sealSprites[7];
+                return sealDatas[7];
             case SealType.Split:
-                return sealSprites[8];
+                return sealDatas[8];
             case SealType.Explosion:
-                return sealSprites[9];
+                return sealDatas[9];
             case SealType.Purity:
-                return sealSprites[10];
+                return sealDatas[10];
             case SealType.Copy:
-                return sealSprites[11];
+                return sealDatas[11];
             default:
                 return null;
         }

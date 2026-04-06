@@ -15,6 +15,13 @@ public class MakeSealEvent : MonoBehaviour
     [SerializeField]GameObject selectUseCardSlot;
     [SerializeField]GameObject selectWordCardSlot;
 
+    [SerializeField]Image unitEventStone;
+    [SerializeField]Sprite unitEventStoneDeactivated;
+    [SerializeField]Sprite unitEventStoneActivated;
+    [SerializeField]Image wordEventStone;
+    [SerializeField]Sprite wordEventStoneDeactivated;
+    [SerializeField]Sprite wordEventStoneActivated;
+
     [SerializeField]Button confirmButton;
 
 
@@ -26,6 +33,8 @@ public class MakeSealEvent : MonoBehaviour
         selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
 
         confirmButton.interactable = false;
+        unitEventStone.sprite = unitEventStoneDeactivated;
+        wordEventStone.sprite = wordEventStoneDeactivated;
 
         selectUseCard = null;
         selectWordCard = null;
@@ -108,6 +117,7 @@ public class MakeSealEvent : MonoBehaviour
             selectUseCard = null;
 
             selectUseCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
+            unitEventStone.sprite = unitEventStoneDeactivated;
 
             cardCanvasgroup.alpha = 1f;
         }
@@ -121,6 +131,7 @@ public class MakeSealEvent : MonoBehaviour
             selectUseCardSlot.GetComponent<CardRewardCardUI>().Setup(selectUseCard.cardContent);
             selectUseCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(false);
 
+            unitEventStone.sprite = unitEventStoneActivated;
             cardCanvasgroup.alpha = 0.3f;
 
             SetWordCardContent();
@@ -136,6 +147,7 @@ public class MakeSealEvent : MonoBehaviour
             selectWordCard = null;
 
             selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
+            wordEventStone.sprite = wordEventStoneDeactivated;
             
             cardCanvasgroup.alpha = 1f;
         }
@@ -148,6 +160,8 @@ public class MakeSealEvent : MonoBehaviour
 
             selectWordCardSlot.GetComponent<CardRewardCardUI>().Setup(selectWordCard.cardContent);
             selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(false);
+
+            wordEventStone.sprite = wordEventStoneActivated;
 
             cardCanvasgroup.alpha = 0.3f;
         }

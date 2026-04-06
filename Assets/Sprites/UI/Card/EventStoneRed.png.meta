@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 51c95c86a420b0242b22119c72e9709f
+guid: ff918c6a265277849b5cbf287467f576
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -760809960287874789
-    second: EmptyCardSlot_0
+      213: -4944361254246465419
+    second: "\uBE44\uC11D1 \uBE68\uAC15(\uADF8\uB9BC\uC790 \uCD94\uAC00)_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EmptyCardSlot_0
+      name: "\uBE44\uC11D1 \uBE68\uAC15(\uADF8\uB9BC\uC790 \uCD94\uAC00)_0"
       rect:
         serializedVersion: 2
-        x: 6
-        y: 6
-        width: 539
-        height: 827
+        x: 142
+        y: 4
+        width: 927
+        height: 1189
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b11567f3f5f0175f0800000000000000
-      internalID: -760809960287874789
+      spriteID: 5704f67b2a9126bb0800000000000000
+      internalID: -4944361254246465419
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EmptyCardSlot_0: -760809960287874789
+      "\uBE44\uC11D1 \uBE68\uAC15(\uADF8\uB9BC\uC790 \uCD94\uAC00)_0": -4944361254246465419
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

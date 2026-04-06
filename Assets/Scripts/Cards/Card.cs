@@ -120,7 +120,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         for(int i=0; i<cardContent.seals.Count; i++)
         {
             sealBackgroundImageComponents[i].alpha = 1f;
-            sealImageComponents[i].sprite = SpriteDataContainer.Inst.GetSealSprite(cardContent.seals[i]);
+            sealImageComponents[i].sprite = SpriteDataContainer.Inst.GetSealData(cardContent.seals[i]).sealIcon;
         }
         
 

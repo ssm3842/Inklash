@@ -19,6 +19,10 @@ public class UpgradeEvent : MonoBehaviour
     [SerializeField]GameObject cardPrefab;
     [SerializeField]TextMeshProUGUI text;
 
+    [SerializeField]Image eventStone;
+    [SerializeField]Sprite eventStoneDeactivated;
+    [SerializeField]Sprite eventStoneActivated;
+
     [SerializeField]Button confirmButton;
 
     UpgradeType mapType;
@@ -29,6 +33,7 @@ public class UpgradeEvent : MonoBehaviour
         selectSlot.SetActive(false);
 
         confirmButton.interactable = false;
+        eventStone.sprite = eventStoneDeactivated;
 
         mapType = (UpgradeType)Random.Range(0, System.Enum.GetValues(typeof(UpgradeType)).Length);
         selectCard = null;
@@ -103,6 +108,7 @@ public class UpgradeEvent : MonoBehaviour
             selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
             selectCard = null;
             selectSlot.SetActive(false);
+            eventStone.sprite = eventStoneDeactivated;
             return;
         }
 
@@ -120,6 +126,8 @@ public class UpgradeEvent : MonoBehaviour
 
         cardPreviewBefore.Setup(targetCard.cardContent);
         cardPreviewAfter.Setup(targetCard.cardContent);
+        eventStone.sprite = eventStoneActivated;
+
         if(targetStat == UpgradeType.UnitHP)
         {
             hpText.text = (targetCard.cardContent.stats.baseMaxHp + 10).ToString();

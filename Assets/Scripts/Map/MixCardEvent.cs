@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,6 @@ public class MixCardEvent : MonoBehaviour
     [SerializeField]Transform content;
     [SerializeField]GameObject cardPrefab;
 
-    [SerializeField]GameObject lastEmptySlot;
     [SerializeField]GameObject firstCardSlot;
     [SerializeField]GameObject secondCardSlot;
     [SerializeField]GameObject lastCardSlot;
@@ -18,6 +16,10 @@ public class MixCardEvent : MonoBehaviour
     [SerializeField]TextMeshProUGUI atkText;
     [SerializeField]TextMeshProUGUI hpText;
     [SerializeField]TextMeshProUGUI costText;
+
+    [SerializeField]Image eventStone;
+    [SerializeField]Sprite eventStoneDeactivated;
+    [SerializeField]Sprite eventStoneActivated;
 
     [SerializeField]Button confirmButton;
 
@@ -36,6 +38,7 @@ public class MixCardEvent : MonoBehaviour
         firstCard = null;
         secondCard = null;
         confirmButton.interactable = false;
+        eventStone.sprite = eventStoneDeactivated;
         SetPreview();
 
         List<CardContent> deck = DeckManager.Inst.GetDeckdata();
@@ -99,7 +102,7 @@ public class MixCardEvent : MonoBehaviour
             cardCanvasgroup.alpha = 0.3f;
             FilterDeckCard(firstCard.cardContent);
         }
-        //두개 이상 선택하려 하는 경우
+        //두개 초과로 선택하려 하는 경우
         else if(firstCard != null && secondCard != null)
         {
             return;
@@ -179,10 +182,11 @@ public class MixCardEvent : MonoBehaviour
             hpText.text = (firstCard.cardContent.stats.baseMaxHp + secondCard.cardContent.stats.baseMaxHp).ToString();
             // costText.color = Color.red;
             costText.text = Mathf.Min(firstCard.cardContent.cost, secondCard.cardContent.cost).ToString();
+            eventStone.sprite = eventStoneActivated;
         }
         else
         {
-            lastEmptySlot.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            eventStone.sprite = eventStoneDeactivated;
 
             lastCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
         }

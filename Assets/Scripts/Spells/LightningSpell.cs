@@ -17,5 +17,10 @@ public class Lightning : SpellBase
             PerformHit(enemy);
         }
     }
-}
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(transform.position, new Vector3(1.5f, 1, 2));
+    }
+}
