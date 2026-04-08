@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
@@ -93,6 +94,7 @@ public class MapManager : MonoBehaviour
             GameObject newMapLine = Instantiate(mapLine, scrollContent.transform);
 
             newMapLine.transform.localPosition = (next.position + room.position) / 2f + new Vector2(100, 0);
+            newMapLine.GetComponent<Image>().sprite = SpriteDataContainer.Inst.GetMapLineSprite();
 
             Vector2 direction = next.position - room.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

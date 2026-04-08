@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapDataGenerator : MonoBehaviour
 {
-    const int X_DIST = 150;
+    const int X_DIST = 200;
     const int Y_DIST = 150;
     const int PLACEMENT_RANDOMNESS = 25;
     public const int FLOORS = 8;

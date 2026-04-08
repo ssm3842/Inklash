@@ -20,6 +20,7 @@ public class SpriteDataContainer : MonoBehaviour
     [SerializeField]SealDataSO[] sealDatas;
     [SerializeField]Sprite[] mapIconWhite;
     [SerializeField]Sprite[] mapIconBlack;
+    [SerializeField]Sprite[] mapLines;
 
 
     public Sprite GetCardBackgroundSprite(CardType cardType)
@@ -132,5 +133,10 @@ public class SpriteDataContainer : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    public Sprite GetMapLineSprite()
+    {
+        return mapLines[Random.Range(0, mapLines.Length)];
     }
 }
