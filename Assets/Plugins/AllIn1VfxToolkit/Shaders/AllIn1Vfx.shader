@@ -1125,6 +1125,6 @@
             ENDCG
         }
     }
-    CustomEditor "AllIn1VfxCustomMaterialEditor"
+    CustomEditor "AllIn1VfxToolkit.AllIn1VfxCustomMaterialEditor"
     Fallback "Hidden/InternalErrorShader"
 }

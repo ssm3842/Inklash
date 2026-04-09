@@ -198,7 +198,10 @@
 		_Sh2BlendOffset("Shape 2 Blend Offset", Range(-5, 5)) = 0 //157
 		_Sh3BlendOffset("Shape 3 Blend Offset", Range(-5, 5)) = 0 //158
     	
-        _DebugShape("Shape Debug Number", Int) = 1 //160 Needs to be last property
+		[HideInInspector]_All1VfxLightDir("_All1VfxLightDir", Vector) = (1, 0, 0, 0)
+		[HideInInspector]globalCustomTime("globalCustomTime", Vector) = (1, 0, 0, 0)
+
+		_DebugShape("Shape Debug Number", Int) = 1 //161 Needs to be last property
     }
 
 	SubShader
@@ -223,6 +226,7 @@
 			#pragma multi_compile_instancing
             #pragma multi_compile_fog
 
+
 			#include_with_pragmas "ShaderLibrary/AllIn1VfxSRPBatch_ShaderFeatures.hlsl"
 
 
@@ -236,7 +240,7 @@
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_CommonFunctions.hlsl" 
 
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_Structs.hlsl"
-			#include "ShaderLibrary/AllIn1VfxSRPBatch_Properties.hlsl"
+			#include "ShaderLibrary/AllIn1VfxSRPBatch_BuffersConfig.hlsl"
 
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_VertexPass.hlsl"
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_FragmentPass.hlsl"
@@ -267,8 +271,7 @@
         Pass
         {
             HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+			#pragma target 3.0
 			#pragma multi_compile_instancing
             #pragma multi_compile_fog
 
@@ -284,15 +287,18 @@
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_CommonFunctions.hlsl" 
 
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_Structs.hlsl"
-			#include "ShaderLibrary/AllIn1VfxSRPBatch_Properties.hlsl"
+			#include "ShaderLibrary/AllIn1VfxSRPBatch_BuffersConfig.hlsl"
 
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_VertexPass.hlsl"
 			#include "ShaderLibrary/AllIn1VfxSRPBatch_FragmentPass.hlsl"
+
+			#pragma vertex vert
+            #pragma fragment frag
 
             ENDHLSL
         }
     }
 
-    CustomEditor "AllIn1VfxCustomMaterialEditor"
+    CustomEditor "AllIn1VfxToolkit.AllIn1VfxCustomMaterialEditor"
 	Fallback "AllIn1Vfx/AllIn1Vfx"
 }

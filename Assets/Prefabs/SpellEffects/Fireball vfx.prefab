@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4717934123520027032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5041849667574656231}
+  - component: {fileID: 4901628261726249950}
+  m_Layer: 0
+  m_Name: Fireball vfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5041849667574656231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4717934123520027032}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4901628261726249950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4717934123520027032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedee0612f3ded54d81f3f59c75793c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballProjectilePrefab: {fileID: 2068650174009976389, guid: 8e90307e19e261646befd7f127dcdcb8, type: 3}
+  explosionEffectPrefab: {fileID: 2040295473247111395, guid: 485438a8b55e9a9429596b9ad761eab3, type: 3}
+  fireballCount: 5
+  spawnInterval: 0.15
+  spawnAreaWidth: 3
+  spawnAreaHeight: 0.5
+  impactBaseY: -0.75
+  fallDistance: 10
+  fallSpeed: 8
+  fallDirection: {x: 1, y: -1}

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: DeckPreset1
   m_EditorClassIdentifier: 
   startingDeck:
-  - {fileID: 11400000, guid: e944e9b938d26724b84f16c98810714a, type: 2}
-  - {fileID: 11400000, guid: e944e9b938d26724b84f16c98810714a, type: 2}
-  - {fileID: 11400000, guid: e944e9b938d26724b84f16c98810714a, type: 2}
-  - {fileID: 11400000, guid: 6e576305d1664404b8f5a28244b3a0c8, type: 2}
-  - {fileID: 11400000, guid: 6e576305d1664404b8f5a28244b3a0c8, type: 2}
-  - {fileID: 11400000, guid: 1ddb2a2f4424d1b4598424e738ce6967, type: 2}
+  - {fileID: 11400000, guid: 863f1b0639299f14db290d495f96dc4e, type: 2}
+  - {fileID: 11400000, guid: 863f1b0639299f14db290d495f96dc4e, type: 2}
+  - {fileID: 11400000, guid: ea8d2e5a208c85d479e9df7f530743b3, type: 2}
+  - {fileID: 11400000, guid: ea8d2e5a208c85d479e9df7f530743b3, type: 2}
+  - {fileID: 11400000, guid: ea8d2e5a208c85d479e9df7f530743b3, type: 2}
+  - {fileID: 11400000, guid: ea8d2e5a208c85d479e9df7f530743b3, type: 2}
   - {fileID: 11400000, guid: 9fddb49316cd4404083abd5c20a36ecf, type: 2}
-  - {fileID: 11400000, guid: b123ed38639ce8b40892b97946ebd18d, type: 2}
-  - {fileID: 11400000, guid: 632b4a85891000e439f8fcd1a9a5e7f6, type: 2}
+  - {fileID: 11400000, guid: 9fddb49316cd4404083abd5c20a36ecf, type: 2}
+  - {fileID: 11400000, guid: 9fddb49316cd4404083abd5c20a36ecf, type: 2}
   - {fileID: 11400000, guid: 7d71e35399ba0f140ab66a8684663b2e, type: 2}

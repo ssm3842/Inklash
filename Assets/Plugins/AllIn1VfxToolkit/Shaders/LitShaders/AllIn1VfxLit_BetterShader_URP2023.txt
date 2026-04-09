@@ -3,7 +3,7 @@
 //
 // Auto-generated shader code, don't hand edit!
 //
-//   Unity Version: 2019.4.16f1
+//   Unity Version: 2021.3.45f2
 //   Render Pipeline: URP2023
 //   Platform: WindowsEditor
 ////////////////////////////////////////
@@ -2690,8 +2690,12 @@ Lighting Off
             outColor = color;
 
             #ifdef _WRITE_RENDERING_LAYERS
-                uint renderingLayers = GetMeshRenderingLayer();
-                outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
+				#if UNITY_VERSION >= 60020000
+					outRenderingLayers = EncodeMeshRenderingLayer();
+				#else
+					uint renderingLayers = GetMeshRenderingLayer();
+					outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
+				#endif
             #endif
 
          }
@@ -14165,10 +14169,14 @@ Lighting Off
               outNormalWS = half4(NormalizeNormalPerPixel(wsn), 0.0);
           #endif
 
-          #ifdef _WRITE_RENDERING_LAYERS
-            uint renderingLayers = GetMeshRenderingLayer();
-            outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
-          #endif
+            #ifdef _WRITE_RENDERING_LAYERS
+				#if UNITY_VERSION >= 60020000
+					outRenderingLayers = EncodeMeshRenderingLayer();
+				#else
+					uint renderingLayers = GetMeshRenderingLayer();
+					outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
+				#endif
+            #endif
 
          
          }
@@ -16469,5 +16477,5 @@ Lighting Off
    }
    
    
-   CustomEditor "AllIn1VfxLitCustomMaterialEditor"
+   CustomEditor "AllIn1VfxToolkit.AllIn1VfxLitCustomMaterialEditor"
 }

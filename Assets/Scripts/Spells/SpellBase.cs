@@ -81,4 +81,11 @@ public class SpellBase : MonoBehaviour , IBuffable
              StartCoroutine(target.gameObject.GetComponent<Units>().TakeDamage(explosionDamage,amount+0.5f));
         }
     }
+
+    protected void SetDepthSorting(GameObject obj, float yPosition)
+    {
+        int order = -Mathf.CeilToInt((yPosition - 0.3f) * 100f);
+        foreach (var r in obj.GetComponentsInChildren<Renderer>())
+            r.sortingOrder = order;
+    }
 }
