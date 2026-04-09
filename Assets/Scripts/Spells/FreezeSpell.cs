@@ -54,5 +54,7 @@ public class Freeze : SpellBase
             enemy.GetComponent<BuffController>().GetBuff(new BuffFreeze(amount));
             PerformHit(enemy, amount);
         }
+
+        Destroy(gameObject, 2f);
     }
 }

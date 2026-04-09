@@ -42,6 +42,11 @@ public class Fireball : SpellBase
 
             yield return new WaitForSeconds(spawnInterval);
         }
+
+        // 모든 화염구가 착탄할 충분한 시간 대기 후 자기 자신 제거
+        float maxFallDuration = fallDistance / fallSpeed;
+        yield return new WaitForSeconds(maxFallDuration + 4f);
+        Destroy(gameObject);
     }
 
     private IEnumerator FallSingle(Vector3 from, Vector3 to, Vector2 dir, float damage, float range)
@@ -88,6 +93,7 @@ public class Fireball : SpellBase
             var explosion = Instantiate(explosionEffectPrefab, to, explosionEffectPrefab.transform.rotation);
             explosion.transform.localScale = explosionEffectPrefab.transform.localScale;
             SetDepthSorting(explosion, to.y);
+            Destroy(explosion, 2f);
         }
 
         // 착탄 지점 범위 데미지

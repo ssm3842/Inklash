@@ -11,7 +11,7 @@ public class Lightning : SpellBase
         transform.position = new Vector3(castXPosition, randY, 0);
         SetDepthSorting(gameObject, randY);
 
-        Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, new Vector2(range, 100f), 0f);
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(new Vector2(castXPosition, 0f), new Vector2(range, 100f), 0f);
         foreach (Collider2D enemy in enemies)
         {
             var damageable = enemy.GetComponent<DamageableObject>();
@@ -20,5 +20,7 @@ public class Lightning : SpellBase
             StartCoroutine(damageable.TakeDamage(damage));
             PerformHit(enemy);
         }
+
+        Destroy(gameObject, 2f);
     }
 }
