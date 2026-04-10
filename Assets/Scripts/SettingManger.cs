@@ -152,7 +152,7 @@ public class SettingManger : MonoBehaviour
     public void CloseSetting()
     {
         SettingWindow.SetActive(false);
-        Time.timeScale = 1f; 
+        if(RunManager.Inst.battleManager.GetBattleProgress()) Time.timeScale = 1f; 
         PlayerPrefs.Save();  
     }
 

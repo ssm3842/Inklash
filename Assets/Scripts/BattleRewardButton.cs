@@ -21,13 +21,13 @@ public class BattleRewardButton : MonoBehaviour
         {
             case RewardType.Gold:
                 rewardIcon.sprite = iconImages[0];
-                rewardText.text = amount + " Gold";
+                rewardText.text = "금화 " + amount + "개 획득";
 
                 rewardContent = amount;
                 break;
             case RewardType.Card:
                 rewardIcon.sprite = iconImages[1];
-                rewardText.text = "Card";
+                rewardText.text = "새 단어 획득";
 
                 //카드 보상 후보를 설정 및 3개 추출.
                 cardRewardList = new List<CardDataSO>();

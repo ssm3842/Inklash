@@ -21,10 +21,11 @@ public class DamageableObject : MonoBehaviour
     virtual public void Init(bool players, UnitStats stats)
     {        
         statController.InitStat(stats);
+        buffController.ClearBuffs();
         if(healthBarSlider) 
         {
             healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
-            healthBarText.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
+            healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
         }
         isPlayers = players;
     }
@@ -59,7 +60,7 @@ public class DamageableObject : MonoBehaviour
             if (healthBarSlider)
             {
                 healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
-                healthBarText.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
+                healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
             }
         }
 

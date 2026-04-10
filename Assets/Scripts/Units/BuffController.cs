@@ -48,6 +48,19 @@ public class BuffController : MonoBehaviour , IBuffable
         buffList.Add(newBuff);
     }
 
+    public void ClearBuffs()
+    {
+        foreach(Buffs buff in buffList)
+        {
+            buffsToRemove.Add(buff);
+        }
+        
+        foreach(Buffs buff in buffsToRemove)
+        {
+            buffList.Remove(buff);
+        }
+    }
+
     public bool HaveDisruptEffect()
     {
         foreach(Buffs existingBuff in buffList)

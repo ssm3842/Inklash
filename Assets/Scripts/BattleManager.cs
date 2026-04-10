@@ -8,6 +8,8 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] RunEndCanvas runEndCanvas;
 
+    bool isBattleProgress = false;
+
     public CardManager cardManager;
     public CardUseManager cardUseManager;
 
@@ -35,11 +37,13 @@ public class BattleManager : MonoBehaviour
         
         //각 기지를 초기화하고 적 유닛풀 설정.
         cardUseManager.InitUnitManager(isBoss);
+        isBattleProgress = true;
     }
 
     public void OnBattleWin()
     {
         Time.timeScale = 0f;
+        isBattleProgress = false;
 
         EnemyBaseDataSO currentEnemy = RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData;
         if(currentEnemy.isBoss)
@@ -60,6 +64,7 @@ public class BattleManager : MonoBehaviour
     public void OnBattleLose()
     {
         Time.timeScale = 0f;
+        isBattleProgress = false;
 
         EnemyBaseDataSO currentEnemy = RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData;
 
@@ -76,5 +81,10 @@ public class BattleManager : MonoBehaviour
         {
             runEndCanvas.SetCanvas("패배했습니다");
         }
+    }
+
+    public bool GetBattleProgress()
+    {
+        return isBattleProgress;
     }
 }
