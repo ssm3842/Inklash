@@ -53,7 +53,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             //보상을 설정
-            battleRewardCanvas.AddRewards(goldButtons: 1, cardButtons: 2);
+            battleRewardCanvas.AddRewards(goldButtons: 1, cardButtons: 1);
 
             cardManager.CardRightClicked();
 

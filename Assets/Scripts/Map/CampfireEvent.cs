@@ -17,15 +17,18 @@ public class UpgradeEvent : MonoBehaviour
 
     [SerializeField]Transform content;
     [SerializeField]GameObject cardPrefab;
-    [SerializeField]TextMeshProUGUI text;
 
     [SerializeField]Image eventStone;
     [SerializeField]Sprite eventStoneDeactivated;
     [SerializeField]Sprite eventStoneActivated;
 
+    [SerializeField]Image atkButton;
+    [SerializeField]Image hpButton;
+    [SerializeField]Image costButton;
+
     [SerializeField]Button confirmButton;
 
-    UpgradeType mapType;
+    UpgradeType upgradeType = UpgradeType.CardATK;
     CardRewardCardUI selectCard;
 
     public void SetEvent()
@@ -35,9 +38,8 @@ public class UpgradeEvent : MonoBehaviour
         confirmButton.interactable = false;
         eventStone.sprite = eventStoneDeactivated;
 
-        mapType = (UpgradeType)Random.Range(0, System.Enum.GetValues(typeof(UpgradeType)).Length);
         selectCard = null;
-        int childCount = 0;
+        _OnATKButtonClicked();
 
         //기존에 있던 카드 오브젝트 삭제.
         foreach (Transform child in content)
@@ -45,61 +47,40 @@ public class UpgradeEvent : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        if(mapType == UpgradeType.UnitHP)
-        {
-            text.text = "유닛 체력 강화";
-        }
-        else if(mapType == UpgradeType.UnitATK)
-        {
-            text.text = "유닛 공격력 강화";
-        }
-        else if(mapType == UpgradeType.SpellCost)
-        {
-            text.text = "마법 코스트 감소";
-        }
-
         //카드 타입이 같은 카드만 골라 표시.
         List<CardContent> deck = DeckManager.Inst.GetDeckdata();
         foreach(CardContent card in deck)
         {
-            childCount++;
-            switch(mapType)
+            if(card.cardType != CardType.Word)
             {
-                case UpgradeType.UnitHP:
-                    if(card.cardType == CardType.Unit)
-                    {
-                        GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                        cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
-                    }
-                    break;
-                case UpgradeType.UnitATK:
-                    if(card.cardType == CardType.Unit)
-                    {
-                        GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                        cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
-                    }
-                    break;
-                case UpgradeType.SpellCost:
-                    if(card.cardType == CardType.Spell)
-                    {
-                        GameObject cardUI = Instantiate(cardPrefab, content);
-                        cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        cardUI.GetComponent<CardRewardCardUI>().Setup(card);
-                        cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>(), mapType));
-                    }
-                    break;
+                GameObject cardUI = Instantiate(cardPrefab, content);
+                cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                cardUI.GetComponent<CardRewardCardUI>().Setup(card);
+                cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>()));
             }
         }
 
-        //카드 수에 따라 스크롤 뷰 높이를 변경.
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((childCount - 1) / 4) + 1) * 270);
+        FilterScrollView();
     }
 
-    void SelectCard(CardRewardCardUI targetCard, UpgradeType targetStat)
+    void FilterScrollView()
+    {
+        int activatedCount = 0;
+
+        foreach (Transform child in content)
+        {
+            child.gameObject.SetActive(false);
+
+            if(child.gameObject.GetComponent<CardRewardCardUI>().cardContent.cardType == CardType.Spell && upgradeType == UpgradeType.CardHP) continue;
+            child.gameObject.SetActive(true);
+            activatedCount++;
+        }
+
+        //카드 수에 따라 스크롤 뷰 높이를 변경.
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((activatedCount - 1) / 4) + 1) * 270);
+    }
+
+    void SelectCard(CardRewardCardUI targetCard)
     {
         selectSlot.SetActive(true);
 
@@ -128,34 +109,95 @@ public class UpgradeEvent : MonoBehaviour
         cardPreviewAfter.Setup(targetCard.cardContent);
         eventStone.sprite = eventStoneActivated;
 
-        if(targetStat == UpgradeType.UnitHP)
+        ChangePreview();
+    }
+
+    void ChangePreview()
+    {   
+        if(selectCard == null) return;
+        if(upgradeType == UpgradeType.CardATK)
         {
-            hpText.text = (targetCard.cardContent.stats.baseMaxHp + 10).ToString();
-            hpText.color = Color.red;
-        }
-        else if(targetStat == UpgradeType.UnitATK)
-        {
-            atkText.text = (targetCard.cardContent.stats.baseATK + 5).ToString();
+            if(selectCard.cardContent.id == "Freeze") atkText.text = (selectCard.cardContent.stats.baseATK + 3).ToString();
+            else atkText.text = (selectCard.cardContent.stats.baseATK + 5).ToString();
+            hpText.text = selectCard.cardContent.stats.baseMaxHp.ToString();
+            costText.text = selectCard.cardContent.cost.ToString();
+
             atkText.color = Color.red;
+            hpText.color = Color.black;
+            costText.color = Color.white;
         }
-        else if(targetStat == UpgradeType.SpellCost)
+        else if(upgradeType == UpgradeType.CardHP)
         {
+            atkText.text = selectCard.cardContent.stats.baseATK.ToString();
+            hpText.text = (selectCard.cardContent.stats.baseMaxHp + 10).ToString();
+            costText.text = selectCard.cardContent.cost.ToString();
+
+            atkText.color = Color.black;
+            hpText.color = Color.red;
+            costText.color = Color.white;
+        }
+        else if(upgradeType == UpgradeType.CardCost)
+        {
+            atkText.text = selectCard.cardContent.stats.baseATK.ToString();
+            hpText.text = selectCard.cardContent.stats.baseMaxHp.ToString();
             costText.text = Mathf.Max(0, selectCard.cardContent.cost - 1).ToString();
+
+            atkText.color = Color.black;
+            hpText.color = Color.black;
             costText.color = Color.red;
         }
     }
 
     public void ConfirmUpgradeCard()
     {
-        if(mapType == UpgradeType.UnitHP) selectCard.cardContent.stats.baseMaxHp += 10;
-        else if(mapType == UpgradeType.UnitATK) selectCard.cardContent.stats.baseATK += 5;
-        else if(mapType == UpgradeType.SpellCost) selectCard.cardContent.cost = Mathf.Max(0, selectCard.cardContent.cost - 1);
+        if(upgradeType == UpgradeType.CardATK) 
+        {
+            if(selectCard.cardContent.id == "Freeze") selectCard.cardContent.stats.baseMaxHp += 3;
+            else selectCard.cardContent.stats.baseATK += 10;
+        }
+        else if(upgradeType == UpgradeType.CardHP) selectCard.cardContent.stats.baseMaxHp += 10;
+        else if(upgradeType == UpgradeType.CardCost) selectCard.cardContent.cost = Mathf.Max(0, selectCard.cardContent.cost - 1);
 
         eventManager._OnEventEnd();
     }
 
+    void OnUpgradeTypeButtonClicked(UpgradeType newUpgradeType)
+    {
+        upgradeType = newUpgradeType;
+        FilterScrollView();
+        ChangePreview();
+    }
+    public void _OnATKButtonClicked()
+    {
+        OnUpgradeTypeButtonClicked(UpgradeType.CardATK);
+        atkButton.color = Color.red;
+        hpButton.color = Color.white;
+        costButton.color = Color.white;
+    }
+    public void _OnHPButtonClicked()
+    {
+        OnUpgradeTypeButtonClicked(UpgradeType.CardHP);
+        if(selectCard != null && selectCard.cardContent.cardType == CardType.Spell) 
+        {
+            selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+            selectSlot.SetActive(false);
+            selectCard = null;
+            eventStone.sprite = eventStoneDeactivated;
+        }
+        atkButton.color = Color.white;
+        hpButton.color = Color.red;
+        costButton.color = Color.white;
+    }
+    public void _OnCostButtonClicked()
+    {
+        OnUpgradeTypeButtonClicked(UpgradeType.CardCost);
+        atkButton.color = Color.white;
+        hpButton.color = Color.white;
+        costButton.color = Color.red;
+    }
+
     public enum UpgradeType
     {
-        UnitATK, UnitHP, SpellCost,
+        CardATK, CardHP, CardCost,
     }    
 }
