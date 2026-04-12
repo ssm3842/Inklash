@@ -80,5 +80,15 @@ public class SpellBase : MonoBehaviour , IBuffable
         {
              StartCoroutine(target.gameObject.GetComponent<Units>().TakeDamage(explosionDamage,amount+0.5f));
         }
+
+        if(HasBuff("Poison"))
+        {
+            PoisonEffect effect = target.gameObject.GetComponent<PoisonEffect>();
+            if (effect == null)
+            {
+                effect = target.gameObject.AddComponent<PoisonEffect>();
+            }
+            effect.AddStack();
+        }
     }
 }

@@ -55,6 +55,8 @@ MonoBehaviour:
     cardContents: {fileID: 11400000, guid: 02a95beba6f8bdf4880238526eba6879, type: 2}
   - id: Ultimate
     cardContents: {fileID: 11400000, guid: 3ca5a2f3b0c035a4fafa467c4beb44df, type: 2}
+  - id: Poison
+    cardContents: {fileID: 11400000, guid: 5ee6b5b14c68e514bb94344b12a69068, type: 2}
   EnemyUnits:
   - id: LowerI
     cardContents: {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
@@ -64,3 +66,5 @@ MonoBehaviour:
     cardContents: {fileID: 11400000, guid: 59be465672e808b4eb1286d4936833e0, type: 2}
   - id: UpperE
     cardContents: {fileID: 11400000, guid: 1b577812e35d7a3478e9b77c70bd81d6, type: 2}
+  - id: UpperO
+    cardContents: {fileID: 11400000, guid: bec11143b53bb644189360ed690d2083, type: 2}

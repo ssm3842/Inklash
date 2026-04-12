@@ -9,6 +9,7 @@ public class BuffController : MonoBehaviour , IBuffable
 
     void Update()
     {
+        
         if(buffList.Count <= 0) return;
         foreach(Buffs buff in buffList)
         {
@@ -23,6 +24,7 @@ public class BuffController : MonoBehaviour , IBuffable
         {
             buffList.Remove(buff);
         }
+
     }
 
     public void GetBuff(Buffs newBuff)
