@@ -310,6 +310,13 @@ public class Units : DamageableObject
 
    private void ApplyColdEffect(DamageableObject hitTarget)
     {
+         if (hitTarget == null) 
+        {
+            return;
+        }
+
+        if (!HasBuff("Cold")) return;
+
         ColdEffect effect = hitTarget.GetComponent<ColdEffect>();
         
         if (effect == null)
@@ -340,11 +347,8 @@ public class Units : DamageableObject
         }
 
         ApplyBurnEffect(hitTarget);
-
-        if (HasBuff("Cold")) // 차가운
-        {
-            ApplyColdEffect(hitTarget);
-        }
+        ApplyColdEffect(hitTarget);
+        ApplyPoisonEffect(hitTarget);
 
        KnockBack myKb = GetComponent<KnockBack>(); // 넉백
 
@@ -362,6 +366,10 @@ public class Units : DamageableObject
 
     protected virtual void ApplyBurnEffect(DamageableObject hitTarget)
     {
+        if (hitTarget == null) 
+        {
+            return;
+        }
         if (!HasBuff("Burn")) return;
         
         string myID = gameObject.GetInstanceID().ToString();
@@ -380,6 +388,25 @@ public class Units : DamageableObject
             newFX.casterID = myID;
             newFX.damageAmount = burnDmg;
         }
+    }
+
+    private void ApplyPoisonEffect(DamageableObject hitTarget)
+    {
+        if (hitTarget == null) 
+        {
+            return;
+        }
+
+        if (!HasBuff("Poison")) return;
+
+        PoisonEffect effect = hitTarget.GetComponent<PoisonEffect>();
+        
+        if (effect == null)
+        {
+            effect = hitTarget.gameObject.AddComponent<PoisonEffect>();
+        }
+        
+        effect.AddStack();
     }
 
     private IEnumerator DoubleHitCoroutine(DamageableObject currentTarget, float dmg)
@@ -418,6 +445,9 @@ public class Units : DamageableObject
             BuffController childBC = child.GetComponent<BuffController>();
 
             childBC.buffList.RemoveAll(b => b.buffName == "Split");
+            childBC.buffList.RemoveAll(b => b.buffName == "Chilling");
+            childBC.buffList.RemoveAll(b => b.buffName == "Marking");
+            childBC.buffList.RemoveAll(b => b.buffName == "Weaken");
             
             // 사이즈 조정
             child.transform.localScale = this.transform.localScale * 0.7f;
