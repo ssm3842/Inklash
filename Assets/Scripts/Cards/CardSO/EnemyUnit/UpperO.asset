@@ -13,17 +13,16 @@ MonoBehaviour:
   m_Name: UpperO
   m_EditorClassIdentifier: 
   card:
-    id: UpperO
-    name: ENEMY_NAME_UPPER_O
-    cost: 4
+    id: UpperX
+    name: ENEMY_NAME_UPPER_X
+    cost: 5
     cardType: 0
     attackType: 1
     effectID: 
-    description: ENEMY_DESC_UPPER_O
+    description: ENEMY_DESC_UPPER_X
     stats:
       baseMaxHp: 35
       baseATK: 5
-      baseATKTerm: 0
       baseATKSpd: 0.9
       baseRange: 1
       baseSpd: 1
@@ -32,9 +31,4 @@ MonoBehaviour:
       bonusATKSpd: 0
       bonusRange: 0
       bonusSpd: 0
-    unit: {fileID: 7742337380305042760, guid: e453bccf45dbae74ea6ade8491408075, type: 3}
-    seals: 
-    isCopied: 0
-    cardImage: {fileID: 0}
-    firstInfo: 0
-    secondInfo: 0
+    unit: {fileID: 7742337380305042760, guid: bdfe0e2038e5f524ab1b8a60bcd4e693, type: 3}

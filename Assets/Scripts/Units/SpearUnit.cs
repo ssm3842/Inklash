@@ -13,7 +13,7 @@ public class SpearUnit : Units
 
     public override void Move()
     {
-        if (target != null || isAttacking)
+        if (target || isAttacking)
         {
             updateTimer = 0f;
             RB.linearVelocityX = 0f;
@@ -50,12 +50,7 @@ public class SpearUnit : Units
     {
         if (isAccelerated)
         {
-            if(ANI.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            {
-                ANI.SetTrigger("Attacked");
-            }
-            else ANI.SetTrigger("Attack2");
-
+            ANI.SetTrigger("Attack2");
         }
         else
         {

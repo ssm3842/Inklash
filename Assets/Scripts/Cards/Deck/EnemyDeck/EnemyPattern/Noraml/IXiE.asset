@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyDeck:
   - {fileID: 11400000, guid: 3922f7bb764d0b44c8cf8e12e7111aee, type: 2}
-  - {fileID: 11400000, guid: bec11143b53bb644189360ed690d2083, type: 2}
+  - {fileID: 11400000, guid: 59be465672e808b4eb1286d4936833e0, type: 2}
   - {fileID: 11400000, guid: 8fa89430480832c4daa1d48885779743, type: 2}
   - {fileID: 11400000, guid: 1b577812e35d7a3478e9b77c70bd81d6, type: 2}

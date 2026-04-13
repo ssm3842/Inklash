@@ -52,9 +52,6 @@ public static class SealManager
                 case SealType.Copy:
                     bc.GetBuff(new BuffCopy());
                     break;
-                case SealType.Poison:
-                    bc.GetBuff(new BuffPoison());
-                    break;
             }
         }
     }

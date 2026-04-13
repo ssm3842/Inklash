@@ -75,7 +75,6 @@ public enum SealType
     Explosion,
     Purity,
     Copy,
-    Poison,
 }
 public enum CardUIInfo
 {
