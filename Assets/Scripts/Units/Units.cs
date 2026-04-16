@@ -12,6 +12,10 @@ public class Units : DamageableObject
 
     [SerializeField] protected bool canAttack;
     [SerializeField] protected float canAttackTimer;
+    [SerializeField] private float hitFlashDuration = 0.05f;
+    private MaterialPropertyBlock hitFlashMPB;
+    private Coroutine hitFlashRoutine;
+    private static readonly int HitEffectBlendID = Shader.PropertyToID("_HitEffectBlend");
 
     private bool isDead = false;       
     public bool IsDead => isDead;
@@ -38,6 +42,32 @@ public class Units : DamageableObject
         COL = GetComponent<Collider2D>();
     }
 
+    protected void PlayHitFlash()
+    {
+        if (SR == null) return;
+        if (hitFlashRoutine != null) StopCoroutine(hitFlashRoutine);
+        hitFlashRoutine = StartCoroutine(HitFlashCoroutine());
+    }
+
+    private IEnumerator HitFlashCoroutine()
+    {
+        float t = 0f;
+        while (t < hitFlashDuration)
+        {
+            t += Time.deltaTime;
+            float v = Mathf.Sin((t / hitFlashDuration) * Mathf.PI); // 0 → 1 → 0
+            SR.GetPropertyBlock(hitFlashMPB);
+            hitFlashMPB.SetFloat(HitEffectBlendID, v);
+            SR.SetPropertyBlock(hitFlashMPB);
+            yield return null;
+        }
+
+        SR.GetPropertyBlock(hitFlashMPB);
+        hitFlashMPB.SetFloat(HitEffectBlendID, 0f);
+        SR.SetPropertyBlock(hitFlashMPB);
+        hitFlashRoutine = null;
+    }
+
     override public void Init(bool isplayers, UnitStats stats)
     {
         base.Init(isplayers, stats);
@@ -49,6 +79,23 @@ public class Units : DamageableObject
         canAttackTimer = 0f;
 
         GetComponent<Renderer>().sortingOrder = -Mathf.CeilToInt((transform.position.y - 0.3f) * 100f);
+
+        ResetHitFlash();
+    }
+
+    private void ResetHitFlash()
+    {
+        if (SR == null) return;
+        if (hitFlashMPB == null) hitFlashMPB = new MaterialPropertyBlock();
+
+        if (hitFlashRoutine != null)
+        {
+            StopCoroutine(hitFlashRoutine);
+            hitFlashRoutine = null;
+        }
+        SR.GetPropertyBlock(hitFlashMPB);
+        hitFlashMPB.SetFloat(HitEffectBlendID, 0f);
+        SR.SetPropertyBlock(hitFlashMPB);
     }
 
     void Update()
@@ -163,6 +210,8 @@ public class Units : DamageableObject
     {
         if (isDead) yield break;
 
+        Debug.Log($"[TakeDamage] {gameObject.name}, frame={Time.frameCount}");
+
         float finalDamage = amount;
 
         // 표식 버프가 있다면 25% 증폭
@@ -173,6 +222,15 @@ public class Units : DamageableObject
 
 
         yield return new WaitForSeconds(delayTime);
+
+        PlayHitFlash();
+
+        // TakeDamage 내부
+        if (hitEffectSpawner != null)
+        {
+            Vector3 hitPos = GetHitPosition();
+            hitEffectSpawner.Spawn(hitPos, !isPlayers, !isPlayers);
+        }
 
         DamageTextCanvas.Inst.InstDamageText(amount, transform.position);
                

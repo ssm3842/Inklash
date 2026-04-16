@@ -32,6 +32,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 898252856215440199, guid: b62f85981057a7d46919ee866face945, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: dacb5a1a533a2754ca527a4c3539ff95, type: 2}
     - target: {fileID: 1341225279167027781, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.35
@@ -192,17 +196,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statController: {fileID: 9150823225447671190}
   buffController: {fileID: 6901518867496698976}
-  healthBar: {fileID: 0}
+  healthBarSlider: {fileID: 0}
+  healthBarText: {fileID: 0}
+  hitEffectSpawner: {fileID: 11400000, guid: 0e843b0fef24fbc4cb02c8f6fc6c80cf, type: 2}
+  hitEffectOffset: {x: -1, y: 0}
   isPlayers: 0
   onHitBuffTags: []
   canAttack: 0
   canAttackTimer: 0
+  hitFlashDuration: 0.15
   deathDuration: 0.3
-  hasBaseBurn: 0
-  hasBaseKnockback: 0
-  hasBaseDouble: 0
   isKnockbackEnhanced: 0
-  mySeals: 0
 --- !u!114 &6901518867496698976 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7729553345636926120, guid: b62f85981057a7d46919ee866face945, type: 3}

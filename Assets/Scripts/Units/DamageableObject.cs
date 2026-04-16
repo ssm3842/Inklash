@@ -12,6 +12,10 @@ public class DamageableObject : MonoBehaviour
     [SerializeField]Slider healthBarSlider;
     [SerializeField]TextMeshProUGUI healthBarText;
 
+    [Header("FX")]
+    [SerializeField] protected HitEffectSpawner hitEffectSpawner;
+    [SerializeField] protected Vector2 hitEffectOffset = Vector2.zero;
+
     public bool isPlayers;
 
     private bool isPhase2Triggered = false;
@@ -27,6 +31,13 @@ public class DamageableObject : MonoBehaviour
             healthBarText.text = statController.GetCurHp().ToString() + " / " + statController.GetStat(StatType.MAX_HP).ToString();
         }
         isPlayers = players;
+    }
+
+    public Vector3 GetHitPosition()
+    {
+        float xSign = isPlayers ? -1f : 1f;
+        Vector3 localOffset = new Vector3(hitEffectOffset.x * xSign, hitEffectOffset.y, 0f);
+        return transform.TransformPoint(localOffset);
     }
 
     //각 베이스의 경우만 이 함수 사용.  
