@@ -153,7 +153,7 @@ public class UpgradeEvent : MonoBehaviour
         if(upgradeType == UpgradeType.CardATK) 
         {
             if(selectCard.cardContent.id == "Freeze") selectCard.cardContent.stats.baseMaxHp += 3;
-            else selectCard.cardContent.stats.baseATK += 10;
+            else selectCard.cardContent.stats.baseATK += 5;
         }
         else if(upgradeType == UpgradeType.CardHP) selectCard.cardContent.stats.baseMaxHp += 10;
         else if(upgradeType == UpgradeType.CardCost) selectCard.cardContent.cost = Mathf.Max(0, selectCard.cardContent.cost - 1);

@@ -12,11 +12,11 @@ public class DamageText : MonoBehaviour
         tmpro.text = damage.ToString("F0");
         tmpro.alpha = 1f;
         tmpro.color = textColor;
-        transform.position = startPos + new Vector3(Random.Range(-0.2f, 0.2f), 0.5f, 0f);
+        transform.position = startPos + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(0.2f, 0.4f), 0f);
 
         // 위로 솟구치며 사라지는 연출
-        transform.DOMoveY(startPos.y + 1.5f, lifeTime).SetLink(gameObject); // lifeTime만큼의 초 동안 위로 이동
-        tmpro.DOFade(0f, lifeTime).SetLink(gameObject).OnComplete(() => {
+        transform.DOMoveY(startPos.y + 1f, lifeTime).SetLink(gameObject); // lifeTime만큼의 초 동안 위로 이동
+        tmpro.DOFade(0f, lifeTime).SetEase(Ease.InQuad).SetLink(gameObject).OnComplete(() => {
             if(this != null && gameObject != null) Destroy(gameObject);
         });
     }

@@ -71,7 +71,7 @@ public class CardUseManager : MonoBehaviour
     void SpawnPlayerUnit(CardContent card)
     {
         //유닛 생성.
-        GameObject newUnit = Instantiate(card.unit, playerBase.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), Quaternion.identity);
+        GameObject newUnit = Instantiate(card.unit, playerBase.transform.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight) - 0.95f, 0), Quaternion.identity);
         newUnit.transform.SetParent(transform);
         
         Units unitComponent = newUnit.GetComponent<Units>();
@@ -171,7 +171,7 @@ public class CardUseManager : MonoBehaviour
                 CardContent enemyUnit = cardData.card; 
 
                 GameObject newUnit = Instantiate(enemyUnit.unit, 
-                    enemyBase.transform.position + new Vector3(-1, Random.Range(-spawnHeight, spawnHeight) - 0.5f, 0), 
+                    enemyBase.transform.position + new Vector3(-1, Random.Range(-spawnHeight, spawnHeight) - 0.95f, 0), 
                     Quaternion.identity);
                 
                 newUnit.transform.SetParent(transform);
@@ -212,6 +212,7 @@ public class CardUseManager : MonoBehaviour
                 {
                     hasPhase2Bursted = true;
                     bossPhaseThreshold.SetActive(false);
+                    Debug.Log(1);
                     yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
 
                     if (!currentEnemyData.isBoss)

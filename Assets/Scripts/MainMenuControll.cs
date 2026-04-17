@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class MainMenuControll : MonoBehaviour
 {
-    [SerializeField] GameObject deckSelectCanvas;
+    [SerializeField]GameObject deckSelectCanvas;
     [SerializeField]GameObject settingCavnas;
+    [SerializeField]GameObject bgmManager;
+
+    [SerializeField]AudioClip mainMenuBGM;
 
     void Start()
     {
@@ -19,6 +22,9 @@ public class MainMenuControll : MonoBehaviour
             settingCavnas.GetComponent<SettingManger>().LoadSetting();
             settingCavnas.SetActive(false);
         }
+
+        if(BGMManager.Inst == null) Instantiate(bgmManager);
+        else BGMManager.Inst.PlayBGM(mainMenuBGM);
     }
 
     public void _OnClickNewGame()

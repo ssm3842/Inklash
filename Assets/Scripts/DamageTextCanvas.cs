@@ -22,9 +22,9 @@ public class DamageTextCanvas : MonoBehaviour
         GameObject newDamageText = Instantiate(damateTextPrefab.gameObject, transform);
         newDamageText.GetComponent<DamageText>().Setup(amount, spawnPos, textColor);
     }
-    public void InstDamageText(float amount, Vector3 spawnPos)
+    public void InstDamageText(float amount, Vector3 spawnPos, bool isPlayers)
     {
         GameObject newDamageText = Instantiate(damateTextPrefab.gameObject, transform);
-        newDamageText.GetComponent<DamageText>().Setup(amount, spawnPos, Color.white);
+        newDamageText.GetComponent<DamageText>().Setup(amount, spawnPos, isPlayers? Color.black : Color.white);
     }
 }

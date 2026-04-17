@@ -35,7 +35,7 @@ public class DamageableObject : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
 
-        DamageTextCanvas.Inst.InstDamageText(amount, transform.position, Color.white);
+        DamageTextCanvas.Inst.InstDamageText(amount, transform.position, isPlayers);
 
         if (statController.GetCurHp() <= amount)
         {
