@@ -33,7 +33,7 @@ public class CardUseManager : MonoBehaviour
         //적 데이터 중에서 하나를 랜덤으로 선택.
         if(isBoss)
         {
-            currentEnemyData = bossEnemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
+            currentEnemyData = bossEnemyBaseDatas[Random.Range(0, bossEnemyBaseDatas.Length)];
             bossPhaseThreshold.SetActive(true);
         }
         else currentEnemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
@@ -212,7 +212,6 @@ public class CardUseManager : MonoBehaviour
                 {
                     hasPhase2Bursted = true;
                     bossPhaseThreshold.SetActive(false);
-                    Debug.Log(1);
                     yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
 
                     if (!currentEnemyData.isBoss)

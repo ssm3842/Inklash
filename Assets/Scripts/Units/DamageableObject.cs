@@ -27,6 +27,7 @@ public class DamageableObject : MonoBehaviour
             healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
             healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
         }
+        isPhase2Triggered = false;
         isPlayers = players;
     }
 
