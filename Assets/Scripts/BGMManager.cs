@@ -35,13 +35,13 @@ public class BGMManager : MonoBehaviour
         bgmManagerComponent.Stop();
     }
     
-    public void ChangeBGM(AudioClip newClip, float fadeDuration = 1f)
+    public void ChangeBGM(AudioClip newClip, float volume = 1f, float fadeDuration = 1f)
     {
-        bgmManagerComponent.DOFade(0, fadeDuration).OnComplete(() =>
+        bgmManagerComponent.DOFade(0, fadeDuration).SetUpdate(true).OnComplete(() =>
         {
             bgmManagerComponent.clip = newClip;
             bgmManagerComponent.Play();
-            bgmManagerComponent.DOFade(1f, fadeDuration);
+            bgmManagerComponent.DOFade(volume, fadeDuration).SetUpdate(true);
         });
     }
 }

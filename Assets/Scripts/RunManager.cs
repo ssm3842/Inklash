@@ -6,10 +6,19 @@ public class RunManager : MonoBehaviour
     public static RunManager Inst { get; private set; }
     void Awake()
     {
-        if(Inst == null) Inst = this;
-        else Destroy(gameObject);
+        if (Inst != null && Inst != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Inst = this;
     }
     [SerializeField] GameObject battleUICanvas;
+
+    [SerializeField]GameObject bgmManager;
+    [SerializeField]AudioClip battleBGM;
+
+    [SerializeField]GameObject settingCavnasPrefab;
 
     [SerializeField] DeckSO debugDeckSO;
 
@@ -36,13 +45,31 @@ public class RunManager : MonoBehaviour
 
     public void InitRun() //런 시작 시 게임 초기화.
     {
+        Debug.Log("1");
         if(DeckManager.Inst == null)
         {
-            GameObject deckManagerOBJ = new GameObject("RunManager (Auto Generated)");
+            GameObject deckManagerOBJ = new GameObject();
             DeckManager deckManager = deckManagerOBJ.AddComponent<DeckManager>();
             deckManager.SetStartDeck(debugDeckSO);
             
             DontDestroyOnLoad(deckManagerOBJ);
+        }
+
+        if(SettingManger.Inst == null)
+        {
+            Instantiate(settingCavnasPrefab);
+        }
+        SettingManger.Inst.LoadSetting();
+        SettingManger.Inst.CloseSetting();
+
+        if(BGMManager.Inst == null)
+        {
+            Instantiate(bgmManager);
+            BGMManager.Inst.PlayBGM(battleBGM, 0.1f);
+        }
+        else
+        {
+            BGMManager.Inst.ChangeBGM(battleBGM, 0.1f);
         }
 
         mapManager.InitMapdata(); //맵 정보를 생성

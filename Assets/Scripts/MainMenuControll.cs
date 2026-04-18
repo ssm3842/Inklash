@@ -19,12 +19,12 @@ public class MainMenuControll : MonoBehaviour
         }
         else
         {
-            settingCavnas.GetComponent<SettingManger>().LoadSetting();
-            settingCavnas.SetActive(false);
+            SettingManger.Inst.LoadSetting();
+            SettingManger.Inst.gameObject.SetActive(false);
         }
 
         if(BGMManager.Inst == null) Instantiate(bgmManager);
-        else BGMManager.Inst.PlayBGM(mainMenuBGM);
+        else BGMManager.Inst.PlayBGM(mainMenuBGM, 0.1f);
     }
 
     public void _OnClickNewGame()
