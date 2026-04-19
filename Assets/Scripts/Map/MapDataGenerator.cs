@@ -169,7 +169,7 @@ public class MapDataGenerator : MonoBehaviour
         //5번째 노드는 항상 상점.
         foreach (RoomContent room in mapData[4]) 
         {
-            if (room.nextRooms.Count > 0) room.roomType = RoomType.BOSS;
+            if (room.nextRooms.Count > 0) room.roomType = RoomType.SHOP;
         }
 
         //이벤트 방 개수 보정을 위한 리스트

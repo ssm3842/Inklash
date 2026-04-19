@@ -47,6 +47,8 @@ public class SettingManger : MonoBehaviour
     {
         ShowPanel("Graphic");
 
+        Application.targetFrameRate = 60;
+
         prevButton.onClick.AddListener(() => OnClickScreenMode(-1));
         nextButton.onClick.AddListener(() => OnClickScreenMode(1));
         

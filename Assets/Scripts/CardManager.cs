@@ -285,7 +285,7 @@ public class CardManager : MonoBehaviour
                 targetAlpha = 0f;
                 spellAreaViewer.gameObject.SetActive(true);
                 spellAreaViewer.SetAreaWidth(draggingCard.cardContent.stats.baseRange);
-                spellAreaViewer.transform.position = new Vector3(mousePos.x, 465, 0f);
+                spellAreaViewer.transform.position = new Vector3(mousePos.x, 390, 0f);
             }
         }
         else
