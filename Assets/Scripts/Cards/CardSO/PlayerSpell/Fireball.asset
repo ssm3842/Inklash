@@ -35,6 +35,6 @@ MonoBehaviour:
     unit: {fileID: 4717934123520027032, guid: 105758081983ad74e9fb257a25f2f171, type: 3}
     seals: 
     isCopied: 0
-    cardImage: {fileID: 0}
+    cardImage: {fileID: 21300000, guid: e24b27cde6f30144a95e5f16dd891397, type: 3}
     firstInfo: 1
     secondInfo: 0
