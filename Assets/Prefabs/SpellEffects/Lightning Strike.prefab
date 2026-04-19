@@ -29609,8 +29609,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6414b62a2dfa414190b196c47c26a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnAreaHeight: 0.7
-  impactBaseY: -0.5
+  minScale: 0.8
+  maxScale: 1.2
+  scaleYMin: -1.65
+  scaleYMax: -1.05
+  spawnYMin: -1.65
+  spawnYMax: -1.05
 --- !u!1 &5119763937913384796
 GameObject:
   m_ObjectHideFlags: 0

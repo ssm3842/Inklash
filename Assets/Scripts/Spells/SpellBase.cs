@@ -11,6 +11,12 @@ public class SpellBase : MonoBehaviour , IBuffable
     protected float finalAmount;
     protected float finalRange;
 
+    [Header("Depth Scale")]
+    public float minScale = 0.8f;
+    public float maxScale = 1.2f;
+    public float scaleYMin = -2f;
+    public float scaleYMax = -0.4f;
+
     public void ProcessSpell(float amount, float range, float castXPosition)
     {
         finalAmount = amount;
@@ -97,5 +103,12 @@ public class SpellBase : MonoBehaviour , IBuffable
         int order = -Mathf.CeilToInt((yPosition - 0.3f) * 100f);
         foreach (var r in obj.GetComponentsInChildren<Renderer>())
             r.sortingOrder = order;
+    }
+
+    protected void ApplyDepthScale(GameObject obj, float y)
+    {
+        float t = Mathf.InverseLerp(scaleYMax, scaleYMin, y);
+        float scale = Mathf.Lerp(minScale, maxScale, t);
+        obj.transform.localScale *= scale;
     }
 }

@@ -44,6 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332b3d04851d62646bf76dddf6e8a677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minScale: 0.8
+  maxScale: 1.2
+  scaleYMin: -1.65
+  scaleYMax: -1.05
   rangeIndicatorPrefab: {fileID: 4932088507883938021, guid: 0e5709a7ddb77924090c112cf73bb98a, type: 3}
   explosionEffectPrefab: {fileID: 4924508274929071776, guid: 0edef91621bb6b34384ccc9dbb98729c, type: 3}
   indicatorDuration: 1
+  spawnYMin: -1.65
+  spawnYMax: -1.05

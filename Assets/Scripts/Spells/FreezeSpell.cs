@@ -7,10 +7,14 @@ public class Freeze : SpellBase
     public GameObject rangeIndicatorPrefab;   // 범위 표시 이펙트
     public GameObject explosionEffectPrefab;   // 얼음 폭발 이펙트
     public float indicatorDuration = 1.5f;     // 범위 표시 지속 시간
+    public float spawnYMin = -2f;
+    public float spawnYMax = -0.4f;
 
     public override void CastSpell(float amount, float range, float castXPosition)
     {
-        transform.position = new Vector3(castXPosition, -0.7f, 0);
+        float randY = Random.Range(spawnYMin, spawnYMax);
+        transform.position = new Vector3(castXPosition, randY, 0);
+        ApplyDepthScale(gameObject, randY);
         StartCoroutine(FreezeSequence(amount, range));
     }
 
@@ -22,6 +26,7 @@ public class Freeze : SpellBase
         {
             indicator = Instantiate(rangeIndicatorPrefab, transform.position, rangeIndicatorPrefab.transform.rotation);
             indicator.transform.localScale = rangeIndicatorPrefab.transform.localScale;
+            ApplyDepthScale(indicator, transform.position.y);
             // range에 맞게 스케일 조절 (필요시)
             // indicator.transform.localScale = Vector3.one * range;
         }
@@ -38,7 +43,7 @@ public class Freeze : SpellBase
             var explosion = Instantiate(explosionEffectPrefab, transform.position, explosionEffectPrefab.transform.rotation);
             explosion.transform.localScale = explosionEffectPrefab.transform.localScale;
             SetDepthSorting(explosion, transform.position.y);
-
+            ApplyDepthScale(explosion, transform.position.y);
             Destroy(explosion, 1f);
         }
 

@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class Lightning : SpellBase
 {
-    public float spawnAreaHeight = 1f;
-    public float impactBaseY = -0.8f;
+    public float spawnYMin = -2f;
+    public float spawnYMax = -0.4f;
 
     public override void CastSpell(float damage, float range, float castXPosition)
     {
-        float randY = impactBaseY + Random.Range(-spawnAreaHeight / 2f, spawnAreaHeight / 2f);
+        float randY = Random.Range(spawnYMin, spawnYMax);
         transform.position = new Vector3(castXPosition, randY, 0);
+        ApplyDepthScale(gameObject, randY);
         SetDepthSorting(gameObject, randY);
 
         Collider2D[] enemies = Physics2D.OverlapBoxAll(new Vector2(castXPosition, 0f), new Vector2(range, 100f), 0f);

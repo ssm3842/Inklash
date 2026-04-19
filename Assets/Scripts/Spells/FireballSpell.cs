@@ -11,8 +11,8 @@ public class Fireball : SpellBase
     public int fireballCount = 5;
     public float spawnInterval = 0.15f;          // 생성 간격
     public float spawnAreaWidth = 3f;            // X축 랜덤 범위
-    public float spawnAreaHeight = 1.5f;         // Y축 랜덤 범위 (2.5D 깊이감)
-    public float impactBaseY = -0.5f; // 착탄 기준 Y 좌표
+    public float spawnYMin = -2f;
+    public float spawnYMax = -0.4f;
 
     [Header("Fall Settings")]
     public float fallDistance = 4f;              // 고정 낙하 거리
@@ -32,7 +32,7 @@ public class Fireball : SpellBase
         {
             // 범위 내 랜덤 착탄 지점
             float randX = castXPosition + Random.Range(-spawnAreaWidth / 2f, spawnAreaWidth / 2f);
-            float randY = impactBaseY + Random.Range(-spawnAreaHeight / 2f, spawnAreaHeight / 2f);
+            float randY = Random.Range(spawnYMin, spawnYMax);
             Vector3 impactPos = new Vector3(randX, randY, 0);
 
             // 착탄 지점에서 낙하 방향 역추적 → 시작 위치
@@ -59,6 +59,7 @@ public class Fireball : SpellBase
         // 낙하 방향으로 회전 
         if (proj != null) 
         { 
+            ApplyDepthScale(proj, to.y);
             SetDepthSorting(proj, to.y);
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90f; 
             proj.transform.rotation = Quaternion.Euler(0, 0, angle); 
@@ -92,6 +93,7 @@ public class Fireball : SpellBase
         {
             var explosion = Instantiate(explosionEffectPrefab, to, explosionEffectPrefab.transform.rotation);
             explosion.transform.localScale = explosionEffectPrefab.transform.localScale;
+            ApplyDepthScale(explosion, to.y);
             SetDepthSorting(explosion, to.y);
             Destroy(explosion, 2f);
         }
