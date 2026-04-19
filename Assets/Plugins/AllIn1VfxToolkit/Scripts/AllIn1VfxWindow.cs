@@ -12,7 +12,7 @@ namespace AllIn1VfxToolkit
 {
     public class AllIn1VfxWindow : EditorWindow
     {
-        private const string Version = "2.1";
+        private const string Version = "2.3";
         
         [MenuItem("Tools/AllIn1/VfxToolkitWindow")]
         public static void ShowAllIn1VfxToolkitWindowWindow() => GetWindow<AllIn1VfxWindow>("All In 1 VFX Toolkit Window");
@@ -925,9 +925,13 @@ namespace AllIn1VfxToolkit
 
             if(obj == null) return false;
 
-            path = AssetDatabase.GetAssetPath(obj.GetInstanceID());
+#if UNITY_6000_3_OR_NEWER
+			path = AssetDatabase.GetAssetPath(obj.GetEntityId());
+#else
+			path = AssetDatabase.GetAssetPath(obj.GetInstanceID());
+#endif
 
-            if(path.Length > 0)
+			if (path.Length > 0)
             {
                 if(Directory.Exists(path)) return true;
                 else return false;

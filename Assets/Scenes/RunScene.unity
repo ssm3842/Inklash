@@ -8740,6 +8740,8 @@ MonoBehaviour:
   buffController: {fileID: 597376425}
   healthBarSlider: {fileID: 1655331090}
   healthBarText: {fileID: 1536823483}
+  hitEffectSpawner: {fileID: 0}
+  hitEffectOffset: {x: 0, y: 0}
   isPlayers: 0
   onHitBuffTags: []
 --- !u!114 &597376425
@@ -14551,6 +14553,8 @@ MonoBehaviour:
   buffController: {fileID: 1041127023}
   healthBarSlider: {fileID: 275048065}
   healthBarText: {fileID: 736409764}
+  hitEffectSpawner: {fileID: 0}
+  hitEffectOffset: {x: 0, y: 0}
   isPlayers: 1
   onHitBuffTags: []
 --- !u!114 &1041127023

@@ -2,22 +2,30 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CrackLighting2
-  m_Shader: {fileID: 4800000, guid: 6eb86e4931b506a408fd1477edec61ea, type: 3}
-  m_ShaderKeywords: ADDITIVECONFIG_ON ALPHAFADEINPUTSTREAM_ON ALPHAFADE_ON COLORRAMPGRAD_ON
-    COLORRAMP_ON GLOW_ON
+  m_Shader: {fileID: 4800000, guid: b430983578466934c944e7171b4c372c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - ADDITIVECONFIG_ON
+  - ALPHAFADEINPUTSTREAM_ON
+  - ALPHAFADE_ON
+  - COLORRAMPGRAD_ON
+  - COLORRAMP_ON
+  - GLOW_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -89,6 +97,7 @@ Material:
         m_Texture: {fileID: 2800000, guid: 48da24d771916524899d36e4bfe7f762, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _Alpha: 1
     - _AlphaBrightness: 0
@@ -242,27 +251,33 @@ Material:
     - _Shape2Color: {r: 1, g: 1, b: 1, a: 1}
     - _Shape3Color: {r: 1, g: 1, b: 1, a: 1}
     - _ShapeColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!28 &28383894319206910
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: z_ColorRampTexGradientTex{"mode":0,"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.024170290678739549},{"color":{"r":0.0,"g":0.019170021638274194,"b":0.2641509175300598,"a":1.0},"time":0.14630350470542909},{"color":{"r":0.18043793737888337,"g":0.4691386818885803,"b":0.6179999709129334,"a":1.0},"time":0.49745938181877139},{"color":{"r":0.5349999666213989,"g":0.8878551125526428,"b":1.0,"a":1.0},"time":0.7035629749298096},{"color":{"r":0.8584905862808228,"g":0.997350811958313,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_Name: z_ColorRampTexGradientTex{"mode":0,"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.024170290678739549},{"color":{"r":0.0,"g":0.019170021638274194,"b":0.2641509175300598,"a":1.0},"time":0.38950178027153017},{"color":{"r":0.18043793737888337,"g":0.4691386818885803,"b":0.6179999709129334,"a":1.0},"time":0.7109330892562866},{"color":{"r":0.1622997522354126,"g":0.4239064157009125,"b":0.5824300050735474,"a":1.0},"time":0.8325932621955872},{"color":{"r":0.5349999666213989,"g":0.8878551125526428,"b":1.0,"a":1.0},"time":0.9017929434776306},{"color":{"r":0.8584905862808228,"g":0.997350811958313,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 2
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
   m_Width: 64
   m_Height: 1
   m_CompleteImageSize: 256
+  m_MipsStripped: 0
   m_TextureFormat: 4
   m_MipCount: 1
   m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 0
+  m_MipmapLimitGroupName: 
   m_StreamingMipmaps: 0
   m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
   m_AlphaIsTransparency: 0
   m_ImageCount: 1
   m_TextureDimension: 2
@@ -276,9 +291,11 @@ Texture2D:
     m_WrapW: 1
   m_LightmapFormat: 0
   m_ColorSpace: 1
+  m_PlatformBlob: 
   image data: 256
-  _typelessdata: 000000ff000000ff000004ff00010dff000216ff00021eff000327ff000330ff000439ff000541ff020947ff040e4bff06134fff081953ff0a1e57ff0c235bff0e285fff102d63ff123267ff14386bff163d6fff194273ff1b4777ff1d4c7cff1f5280ff215784ff235c88ff25618cff276690ff296b94ff2b7198ff2d769cff337da3ff3a85aaff418eb2ff4796b9ff4e9ec1ff55a6c8ff5caed0ff63b7d7ff6abfdfff71c7e6ff78cfeeff7fd8f5ff86e0fdff8be3ffff90e5ffff94e6ffff99e8ffff9de9ffffa1ebffffa6ecffffaaeeffffafefffffb3f1ffffb8f2ffffbcf4ffffc0f5ffffc5f7ffffc9f8ffffcefaffffd2fbffffd6fdffffdbfeffff
+  _typelessdata: 000000ff000000ff000001ff000004ff000107ff00010aff00010dff000110ff000113ff000216ff000219ff00021cff00021fff000222ff000325ff000327ff00032aff00032dff000330ff000433ff000436ff000439ff00043cff00053fff000542ff010845ff030d4aff06134eff081953ff0a1e57ff0c245cff0f2a60ff112f65ff133569ff153a6eff184072ff1a4676ff1c4b7bff1f517fff215784ff235c88ff25628dff286891ff2a6d96ff2c739aff2e779dff2d769cff2d749bff2c739aff2b7199ff2b7097ff2a6e96ff2a6d95ff357ba2ff4b96baff61b1d3ff77ccebff8be3ffff98e8ffffa6ecffffb3f1ffffc0f5ffffcefaffffdbfeffff
   m_StreamData:
+    serializedVersion: 2
     offset: 0
     size: 0
     path: 

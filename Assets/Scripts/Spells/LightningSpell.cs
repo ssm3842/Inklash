@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class Lightning : SpellBase
 {
+    public float spawnAreaHeight = 1f;
+    public float impactBaseY = -0.8f;
+
     public override void CastSpell(float damage, float range, float castXPosition)
     {
-        transform.position = new Vector3(castXPosition, -0.5f, 0);
-        Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, new Vector2(range, 0.6f), 0f);
+        float randY = impactBaseY + Random.Range(-spawnAreaHeight / 2f, spawnAreaHeight / 2f);
+        transform.position = new Vector3(castXPosition, randY, 0);
+        SetDepthSorting(gameObject, randY);
 
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(new Vector2(castXPosition, 0f), new Vector2(range, 100f), 0f);
         foreach (Collider2D enemy in enemies)
         {
-            if(enemy.gameObject.GetComponent<DamageableObject>().isPlayers) continue; //아군 제외
-            if(enemy.gameObject.GetComponent<DamageableObject>() == null) continue; //데미지 계산이 불가능한 오브젝트 제외
-
-            enemy.gameObject.GetComponent<BuffController>().GetBuff(new BuffShock());
-            StartCoroutine(enemy.gameObject.GetComponent<DamageableObject>().TakeDamage(damage));
+            var damageable = enemy.GetComponent<DamageableObject>();
+            if (damageable == null || damageable.isPlayers) continue;
+            enemy.GetComponent<BuffController>()?.GetBuff(new BuffShock());
+            StartCoroutine(damageable.TakeDamage(damage));
             PerformHit(enemy);
         }
-    }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(transform.position, new Vector3(1.5f, 1, 2));
+        Destroy(gameObject, 2f);
     }
 }

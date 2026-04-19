@@ -3,7 +3,7 @@
 //
 // Auto-generated shader code, don't hand edit!
 //
-//   Unity Version: 2019.4.16f1
+//   Unity Version: 2021.3.45f2
 //   Render Pipeline: Standard
 //   Platform: WindowsEditor
 ////////////////////////////////////////
@@ -16816,5 +16816,5 @@ Lighting Off
    }
    
    
-   CustomEditor "AllIn1VfxLitCustomMaterialEditor"
+   CustomEditor "AllIn1VfxToolkit.AllIn1VfxLitCustomMaterialEditor"
 }

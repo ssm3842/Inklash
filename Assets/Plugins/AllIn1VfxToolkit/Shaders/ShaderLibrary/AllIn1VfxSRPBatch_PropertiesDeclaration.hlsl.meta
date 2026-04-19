@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ac696ebc643eac74b8947e8accf15dc1
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206665
+  packageName: All In 1 Vfx Toolkit
+  packageVersion: 2.3
+  assetPath: Assets/Plugins/AllIn1VfxToolkit/Shaders/ShaderLibrary/AllIn1VfxSRPBatch_PropertiesDeclaration.hlsl
+  uploadId: 858954

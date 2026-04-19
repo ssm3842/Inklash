@@ -32,9 +32,9 @@ MonoBehaviour:
       bonusATKSpd: 0
       bonusRange: 0
       bonusSpd: 0
-    unit: {fileID: 165430342810149062, guid: 874c83692b0b1494d828664d6ae91e01, type: 3}
+    unit: {fileID: 4717934123520027032, guid: 105758081983ad74e9fb257a25f2f171, type: 3}
     seals: 
     isCopied: 0
-    cardImage: {fileID: 21300000, guid: e24b27cde6f30144a95e5f16dd891397, type: 3}
+    cardImage: {fileID: 0}
     firstInfo: 1
     secondInfo: 0
