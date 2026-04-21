@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class Units : DamageableObject
 {
@@ -13,6 +10,9 @@ public class Units : DamageableObject
     [SerializeField] protected bool canAttack;
     [SerializeField] protected float canAttackTimer;
     [SerializeField] private float hitFlashDuration = 0.05f;
+
+    [SerializeField] AudioClip attackSound;
+
     private MaterialPropertyBlock hitFlashMPB;
     private Coroutine hitFlashRoutine;
     private static readonly int HitEffectBlendID = Shader.PropertyToID("_HitEffectBlend");
@@ -267,6 +267,7 @@ public class Units : DamageableObject
             PerformHit(target, damage);
         }
         
+        if(attackSound != null) SFXManager.Inst.PlaySFX(attackSound, 0.7f);
 
         if (targetUnit != null)
         {

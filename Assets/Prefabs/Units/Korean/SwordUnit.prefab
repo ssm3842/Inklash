@@ -169,6 +169,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6794712847724622433, guid: b62f85981057a7d46919ee866face945, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4707af15c2e24dd43ac0f722f31290da, type: 3}
+    - target: {fileID: 6794712847724622433, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: hitEffectSpawner
       value: 
       objectReference: {fileID: 11400000, guid: 0e843b0fef24fbc4cb02c8f6fc6c80cf, type: 2}

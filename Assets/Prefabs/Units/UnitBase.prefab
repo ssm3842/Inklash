@@ -93,7 +93,7 @@ SpriteRenderer:
   m_Size: {x: 20.48, y: 20.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &4210512632821811087
@@ -205,11 +205,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statController: {fileID: 5367653266981184350}
   buffController: {fileID: 7729553345636926120}
-  healthBar: {fileID: 0}
+  healthBarSlider: {fileID: 0}
+  healthBarText: {fileID: 0}
+  hitEffectSpawner: {fileID: 0}
+  hitEffectOffset: {x: 0, y: 0}
   isPlayers: 0
+  onHitBuffTags: []
   canAttack: 0
   canAttackTimer: 0
+  hitFlashDuration: 0.05
+  attackSound: {fileID: 8300000, guid: cec9af87253fece48ad9488b5db9e691, type: 3}
   deathDuration: 0.3
+  isKnockbackEnhanced: 0
 --- !u!114 &5367653266981184350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +232,7 @@ MonoBehaviour:
   unitStats:
     baseMaxHp: 0
     baseATK: 0
+    baseATKTerm: 0
     baseATKSpd: 0
     baseRange: 0
     baseSpd: 0
