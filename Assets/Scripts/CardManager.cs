@@ -19,6 +19,8 @@ public class CardManager : MonoBehaviour
     [SerializeField] List<Card> playerHands;
 
     [SerializeField]SpellAreaViewer spellAreaViewer;
+    [SerializeField]RectTransform rect;
+    [SerializeField]RectTransform canvasRect;
 
     public Card draggingCard;
     private CanvasGroup draggingCardCanvasGroupComponent;
@@ -285,7 +287,15 @@ public class CardManager : MonoBehaviour
                 targetAlpha = 0f;
                 spellAreaViewer.gameObject.SetActive(true);
                 spellAreaViewer.SetAreaWidth(draggingCard.cardContent.stats.baseRange);
-                spellAreaViewer.transform.position = new Vector3(mousePos.x, 390, 0f);
+
+                float mousePercentX = Input.mousePosition.x / Screen.width;
+                float targetX = (mousePercentX - 0.5f) * canvasRect.rect.width;
+
+                rect.anchoredPosition = new Vector2(targetX, -150f);
+
+                // spellAreaViewer.transform.position = new Vector2(mousePos.x, transform.position.y);
+                // spellAreaViewer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -75f);
+
             }
         }
         else

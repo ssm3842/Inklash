@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CostManager : MonoBehaviour
 {
+    [SerializeField]CostBackground costBackground;
     public int currentCost;
 
     public float time = 0f;
@@ -36,6 +37,7 @@ public class CostManager : MonoBehaviour
 
     public void AddCost(int amount)
     {
+        costBackground.OnCostChanged();
         currentCost = Mathf.Min(GameRule.MAX_COST, currentCost + amount);
     }
 
