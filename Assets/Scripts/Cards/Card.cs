@@ -49,9 +49,10 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.SetAsLastSibling();
+        RectTransform rect = GetComponent<RectTransform>();
 
         originalPosition = transform.position;
-        transform.position = new Vector3(transform.position.x, 225, 0);
+        rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + 120f);
 
         originalRotation = transform.rotation;
         transform.rotation = Quaternion.identity;

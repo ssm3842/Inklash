@@ -40,7 +40,7 @@ public class HandLayout : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).localPosition = new Vector3(900 * posArray[i], Mathf.Cos(posArray[i] * Mathf.Deg2Rad * 180f) * 100f, 0);
+            transform.GetChild(i).localPosition = new Vector3(800 * posArray[i], Mathf.Cos(posArray[i] * Mathf.Deg2Rad * 180f) * 100f, 0);
         }
 
 
