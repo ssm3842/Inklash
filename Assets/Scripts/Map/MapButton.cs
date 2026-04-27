@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class MapButton : MonoBehaviour
 {
     [SerializeField] Animator ani;
     [SerializeField] Image image;
 
-    [SerializeField] GameObject clearMark;
-    [SerializeField] GameObject failMark;
+    public GameObject clearMark;
     RoomContent room;
 
     public void UpdateAnimation()
@@ -21,7 +21,6 @@ public class MapButton : MonoBehaviour
         else ani.Play("MapButtonDefault");
 
         if(room.isCleared) clearMark.SetActive(true);
-        else if(room.isFailed) failMark.SetActive(true);
     }
 
     public void SetRoom(RoomContent roomData)
@@ -42,7 +41,17 @@ public class MapButton : MonoBehaviour
 
     public void OnButtonClicked()
     {
-        if (!room.isInteractable) return;
+        StartCoroutine(OnButtonClickedRoutine());
+        RunManager.Inst.mapManager.MapbuttonClicked();
+    }
+    IEnumerator OnButtonClickedRoutine()
+    {
+        if (!room.isInteractable) yield break;
+
+        clearMark.SetActive(true);
+        clearMark.GetComponent<Animator>().SetTrigger("Clicked");
+
+        yield return new WaitForSecondsRealtime(1.0f);
         RunManager.Inst.mapManager.EnterRoom(room);
     }
 }
@@ -57,7 +66,6 @@ public class RoomContent
     public List<RoomContent> nextRooms = new List<RoomContent>();
     public bool isInteractable = false;
     public bool isCleared = false;
-    public bool isFailed = false;
 }
 
 public enum RoomType

@@ -10,6 +10,8 @@ public class MapManager : MonoBehaviour
     [SerializeField] MapDataGenerator mapGenerator;
     [SerializeField] GameObject scrollContent;
 
+    [SerializeField]GameObject clickDefender;
+
     [SerializeField]TextMeshProUGUI mapText;
 
     List<List<RoomContent>> mapData;
@@ -103,6 +105,11 @@ public class MapManager : MonoBehaviour
             // newMapLine.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 500);
         }
     }
+
+    public void MapbuttonClicked()
+    {
+        clickDefender.SetActive(true);
+    }
     
     public void EnterRoom(RoomContent room)
     {
@@ -130,20 +137,13 @@ public class MapManager : MonoBehaviour
                 Debug.Log("Bug Occured");
                 break;
         }
+        clickDefender.SetActive(false);
         gameObject.SetActive(false);
     }
 
     public void ClearLastRoom()
     {
         lastRoom.isCleared = true;
-
-        floorClimbed++;
-        UnlockFloor(floorClimbed);
-    }
-
-    public void FailLastRoom()
-    {
-        lastRoom.isFailed = true;
 
         floorClimbed++;
         UnlockFloor(floorClimbed);

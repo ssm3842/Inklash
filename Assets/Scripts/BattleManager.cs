@@ -74,7 +74,7 @@ public class BattleManager : MonoBehaviour
         {
             cardManager.CardRightClicked();
             
-            RunManager.Inst.mapManager.FailLastRoom();
+            RunManager.Inst.mapManager.ClearLastRoom();
             RunManager.Inst.mapManager.SetVisible();
         }
         else

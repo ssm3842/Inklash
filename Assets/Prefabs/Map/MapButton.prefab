@@ -150,7 +150,6 @@ MonoBehaviour:
   ani: {fileID: 741260463743779916}
   image: {fileID: 3921418344303431736}
   clearMark: {fileID: 9110076499419740712}
-  failMark: {fileID: 9110076499419740712}
 --- !u!95 &741260463743779916
 Animator:
   serializedVersion: 7
@@ -184,6 +183,7 @@ GameObject:
   - component: {fileID: 9155271399402235752}
   - component: {fileID: 3036386936572304322}
   - component: {fileID: 6660990803589118361}
+  - component: {fileID: 432049339573924287}
   m_Layer: 5
   m_Name: ClearMark
   m_TagString: Untagged
@@ -248,3 +248,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &432049339573924287
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110076499419740712}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7df27aeef6874da4d8a714de565e46b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
