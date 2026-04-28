@@ -42,7 +42,6 @@ public class BattleManager : MonoBehaviour
 
     public void OnBattleWin()
     {
-        Time.timeScale = 0f;
         isBattleProgress = false;
 
         EnemyBaseDataSO currentEnemy = RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData;
@@ -63,7 +62,6 @@ public class BattleManager : MonoBehaviour
 
     public void OnBattleLose()
     {
-        Time.timeScale = 0f;
         isBattleProgress = false;
 
         EnemyBaseDataSO currentEnemy = RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData;

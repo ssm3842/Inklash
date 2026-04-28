@@ -51,15 +51,17 @@ public class DamageableObject : MonoBehaviour
 
         if (statController.GetCurHp() <= amount)
         {
+            Time.timeScale = 0f;
             if (!isPlayers)
             {   //TODO: 플레이어 승리 시 동작
                 // if()
+                yield return new WaitForSecondsRealtime(2f);
                 RunManager.Inst.battleManager.OnBattleWin();
             }
             else
             {   //TODO: 플레이어 패배 시 동작
+                yield return new WaitForSecondsRealtime(2f);
                 RunManager.Inst.battleManager.OnBattleLose();
-                
             }
 
             //적 스폰 코루틴을 제거.
