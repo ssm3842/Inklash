@@ -51,7 +51,9 @@ public class CardRewardUI : MonoBehaviour
     public void GetCard()
     {
         DeckManager.Inst.AddCardToDeck(rewardCard.cardContent);
-        battleRewardController.CardRewardAccepted();
+        // battleRewardController.CardRewardAccepted();
+        
+        RunManager.Inst.mapManager.SetVisible();
         gameObject.SetActive(false);
     }
 }
