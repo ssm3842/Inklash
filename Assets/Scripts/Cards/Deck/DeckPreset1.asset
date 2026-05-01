@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DeckPreset1
   m_EditorClassIdentifier: 
   startingDeck:
-  - {fileID: 11400000, guid: 6e576305d1664404b8f5a28244b3a0c8, type: 2}
+  - {fileID: 11400000, guid: 1601e366d25fea342895f0eb7a91d213, type: 2}
   - {fileID: 11400000, guid: 6e576305d1664404b8f5a28244b3a0c8, type: 2}
   - {fileID: 11400000, guid: e944e9b938d26724b84f16c98810714a, type: 2}
   - {fileID: 11400000, guid: e944e9b938d26724b84f16c98810714a, type: 2}
