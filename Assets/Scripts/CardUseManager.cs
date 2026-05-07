@@ -92,7 +92,8 @@ public class CardUseManager : MonoBehaviour
         SealManager.ApplySeals(newSpell, FilterWordCard(card));
         SpellBase spell = newSpell.GetComponent<SpellBase>();
 
-        if(spell.buffList.Exists(b => b.buffName.Equals("Split"))) castCount =3;
+        if(spell.buffList.Exists(b => b.buffName.Equals("DoubleAttack"))) castCount *=2;
+        if(spell.buffList.Exists(b => b.buffName.Equals("Split"))) castCount *=3;
         Destroy(newSpell);
 
         for (int i = 0; i < castCount; i++)
