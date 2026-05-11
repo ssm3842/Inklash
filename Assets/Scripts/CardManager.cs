@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class CardManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI drawCountTMP;
     [SerializeField] TextMeshProUGUI graveCountTMP;
+
+    [SerializeField] GameObject cardDescPanel;
+    [SerializeField] TextMeshProUGUI cardDescText;
 
     [SerializeField]SpellAreaViewer spellAreaViewer;
     [SerializeField]RectTransform rect;
@@ -48,22 +52,19 @@ public class CardManager : MonoBehaviour
     void StartBattle()
     {
         Shuffle(currentBattleDeck);
-        DrawNewHand();
+
+        StartCoroutine(DrawNewHand());
     }
 
-    void DrawCard()
+    async Task DrawCard()
     {
-        if (currentBattleDeck.Count <= 0)
-        {
-            currentBattleDeck = new List<CardContent>(discardBattleDeck);
-            discardBattleDeck.Clear();
-        }
-
         if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가.
+
+        CardContent cardData = await PopCardFromDeck();
 
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
-        card.Setup(this, PopCardFromDeck(), card.transform.GetSiblingIndex());
+        card.Setup(this, cardData, card.transform.GetSiblingIndex());
         playerHands.Add(card);
 
         graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
@@ -72,7 +73,7 @@ public class CardManager : MonoBehaviour
         handLayout.AlignCards();
     }
 
-    public void DrawNewHand() //패가 가득 찰 때까지 카드를 뽑음.
+    public IEnumerator DrawNewHand() //패가 가득 찰 때까지 카드를 뽑음.
     {   
         // if(!isFree) //전투 시작 시 또는 패를 다 사용했을 때는 비용 없이 카드 다시뽑기.
         // {
@@ -87,13 +88,16 @@ public class CardManager : MonoBehaviour
 
         for (int i = 0; i < GameRule.MAX_HAND_CARD_NUM; i++) //카드 5장 다시 뽑기
         {
-            DrawCard();
+            var task = DrawCard();
+            yield return new WaitUntil(() => task.IsCompleted);
+
+            yield return new WaitForSeconds(0.1f);
         }
         
         handLayout.AlignCards();
     }
 
-    CardContent PopCardFromDeck()
+    async Task<CardContent> PopCardFromDeck()
     {
 
         if (currentBattleDeck.Count == 0)
@@ -107,6 +111,7 @@ public class CardManager : MonoBehaviour
             discardBattleDeck.Clear();
 
             Shuffle(currentBattleDeck);
+            await Task.Delay(700);
         }
         
         CardContent cardContent = currentBattleDeck[0];
@@ -190,13 +195,13 @@ public class CardManager : MonoBehaviour
         return discardBattleDeck;
     }
 
-    private void Shuffle(List<CardContent> list)
+    void Shuffle(List<CardContent> list)
     {
         int n = list.Count;
         while (n > 1)
         {
             n--;
-            int k = Random.Range(0, n + 1); 
+            int k = UnityEngine.Random.Range(0, n + 1); 
             
             CardContent value = list[k];
             list[k] = list[n];
@@ -267,6 +272,7 @@ public class CardManager : MonoBehaviour
         }
 
         graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
+        cardDescPanel.SetActive(false);
 
         draggingCard = null;
         
@@ -278,7 +284,7 @@ public class CardManager : MonoBehaviour
         if (playerHands.Count <= 0)
         {
             costManager.AddCost(3);
-            DrawNewHand();
+            StartCoroutine(DrawNewHand());
         }
         
         handLayout.AlignCards();
@@ -314,6 +320,18 @@ public class CardManager : MonoBehaviour
         }
         
         draggingCardCanvasGroupComponent.alpha = targetAlpha;
+    }
+
+    public void OnCardHoverStart(CardContent cardContent, GameObject gameObject)
+    {
+        cardDescPanel.SetActive(true);
+        cardDescPanel.GetComponent<RectTransform>().position = gameObject.GetComponent<RectTransform>().position;
+        cardDescText.text = cardContent.description;
+    }
+
+    public void OnCardHoverEnd()
+    {
+        cardDescPanel.SetActive(false);
     }
 
     public void ExecuteCopyEffect()

@@ -2,9 +2,9 @@
 ,,
 // [Unit],,
 UNIT_NAME_SWORD,검,Sword
-UNIT_DESC_SWORD,,
+UNIT_DESC_SWORD,검 설명ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁㄴ ㅇㄹㅁㄴㅇㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁㄴㅇㄹ,
 UNIT_NAME_BOW,활,Bow
-UNIT_DESC_BOW,,
+UNIT_DESC_BOW,활 설명ㅁㄴㅇㄹㅁㄴ ㅇㄹㅁㄴ ㅇㄹㅁㄴㅇㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁㄴㅇㄹ,
 UNIT_NAME_SPEAR,창,Spear
 UNIT_DESC_SPEAR,,
 UNIT_NAME_CANNON,포,Cannon
@@ -21,7 +21,7 @@ SPELL_DESC_LIGHTNING,,
 SPELL_NAME_RAGE,분노,Rage
 SPELL_DESC_RAGE,,
 SPELL_NAME_FREEZE,빙결,Freeze
-SPELL_DESC_FREEZE,,
+SPELL_DESC_FREEZE,빙결 ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁ ㄴㅇㄹㅁㄴㅇㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁㄴㅇㄹ,
 SPELL_NAME_FIREBALL,화염구,Fireball
 SPELL_DESC_FIREBALL,,
 ,,
