@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class CardManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] List<CardContent> currentBattleDeck;
     [SerializeField] List<CardContent> discardBattleDeck;
     [SerializeField] List<Card> playerHands;
+
+    [SerializeField] TextMeshProUGUI drawCountTMP;
+    [SerializeField] TextMeshProUGUI graveCountTMP;
 
     [SerializeField]SpellAreaViewer spellAreaViewer;
     [SerializeField]RectTransform rect;
@@ -55,12 +59,15 @@ public class CardManager : MonoBehaviour
             discardBattleDeck.Clear();
         }
 
-        if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가. //TODO: 반응 추가하기 ex)카드를 더 뽑을 수 없어 메시지 등
+        if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가.
 
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
         card.Setup(this, PopCardFromDeck(), card.transform.GetSiblingIndex());
         playerHands.Add(card);
+
+        graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
+        drawCountTMP.text = currentBattleDeck.Count.ToString("D2");
 
         handLayout.AlignCards();
     }
@@ -258,6 +265,8 @@ public class CardManager : MonoBehaviour
         {
             MoveCardToDiscardDeck(card);
         }
+
+        graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
 
         draggingCard = null;
         
