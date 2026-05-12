@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DamageableObject : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class DamageableObject : MonoBehaviour
 
         if (statController.GetCurHp() <= amount)
         {
+            transform.DOShakePosition(1.5f, new Vector3(0.4f, 0, 0), 15, 0, false, false).SetUpdate(true);
             Time.timeScale = 0f;
             if (!isPlayers)
             {   //TODO: 플레이어 승리 시 동작

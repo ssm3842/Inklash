@@ -10,6 +10,8 @@ public class CardRewardUI : MonoBehaviour
 
     [SerializeField]GameObject cardPrefab;
 
+    [SerializeField]GameObject cardDescPanel;
+
     [SerializeField]Button confirmButton;
 
     CardRewardCardUI rewardCard;
@@ -19,6 +21,8 @@ public class CardRewardUI : MonoBehaviour
         rewardCard = null;
 
         confirmButton.interactable = false;
+
+        cardDescPanel.SetActive(false);
 
         foreach(Transform child in cardRewardContainer.transform)
         {
@@ -30,17 +34,19 @@ public class CardRewardUI : MonoBehaviour
             GameObject cardUI = Instantiate(cardPrefab, cardRewardContainer);
             cardUI.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
             cardUI.GetComponent<CardRewardCardUI>().Setup(cardData.card);
-            cardUI.GetComponent<Button>().onClick.AddListener(() => selectCard(cardUI.GetComponent<CardRewardCardUI>()));
+            cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>()));
         }
 
         gameObject.SetActive(true);
     }
 
-    void selectCard(CardRewardCardUI card)
+    void SelectCard(CardRewardCardUI card)
     {
         foreach(Transform child in cardRewardContainer)
         {
             child.gameObject.GetComponent<CardRewardCardUI>().SetCardDark(true);
+            cardDescPanel.SetActive(true);
+            cardDescPanel.GetComponent<RectTransform>().position = card.transform.position;
         }
         card.gameObject.GetComponent<CardRewardCardUI>().SetCardDark(false);
 
@@ -53,6 +59,11 @@ public class CardRewardUI : MonoBehaviour
         DeckManager.Inst.AddCardToDeck(rewardCard.cardContent);
         // battleRewardController.CardRewardAccepted();
         
+        RunManager.Inst.mapManager.SetVisible();
+        gameObject.SetActive(false);
+    }
+    public void SkipCard()
+    {
         RunManager.Inst.mapManager.SetVisible();
         gameObject.SetActive(false);
     }

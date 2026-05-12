@@ -233,7 +233,6 @@ public class CardManager : MonoBehaviour
 
         // 높이에 따른 투명도 조절 (기존 Update 로직 활용)
         UpdateCardAlpha(eventData.position);
-        
     }
 
     // 마우스를 뗐을 때 호출
@@ -296,6 +295,7 @@ public class CardManager : MonoBehaviour
         float targetAlpha = 1f;
         if(draggingCard.transform.position.y >= 350)
         {
+            cardDescPanel.SetActive(false);
             targetAlpha = 0.35f;
             if(draggingCard.cardContent.cardType == CardType.Spell)
             {
@@ -315,6 +315,7 @@ public class CardManager : MonoBehaviour
         }
         else
         {
+            cardDescPanel.SetActive(true);
             spellAreaViewer.gameObject.SetActive(false);
             targetAlpha = 1f;
         }
