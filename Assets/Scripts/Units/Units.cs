@@ -255,7 +255,7 @@ public class Units : DamageableObject
         Units targetUnit = target?.GetComponent<Units>();
         float damage = statController.GetStat(StatType.ATK);
 
-        if (HasBuff("DoubleAttack")) // 검 유닛의 추가 공격
+        if (HasBuff("DoubleAttack")) 
         {
             PerformHit(target, damage);
 
@@ -492,7 +492,7 @@ public class Units : DamageableObject
 
         for (int i = 0; i < 2; i++)
         {
-            Vector3 spawnPos = transform.position + new Vector3(0, Random.Range(-0.5f, 0.5f), 0);
+            Vector3 spawnPos = transform.position + new Vector3(0, Random.Range(-0.2f, 0.2f), 0);
             GameObject child = Instantiate(this.gameObject, spawnPos, Quaternion.identity,parentTransform);
 
             Units childUnit = child.GetComponent<Units>();

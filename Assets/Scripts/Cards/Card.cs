@@ -58,7 +58,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         transform.rotation = Quaternion.identity;
         transform.localScale = new Vector3(1.5f, 1.5f, 1f);
 
-        // Time.timeScale = 0.1f;
+        cardManager.OnCardHoverStart(cardContent, gameObject); 
     }
     //마우스 호버 종료 시
     public void OnPointerExit(PointerEventData eventData)
@@ -70,7 +70,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         transform.rotation = originalRotation;
         transform.localScale = new Vector3(1f, 1f, 1f);
 
-        // Time.timeScale = 1f;
+        cardManager.OnCardHoverEnd(); 
     }
 
     //마우스 드래그 시작 시

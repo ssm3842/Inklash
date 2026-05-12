@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: d1d98dda94a8a85488966dc0a7d13899
+guid: 3699cee3b4065704c94060ede1c018ad
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1758097378417996226
-    second: "\uBA54\uC778\uBA54\uB274 \uC774\uBBF8\uC9C02_0"
+      213: -4019097937451829302
+    second: MainMenuButton_0
+  - first:
+      213: 1678278478358739047
+    second: MainMenuButton_1
+  - first:
+      213: -4759216707479714203
+    second: MainMenuButton_2
+  - first:
+      213: 4614342308545453378
+    second: MainMenuButton_3
+  - first:
+      213: -4780821099455803201
+    second: MainMenuButton_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uBA54\uC778\uBA54\uB274 \uC774\uBBF8\uC9C02_0"
+      name: MainMenuButton_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1672
-        height: 941
+        y: 476
+        width: 282
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e3e89d6cfbbf997e0800000000000000
-      internalID: -1758097378417996226
+      spriteID: ac7bda058bb4938c0800000000000000
+      internalID: -4019097937451829302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainMenuButton_1
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 3054
+        height: 615
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76871c852617a4710800000000000000
+      internalID: 1678278478358739047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainMenuButton_2
+      rect:
+        serializedVersion: 2
+        x: 2915
+        y: 476
+        width: 282
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5664195be9dd3fdb0800000000000000
+      internalID: -4759216707479714203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainMenuButton_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 282
+        height: 283
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24d58ecb1ef690040800000000000000
+      internalID: 4614342308545453378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainMenuButton_4
+      rect:
+        serializedVersion: 2
+        x: 2915
+        y: 0
+        width: 282
+        height: 283
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb09e383a8c17adb0800000000000000
+      internalID: -4780821099455803201
       vertices: []
       indices: 
       edges: []
@@ -135,7 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uBA54\uC778\uBA54\uB274 \uC774\uBBF8\uC9C02_0": -1758097378417996226
+      MainMenuButton_0: -4019097937451829302
+      MainMenuButton_1: 1678278478358739047
+      MainMenuButton_2: -4759216707479714203
+      MainMenuButton_3: 4614342308545453378
+      MainMenuButton_4: -4780821099455803201
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

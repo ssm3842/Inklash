@@ -28,8 +28,6 @@ MonoBehaviour:
   playerSpells:
   - id: Lightning
     cardContents: {fileID: 11400000, guid: 9fddb49316cd4404083abd5c20a36ecf, type: 2}
-  - id: Rage
-    cardContents: {fileID: 11400000, guid: 632b4a85891000e439f8fcd1a9a5e7f6, type: 2}
   - id: Freeze
     cardContents: {fileID: 11400000, guid: ea8d2e5a208c85d479e9df7f530743b3, type: 2}
   - id: Fireball

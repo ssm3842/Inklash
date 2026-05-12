@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class BattleManager : MonoBehaviour
 
         cardManager.cardUseManager = cardUseManager;
 
+        gameObject.SetActive(true);
+
         //덱, 코스트 초기화 및 전투 시작.
         cardManager.Init();
         battleUICanvas.SetActive(true);
@@ -27,7 +30,6 @@ public class BattleManager : MonoBehaviour
         DamageTextCanvas.Inst.Init();
 
         Time.timeScale = 1f;
-        gameObject.SetActive(true);
 
         //이전 전투에서 소환된 유닛을 제거.
         foreach(Transform unit in cardUseManager.transform)
@@ -51,8 +53,28 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            //골드 획득
+            RunManager.Inst.resourceManager?.EarnGold(Random.Range(50, 70));
+            //짤랑 사운드 설정
+
+            //카드 보상 캔버스 설정
+
+
+            List<CardDataSO> cardRewardList = new List<CardDataSO>();
+            List<CardDataSO> allCardRewardPool = RunManager.Inst.unitDataManager.GetCardRewardPool();
+            for(int i=0; i<3; i++)
+            {
+                int randomI = Random.Range(0, allCardRewardPool.Count);
+
+                CardDataSO currentCardData = allCardRewardPool[randomI];
+                cardRewardList.Add(currentCardData);
+            }
+            RunManager.Inst.cardRewardCanvas.GetComponent<CardRewardUI>().ShowCardReward(cardRewardList);
+
+
             //보상을 설정
-            battleRewardCanvas.AddRewards(goldButtons: 1, cardButtons: 1);
+            // battleRewardCanvas.AddRewards(goldButtons: 1, cardButtons: 1);
+
 
             cardManager.CardRightClicked();
 
