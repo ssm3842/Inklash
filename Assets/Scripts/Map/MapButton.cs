@@ -42,11 +42,12 @@ public class MapButton : MonoBehaviour
     public void OnButtonClicked()
     {
         StartCoroutine(OnButtonClickedRoutine());
-        RunManager.Inst.mapManager.MapbuttonClicked();
     }
     IEnumerator OnButtonClickedRoutine()
     {
         if (!room.isInteractable) yield break;
+
+        RunManager.Inst.mapManager.MapbuttonClicked();
 
         clearMark.SetActive(true);
         clearMark.GetComponent<Animator>().SetTrigger("Clicked");

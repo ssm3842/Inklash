@@ -339,6 +339,7 @@ public class CardManager : MonoBehaviour
     public void OnCardHoverEnd()
     {
         cardDescPanel.SetActive(false);
+        handLayout.AlignCards();
     }
 
     public void ExecuteCopyEffect()
