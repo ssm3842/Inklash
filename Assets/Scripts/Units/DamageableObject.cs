@@ -9,6 +9,8 @@ public class DamageableObject : MonoBehaviour
     [SerializeField]protected StatController statController;
     [SerializeField]public BuffController buffController;
 
+    private EnemyBaseDataSO currentEnemyData;
+    public EnemyBaseDataSO CurrentEnemyData => currentEnemyData;
     [SerializeField]Slider healthBarSlider;
     [SerializeField]TextMeshProUGUI healthBarText;
 
@@ -22,10 +24,12 @@ public class DamageableObject : MonoBehaviour
 
     public List<string> onHitBuffTags = new List<string>();
     
-    virtual public void Init(bool players, UnitStats stats)
+    virtual public void Init(bool players, UnitStats stats, EnemyBaseDataSO data = null)
     {        
         statController.InitStat(stats);
         buffController.ClearBuffs();
+
+        currentEnemyData = data;
         if(healthBarSlider) 
         {
             healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
@@ -83,7 +87,7 @@ public class DamageableObject : MonoBehaviour
             float currentHp = statController.GetCurHp();
             float maxHp = statController.GetStat(StatType.MAX_HP);
 
-            if (currentHp <= maxHp * 0.5f)
+            if (currentHp <= maxHp * 0.5f && currentEnemyData.isBoss)
             {
                 isPhase2Triggered = true;
                 RunManager.Inst.battleManager.cardUseManager.ChangePhase(CardUseManager.SpawnPhase.Phase2);
