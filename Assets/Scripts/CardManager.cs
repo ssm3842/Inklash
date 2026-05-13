@@ -51,6 +51,12 @@ public class CardManager : MonoBehaviour
 
     void StartBattle()
     {
+        for(int i=playerHands.Count-1; i>=0; i--)
+        {
+            Destroy(playerHands[i].gameObject);
+            playerHands.Remove(playerHands[i]);
+        }
+
         Shuffle(currentBattleDeck);
 
         StartCoroutine(DrawNewHand());
