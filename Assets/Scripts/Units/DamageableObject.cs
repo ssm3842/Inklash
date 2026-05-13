@@ -42,6 +42,8 @@ public class DamageableObject : MonoBehaviour
 
     public Vector3 GetHitPosition()
     {
+        if (this == null) return Vector3.zero;
+        
         float xSign = isPlayers ? -1f : 1f;
         Vector3 localOffset = new Vector3(hitEffectOffset.x * xSign, hitEffectOffset.y, 0f);
         return transform.TransformPoint(localOffset);

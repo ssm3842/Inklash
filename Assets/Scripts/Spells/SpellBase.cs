@@ -65,6 +65,8 @@ public class SpellBase : MonoBehaviour , IBuffable
 
     public void PerformHit(Collider2D target, float amount = 0)
     {
+        if (target == null) return;
+
         float explosionDamage = 1.0f;
         if (HasBuff("Marker"))
         {
@@ -84,7 +86,7 @@ public class SpellBase : MonoBehaviour , IBuffable
         }
         if (HasBuff("Explosion"))
         {
-             StartCoroutine(target.gameObject.GetComponent<Units>().TakeDamage(explosionDamage,amount+0.5f));
+            StartCoroutine(target.gameObject.GetComponent<Units>().TakeDamage(explosionDamage,amount+0.5f));
         }
 
          if(HasBuff("Poison"))

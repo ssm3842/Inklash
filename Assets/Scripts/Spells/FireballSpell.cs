@@ -102,9 +102,12 @@ public class Fireball : SpellBase
         Collider2D[] enemies = Physics2D.OverlapBoxAll(new Vector2(to.x, 0f), new Vector2(range, 100f), 0f);
         foreach (Collider2D enemy in enemies)
         {
+            if (enemy == null) continue;
+
             var damageable = enemy.GetComponent<DamageableObject>();
             if (damageable == null || damageable.isPlayers) continue;
             StartCoroutine(damageable.TakeDamage(damage));
+            PerformHit(enemy);
         }
     }
 }

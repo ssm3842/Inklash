@@ -40,11 +40,14 @@ public class Units : DamageableObject
 
         SR = GetComponent<SpriteRenderer>();
         COL = GetComponent<Collider2D>();
+
+        hitFlashMPB = new MaterialPropertyBlock();
     }
 
     protected void PlayHitFlash()
     {
         if (SR == null) return;
+        if (hitFlashMPB == null) hitFlashMPB = new MaterialPropertyBlock();
         if (hitFlashRoutine != null) StopCoroutine(hitFlashRoutine);
         hitFlashRoutine = StartCoroutine(HitFlashCoroutine());
     }
@@ -222,6 +225,8 @@ public class Units : DamageableObject
 
 
         yield return new WaitForSeconds(delayTime);
+
+        if (this == null || isDead) yield break;
 
         PlayHitFlash();
 
@@ -475,10 +480,10 @@ public class Units : DamageableObject
     {
         yield return new WaitForSeconds(0.15f); // 공격 딜레이
         
-        if (currentTarget != null && !currentTarget.gameObject.activeSelf == false)
-        {
-            PerformHit(currentTarget, dmg);
-        }
+        if (currentTarget == null) yield break;
+        if (!currentTarget.gameObject.activeSelf) yield break;
+    
+        PerformHit(currentTarget, dmg);
     }
 
     public void HandleOnDeathEffects()

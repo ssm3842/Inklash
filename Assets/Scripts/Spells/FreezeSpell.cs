@@ -51,6 +51,8 @@ public class Freeze : SpellBase
         Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position, new Vector2(range, 100f), 0f);
         foreach (Collider2D enemy in enemies)
         {
+            if (enemy == null) continue;
+            
             var damageable = enemy.GetComponent<DamageableObject>();
             if (damageable == null || damageable.isPlayers) continue;
             if (enemy.GetComponent<Units>() == null) continue;

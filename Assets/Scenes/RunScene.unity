@@ -30251,8 +30251,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ccab81f7caf3eaa4cbb82d7aad570e4a, type: 2}
   - {fileID: 11400000, guid: 640db264a4f59b3428c215428576c10d, type: 2}
   - {fileID: 11400000, guid: e4e4b1b1b5bfd64439407ab0f70f0f80, type: 2}
+  - {fileID: 11400000, guid: 4b542635c1fde8d41ad6bd2bc7e0e4a7, type: 2}
+  - {fileID: 11400000, guid: 3d25d01c8a3243647b315325066e93dd, type: 2}
+  - {fileID: 11400000, guid: 149248b2dea23e442b260a5827efb14e, type: 2}
+  - {fileID: 11400000, guid: cb6f621cf28a17040bc8d334af522b7b, type: 2}
   bossEnemyBaseDatas:
-  - {fileID: 11400000, guid: ccab81f7caf3eaa4cbb82d7aad570e4a, type: 2}
+  - {fileID: 11400000, guid: 2611196ca2f3b9640b5afe24ab4b28fa, type: 2}
 --- !u!4 &2087044754
 Transform:
   m_ObjectHideFlags: 0
