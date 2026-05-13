@@ -6,10 +6,18 @@ public class CostManager : MonoBehaviour
     public int currentCost;
 
     public float time = 0f;
+    float currentRegenTime;
 
     public void Init()
     {
         currentCost = 0;
+        time = 0f;
+
+        int deckSize = DeckManager.Inst.GetDeckdata().Count;
+        currentRegenTime = GameRule.GetCostRegenTime(deckSize);
+
+        int tier = GameRule.GetCostRegenTier(deckSize);
+        Debug.Log($"[CostManager] 덱 {deckSize}장, 단계 {tier}, 재생 {currentRegenTime}초");
     }
 
     void Update()
@@ -18,7 +26,7 @@ public class CostManager : MonoBehaviour
         {
             time += Time.deltaTime;
 
-            if (time > GameRule.COST_GENERATE_SECOND)
+            if (time > currentRegenTime)
             {
                 AddCost(1);
                 time = 0f;

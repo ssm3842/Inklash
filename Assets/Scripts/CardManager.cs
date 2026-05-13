@@ -61,6 +61,7 @@ public class CardManager : MonoBehaviour
         if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가.
 
         CardContent cardData = await PopCardFromDeck();
+        if (cardData == null) return;
 
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
@@ -100,19 +101,7 @@ public class CardManager : MonoBehaviour
     async Task<CardContent> PopCardFromDeck()
     {
 
-        if (currentBattleDeck.Count == 0)
-        {
-            if (discardBattleDeck.Count == 0)
-            {
-                Debug.LogWarning("뽑을 카드와 버린 카드가 모두 없습니다!");
-                return null;
-            }
-            currentBattleDeck = new List<CardContent>(discardBattleDeck);
-            discardBattleDeck.Clear();
-
-            Shuffle(currentBattleDeck);
-            await Task.Delay(700);
-        }
+        if (currentBattleDeck.Count == 0) return null;
         
         CardContent cardContent = currentBattleDeck[0];
         currentBattleDeck.RemoveAt(0);
@@ -283,11 +272,31 @@ public class CardManager : MonoBehaviour
     {
         if (playerHands.Count <= 0)
         {
-            costManager.AddCost(3);
-            StartCoroutine(DrawNewHand());
+            // costManager.AddCost(3);
+            StartCoroutine(ReshuffleAndDraw());
         }
         
         handLayout.AlignCards();
+    }
+
+    IEnumerator ReshuffleAndDraw()
+    {
+        // 드로우 더미가 비어있으면 (=한 바퀴 다 돈 상태) 셔플 + 페이백
+        if (currentBattleDeck.Count == 0 && discardBattleDeck.Count > 0)
+        {
+            currentBattleDeck = new List<CardContent>(discardBattleDeck);
+            discardBattleDeck.Clear();
+            Shuffle(currentBattleDeck);
+            
+            // costManager.AddCost(3);   // 페이백 (셔플 시작 시 즉시 지급)
+            
+            graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
+            drawCountTMP.text = currentBattleDeck.Count.ToString("D2");
+            
+            yield return new WaitForSecondsRealtime(1.5f);   // 셔플 대기
+        }
+        
+        StartCoroutine(DrawNewHand());
     }
 
     // 투명도 조절 로직 분리

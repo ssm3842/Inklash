@@ -30293,11 +30293,11 @@ MonoBehaviour:
   enemyBase: {fileID: 597376420}
   bossPhaseThreshold: {fileID: 505949103}
   enemyBaseDatas:
-  - {fileID: 11400000, guid: bcc5a49c5827e7244b79838face5774e, type: 2}
-  - {fileID: 11400000, guid: 079ca3aea72853c4cb8bcfbd91fa723f, type: 2}
+  - {fileID: 11400000, guid: ccab81f7caf3eaa4cbb82d7aad570e4a, type: 2}
+  - {fileID: 11400000, guid: 640db264a4f59b3428c215428576c10d, type: 2}
+  - {fileID: 11400000, guid: e4e4b1b1b5bfd64439407ab0f70f0f80, type: 2}
   bossEnemyBaseDatas:
-  - {fileID: 11400000, guid: fc24ae12400d10f40b99064e8a91f405, type: 2}
-  - {fileID: 11400000, guid: 321c70f25fbfb0d408d15d48cf5de038, type: 2}
+  - {fileID: 11400000, guid: ccab81f7caf3eaa4cbb82d7aad570e4a, type: 2}
 --- !u!4 &2087044754
 Transform:
   m_ObjectHideFlags: 0

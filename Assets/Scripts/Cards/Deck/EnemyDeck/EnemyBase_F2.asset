@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2e8b7ec94de4744c8a06c967fe3af30, type: 3}
-  m_Name: EnemyDeck_2
+  m_Name: EnemyBase_F2
   m_EditorClassIdentifier: 
-  baseSprite: {fileID: 21300000, guid: 329a1f8cca9598f428757648e7a724eb, type: 3}
-  maxHP: 650
+  baseSprite: {fileID: 0}
+  maxHP: 240
   isBoss: 0
-  startPatterns:
-  - {fileID: 11400000, guid: aa7d4601ea7472a4ea0db73a62b21be3, type: 2}
+  hpMultiplier: 0.85
+  atkMultiplier: 0.85
+  minFloor: 2
+  maxFloor: 2
+  startPatterns: []
   normalPatterns:
-  - {fileID: 11400000, guid: 1225f71dc9ad9db4ab00dd0e591364d6, type: 2}
-  phase2Patterns:
-  - {fileID: 11400000, guid: b3ec0f68fecf2304b99af301a133ec5c, type: 2}
+  - {fileID: 11400000, guid: 228fb015c524a1e448b53357084a0778, type: 2}
+  phase2Patterns: []

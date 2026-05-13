@@ -4,6 +4,8 @@ public class FireUnit : Units
 {
     protected override void ApplyBurnEffect(DamageableObject hitTarget)
     {
+        if (hitTarget == null) return;
+        
         string myID = gameObject.GetInstanceID().ToString();
         BurnEffect effect = hitTarget.GetComponent<BurnEffect>();
 

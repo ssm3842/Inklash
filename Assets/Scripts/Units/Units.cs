@@ -252,6 +252,8 @@ public class Units : DamageableObject
 
     public virtual void _AttackEnemy() //공격은 애니메이션에서 진행.
     {
+        if (target == null) return;
+        
         Units targetUnit = target?.GetComponent<Units>();
         float damage = statController.GetStat(StatType.ATK);
 
@@ -389,7 +391,8 @@ public class Units : DamageableObject
     
     private void PerformHit(DamageableObject hitTarget, float dmg)
     {
-        
+        if (hitTarget == null) return;
+
         if (HasBuff("Marker")) // 표식
         {
             hitTarget.buffController.GetBuff(new BuffMarking(3f)); 

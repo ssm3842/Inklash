@@ -78,7 +78,7 @@ public class DamageableObject : MonoBehaviour
             }
         }
 
-        if (!isPlayers && !isPhase2Triggered)
+        if (!isPlayers && !isPhase2Triggered && RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData.isBoss)
         {
             float currentHp = statController.GetCurHp();
             float maxHp = statController.GetStat(StatType.MAX_HP);
