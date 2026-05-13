@@ -40,6 +40,12 @@ public class Units : DamageableObject
 
         SR = GetComponent<SpriteRenderer>();
         COL = GetComponent<Collider2D>();
+
+        hitFlashMPB = new MaterialPropertyBlock();  //한상준 추가
+                                                    //private MaterialPropertyBlock hitFlashMPB;
+                                                    //위 변수는 변수 선언만 되어있고 실제 객체 생성이 안된 상태
+                                                    //그래서 hitFlashMPB가 null 상태여서 버그가 생김.
+                                                    //챗gpt가 그렇다고 함... 솔직히 뭔말인지 모르겠음...
     }
 
     protected void PlayHitFlash()
@@ -389,7 +395,8 @@ public class Units : DamageableObject
     
     private void PerformHit(DamageableObject hitTarget, float dmg)
     {
-        
+        if (hitTarget == null) return;
+
         if (HasBuff("Marker")) // 표식
         {
             hitTarget.buffController.GetBuff(new BuffMarking(3f)); 
