@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
+using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour
 {
@@ -17,6 +19,12 @@ public class CardManager : MonoBehaviour
     [SerializeField] List<CardContent> currentBattleDeck;
     [SerializeField] List<CardContent> discardBattleDeck;
     [SerializeField] List<Card> playerHands;
+
+    [SerializeField] TextMeshProUGUI drawCountTMP;
+    [SerializeField] TextMeshProUGUI graveCountTMP;
+
+    [SerializeField] GameObject cardDescPanel;
+    [SerializeField] TextMeshProUGUI cardDescText;
 
     [SerializeField]SpellAreaViewer spellAreaViewer;
     [SerializeField]RectTransform rect;
@@ -44,28 +52,28 @@ public class CardManager : MonoBehaviour
     void StartBattle()
     {
         Shuffle(currentBattleDeck);
-        DrawNewHand();
+
+        StartCoroutine(DrawNewHand());
     }
 
-    void DrawCard()
+    async Task DrawCard()
     {
-        if (currentBattleDeck.Count <= 0)
-        {
-            currentBattleDeck = new List<CardContent>(discardBattleDeck);
-            discardBattleDeck.Clear();
-        }
+        if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가.
 
-        if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가. //TODO: 반응 추가하기 ex)카드를 더 뽑을 수 없어 메시지 등
+        CardContent cardData = await PopCardFromDeck();
 
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
-        card.Setup(this, PopCardFromDeck(), card.transform.GetSiblingIndex());
+        card.Setup(this, cardData, card.transform.GetSiblingIndex());
         playerHands.Add(card);
+
+        graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
+        drawCountTMP.text = currentBattleDeck.Count.ToString("D2");
 
         handLayout.AlignCards();
     }
 
-    public void DrawNewHand() //패가 가득 찰 때까지 카드를 뽑음.
+    public IEnumerator DrawNewHand() //패가 가득 찰 때까지 카드를 뽑음.
     {   
         // if(!isFree) //전투 시작 시 또는 패를 다 사용했을 때는 비용 없이 카드 다시뽑기.
         // {
@@ -80,13 +88,16 @@ public class CardManager : MonoBehaviour
 
         for (int i = 0; i < GameRule.MAX_HAND_CARD_NUM; i++) //카드 5장 다시 뽑기
         {
-            DrawCard();
+            var task = DrawCard();
+            yield return new WaitUntil(() => task.IsCompleted);
+
+            yield return new WaitForSeconds(0.1f);
         }
         
         handLayout.AlignCards();
     }
 
-    CardContent PopCardFromDeck()
+    async Task<CardContent> PopCardFromDeck()
     {
 
         if (currentBattleDeck.Count == 0)
@@ -100,6 +111,7 @@ public class CardManager : MonoBehaviour
             discardBattleDeck.Clear();
 
             Shuffle(currentBattleDeck);
+            await Task.Delay(700);
         }
         
         CardContent cardContent = currentBattleDeck[0];
@@ -183,13 +195,13 @@ public class CardManager : MonoBehaviour
         return discardBattleDeck;
     }
 
-    private void Shuffle(List<CardContent> list)
+    void Shuffle(List<CardContent> list)
     {
         int n = list.Count;
         while (n > 1)
         {
             n--;
-            int k = Random.Range(0, n + 1); 
+            int k = UnityEngine.Random.Range(0, n + 1); 
             
             CardContent value = list[k];
             list[k] = list[n];
@@ -221,7 +233,6 @@ public class CardManager : MonoBehaviour
 
         // 높이에 따른 투명도 조절 (기존 Update 로직 활용)
         UpdateCardAlpha(eventData.position);
-        
     }
 
     // 마우스를 뗐을 때 호출
@@ -259,6 +270,9 @@ public class CardManager : MonoBehaviour
             MoveCardToDiscardDeck(card);
         }
 
+        graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
+        cardDescPanel.SetActive(false);
+
         draggingCard = null;
         
         CheckHandLeft();
@@ -269,7 +283,7 @@ public class CardManager : MonoBehaviour
         if (playerHands.Count <= 0)
         {
             costManager.AddCost(3);
-            DrawNewHand();
+            StartCoroutine(DrawNewHand());
         }
         
         handLayout.AlignCards();
@@ -281,6 +295,7 @@ public class CardManager : MonoBehaviour
         float targetAlpha = 1f;
         if(draggingCard.transform.position.y >= 350)
         {
+            cardDescPanel.SetActive(false);
             targetAlpha = 0.35f;
             if(draggingCard.cardContent.cardType == CardType.Spell)
             {
@@ -300,11 +315,24 @@ public class CardManager : MonoBehaviour
         }
         else
         {
+            cardDescPanel.SetActive(true);
             spellAreaViewer.gameObject.SetActive(false);
             targetAlpha = 1f;
         }
         
         draggingCardCanvasGroupComponent.alpha = targetAlpha;
+    }
+
+    public void OnCardHoverStart(CardContent cardContent, GameObject gameObject)
+    {
+        cardDescPanel.SetActive(true);
+        cardDescPanel.GetComponent<RectTransform>().position = gameObject.GetComponent<RectTransform>().position;
+        cardDescText.text = cardContent.description;
+    }
+
+    public void OnCardHoverEnd()
+    {
+        cardDescPanel.SetActive(false);
     }
 
     public void ExecuteCopyEffect()

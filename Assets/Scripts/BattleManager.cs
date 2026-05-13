@@ -20,6 +20,8 @@ public class BattleManager : MonoBehaviour
 
         cardManager.cardUseManager = cardUseManager;
 
+        gameObject.SetActive(true);
+
         //덱, 코스트 초기화 및 전투 시작.
         cardManager.Init();
         battleUICanvas.SetActive(true);
@@ -28,7 +30,6 @@ public class BattleManager : MonoBehaviour
         DamageTextCanvas.Inst.Init();
 
         Time.timeScale = 1f;
-        gameObject.SetActive(true);
 
         //이전 전투에서 소환된 유닛을 제거.
         foreach(Transform unit in cardUseManager.transform)

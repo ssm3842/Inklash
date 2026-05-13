@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 2542267662316254903}
   - component: {fileID: 6631903394278263399}
   - component: {fileID: 7846738093183849117}
+  - component: {fileID: 6124145040030370851}
   m_Layer: 5
   m_Name: Button_Graphic
   m_TagString: Untagged
@@ -362,6 +363,19 @@ MonoBehaviour:
           m_StringArgument: Graphic
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6124145040030370851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716348471844112105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3916965192322e4794a346e0ce4a7df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 0}
 --- !u!1 &788979315543155063
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,6 +834,7 @@ GameObject:
   - component: {fileID: 7840921056478791804}
   - component: {fileID: 9130115438835649449}
   - component: {fileID: 3045205268167314514}
+  - component: {fileID: 8133442311196139058}
   m_Layer: 5
   m_Name: Button_Sound
   m_TagString: Untagged
@@ -941,6 +956,19 @@ MonoBehaviour:
           m_StringArgument: Sound
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8133442311196139058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872945495719637596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3916965192322e4794a346e0ce4a7df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 0}
 --- !u!1 &1924991341452470869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,6 +1733,7 @@ GameObject:
   - component: {fileID: 1461768431554599652}
   - component: {fileID: 1196921532085449849}
   - component: {fileID: 7681311635327013297}
+  - component: {fileID: 2583885180015293463}
   m_Layer: 5
   m_Name: Close
   m_TagString: Untagged
@@ -1826,6 +1855,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2583885180015293463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3632057186351601753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3916965192322e4794a346e0ce4a7df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 0}
 --- !u!1 &3969322159736775583
 GameObject:
   m_ObjectHideFlags: 0
