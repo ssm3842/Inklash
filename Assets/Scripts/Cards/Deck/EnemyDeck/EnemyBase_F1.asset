@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e8b7ec94de4744c8a06c967fe3af30, type: 3}
   m_Name: EnemyBase_F1
   m_EditorClassIdentifier: 
-  baseSprite: {fileID: 0}
+  baseSprite: {fileID: 21300000, guid: c55e3244ef4d7ed42a99cfc3f0896fc8, type: 3}
   maxHP: 200
   isBoss: 0
   hpMultiplier: 0.7
