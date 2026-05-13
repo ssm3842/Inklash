@@ -68,9 +68,9 @@ public class Units : DamageableObject
         hitFlashRoutine = null;
     }
 
-    override public void Init(bool isplayers, UnitStats stats)
+    override public void Init(bool isplayers, UnitStats stats, EnemyBaseDataSO data = null)
     {
-        base.Init(isplayers, stats);
+        base.Init(isplayers, stats, data);
 
         isDead = false; 
         isKnockedBack = false;

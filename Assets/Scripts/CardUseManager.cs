@@ -63,7 +63,7 @@ public class CardUseManager : MonoBehaviour
         stackedWordCardEffect = new List<SealType>();
 
         playerBase.GetComponent<DamageableObject>().Init(true, new UnitStats(300,0,0,0,0,0)); //TODO: 건물 체력 임시 생성.
-        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(currentEnemyData.maxHP,0,0,0,0,0));
+        enemyBase.GetComponent<DamageableObject>().Init(false, new UnitStats(currentEnemyData.maxHP,0,0,0,0,0),currentEnemyData);
         enemyBase.GetComponent<SpriteRenderer>().sprite = currentEnemyData.baseSprite;
         playerBase.gameObject.SetActive(true);
         enemyBase.gameObject.SetActive(true);

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DamageableObject : MonoBehaviour
 {
     [SerializeField]protected StatController statController;
     [SerializeField]public BuffController buffController;
 
+    private EnemyBaseDataSO currentEnemyData;
+    public EnemyBaseDataSO CurrentEnemyData => currentEnemyData;
     [SerializeField]Slider healthBarSlider;
     [SerializeField]TextMeshProUGUI healthBarText;
 
@@ -22,10 +25,12 @@ public class DamageableObject : MonoBehaviour
 
     public List<string> onHitBuffTags = new List<string>();
     
-    virtual public void Init(bool players, UnitStats stats)
+    virtual public void Init(bool players, UnitStats stats, EnemyBaseDataSO data = null)
     {        
         statController.InitStat(stats);
         buffController.ClearBuffs();
+
+        currentEnemyData = data;
         if(healthBarSlider) 
         {
             healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
@@ -49,8 +54,13 @@ public class DamageableObject : MonoBehaviour
 
         DamageTextCanvas.Inst.InstDamageText(amount, transform.position, isPlayers);
 
-        if (statController.GetCurHp() <= amount)
+        //이미 체력이 0이하면 무시.
+        if(statController.GetCurHp() <= 0f) yield break;
+
+        statController.ChangeCurHp(amount);
+        if (statController.GetCurHp() <= 0f)
         {
+            transform.DOShakePosition(1.5f, new Vector3(0.3f, 0, 0), 15, 0, false, false).SetUpdate(true);
             Time.timeScale = 0f;
             if (!isPlayers)
             {   //TODO: 플레이어 승리 시 동작
@@ -68,14 +78,10 @@ public class DamageableObject : MonoBehaviour
             RunManager.Inst.battleManager.cardUseManager.StopSpawnEnemyCoroutine();
             gameObject.SetActive(false);
         }
-        else
+        if (healthBarSlider)
         {
-            statController.ChangeCurHp(amount);
-            if (healthBarSlider)
-            {
-                healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
-                healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
-            }
+            healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
+            healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
         }
 
         if (!isPlayers && !isPhase2Triggered && RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData.isBoss)
@@ -83,7 +89,7 @@ public class DamageableObject : MonoBehaviour
             float currentHp = statController.GetCurHp();
             float maxHp = statController.GetStat(StatType.MAX_HP);
 
-            if (currentHp <= maxHp * 0.5f)
+            if (currentHp <= maxHp * 0.5f && currentEnemyData.isBoss)
             {
                 isPhase2Triggered = true;
                 RunManager.Inst.battleManager.cardUseManager.ChangePhase(CardUseManager.SpawnPhase.Phase2);
