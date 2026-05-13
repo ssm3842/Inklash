@@ -54,9 +54,13 @@ public class DamageableObject : MonoBehaviour
 
         DamageTextCanvas.Inst.InstDamageText(amount, transform.position, isPlayers);
 
-        if (statController.GetCurHp() <= amount)
+        //이미 체력이 0이하면 무시.
+        if(statController.GetCurHp() <= 0f) yield break;
+
+        statController.ChangeCurHp(amount);
+        if (statController.GetCurHp() <= 0f)
         {
-            transform.DOShakePosition(1.5f, new Vector3(0.4f, 0, 0), 15, 0, false, false).SetUpdate(true);
+            transform.DOShakePosition(1.5f, new Vector3(0.3f, 0, 0), 15, 0, false, false).SetUpdate(true);
             Time.timeScale = 0f;
             if (!isPlayers)
             {   //TODO: 플레이어 승리 시 동작
@@ -74,14 +78,10 @@ public class DamageableObject : MonoBehaviour
             RunManager.Inst.battleManager.cardUseManager.StopSpawnEnemyCoroutine();
             gameObject.SetActive(false);
         }
-        else
+        if (healthBarSlider)
         {
-            statController.ChangeCurHp(amount);
-            if (healthBarSlider)
-            {
-                healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
-                healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
-            }
+            healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
+            healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
         }
 
         if (!isPlayers && !isPhase2Triggered)
