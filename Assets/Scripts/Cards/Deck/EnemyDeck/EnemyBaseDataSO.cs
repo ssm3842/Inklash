@@ -8,6 +8,9 @@ public class EnemyBaseDataSO : ScriptableObject
     public float maxHP;
     public bool isBoss = false;
     
+    [Header("초기 설정")]
+    public float initialSpawnDelay = 5f;
+    
     [Header("층별 배율")]                   
     public float hpMultiplier = 1.0f;            
     public float atkMultiplier = 1.0f;            

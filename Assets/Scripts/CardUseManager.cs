@@ -20,7 +20,6 @@ public class CardUseManager : MonoBehaviour
     List<SealType> stackedWordCardEffect;
 
     public Coroutine enemySpawnCoroutine = null;
-    private bool hasPhase2Bursted = false;
     
     public void InitUnitManager(bool isBoss)
     {
@@ -69,7 +68,6 @@ public class CardUseManager : MonoBehaviour
         enemyBase.gameObject.SetActive(true);
 
         currentPhase = SpawnPhase.GameStart;
-        hasPhase2Bursted = false;
 
         if(enemySpawnCoroutine == null) enemySpawnCoroutine = StartCoroutine(SpawnEnemyCoroutine());
     }
@@ -179,6 +177,9 @@ public class CardUseManager : MonoBehaviour
 
     IEnumerator SpawnEnemyCoroutine()
     {
+        if (currentEnemyData != null)
+        yield return new WaitForSeconds(currentEnemyData.initialSpawnDelay);
+        
         while (true)
         {
             SpawnPhase patternPhase = currentPhase;

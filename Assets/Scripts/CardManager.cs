@@ -104,6 +104,37 @@ public class CardManager : MonoBehaviour
         handLayout.AlignCards();
     }
 
+    public IEnumerator RerollAndDraw()
+    {
+        // 1. 손패의 카드들을 드로우 더미로 직접 합치기
+        for (int i = playerHands.Count - 1; i >= 0; i--)
+        {
+            MoveCardToDiscardDeck(playerHands[i]);
+        }
+        
+        // 2. 버린 카드 더미도 드로우 더미로 합치기
+        currentBattleDeck.AddRange(discardBattleDeck);
+        discardBattleDeck.Clear();
+        
+        // 3. 전체 셔플
+        Shuffle(currentBattleDeck);
+        
+        // 4. UI 업데이트
+        graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
+        drawCountTMP.text = currentBattleDeck.Count.ToString("D2");
+        handLayout.AlignCards();
+        
+        // 5. 5장 새로 뽑기 (대기 없이 즉시)
+        for (int i = 0; i < GameRule.MAX_HAND_CARD_NUM; i++)
+        {
+            var task = DrawCard();
+            yield return new WaitUntil(() => task.IsCompleted);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        handLayout.AlignCards();
+    }
+
     async Task<CardContent> PopCardFromDeck()
     {
 

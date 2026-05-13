@@ -27,6 +27,8 @@ public class BuffController : MonoBehaviour , IBuffable
 
     public void GetBuff(Buffs newBuff)
     {   
+        if (GetComponent<Units>() == null && newBuff.order == 1) return;
+        
         //현재 버프 중 같은 이름의 버프가 있는지 검사.
         foreach(Buffs existingBuff in buffList)
         {
