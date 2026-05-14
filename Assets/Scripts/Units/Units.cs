@@ -220,7 +220,7 @@ public class Units : DamageableObject
         // 표식 버프가 있다면 25% 증폭
         if (buffController.buffList.Exists(b => b.buffName == "Marking"))
         {
-            finalDamage = amount * 1.25f; 
+            finalDamage = amount * 1.5f; 
         }
 
 
@@ -341,7 +341,7 @@ public class Units : DamageableObject
         Destroy(this.gameObject);
     }
 
-    void ApplyKnockback(float distance, float duration)
+    public void ApplyKnockback(float distance, float duration)
     {
         if (currentKnockbackRoutine != null)
         {
@@ -400,7 +400,7 @@ public class Units : DamageableObject
 
         if (HasBuff("Marker")) // 표식
         {
-            hitTarget.buffController.GetBuff(new BuffMarking(3f)); 
+            hitTarget.buffController.GetBuff(new BuffMarking(15f)); 
         }
 
         if(HasBuff("Chiller")) // 냉기
@@ -410,7 +410,7 @@ public class Units : DamageableObject
 
         if(HasBuff("Weaker")) // 약화
         {
-            hitTarget.buffController.GetBuff(new BuffWeaken(3f)); 
+            hitTarget.buffController.GetBuff(new BuffWeaken(15f)); 
         }
 
         ApplyBurnEffect(hitTarget);

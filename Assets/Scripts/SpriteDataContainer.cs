@@ -44,7 +44,7 @@ public class SpriteDataContainer : MonoBehaviour
         {
             case SealType.Ignite:
                 return sealDatas[0];
-            case SealType.Cold:
+            case SealType.Chill:
                 return sealDatas[1];
             case SealType.ExtraHit:
                 return sealDatas[2];
@@ -52,7 +52,7 @@ public class SpriteDataContainer : MonoBehaviour
                 return sealDatas[3];
             case SealType.Pierce:
                 return sealDatas[4];
-            case SealType.Weak:
+            case SealType.Weaken:
                 return sealDatas[5];
             case SealType.Mark:
                 return sealDatas[6];

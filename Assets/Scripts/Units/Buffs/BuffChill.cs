@@ -13,7 +13,7 @@ public class BuffChilling : Buffs
     { 
         this.buffName = "Chilling"; 
         this.remainTime = remainTime; 
-        this.amount = 0.25f;
+        this.amount = 0.75f;
     }
 
     protected override void ApplyUnit(Units unit) 

@@ -40,7 +40,7 @@ public static class SealManager
                 case SealType.Mark:
                     bc.GetBuff(new BuffMarker());
                     break;
-                case SealType.Weak:
+                case SealType.Weaken:
                     bc.GetBuff(new BuffWeaker()); 
                     break;
                 case SealType.Chill:

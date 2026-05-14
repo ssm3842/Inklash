@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ac64787e8df6a945a23d7f52e6c8d82, type: 3}
-  m_Name: Cold
+  m_Name: Chill
   m_EditorClassIdentifier: 
   card:
-    id: Cold
-    name: "\uCC28\uAC00\uC6B4"
+    id: Chill
+    name: "\uB0C9\uAE30"
     cost: 1
     cardType: 2
     attackType: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 0}
-    seals: 02000000
+    seals: 08000000
     isCopied: 0
     cardImage: {fileID: 21300000, guid: e20a4505abda4cc44b6c941faac89907, type: 3}
     firstInfo: 0

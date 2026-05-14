@@ -60,9 +60,15 @@ public class DamageableObject : MonoBehaviour
         if(statController.GetCurHp() <= 0f) yield break;
 
         statController.ChangeCurHp(amount);
+        if (healthBarSlider)
+        {
+            healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
+            healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
+        }
+
         if (statController.GetCurHp() <= 0f)
         {
-            transform.DOShakePosition(1.5f, new Vector3(0.3f, 0, 0), 15, 0, false, false).SetUpdate(true);
+            transform.DOShakePosition(1.5f, new Vector3(0.25f, 0, 0), 15, 0, false, false).SetUpdate(true);
             Time.timeScale = 0f;
             if (!isPlayers)
             {   //TODO: 플레이어 승리 시 동작
@@ -80,21 +86,33 @@ public class DamageableObject : MonoBehaviour
             RunManager.Inst.battleManager.cardUseManager.StopSpawnEnemyCoroutine();
             gameObject.SetActive(false);
         }
-        if (healthBarSlider)
-        {
-            healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
-            healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
-        }
 
-        if (!isPlayers && !isPhase2Triggered && RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData.isBoss)
+        if(!isPhase2Triggered)
         {
             float currentHp = statController.GetCurHp();
             float maxHp = statController.GetStat(StatType.MAX_HP);
 
-            if (currentHp <= maxHp * 0.5f && currentEnemyData.isBoss)
+            if (currentHp <= maxHp * 0.5f)
             {
                 isPhase2Triggered = true;
-                RunManager.Inst.battleManager.cardUseManager.ChangePhase(CardUseManager.SpawnPhase.Phase2);
+                //밀어내기 진행
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+                foreach (Collider2D collider in colliders)
+                {
+                    if(collider.gameObject == gameObject) continue;
+
+                    Units units = collider.gameObject.GetComponent<Units>();
+                    if(units.isPlayers == isPlayers) continue;
+
+                    Debug.Log(colliders.Length);
+
+                    units.ApplyKnockback(2f, 0.3f);
+                }
+                
+                if (!isPlayers && currentEnemyData.isBoss)
+                {
+                    RunManager.Inst.battleManager.cardUseManager.ChangePhase(CardUseManager.SpawnPhase.Phase2);
+                }
             }
         }
     }

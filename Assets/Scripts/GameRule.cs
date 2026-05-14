@@ -5,8 +5,8 @@ public class GameRule : MonoBehaviour
     public static int MAX_HAND_CARD_NUM = 5;
 
     public static float COST_GENERATE_SECOND = 1.5f;
-    public const float COST_REGEN_TIER_STEP = 0.1f;
-    public static readonly int[] COST_REGEN_TIER_THRESHOLDS = {10, 15, 20, 25};
+    public const float COST_REGEN_TIER_STEP = 0.2f;
+    public static readonly int[] COST_REGEN_TIER_THRESHOLDS = {10, 12, 15, 19};
     public static int MAX_COST = 10;
     public static float REROLL_WAIT_SECOND = 15f;
 

@@ -67,7 +67,7 @@ public enum SealType
     ExtraHit,
     KnockBack,
     Pierce,
-    Weak,
+    Weaken,
     Mark,
     Chill,
     Ultimate,

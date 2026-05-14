@@ -7,12 +7,12 @@ public class MapDataGenerator : MonoBehaviour
     const int X_DIST = 200;
     const int Y_DIST = 150;
     const int PLACEMENT_RANDOMNESS = 25;
-    public const int FLOORS = 15;
+    public const int FLOORS = 14;
     public const int MAP_WIDTH = 4;
     const int PATHS = 4;
 
-    const int MIN_EVENT_COUNT = 10;
-    const int MAX_EVENT_COUNT = 15;
+    const int MIN_EVENT_COUNT = 9;
+    const int MAX_EVENT_COUNT = 12;
     const float EVENT_ROOMS_BASE_WEIGHT = 3f;
     int spawnedEventRoomCount = 0;
 
@@ -166,8 +166,12 @@ public class MapDataGenerator : MonoBehaviour
             if (room.nextRooms.Count > 0) room.roomType = RoomType.BATTLE;
         }
 
-        //9번째 노드는 항상 상점.
-        foreach (RoomContent room in mapData[8]) 
+        //상점 고정 생성.
+        foreach (RoomContent room in mapData[4]) 
+        {
+            if (room.nextRooms.Count > 0) room.roomType = RoomType.SHOP;
+        }
+        foreach (RoomContent room in mapData[9]) 
         {
             if (room.nextRooms.Count > 0) room.roomType = RoomType.SHOP;
         }

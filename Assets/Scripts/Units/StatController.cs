@@ -114,7 +114,7 @@ public class StatController : MonoBehaviour
     }
     public float GetCurHp(){ return curHP; }
 
-    public void ChangeCurHp(float amount) { curHP -= amount; }
+    public void ChangeCurHp(float amount) { curHP -= Mathf.RoundToInt(amount); }
 }
 
 [System.Serializable]

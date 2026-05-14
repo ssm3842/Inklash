@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using System.Threading.Tasks;
 
 public class CardManager : MonoBehaviour
 {
@@ -62,24 +61,6 @@ public class CardManager : MonoBehaviour
         StartCoroutine(DrawNewHand());
     }
 
-    async Task DrawCard()
-    {
-        if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가.
-
-        CardContent cardData = await PopCardFromDeck();
-        if (cardData == null) return;
-
-        var cardObject = Instantiate(cardPrefab, handLayout.transform);
-        var card = cardObject.GetComponent<Card>();
-        card.Setup(this, cardData, card.transform.GetSiblingIndex());
-        playerHands.Add(card);
-
-        graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
-        drawCountTMP.text = currentBattleDeck.Count.ToString("D2");
-
-        handLayout.AlignCards();
-    }
-
     public IEnumerator DrawNewHand() //패가 가득 찰 때까지 카드를 뽑음.
     {   
         // if(!isFree) //전투 시작 시 또는 패를 다 사용했을 때는 비용 없이 카드 다시뽑기.
@@ -95,12 +76,30 @@ public class CardManager : MonoBehaviour
 
         for (int i = 0; i < GameRule.MAX_HAND_CARD_NUM; i++) //카드 5장 다시 뽑기
         {
-            var task = DrawCard();
-            yield return new WaitUntil(() => task.IsCompleted);
-
+            DrawCard();
             yield return new WaitForSeconds(0.1f);
         }
+
+        CheckHandLeft();
         
+        handLayout.AlignCards();
+    }
+
+    void DrawCard()
+    {
+        if (playerHands.Count >= GameRule.MAX_HAND_CARD_NUM) return; //플레이어 패가 5장 이상이면 드로우 불가.
+
+        CardContent cardData = PopCardFromDeck();
+        if (cardData == null) return;
+
+        var cardObject = Instantiate(cardPrefab, handLayout.transform);
+        var card = cardObject.GetComponent<Card>();
+        card.Setup(this, cardData, card.transform.GetSiblingIndex());
+        playerHands.Add(card);
+
+        graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
+        drawCountTMP.text = currentBattleDeck.Count.ToString("D2");
+
         handLayout.AlignCards();
     }
 
@@ -127,17 +126,15 @@ public class CardManager : MonoBehaviour
         // 5. 5장 새로 뽑기 (대기 없이 즉시)
         for (int i = 0; i < GameRule.MAX_HAND_CARD_NUM; i++)
         {
-            var task = DrawCard();
-            yield return new WaitUntil(() => task.IsCompleted);
+            DrawCard();
             yield return new WaitForSeconds(0.1f);
         }
         
         handLayout.AlignCards();
     }
 
-    async Task<CardContent> PopCardFromDeck()
+    CardContent PopCardFromDeck()
     {
-
         if (currentBattleDeck.Count == 0) return null;
         
         CardContent cardContent = currentBattleDeck[0];
@@ -200,15 +197,11 @@ public class CardManager : MonoBehaviour
     void MoveCardToDiscardDeck(Card targetCard) //매개변수 카드를 패에서 묘지로 보냄.
     {
         playerHands.Remove(targetCard); //패에서 카드 데이터 제거.
+        if(targetCard.cardContent.isCopied) { Destroy(targetCard.gameObject); return; } //복사된 카드면 묘지로 가지않고 제거.
         discardBattleDeck.Add(targetCard.cardContent);
 
         targetCard.transform.SetParent(battleUICanvas.transform);
         Destroy(targetCard.gameObject);
-    }
-
-    public void OnCardUse()
-    {
-        // Debug.Log(transform.childCount);
     }
 
     public List<CardContent> GetDrawPile()
@@ -387,7 +380,7 @@ public class CardManager : MonoBehaviour
         if (draggingCard == null) return;
 
         CardContent copyContent = new CardContent(draggingCard.cardContent);
-        copyContent.cost = 0;
+        copyContent.cost = 1;
 
         SealManager.RemoveSealFromCard(copyContent, SealType.Copy);
 

@@ -37,7 +37,7 @@ MonoBehaviour:
     cardContents: {fileID: 11400000, guid: f0c885ad3207b4c40b366857d17f9200, type: 2}
   - id: Ignite
     cardContents: {fileID: 11400000, guid: b123ed38639ce8b40892b97946ebd18d, type: 2}
-  - id: Cold
+  - id: Chill
     cardContents: {fileID: 11400000, guid: 2c4897e35c9277443a777fed29239f63, type: 2}
   - id: Copy
     cardContents: {fileID: 11400000, guid: 28de8cb4ec256254eaff7699dca1fdba, type: 2}

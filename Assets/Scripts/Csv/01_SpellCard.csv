@@ -1,5 +1,5 @@
-﻿Card_ID,Name_Key,Cost,Value,Range,Desc_Key
-Lightning,SPELL_NAME_LIGHTNING,2,10,1.5,SPELL_DESC_LIGHTNING
-Rage,SPELL_NAME_RAGE,2,0.2,2.5,SPELL_DESC_RAGE
-Freeze,SPELL_NAME_FREEZE,3,3,2,SPELL_DESC_FREEZE
-Fireball,SPELL_NAME_FIREBALL,4,10,2,SPELL_DESC_FIREBALL
+﻿Card_ID     ,Name_Key               ,Cost   ,Value  ,Range  ,Desc_Key
+Lightning   ,SPELL_NAME_LIGHTNING   ,2      ,10     ,1.5    ,SPELL_DESC_LIGHTNING
+Rage        ,SPELL_NAME_RAGE        ,2      ,0.2    ,2.5    ,SPELL_DESC_RAGE
+Freeze      ,SPELL_NAME_FREEZE      ,3      ,3      ,2      ,SPELL_DESC_FREEZE
+Fireball    ,SPELL_NAME_FIREBALL    ,4      ,10     ,2      ,SPELL_DESC_FIREBALL

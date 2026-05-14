@@ -12,7 +12,7 @@ public class BuffWeaken : Buffs
     public BuffWeaken(float remainTime = 3.0f) 
     { 
         this.buffName = "Weaken"; 
-        this.amount = 0.25f;
+        this.amount = 0.5f;
         this.remainTime = remainTime;
     }
 

@@ -112,7 +112,13 @@ public class UnitDataManager : MonoBehaviour
             if (string.IsNullOrWhiteSpace(line)) continue;
 
             //콤마로 정보를 구분.
-            string[] columns = line.Trim().Split(','); 
+            string[] rawColumns = line.Split(',');
+            string[] columns = new string[rawColumns.Length];
+
+            for (int j = 0; j < rawColumns.Length; j++)
+            {
+                columns[j] = rawColumns[j].Trim();
+            }
 
             foreach(CardLink cardLink in cardDataLinkSO.playerUnits)
             {
@@ -168,7 +174,13 @@ public class UnitDataManager : MonoBehaviour
             string line = lines[i];
             if (string.IsNullOrWhiteSpace(line)) continue;
 
-            string[] columns = line.Trim().Split(',');
+            string[] rawColumns = line.Split(',');
+            string[] columns = new string[rawColumns.Length];
+
+            for (int j = 0; j < rawColumns.Length; j++)
+            {
+                columns[j] = rawColumns[j].Trim();
+            }
 
             foreach(CardLink cardLink in cardDataLinkSO.playerSpells)
             {
@@ -221,7 +233,13 @@ public class UnitDataManager : MonoBehaviour
             string line = lines[i];
             if (string.IsNullOrWhiteSpace(line)) continue;
 
-            string[] columns = line.Trim().Split(',');
+            string[] rawColumns = line.Split(',');
+            string[] columns = new string[rawColumns.Length];
+
+            for (int j = 0; j < rawColumns.Length; j++)
+            {
+                columns[j] = rawColumns[j].Trim();
+            }
 
             foreach(CardLink cardLink in cardDataLinkSO.playerWords)
             {
@@ -264,7 +282,13 @@ public class UnitDataManager : MonoBehaviour
             if (string.IsNullOrWhiteSpace(line)) continue;
 
             //콤마로 정보를 구분.
-            string[] columns = line.Trim().Split(','); 
+            string[] rawColumns = line.Split(',');
+            string[] columns = new string[rawColumns.Length];
+
+            for (int j = 0; j < rawColumns.Length; j++)
+            {
+                columns[j] = rawColumns[j].Trim();
+            }
 
             foreach(CardLink cardLink in cardDataLinkSO.EnemyUnits)
             {

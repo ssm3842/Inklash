@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class InteractableUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     //마우스 호버 시
-    public void OnPointerEnter(PointerEventData eventData)
+    virtual public void OnPointerEnter(PointerEventData eventData)
     {
         transform.localScale = new Vector3(1.3f, 1.3f, 1f);
     }

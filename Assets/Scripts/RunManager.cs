@@ -45,7 +45,6 @@ public class RunManager : MonoBehaviour
 
     public void InitRun() //런 시작 시 게임 초기화.
     {
-        Debug.Log("1");
         if(DeckManager.Inst == null)
         {
             GameObject deckManagerOBJ = new GameObject();

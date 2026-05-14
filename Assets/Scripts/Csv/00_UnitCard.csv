@@ -1,7 +1,7 @@
-﻿Card_ID,Name_Key,Cost,Type,HP,ATK,ATK_Term,Range,SPD,Desc_Key
-Sword,UNIT_NAME_SWORD,3,Melee,30,5,2,1,1,UNIT_DESC_SWORD
-Bow,UNIT_NAME_BOW,3,Ranged,15,4,1.3,5,1,UNIT_DESC_BOW
-Spear,UNIT_NAME_SPEAR,5,Melee,25,6,2.7,2,1.2,UNIT_DESC_SPEAR
-Cannon,UNIT_NAME_CANNON,6,Ranged,12,22,3.5,8,0.5,UNIT_DESC_CANNON
-Shield,UNIT_NAME_SHIELD,4,Melee,60,2,2,1,0.8,UNIT_DESC_SHIELD
-Fire,UNIT_NAME_FIRE,4,Ranged,20,4,1.5,6,1,UNIT_DESC_FIRE
+﻿Card_ID ,Name_Key           ,Cost   ,Type       ,HP     ,ATK    ,ATK_Term   ,Range  ,SPD    ,Desc_Key
+Sword   ,UNIT_NAME_SWORD    ,3      ,Melee      ,30     ,5      ,2          ,1      ,1      ,UNIT_DESC_SWORD
+Bow     ,UNIT_NAME_BOW      ,3      ,Ranged     ,15     ,4      ,1.3        ,5      ,1      ,UNIT_DESC_BOW
+Spear   ,UNIT_NAME_SPEAR    ,5      ,Melee      ,25     ,6      ,2.7        ,2      ,1.2    ,UNIT_DESC_SPEAR
+Cannon  ,UNIT_NAME_CANNON   ,6      ,Ranged     ,12     ,22     ,3.5        ,8      ,0.5    ,UNIT_DESC_CANNON
+Shield  ,UNIT_NAME_SHIELD   ,4      ,Melee      ,60     ,2      ,2          ,1      ,0.8    ,UNIT_DESC_SHIELD
+Fire    ,UNIT_NAME_FIRE     ,4      ,Ranged     ,20     ,4      ,1.5        ,6      ,1      ,UNIT_DESC_FIRE
