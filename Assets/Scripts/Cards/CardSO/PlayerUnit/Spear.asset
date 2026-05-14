@@ -22,11 +22,11 @@ MonoBehaviour:
     description: 
     stats:
       baseMaxHp: 25
-      baseATK: 4
+      baseATK: 6
       baseATKTerm: 2.7
       baseATKSpd: 1
       baseRange: 2
-      baseSpd: 1.2
+      baseSpd: 1.5
       bonusMaxHp: 0
       bonusATK: 0
       bonusATKSpd: 0

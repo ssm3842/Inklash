@@ -65,35 +65,37 @@ public class SpellBase : MonoBehaviour , IBuffable
 
     public void PerformHit(Collider2D target, float amount = 0)
     {
+        if (target == null) return;
+
+        var damageable = target.gameObject.GetComponent<DamageableObject>();
+        if (damageable == null) return;
+
         float explosionDamage = 1.0f;
-        if (HasBuff("Marker"))
+        
+        var bc = target.gameObject.GetComponent<BuffController>();
+        if (bc != null)
         {
-            target.gameObject.GetComponent<BuffController>().GetBuff(new BuffMarking(3f)); 
+            if (HasBuff("Marker"))  bc.GetBuff(new BuffMarking(3f));
+            if (HasBuff("Weaker"))  bc.GetBuff(new BuffWeaken(3f));
+            if (HasBuff("Chiller")) bc.GetBuff(new BuffChilling(3f));
         }
-        if (HasBuff("Weaker"))
-        {
-            target.gameObject.GetComponent<BuffController>().GetBuff(new BuffWeaken(3f)); 
-        }
-        if (HasBuff("Chiller"))
-        {
-            target.gameObject.GetComponent<BuffController>().GetBuff(new BuffChilling(3f)); 
-        }
+        
         if (HasBuff("Burn"))
         {
-            target.gameObject.AddComponent<BurnEffect>(); 
+            BurnEffect existing = target.gameObject.GetComponent<BurnEffect>();
+            if (existing != null) existing.ResetTimer();
+            else target.gameObject.AddComponent<BurnEffect>();
         }
+        
         if (HasBuff("Explosion"))
         {
-             StartCoroutine(target.gameObject.GetComponent<Units>().TakeDamage(explosionDamage,amount+0.5f));
+            StartCoroutine(damageable.TakeDamage(explosionDamage, amount + 0.5f));
         }
 
-         if(HasBuff("Poison"))
+        if (HasBuff("Poison"))
         {
             PoisonEffect effect = target.gameObject.GetComponent<PoisonEffect>();
-            if (effect == null)
-            {
-                effect = target.gameObject.AddComponent<PoisonEffect>();
-            }
+            if (effect == null) effect = target.gameObject.AddComponent<PoisonEffect>();
             effect.AddStack();
         }
     }

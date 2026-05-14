@@ -15,6 +15,8 @@ public class Lightning : SpellBase
         Collider2D[] enemies = Physics2D.OverlapBoxAll(new Vector2(castXPosition, 0f), new Vector2(range, 100f), 0f);
         foreach (Collider2D enemy in enemies)
         {
+            if (enemy == null) continue;
+            
             var damageable = enemy.GetComponent<DamageableObject>();
             if (damageable == null || damageable.isPlayers) continue;
             enemy.GetComponent<BuffController>()?.GetBuff(new BuffShock());

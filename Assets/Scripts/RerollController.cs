@@ -9,7 +9,7 @@ public class RerollController : MonoBehaviour
     {
         if(remainTime <= 0f)
         {
-            StartCoroutine(RunManager.Inst.battleManager.cardManager.DrawNewHand());
+            StartCoroutine(RunManager.Inst.battleManager.cardManager.RerollAndDraw());
             remainTime = GameRule.REROLL_WAIT_SECOND;
         }
     }

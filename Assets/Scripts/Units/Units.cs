@@ -40,11 +40,14 @@ public class Units : DamageableObject
 
         SR = GetComponent<SpriteRenderer>();
         COL = GetComponent<Collider2D>();
+
+        hitFlashMPB = new MaterialPropertyBlock();
     }
 
     protected void PlayHitFlash()
     {
         if (SR == null) return;
+        if (hitFlashMPB == null) hitFlashMPB = new MaterialPropertyBlock();
         if (hitFlashRoutine != null) StopCoroutine(hitFlashRoutine);
         hitFlashRoutine = StartCoroutine(HitFlashCoroutine());
     }
@@ -223,6 +226,8 @@ public class Units : DamageableObject
 
         yield return new WaitForSeconds(delayTime);
 
+        if (this == null || isDead) yield break;
+
         PlayHitFlash();
 
         // TakeDamage 내부
@@ -252,6 +257,8 @@ public class Units : DamageableObject
 
     public virtual void _AttackEnemy() //공격은 애니메이션에서 진행.
     {
+        if (target == null) return;
+        
         Units targetUnit = target?.GetComponent<Units>();
         float damage = statController.GetStat(StatType.ATK);
 
@@ -389,7 +396,8 @@ public class Units : DamageableObject
     
     private void PerformHit(DamageableObject hitTarget, float dmg)
     {
-        
+        if (hitTarget == null) return;
+
         if (HasBuff("Marker")) // 표식
         {
             hitTarget.buffController.GetBuff(new BuffMarking(3f)); 
@@ -472,10 +480,10 @@ public class Units : DamageableObject
     {
         yield return new WaitForSeconds(0.15f); // 공격 딜레이
         
-        if (currentTarget != null && !currentTarget.gameObject.activeSelf == false)
-        {
-            PerformHit(currentTarget, dmg);
-        }
+        if (currentTarget == null) yield break;
+        if (!currentTarget.gameObject.activeSelf) yield break;
+    
+        PerformHit(currentTarget, dmg);
     }
 
     public void HandleOnDeathEffects()

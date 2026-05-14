@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e8b7ec94de4744c8a06c967fe3af30, type: 3}
+  m_Name: EnemyBase_F3
+  m_EditorClassIdentifier: 
+  baseSprite: {fileID: 21300000, guid: e32d41f0ea235004f935a40bf7e7a982, type: 3}
+  maxHP: 300
+  isBoss: 0
+  initialSpawnDelay: 5
+  hpMultiplier: 1
+  atkMultiplier: 1
+  minFloor: 5
+  maxFloor: 6
+  startPatterns: []
+  normalPatterns:
+  - {fileID: 11400000, guid: 8602fd106ffab7f45aa214a3b79bafd2, type: 2}
+  - {fileID: 11400000, guid: d622dce1ce51f844c9fece8956c8515d, type: 2}
+  phase2Patterns: []

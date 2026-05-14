@@ -15,7 +15,7 @@ MonoBehaviour:
   card:
     id: Sword
     name: "\uAC80"
-    cost: 2
+    cost: 3
     cardType: 0
     attackType: 1
     effectID: 

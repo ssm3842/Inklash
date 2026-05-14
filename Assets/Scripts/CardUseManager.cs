@@ -21,7 +21,6 @@ public class CardUseManager : MonoBehaviour
     List<SealType> stackedWordCardEffect;
 
     public Coroutine enemySpawnCoroutine = null;
-    private bool hasPhase2Bursted = false;
     
     public void InitUnitManager(bool isBoss)
     {
@@ -37,7 +36,29 @@ public class CardUseManager : MonoBehaviour
             currentEnemyData = bossEnemyBaseDatas[Random.Range(0, bossEnemyBaseDatas.Length)];
             bossPhaseThreshold.SetActive(true);
         }
-        else currentEnemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
+        else
+        {
+            int currentFloor = RunManager.Inst.mapManager.floorClimbed + 1;
+        
+            // 현재 층 범위에 맞는 SO만 골라내기
+            var candidates = new List<EnemyBaseDataSO>();
+            foreach (var data in enemyBaseDatas)
+            {
+                if (currentFloor >= data.minFloor && currentFloor <= data.maxFloor)
+                    candidates.Add(data);
+            }
+            
+            // 안전장치: 후보 없으면 전체에서 랜덤 (인스펙터 설정 빈 경우 대비)
+            if (candidates.Count == 0)
+            {
+                Debug.LogWarning($"Floor {currentFloor}에 맞는 EnemyBaseData 없음. 전체에서 랜덤 선택.");
+                currentEnemyData = enemyBaseDatas[Random.Range(0, enemyBaseDatas.Length)];
+            }
+            else
+            {
+                currentEnemyData = candidates[Random.Range(0, candidates.Count)];
+            }
+        }
 
         stackedWordCardEffect = new List<SealType>();
 
@@ -48,7 +69,6 @@ public class CardUseManager : MonoBehaviour
         enemyBase.gameObject.SetActive(true);
 
         currentPhase = SpawnPhase.GameStart;
-        hasPhase2Bursted = false;
 
         if(enemySpawnCoroutine == null) enemySpawnCoroutine = StartCoroutine(SpawnEnemyCoroutine());
     }
@@ -170,69 +190,77 @@ public class CardUseManager : MonoBehaviour
 
     IEnumerator SpawnEnemyCoroutine()
     {
+        if (currentEnemyData != null)
+        yield return new WaitForSeconds(currentEnemyData.initialSpawnDelay);
+        
         while (true)
         {
             SpawnPhase patternPhase = currentPhase;
             List<EnemyPatternSO> currentPatternList = GetPatternsByPhase(currentPhase);
 
-            int randomIndex = Random.Range(0, currentPatternList.Count);
-            EnemyPatternSO selectedPattern = currentPatternList[randomIndex];
+            // 가드: 패턴 자체가 없으면 1초 쉬고 재시도
+            if (currentPatternList == null || currentPatternList.Count == 0)
+            {
+                Debug.LogWarning($"{currentPhase} 페이즈에 패턴 없음. SO 확인 필요.");
+                yield return new WaitForSeconds(1f);
+                continue;
+            }
 
-            foreach (CardDataSO cardData in selectedPattern.enemyDeck)
+            EnemyPatternSO selectedPattern = WeightedRandomPick(currentPatternList);
+            if (selectedPattern == null)
+            {
+                yield return new WaitForSeconds(1f);
+                continue;
+            }
+
+            foreach (SpawnEntry entry in selectedPattern.entries)
             {
                 if (currentPhase != patternPhase) break;
 
-                CardContent enemyUnit = cardData.card; 
-
-                GameObject newUnit = Instantiate(enemyUnit.unit, 
-                    enemyBase.transform.position + new Vector3(-1, Random.Range(-spawnHeight, spawnHeight) - 0.95f, 0), 
-                    Quaternion.identity);
-                
-                newUnit.transform.SetParent(transform);
-                newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
-
-                SealManager.ApplySeals(newUnit, FilterWordCard(enemyUnit));
-
-                float waitTime = GameRule.ENEMY_SPAWN_SECONDS;
-
-                if (currentPhase == SpawnPhase.Phase2 && !hasPhase2Bursted)
+                for (int i = 0; i < entry.count; i++)
                 {
-                    waitTime = 0.01f;
+                    CardContent enemyUnit = entry.enemyCard.card;
+                    float xOffset = -1 + i * 0.3f;
+                    GameObject newUnit = Instantiate(enemyUnit.unit,
+                        enemyBase.transform.position + new Vector3(xOffset, Random.Range(-spawnHeight, spawnHeight) - 0.95f, 0),
+                        Quaternion.identity);
+                    newUnit.transform.SetParent(transform);
+                    newUnit.GetComponent<Units>().Init(false, enemyUnit.stats);
+
+                    StatController sc = newUnit.GetComponent<StatController>();
+                    sc.ControlBaseStat(StatType.MAX_HP, currentEnemyData.hpMultiplier);
+                    sc.ControlBaseStat(StatType.ATK,    currentEnemyData.atkMultiplier);
+                    sc.InitMaxHP();
+
+                    List<SealType> finalSeals = new List<SealType>(enemyUnit.seals);
+                    if (entry.extraSeals != null) finalSeals.AddRange(entry.extraSeals);
+                    SealManager.ApplySeals(newUnit, finalSeals);
                 }
 
+                // 항목 사이 대기
                 float elapsed = 0f;
-                while(elapsed < waitTime)
+                while (elapsed < entry.delayAfter)
                 {
                     elapsed += Time.deltaTime;
-                    
-                    if (currentPhase != patternPhase) 
-                    {
-                        break; 
-                    }
-                    
+                    if (currentPhase != patternPhase) break;
                     yield return null;
                 }
             }
 
-            if (currentPhase != patternPhase)    continue; 
+            // 패턴 종료 후 대기
+            yield return new WaitForSeconds(selectedPattern.interPatternDelay);
 
-            if (currentPhase == SpawnPhase.GameStart)
+            // === 페이즈 전환 처리 (살린 블록들) ===
+            if (currentPhase != patternPhase) continue;   // ① 도중에 페이즈 바뀌었으면 즉시 새 페이즈
+
+            if (currentPhase == SpawnPhase.GameStart)     // ② Start 끝나면 Normal로
             {
                 ChangePhase(SpawnPhase.Normal);
             }
-            else if (currentPhase == SpawnPhase.Phase2)
+            else if (currentPhase == SpawnPhase.Phase2)   // ③ Phase2 burst 끝나면 Normal로
             {
-                if (!hasPhase2Bursted)
-                {
-                    hasPhase2Bursted = true;
-                    bossPhaseThreshold.SetActive(false);
-                    yield return new WaitForSeconds(GameRule.ENEMY_SPAWN_SECONDS);
-
-                    if (!currentEnemyData.isBoss)
-                    {
-                        ChangePhase(SpawnPhase.Normal);
-                    }
-                }
+                if (bossPhaseThreshold != null) bossPhaseThreshold.SetActive(false);
+                ChangePhase(SpawnPhase.Normal);
             }
         }
     }
@@ -241,9 +269,13 @@ public class CardUseManager : MonoBehaviour
     {
         switch (phase)
         {
-            case SpawnPhase.GameStart: return currentEnemyData.startPatterns;
-            case SpawnPhase.Normal:    return currentEnemyData.normalPatterns;
-            case SpawnPhase.Phase2:    return currentEnemyData.phase2Patterns;
+            case SpawnPhase.GameStart:
+            // startPatterns 비어있으면 normalPatterns로 폴백
+                if (currentEnemyData.startPatterns == null || currentEnemyData.startPatterns.Count == 0)
+                    return currentEnemyData.normalPatterns;
+                return currentEnemyData.startPatterns;
+            case SpawnPhase.Normal:  return currentEnemyData.normalPatterns;
+            case SpawnPhase.Phase2:  return currentEnemyData.phase2Patterns;
             default: return null;
         }
     }
@@ -254,5 +286,23 @@ public class CardUseManager : MonoBehaviour
 
         currentPhase = newPhase;
         Debug.Log($" 적 페이즈 변경: {currentPhase}");
+    }
+
+    EnemyPatternSO WeightedRandomPick(List<EnemyPatternSO> list)
+    {
+        if (list == null || list.Count == 0) return null;
+
+        float total = 0f;
+        foreach (var p in list) total += Mathf.Max(0f, p.weight);
+        if (total <= 0f) return list[Random.Range(0, list.Count)];  // fallback
+
+        float roll = Random.Range(0f, total);
+        float acc = 0f;
+        foreach (var p in list)
+        {
+            acc += p.weight;
+            if (roll <= acc) return p;
+        }
+        return list[list.Count - 1];
     }
 }

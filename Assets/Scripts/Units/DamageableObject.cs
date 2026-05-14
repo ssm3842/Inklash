@@ -42,6 +42,8 @@ public class DamageableObject : MonoBehaviour
 
     public Vector3 GetHitPosition()
     {
+        if (this == null) return Vector3.zero;
+        
         float xSign = isPlayers ? -1f : 1f;
         Vector3 localOffset = new Vector3(hitEffectOffset.x * xSign, hitEffectOffset.y, 0f);
         return transform.TransformPoint(localOffset);
@@ -84,7 +86,7 @@ public class DamageableObject : MonoBehaviour
             healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
         }
 
-        if (!isPlayers && !isPhase2Triggered)
+        if (!isPlayers && !isPhase2Triggered && RunManager.Inst.battleManager.cardUseManager.CurrentEnemyData.isBoss)
         {
             float currentHp = statController.GetCurHp();
             float maxHp = statController.GetStat(StatType.MAX_HP);
