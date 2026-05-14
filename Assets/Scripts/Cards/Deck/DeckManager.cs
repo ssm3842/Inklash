@@ -40,9 +40,9 @@ public class DeckManager : MonoBehaviour
         return deck;
     }
 
-    public void AddCardToDeck(CardContent newCard)
+    public void AddCardToDeck(CardContent cardData)
     {
-        deck.Add(newCard);
+        deck.Add(new CardContent(cardData));
     }
 
     public void RemoveCardToDeck(CardContent targetCard)

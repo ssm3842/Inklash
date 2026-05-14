@@ -18,8 +18,8 @@ MonoBehaviour:
   initialSpawnDelay: 5
   hpMultiplier: 1.5
   atkMultiplier: 1.2
-  minFloor: 8
-  maxFloor: 8
+  minFloor: 15
+  maxFloor: 15
   startPatterns:
   - {fileID: 11400000, guid: 1871738a0db2da34c985e873544c0fa7, type: 2}
   normalPatterns:

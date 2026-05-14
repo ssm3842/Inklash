@@ -15,10 +15,11 @@ MonoBehaviour:
   baseSprite: {fileID: 21300000, guid: 329a1f8cca9598f428757648e7a724eb, type: 3}
   maxHP: 240
   isBoss: 0
+  initialSpawnDelay: 5
   hpMultiplier: 0.85
   atkMultiplier: 0.85
-  minFloor: 2
-  maxFloor: 2
+  minFloor: 3
+  maxFloor: 4
   startPatterns: []
   normalPatterns:
   - {fileID: 11400000, guid: 228fb015c524a1e448b53357084a0778, type: 2}

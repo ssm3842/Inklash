@@ -60,3 +60,5 @@ MonoBehaviour:
     cardContents: {fileID: 11400000, guid: 59be465672e808b4eb1286d4936833e0, type: 2}
   - id: UpperE
     cardContents: {fileID: 11400000, guid: 1b577812e35d7a3478e9b77c70bd81d6, type: 2}
+  - id: UpperO
+    cardContents: {fileID: 11400000, guid: bec11143b53bb644189360ed690d2083, type: 2}

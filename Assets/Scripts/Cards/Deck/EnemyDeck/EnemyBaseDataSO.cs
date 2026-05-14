@@ -17,7 +17,7 @@ public class EnemyBaseDataSO : ScriptableObject
     
     [Header("어느 층에서 등장하는가")]              
     public int minFloor = 1;                       
-    public int maxFloor = 8;                      
+    public int maxFloor = 15;                      
 
     public List<EnemyPatternSO> startPatterns;
     public List<EnemyPatternSO> normalPatterns;
