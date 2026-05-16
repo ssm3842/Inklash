@@ -70,7 +70,7 @@ public class SpellBase : MonoBehaviour , IBuffable
         var damageable = target.gameObject.GetComponent<DamageableObject>();
         if (damageable == null) return;
 
-        float explosionDamage = 1.0f;
+        float explosionDamage = target.gameObject.GetComponent<StatController>().GetStat(StatType.ATK);
         
         var bc = target.gameObject.GetComponent<BuffController>();
         if (bc != null)

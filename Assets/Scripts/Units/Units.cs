@@ -223,6 +223,7 @@ public class Units : DamageableObject
             finalDamage = amount * 1.5f; 
         }
 
+        finalDamage = Mathf.Round(finalDamage); // 데미지를 정수로 반올림
 
         yield return new WaitForSeconds(delayTime);
 
@@ -442,7 +443,12 @@ public class Units : DamageableObject
         string myID = gameObject.GetInstanceID().ToString();
         BurnEffect effect = hitTarget.GetComponent<BurnEffect>();
 
-        float burnDmg = 2f;
+        float burnDmg = hitTarget.GetComponent<StatController>().GetStat(StatType.MAX_HP) * 0.05f;
+
+        if (target.gameObject.name.Contains("Base"))
+        {
+            burnDmg *= 0.1f;
+        }
 
         if (effect != null && effect.casterID == myID)
         {
@@ -525,8 +531,8 @@ public class Units : DamageableObject
     {
         if (!HasBuff("Explosion")) return;
 
-        float explosionRange = 1.5f; // 폭발 범위
-        float damage = 1f; // 폭발 데미지
+        float explosionRange = 2f; // 폭발 범위
+        float damage = GetComponent<StatController>().GetStat(StatType.ATK); // 폭발 데미지
 
         // 범위 내의 모든 Collider2D 탐색
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, explosionRange);
@@ -538,7 +544,7 @@ public class Units : DamageableObject
             // 대상이 존재하고, 나랑 팀이 다른 경우에만 데미지
             if (targetObj != null && targetObj.isPlayers != this.isPlayers)
             {
-                StartCoroutine(targetObj.TakeDamage(damage,0.5f));
+                StartCoroutine(targetObj.TakeDamage(damage,0.2f));
             }
         }
     }
