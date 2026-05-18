@@ -380,18 +380,25 @@ public class CardManager : MonoBehaviour
         if (draggingCard == null) return;
 
         CardContent copyContent = new CardContent(draggingCard.cardContent);
-        copyContent.cost = 1;
+        List<SealType> stackedSeals = cardUseManager.PopStackedWordEffects();
+        foreach (var seal in stackedSeals)
+        {
+            if (!copyContent.seals.Contains(seal))
+            {
+                copyContent.seals.Add(seal);
+            }
+        }
 
+        copyContent.cost = 1;
         SealManager.RemoveSealFromCard(copyContent, SealType.Copy);
 
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
-        card.Setup(this, copyContent, 0);
-        card.cardContent.isCopied = true;
 
         card.Setup(this, copyContent, 0);
         playerHands.Insert(0, card);
         cardObject.transform.SetAsFirstSibling();
+        card.cardContent.isCopied = true;
 
         handLayout.AlignCards();
     }
@@ -401,7 +408,19 @@ public class CardManager : MonoBehaviour
         if (draggingCard == null) return;
 
         CardContent originalContent = new CardContent(draggingCard.cardContent);
+        List<SealType> stackedSeals = cardUseManager.PopStackedWordEffects();
+
+        // 사용된 단어 효과 적용
+        foreach (var seal in stackedSeals)
+        {
+            if (!originalContent.seals.Contains(seal))
+            {
+                originalContent.seals.Add(seal);
+            }
+        }
+
         SealManager.RemoveSealFromCard(originalContent, SealType.Purity);
+
 
         for (int i = playerHands.Count - 1; i >= 0; i--)
         {   
@@ -428,7 +447,7 @@ public class CardManager : MonoBehaviour
             playerHands.Add(card);
             
             card.cardContent.isCopied = true;
-        }
+        }   
 
         handLayout.AlignCards();
     }
