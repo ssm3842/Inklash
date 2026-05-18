@@ -106,38 +106,32 @@ public class CardUseManager : MonoBehaviour
 
     IEnumerator CastPlayerSpell(CardContent card)
     {
-        // 1. 원본 리스트 (Copy 포함)
         List<SealType> originalSeals = FilterWordCard(card);
         
-        // 2. 필터링된 리스트 (Copy, Purity 제외)
         List<SealType> filteredSeals = originalSeals
             .Where(s => s != SealType.Copy && s != SealType.Purity).ToList();
 
         int castCount = 1;
 
-        // --- [첫 번째 ApplySeals: 판정용] ---
-        // 여기서 딱 한 번 'Copy'가 포함된 리스트를 넣어 로직을 실행시킵니다.
         GameObject checkObj = Instantiate(card.unit);
-        SealManager.ApplySeals(checkObj, originalSeals); // <--- 여기서만 Copy 작동
+        SealManager.ApplySeals(checkObj, originalSeals); 
         
         SpellBase spell = checkObj.GetComponent<SpellBase>();
 
-        // Copy 로직에 의해 spell.buffList에 DoubleAttack 등이 추가되었다면 여기서 count가 늘어납니다.
         if(spell.buffList.Exists(b => b.buffName.Equals("DoubleAttack"))) castCount *= 2;
         if(spell.buffList.Exists(b => b.buffName.Equals("Split"))) castCount *= 3;
         
-        Destroy(checkObj); // 판정이 끝났으니 삭제
+        Destroy(checkObj); 
 
-        // --- [두 번째 ApplySeals: 실제 발사용] ---
+        float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+
         for (int i = 0; i < castCount; i++)
         {
             GameObject fireSpell = Instantiate(card.unit);
             
-            // 실제 발사체에는 'Copy'가 없는 리스트를 넣습니다.
-            // 이렇게 하면 fireSpell 자체는 복제 기능을 수행하지 않습니다.
             SealManager.ApplySeals(fireSpell, filteredSeals); 
             
-            float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+            // float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x; 발동할 때마다 마우스 위치 추적
             SpellBase currentSpell = fireSpell.GetComponent<SpellBase>();
             currentSpell.ProcessSpell(card.stats.baseATK, card.stats.baseRange, targetPos);
 
