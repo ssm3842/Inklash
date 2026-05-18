@@ -166,7 +166,7 @@ public class MakeSealEvent : MonoBehaviour
             cardCanvasgroup.alpha = 0.3f;
         }
 
-        if(selectUseCard != null && selectWordCard != null) confirmButton.interactable = true;
+        if(selectUseCard != null && selectWordCard != null && RunManager.Inst.resourceManager.currentGold >= 50) confirmButton.interactable = true;
         else confirmButton.interactable = false;
     }
 
@@ -174,6 +174,7 @@ public class MakeSealEvent : MonoBehaviour
     {
         SealManager.AddSealToCard(selectUseCard.cardContent, selectWordCard.cardContent.seals[0]);
         DeckManager.Inst.RemoveCardToDeck(selectWordCard.cardContent);
+        RunManager.Inst.resourceManager.SpendGold(50);
 
         eventManager._OnEventEnd();
     }

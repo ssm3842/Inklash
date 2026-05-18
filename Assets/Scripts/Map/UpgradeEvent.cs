@@ -99,7 +99,7 @@ public class UpgradeEvent : MonoBehaviour
         selectCard = targetCard;
         selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 0.3f;
 
-        confirmButton.interactable = selectCard != null;
+        confirmButton.interactable = selectCard != null && RunManager.Inst.resourceManager.currentGold >= 50;
 
         hpText.color = Color.black;
         atkText.color = Color.black;
@@ -157,6 +157,8 @@ public class UpgradeEvent : MonoBehaviour
         }
         else if(upgradeType == UpgradeType.CardHP) selectCard.cardContent.stats.baseMaxHp += 10;
         else if(upgradeType == UpgradeType.CardCost) selectCard.cardContent.cost = Mathf.Max(0, selectCard.cardContent.cost - 1);
+
+        RunManager.Inst.resourceManager.SpendGold(50);
 
         eventManager._OnEventEnd();
     }

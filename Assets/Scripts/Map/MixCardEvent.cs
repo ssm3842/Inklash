@@ -113,7 +113,7 @@ public class MixCardEvent : MonoBehaviour
             secondCard = targetCard;
             cardCanvasgroup.alpha = 0.3f; 
 
-            confirmButton.interactable = true;
+            if (RunManager.Inst.resourceManager.currentGold >= 50)confirmButton.interactable = true;
         }
         SetPreview();
     }
@@ -200,6 +200,7 @@ public class MixCardEvent : MonoBehaviour
 
         //두번째 카드는 삭제하고 첫번째 카드의 스탯을 조정.
         DeckManager.Inst.RemoveCardToDeck(secondCard.cardContent);
+        RunManager.Inst.resourceManager.SpendGold(50);
 
         eventManager._OnEventEnd();
     }
