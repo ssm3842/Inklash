@@ -126,6 +126,7 @@ public class CardUseManager : MonoBehaviour
         int castCount = 1;
 
         GameObject checkObj = Instantiate(card.unit);
+
         SealManager.ApplySeals(checkObj, originalSeals); 
         
         SpellBase spell = checkObj.GetComponent<SpellBase>();
@@ -147,6 +148,7 @@ public class CardUseManager : MonoBehaviour
                 break;
             }
             GameObject fireSpell = Instantiate(card.unit);
+            fireSpell.transform.SetParent(transform);
             
             SealManager.ApplySeals(fireSpell, filteredSeals); 
             

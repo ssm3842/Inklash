@@ -4,7 +4,7 @@ using TMPro;
 
 public class ResourceManager : MonoBehaviour
 {
-    public int currentGold = 100;
+    public int currentGold = 99;
     [SerializeField] private TextMeshProUGUI goldText;
 
 

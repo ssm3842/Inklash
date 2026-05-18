@@ -26,6 +26,7 @@ public class HitEffectSpawner : ScriptableObject
         Quaternion baseRotation = hitParticlePrefab.transform.rotation;
 
         GameObject fx = Instantiate(hitParticlePrefab, spawnPos, baseRotation);
+        fx.transform.SetParent(RunManager.Inst.battleManager.cardUseManager.transform);
 
         // 방향 반전
         if (flipX)

@@ -96,7 +96,7 @@ public class DamageableObject : MonoBehaviour
             {
                 isPhase2Triggered = true;
                 //밀어내기 진행
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5f);
                 foreach (Collider2D collider in colliders)
                 {
                     if(collider.gameObject == gameObject) continue;

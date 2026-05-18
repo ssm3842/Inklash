@@ -360,6 +360,7 @@ public class Units : DamageableObject
         // 아군이면 왼쪽으로, 적이면 오른쪽으로 밀림
         Vector3 pushDir = isPlayers ? Vector3.left : Vector3.right;
         Vector3 targetPos = startPos + (pushDir * distance);
+        target = null;
 
         while (elapsed < duration)
         {

@@ -53,6 +53,7 @@ public class RunManager : MonoBehaviour
             
             DontDestroyOnLoad(deckManagerOBJ);
         }
+        DeckManager.Inst.SetStartDeck(debugDeckSO);
 
         if(SettingManger.Inst == null)
         {

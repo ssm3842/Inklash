@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuControll : MonoBehaviour
 {
@@ -29,8 +30,10 @@ public class MainMenuControll : MonoBehaviour
 
     public void _OnClickNewGame()
     {
-        gameObject.SetActive(false);
-        deckSelectCanvas.SetActive(true);
+        // gameObject.SetActive(false);
+        // deckSelectCanvas.SetActive(true);
+
+        SceneManager.LoadScene(1);
     }
     public void _OnClickReturnToNewGame()
     {

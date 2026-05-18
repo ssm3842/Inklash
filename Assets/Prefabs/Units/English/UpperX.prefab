@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 73fe8140d125c994da8a8f3c488ba250, type: 2}
+    - target: {fileID: 2013781002527686095, guid: b62f85981057a7d46919ee866face945, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2489958423184310239, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_Controller
       value: 
@@ -35,6 +39,10 @@ PrefabInstance:
     - target: {fileID: 2997035925818500715, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_LocalPosition.y
       value: -4.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508836063830017670, guid: b62f85981057a7d46919ee866face945, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6665485786468077925, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -158,6 +166,7 @@ MonoBehaviour:
   canAttack: 1
   canAttackTimer: 0
   hitFlashDuration: 0.15
+  attackSound: {fileID: 0}
   deathDuration: 0.3
   isKnockbackEnhanced: 0
 --- !u!114 &7658163899894137862
@@ -183,5 +192,6 @@ MonoBehaviour:
   canAttack: 1
   canAttackTimer: 0
   hitFlashDuration: 0.15
+  attackSound: {fileID: 0}
   deathDuration: 0.3
   isKnockbackEnhanced: 0

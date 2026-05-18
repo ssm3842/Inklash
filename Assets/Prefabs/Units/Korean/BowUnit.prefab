@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2013781002527686095, guid: b62f85981057a7d46919ee866face945, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2997035925818500715, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
@@ -78,6 +82,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5051560678983701723, guid: b62f85981057a7d46919ee866face945, type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508836063830017670, guid: b62f85981057a7d46919ee866face945, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6665485786468077925, guid: b62f85981057a7d46919ee866face945, type: 3}

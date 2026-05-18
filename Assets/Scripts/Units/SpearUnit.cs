@@ -40,7 +40,7 @@ public class SpearUnit : Units
     private void StartAcceleration()
     {
         statController.ControlBonusStat(StatType.SPD, 1);
-        statController.ControlBonusStat(StatType.ATK, 1);
+        statController.ControlBonusStat(StatType.ATK, 1.5f);
         isAccelerated = true;
 
         ANI.SetTrigger("StartTrans");
