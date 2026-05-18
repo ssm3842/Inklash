@@ -21,7 +21,6 @@ public class CardUseManager : MonoBehaviour
     List<SealType> stackedWordCardEffect;
 
     public Coroutine enemySpawnCoroutine = null;
-    private Coroutine spellCastCoroutine = null;
     
     public void InitUnitManager(bool isBoss)
     {
@@ -29,17 +28,6 @@ public class CardUseManager : MonoBehaviour
         {
             StopCoroutine(enemySpawnCoroutine);
             enemySpawnCoroutine = null;
-        }
-        if (spellCastCoroutine != null)
-        {
-            StopCoroutine(spellCastCoroutine);
-            spellCastCoroutine = null;
-        }
-
-        SpellBase[] activeSpells = FindObjectsByType<SpellBase>(FindObjectsSortMode.None);    
-        foreach (SpellBase spell in activeSpells)
-        {
-            Destroy(spell.gameObject);
         }
         
         //적 데이터 중에서 하나를 랜덤으로 선택.
@@ -93,7 +81,7 @@ public class CardUseManager : MonoBehaviour
                 SpawnPlayerUnit(card);
                 break;
             case CardType.Spell:
-                spellCastCoroutine = StartCoroutine(CastPlayerSpell(card));
+                StartCoroutine(CastPlayerSpell(card));
                 break;
             case CardType.Word:
                 UseWordCard(card);
@@ -138,15 +126,8 @@ public class CardUseManager : MonoBehaviour
 
         float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
 
-        int currentFloorCheck = RunManager.Inst.mapManager.floorClimbed;
-
         for (int i = 0; i < castCount; i++)
         {
-
-            if (RunManager.Inst.mapManager.floorClimbed != currentFloorCheck)
-            {   
-                break;
-            }
             GameObject fireSpell = Instantiate(card.unit);
             fireSpell.transform.SetParent(transform);
             
@@ -160,7 +141,6 @@ public class CardUseManager : MonoBehaviour
         }
         
         stackedWordCardEffect = new List<SealType>();
-        spellCastCoroutine = null;
     }
 
     List<SealType> FilterWordCard(CardContent card)

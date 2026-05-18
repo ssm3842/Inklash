@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300000, guid: e32d41f0ea235004f935a40bf7e7a982, type: 3}
   maxHP: 800
-  isBoss: 0
+  isBoss: 1
   initialSpawnDelay: 5
   hpMultiplier: 1.5
   atkMultiplier: 1.2

@@ -223,8 +223,6 @@ public class Units : DamageableObject
             finalDamage = amount * 1.5f; 
         }
 
-        // finalDamage = Mathf.Round(finalDamage); 데미지를 정수로 반올림
-
         yield return new WaitForSeconds(delayTime);
 
         if (this == null || isDead) yield break;

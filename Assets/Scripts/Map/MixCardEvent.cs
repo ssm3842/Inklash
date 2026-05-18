@@ -177,9 +177,9 @@ public class MixCardEvent : MonoBehaviour
             lastCardSlot.GetComponent<CardRewardCardUI>().Setup(firstCard.cardContent);
 
             atkText.color = Color.red;
-            atkText.text = (firstCard.cardContent.stats.baseATK + secondCard.cardContent.stats.baseATK).ToString();
+            atkText.text = (firstCard.cardContent.stats.baseATK + Mathf.FloorToInt(secondCard.cardContent.stats.baseATK * 0.5f)).ToString();
             hpText.color = Color.red;
-            hpText.text = (firstCard.cardContent.stats.baseMaxHp + secondCard.cardContent.stats.baseMaxHp).ToString();
+            hpText.text = (firstCard.cardContent.stats.baseMaxHp + Mathf.FloorToInt(secondCard.cardContent.stats.baseMaxHp * 0.5f)).ToString();
             // costText.color = Color.red;
             costText.text = Mathf.Min(firstCard.cardContent.cost, secondCard.cardContent.cost).ToString();
             eventStone.sprite = eventStoneActivated;
@@ -195,8 +195,8 @@ public class MixCardEvent : MonoBehaviour
     public void MixCard()
     {
         firstCard.cardContent.cost = Mathf.Min(firstCard.cardContent.cost, secondCard.cardContent.cost);
-        firstCard.cardContent.stats.baseATK += secondCard.cardContent.stats.baseATK;
-        firstCard.cardContent.stats.baseMaxHp += secondCard.cardContent.stats.baseMaxHp;
+        firstCard.cardContent.stats.baseATK += Mathf.FloorToInt(secondCard.cardContent.stats.baseATK * 0.5f);
+        firstCard.cardContent.stats.baseMaxHp += Mathf.FloorToInt(secondCard.cardContent.stats.baseMaxHp * 0.5f);
 
         //두번째 카드는 삭제하고 첫번째 카드의 스탯을 조정.
         DeckManager.Inst.RemoveCardToDeck(secondCard.cardContent);
