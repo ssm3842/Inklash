@@ -46,12 +46,6 @@ public class SpriteDataContainer : MonoBehaviour
                 return sealDatas[0];
             case SealType.Chill:
                 return sealDatas[1];
-            case SealType.ExtraHit:
-                return sealDatas[2];
-            case SealType.KnockBack:
-                return sealDatas[3];
-            case SealType.Pierce:
-                return sealDatas[4];
             case SealType.Weaken:
                 return sealDatas[5];
             case SealType.Mark:

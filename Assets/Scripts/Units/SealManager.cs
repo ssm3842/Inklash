@@ -16,18 +16,6 @@ public static class SealManager
                 case SealType.Ignite:
                     bc.GetBuff(new BuffBurn());
                     break;
-                case SealType.Cold:
-                    bc.GetBuff(new BuffCold());
-                    break;
-                case SealType.ExtraHit:
-                    bc.GetBuff(new BuffDoubleAttack());
-                    break;
-                case SealType.KnockBack:
-                    bc.GetBuff(new BuffKnockback());
-                    break;
-                case SealType.Pierce:
-                    bc.GetBuff(new BuffPierce());
-                    break;
                 case SealType.Ultimate:
                     bc.GetBuff(new BuffUltimate());
                     break;

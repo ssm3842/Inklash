@@ -63,10 +63,6 @@ public enum SealType
 {
     None,
     Ignite,
-    Cold,
-    ExtraHit,
-    KnockBack,
-    Pierce,
     Weaken,
     Mark,
     Chill,
