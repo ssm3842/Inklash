@@ -15,7 +15,7 @@ MonoBehaviour:
   card:
     id: Mark
     name: "\uD45C\uC2DD"
-    cost: 1
+    cost: 2
     cardType: 2
     attackType: 0
     effectID: 
@@ -33,7 +33,7 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 0}
-    seals: 07000000
+    seals: 03000000
     isCopied: 0
     cardImage: {fileID: 21300000, guid: cc52a414270698e4e88f2c41e1813087, type: 3}
     firstInfo: 0

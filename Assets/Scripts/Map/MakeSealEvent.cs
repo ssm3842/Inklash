@@ -180,7 +180,7 @@ public class MakeSealEvent : MonoBehaviour
         eventCostText.text = (50 * (eventRepeat + 1)).ToString();
 
         //충분한 골드를 소지하고 있을 경우
-        if(RunManager.Inst.resourceManager.currentGold >= 50 * (eventRepeat + 1))
+        if(RunManager.Inst.resourceManager.CheckEnoughGold(50 * (eventRepeat + 1)))
         {
             eventCostText.color = Color.white;
             return true;

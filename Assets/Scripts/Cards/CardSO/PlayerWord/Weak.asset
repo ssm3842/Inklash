@@ -33,7 +33,7 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 0}
-    seals: 06000000
+    seals: 02000000
     isCopied: 0
     cardImage: {fileID: 21300000, guid: 4633472d7201d9b48b82006defbac869, type: 3}
     firstInfo: 0

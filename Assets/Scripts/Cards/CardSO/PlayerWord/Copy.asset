@@ -15,7 +15,7 @@ MonoBehaviour:
   card:
     id: Copy
     name: "\uBCF5\uC0AC"
-    cost: 1
+    cost: 4
     cardType: 2
     attackType: 0
     effectID: 
@@ -33,7 +33,7 @@ MonoBehaviour:
       bonusRange: 0
       bonusSpd: 0
     unit: {fileID: 0}
-    seals: 0d000000
+    seals: 09000000
     isCopied: 0
     cardImage: {fileID: 21300000, guid: 373f76ebc24f17c47b6cbbd1a7dafa14, type: 3}
     firstInfo: 0

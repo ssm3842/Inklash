@@ -95,6 +95,7 @@ public class UpgradeEvent : MonoBehaviour
             selectCard = null;
             selectSlot.SetActive(false);
             eventStone.sprite = eventStoneDeactivated;
+            confirmButton.interactable = false;
             return;
         }
 
@@ -173,7 +174,7 @@ public class UpgradeEvent : MonoBehaviour
 
         RunManager.Inst.resourceManager.SpendGold(50 * (eventRepeat + 1));
         eventRepeat++;
-        CheckEventAvailable();
+        confirmButton.interactable = selectCard != null && CheckEventAvailable();
 
         cardPreviewBefore.Setup(selectCard.cardContent);
         cardPreviewAfter.Setup(selectCard.cardContent);
@@ -189,7 +190,7 @@ public class UpgradeEvent : MonoBehaviour
         eventCostText.text = (50 * (eventRepeat + 1)).ToString();
 
         //충분한 골드를 소지하고 있을 경우
-        if(RunManager.Inst.resourceManager.currentGold >= 50 * (eventRepeat + 1))
+        if(RunManager.Inst.resourceManager.CheckEnoughGold(50 * (eventRepeat + 1)))
         {
             eventCostText.color = Color.white;
             return true;
@@ -223,6 +224,7 @@ public class UpgradeEvent : MonoBehaviour
             selectSlot.SetActive(false);
             selectCard = null;
             eventStone.sprite = eventStoneDeactivated;
+            confirmButton.interactable = false;
         }
         atkButton.color = Color.white;
         hpButton.color = new Color(1f, 0.2f, 0f);

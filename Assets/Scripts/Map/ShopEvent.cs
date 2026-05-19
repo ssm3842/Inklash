@@ -14,17 +14,25 @@ public class ShopEvent : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
 
     [SerializeField] Button deleteButton;
+    [SerializeField] TextMeshProUGUI deleteCardCostText;
 
     [SerializeField] GameObject cardDeleteDeckView;
     [SerializeField] Transform content; 
 
+    int[] cardCostArray;
 
     public void EnterShop()
     {
         deleteButton.gameObject.SetActive(true);
 
-        //기존에 있던 유닛, 마법 카드 오브젝트 삭제.
+        cardCostArray = new int[6];
+
+        //기존에 있던 카드 오브젝트 삭제.
         foreach (Transform child in useCardContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in wordCardContainer.transform)
         {
             Destroy(child.gameObject);
         }
@@ -34,15 +42,15 @@ public class ShopEvent : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             int cardIndex = i;
-            int newCardCost = UnityEngine.Random.Range(60, 80);
-            cardGoldTexts[i].text = newCardCost.ToString();
+            cardCostArray[i] = UnityEngine.Random.Range(60, 80);
+            cardGoldTexts[i].text = cardCostArray[i].ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, useCardContainer.transform);
             cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
 
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
-            cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(newCardCost, targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
+            cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(cardCostArray[cardIndex], targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
         }
         
         //기존에 있던 단어 카드 오브젝트 삭제.
@@ -56,15 +64,15 @@ public class ShopEvent : MonoBehaviour
         for(int i = 3; i < 4; i++)
         {
             int cardIndex = i;
-            int newCardCost = UnityEngine.Random.Range(60, 80);
-            cardGoldTexts[i].text = newCardCost.ToString();
+            cardCostArray[i] = UnityEngine.Random.Range(60, 80);
+            cardGoldTexts[i].text = cardCostArray[i].ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, wordCardContainer.transform);
             cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
 
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
-            cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(newCardCost, targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
+            cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(cardCostArray[cardIndex], targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
         }
 
         //단어 카드 표시.
@@ -72,17 +80,19 @@ public class ShopEvent : MonoBehaviour
         for(int i = 4; i < 6; i++)
         {
             int cardIndex = i;
-            int newCardCost = UnityEngine.Random.Range(100, 120);
+            cardCostArray[i] = UnityEngine.Random.Range(100, 120);
 
-            cardGoldTexts[i].text = newCardCost.ToString();
+            cardGoldTexts[i].text = cardCostArray[i].ToString();
 
             GameObject cardUI = Instantiate(cardPrefab, wordCardContainer.transform);
             cardUI.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             CardContent targetCard = cardList[UnityEngine.Random.Range(0, cardList.Count)];
             
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
-            cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(newCardCost, targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
+            cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(cardCostArray[cardIndex], targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
         }
+
+        UpdateCostTextColor();
 
         gameObject.SetActive(true);
         cardDeleteDeckView.SetActive(false);
@@ -100,7 +110,22 @@ public class ShopEvent : MonoBehaviour
 
             cardGoldTexts[index].text = "";
             goldImage[index].SetActive(false);
+
+            UpdateCostTextColor();
         }
+    }
+
+    void UpdateCostTextColor()
+    {
+        ResourceManager resourceManager = RunManager.Inst.resourceManager;
+        for(int i=0; i<6; i++)
+        {
+            if(resourceManager.CheckEnoughGold(cardCostArray[i])) cardGoldTexts[i].color = Color.white;
+            else cardGoldTexts[i].color = Color.red;
+        }
+
+        if(resourceManager.CheckEnoughGold(50)) deleteCardCostText.color = Color.white;
+        else deleteCardCostText.color = Color.red;
     }
     
     public void OnCardDeleteButtonClicked()
@@ -137,6 +162,8 @@ public class ShopEvent : MonoBehaviour
         deleteButton.gameObject.SetActive(false);
 
         cardDeleteDeckView.SetActive(false);
+
+        UpdateCostTextColor();
     }
 
     public void ExitShop()
