@@ -213,8 +213,6 @@ public class Units : DamageableObject
     {
         if (isDead) yield break;
 
-        Debug.Log($"[TakeDamage] {gameObject.name}, frame={Time.frameCount}");
-
         float finalDamage = amount;
 
         // 표식 버프가 있다면 25% 증폭

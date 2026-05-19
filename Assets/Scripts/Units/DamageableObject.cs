@@ -68,6 +68,12 @@ public class DamageableObject : MonoBehaviour
 
         if (statController.GetCurHp() <= 0f)
         {
+            if (healthBarSlider)
+            {
+                healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
+                healthBarText.text = 0.ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
+            }
+            
             transform.DOShakePosition(1.5f, new Vector3(0.25f, 0, 0), 15, 0, false, false).SetUpdate(true);
             Time.timeScale = 0f;
             if (!isPlayers)

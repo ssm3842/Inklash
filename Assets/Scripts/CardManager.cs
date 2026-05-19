@@ -397,7 +397,7 @@ public class CardManager : MonoBehaviour
 
         card.Setup(this, copyContent, 0);
         playerHands.Insert(0, card);
-        cardObject.transform.SetAsFirstSibling();
+        cardObject.transform.SetAsLastSibling();
         card.cardContent.isCopied = true;
 
         handLayout.AlignCards();
