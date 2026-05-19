@@ -22,12 +22,23 @@ public class MixCardEvent : MonoBehaviour
     [SerializeField]Sprite eventStoneActivated;
 
     [SerializeField]Button confirmButton;
+    [SerializeField]TextMeshProUGUI eventCostText;
+    int eventRepeat;
 
     Dictionary<string, int> cardCountDict;
 
     CardRewardCardUI firstCard, secondCard;
 
-    public void FilterDeckCard()
+    public void EnterEvent()
+    {
+        confirmButton.interactable = false;
+        eventRepeat = 0;
+        CheckEventAvailable();
+
+        FilterDeckCard();
+    }
+
+    void FilterDeckCard()
     {
         //기존에 있던 카드 오브젝트 삭제.
         foreach (Transform child in content)
@@ -39,6 +50,9 @@ public class MixCardEvent : MonoBehaviour
         secondCard = null;
         confirmButton.interactable = false;
         eventStone.sprite = eventStoneDeactivated;
+
+        CheckEventAvailable();
+
         SetPreview();
 
         List<CardContent> deck = DeckManager.Inst.GetDeckdata();
@@ -69,6 +83,14 @@ public class MixCardEvent : MonoBehaviour
 
         //카드 수에 따라 스크롤 뷰 높이를 변경.
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (((spawnedCount - 1) / 4) + 1) * 270);
+    }
+
+    void UpdateCards()
+    {
+        foreach (Transform child in content)
+        {
+            child.gameObject.GetComponent<CardRewardCardUI>().Setup(child.gameObject.GetComponent<CardRewardCardUI>().cardContent);
+        }
     }
 
     void FilterDeckCard(CardContent selectCard)
@@ -113,7 +135,7 @@ public class MixCardEvent : MonoBehaviour
             secondCard = targetCard;
             cardCanvasgroup.alpha = 0.3f; 
 
-            if (RunManager.Inst.resourceManager.currentGold >= 50)confirmButton.interactable = true;
+            if (CheckEventAvailable()) confirmButton.interactable = true;
         }
         SetPreview();
     }
@@ -192,6 +214,23 @@ public class MixCardEvent : MonoBehaviour
         }
     }
 
+    bool CheckEventAvailable()
+    {
+        eventCostText.text = (50 * (eventRepeat + 1)).ToString();
+
+        //충분한 골드를 소지하고 있을 경우
+        if(RunManager.Inst.resourceManager.currentGold >= 50 * (eventRepeat + 1))
+        {
+            eventCostText.color = Color.white;
+            return true;
+        }
+        else
+        {
+            eventCostText.color = Color.red;
+            return false;
+        }
+    }
+
     public void MixCard()
     {
         firstCard.cardContent.cost = Mathf.Min(firstCard.cardContent.cost, secondCard.cardContent.cost);
@@ -200,8 +239,17 @@ public class MixCardEvent : MonoBehaviour
 
         //두번째 카드는 삭제하고 첫번째 카드의 스탯을 조정.
         DeckManager.Inst.RemoveCardToDeck(secondCard.cardContent);
-        RunManager.Inst.resourceManager.SpendGold(50);
+        
+        Destroy(secondCard.gameObject);
+        secondCard = null;
 
-        eventManager._OnEventEnd();
+        SetPreview();
+        UpdateCards();
+
+        RunManager.Inst.resourceManager.SpendGold(50 * (eventRepeat + 1));
+        eventRepeat++;
+        CheckEventAvailable();
+
+        // eventManager._OnEventEnd();
     }
 }

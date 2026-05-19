@@ -23,6 +23,8 @@ public class MakeSealEvent : MonoBehaviour
     [SerializeField]Sprite wordEventStoneActivated;
 
     [SerializeField]Button confirmButton;
+    [SerializeField]TextMeshProUGUI eventCostText;
+    int eventRepeat;
 
 
     CardRewardCardUI selectUseCard, selectWordCard;
@@ -33,6 +35,9 @@ public class MakeSealEvent : MonoBehaviour
         selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
 
         confirmButton.interactable = false;
+        eventRepeat = 0;
+        CheckEventAvailable();
+
         unitEventStone.sprite = unitEventStoneDeactivated;
         wordEventStone.sprite = wordEventStoneDeactivated;
 
@@ -137,7 +142,7 @@ public class MakeSealEvent : MonoBehaviour
             SetWordCardContent();
         }
 
-        if(selectUseCard != null && selectWordCard != null) confirmButton.interactable = true;
+        if(selectUseCard != null && selectWordCard != null && CheckEventAvailable()) confirmButton.interactable = true;
         else confirmButton.interactable = false;
     }
     void SelectWordCard(CanvasGroup cardCanvasgroup, CardRewardCardUI targetCard)
@@ -170,12 +175,49 @@ public class MakeSealEvent : MonoBehaviour
         else confirmButton.interactable = false;
     }
 
+    bool CheckEventAvailable()
+    {
+        eventCostText.text = (50 * (eventRepeat + 1)).ToString();
+
+        //충분한 골드를 소지하고 있을 경우
+        if(RunManager.Inst.resourceManager.currentGold >= 50 * (eventRepeat + 1))
+        {
+            eventCostText.color = Color.white;
+            return true;
+        }
+        else
+        {
+            eventCostText.color = Color.red;
+            return false;
+        }
+    }
+
+    void UpdateCards()
+    {
+        foreach (Transform child in useCardcontainer)
+        {
+            child.gameObject.GetComponent<CardRewardCardUI>().Setup(child.gameObject.GetComponent<CardRewardCardUI>().cardContent);
+        }
+    }
+
     public void UpgradeCard()
     {
         SealManager.AddSealToCard(selectUseCard.cardContent, selectWordCard.cardContent.seals[0]);
         DeckManager.Inst.RemoveCardToDeck(selectWordCard.cardContent);
-        RunManager.Inst.resourceManager.SpendGold(50);
 
-        eventManager._OnEventEnd();
+        selectUseCardSlot.GetComponent<CardRewardCardUI>().Setup(selectUseCard.cardContent);
+        selectWordCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
+        wordEventStone.sprite = wordEventStoneDeactivated;
+
+        Destroy(selectWordCard.gameObject);
+        selectWordCard = null;
+
+        UpdateCards();
+
+        RunManager.Inst.resourceManager.SpendGold(50 * (eventRepeat + 1));
+        eventRepeat++;
+        CheckEventAvailable();
+
+        // eventManager._OnEventEnd();
     }
 }

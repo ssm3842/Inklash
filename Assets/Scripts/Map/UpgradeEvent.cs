@@ -27,6 +27,8 @@ public class UpgradeEvent : MonoBehaviour
     [SerializeField]Image costButton;
 
     [SerializeField]Button confirmButton;
+    [SerializeField]TextMeshProUGUI eventCostText;
+    int eventRepeat;
 
     UpgradeType upgradeType = UpgradeType.CardATK;
     CardRewardCardUI selectCard;
@@ -37,6 +39,9 @@ public class UpgradeEvent : MonoBehaviour
 
         confirmButton.interactable = false;
         eventStone.sprite = eventStoneDeactivated;
+        
+        eventRepeat = 0;
+        CheckEventAvailable();
 
         selectCard = null;
         _OnATKButtonClicked();
@@ -99,7 +104,7 @@ public class UpgradeEvent : MonoBehaviour
         selectCard = targetCard;
         selectCard.gameObject.GetComponent<CanvasGroup>().alpha = 0.3f;
 
-        confirmButton.interactable = selectCard != null && RunManager.Inst.resourceManager.currentGold >= 50;
+        confirmButton.interactable = selectCard != null && CheckEventAvailable();
 
         hpText.color = Color.black;
         atkText.color = Color.black;
@@ -148,6 +153,14 @@ public class UpgradeEvent : MonoBehaviour
         }
     }
 
+    void UpdateCards()
+    {
+        foreach (Transform child in content)
+        {
+            child.gameObject.GetComponent<CardRewardCardUI>().Setup(child.gameObject.GetComponent<CardRewardCardUI>().cardContent);
+        }
+    }
+
     public void ConfirmUpgradeCard()
     {
         if(upgradeType == UpgradeType.CardATK) 
@@ -158,9 +171,34 @@ public class UpgradeEvent : MonoBehaviour
         else if(upgradeType == UpgradeType.CardHP) selectCard.cardContent.stats.baseMaxHp += 10;
         else if(upgradeType == UpgradeType.CardCost) selectCard.cardContent.cost = Mathf.Max(0, selectCard.cardContent.cost - 1);
 
-        RunManager.Inst.resourceManager.SpendGold(50);
+        RunManager.Inst.resourceManager.SpendGold(50 * (eventRepeat + 1));
+        eventRepeat++;
+        CheckEventAvailable();
 
-        eventManager._OnEventEnd();
+        cardPreviewBefore.Setup(selectCard.cardContent);
+        cardPreviewAfter.Setup(selectCard.cardContent);
+        ChangePreview();
+
+        UpdateCards();
+
+        // eventManager._OnEventEnd();
+    }
+
+    bool CheckEventAvailable()
+    {
+        eventCostText.text = (50 * (eventRepeat + 1)).ToString();
+
+        //충분한 골드를 소지하고 있을 경우
+        if(RunManager.Inst.resourceManager.currentGold >= 50 * (eventRepeat + 1))
+        {
+            eventCostText.color = Color.white;
+            return true;
+        }
+        else
+        {
+            eventCostText.color = Color.red;
+            return false;
+        }
     }
 
     void OnUpgradeTypeButtonClicked(UpgradeType newUpgradeType)
@@ -172,7 +210,7 @@ public class UpgradeEvent : MonoBehaviour
     public void _OnATKButtonClicked()
     {
         OnUpgradeTypeButtonClicked(UpgradeType.CardATK);
-        atkButton.color = Color.red;
+        atkButton.color = new Color(1f, 0.2f, 0f);
         hpButton.color = Color.white;
         costButton.color = Color.white;
     }
@@ -187,7 +225,7 @@ public class UpgradeEvent : MonoBehaviour
             eventStone.sprite = eventStoneDeactivated;
         }
         atkButton.color = Color.white;
-        hpButton.color = Color.red;
+        hpButton.color = new Color(1f, 0.2f, 0f);
         costButton.color = Color.white;
     }
     public void _OnCostButtonClicked()
@@ -195,7 +233,7 @@ public class UpgradeEvent : MonoBehaviour
         OnUpgradeTypeButtonClicked(UpgradeType.CardCost);
         atkButton.color = Color.white;
         hpButton.color = Color.white;
-        costButton.color = Color.red;
+        costButton.color = new Color(1f, 0.2f, 0f);
     }
 
     public enum UpgradeType

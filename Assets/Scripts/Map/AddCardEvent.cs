@@ -1,22 +1,32 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AddCardEvent : MonoBehaviour
 {
-    [SerializeField]EventManager eventManager;
     [SerializeField]GameObject cardPrefab;
 
     [SerializeField]Transform cardRewardContainer;
 
-    [SerializeField]Button confirmButton;
+    [SerializeField]Button rerollButton;
+    [SerializeField]Button getCardButton;
+    [SerializeField]TextMeshProUGUI eventCostText;
+    int eventRepeat;
 
     CardRewardCardUI rewardCard;
     public void SetEvent()
     {
         rewardCard = null;
 
-        confirmButton.interactable = false;
+        eventRepeat = 0;
+        rerollButton.interactable = CheckEventAvailable();
+        getCardButton.interactable = false;
+    }
+
+    public void GetNewRandomCards()
+    {
+        cardRewardContainer.gameObject.SetActive(true);
 
         List<CardDataSO> cardRewardList = new List<CardDataSO>();
         List<CardDataSO> allCardRewardPool = RunManager.Inst.unitDataManager.GetCardRewardPool();
@@ -26,6 +36,7 @@ public class AddCardEvent : MonoBehaviour
 
             CardDataSO currentCardData = allCardRewardPool[randomI];
             cardRewardList.Add(currentCardData);
+            allCardRewardPool.Remove(currentCardData); //선택지에 같은 카드가 나오는 것 방지.
         }
 
         foreach (Transform child in cardRewardContainer)
@@ -39,6 +50,10 @@ public class AddCardEvent : MonoBehaviour
             cardUI.GetComponent<CardRewardCardUI>().Setup(cardDataSO.card);
             cardUI.GetComponent<Button>().onClick.AddListener(() => selectCard(cardUI.GetComponent<CardRewardCardUI>()));
         }
+
+        RunManager.Inst.resourceManager.SpendGold(50 * (eventRepeat + 1));
+        eventRepeat++;
+        CheckEventAvailable();
     }
 
     void selectCard(CardRewardCardUI card)
@@ -50,13 +65,33 @@ public class AddCardEvent : MonoBehaviour
         card.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
 
         rewardCard = card;
-        confirmButton.interactable = true;
+        getCardButton.interactable = true;
+    }
+
+    bool CheckEventAvailable()
+    {
+        eventCostText.text = (50 * (eventRepeat + 1)).ToString();
+
+        //충분한 골드를 소지하고 있을 경우
+        if(RunManager.Inst.resourceManager.currentGold >= 50 * (eventRepeat + 1))
+        {
+            eventCostText.color = Color.white;
+            return true;
+        }
+        else
+        {
+            eventCostText.color = Color.red;
+            rerollButton.interactable = false;
+            return false;
+        }
     }
 
     public void GetCard()
     {
         DeckManager.Inst.AddCardToDeck(rewardCard.cardContent);
+        getCardButton.interactable = false;
+        cardRewardContainer.gameObject.SetActive(false);
 
-        eventManager._OnEventEnd();
+        // eventManager._OnEventEnd();
     }
 }

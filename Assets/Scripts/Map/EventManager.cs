@@ -40,7 +40,7 @@ public class EventManager : MonoBehaviour
                 mixCardObjects.gameObject.SetActive(true);
                 makeSealObjects.gameObject.SetActive(false);
 
-                mixCardObjects.FilterDeckCard();
+                mixCardObjects.EnterEvent();
                 break;
             case EventRoomType.MAKESEAL:
                 RunManager.Inst.mapManager.SetMapText("인 장   부 여");

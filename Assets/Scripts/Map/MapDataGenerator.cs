@@ -316,7 +316,8 @@ public class MapDataGenerator : MonoBehaviour
             if (roll <= current)
             {
                 //선택된 이벤트 타입의 확률을 감소시킴.
-                if (randomEventRoomTypeWeights[type] >= 3f) randomEventRoomTypeWeights[type] = 0.1f;
+                if (randomEventRoomTypeWeights[type] >= 3f) randomEventRoomTypeWeights[type] = 1f;
+                else if (randomEventRoomTypeWeights[type] >= 1f) randomEventRoomTypeWeights[type] = 0.1f;
 
                 return type;
             }
