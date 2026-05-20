@@ -432,7 +432,7 @@ public class CardManager : MonoBehaviour
             CardContent purityContent = new CardContent(baseContent);
             SealManager.RemoveSealFromCard(purityContent, SealType.Purity);
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 CreateAndAddCard(purityContent);
             }
@@ -442,7 +442,7 @@ public class CardManager : MonoBehaviour
         if (isCopy)
         {
             CardContent copyContent = new CardContent(baseContent);
-            copyContent.cost = 1; 
+            copyContent.cost = 2; 
             SealManager.RemoveSealFromCard(copyContent, SealType.Copy);
 
             CreateAndAddCard(copyContent);
