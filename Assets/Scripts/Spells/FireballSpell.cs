@@ -8,7 +8,7 @@ public class Fireball : SpellBase
     public GameObject explosionEffectPrefab;     // 폭발 이펙트 프리팹
 
     [Header("Spawn Settings")]
-    public int fireballCount = 5;
+    public int fireballCount = 3;
     public float spawnInterval = 0.15f;          // 생성 간격
     public float spawnAreaWidth = 3f;            // X축 랜덤 범위
     public float spawnYMin = -2f;

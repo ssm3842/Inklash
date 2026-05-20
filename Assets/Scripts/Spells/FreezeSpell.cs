@@ -6,7 +6,7 @@ public class Freeze : SpellBase
     [Header("Freeze Settings")]
     public GameObject rangeIndicatorPrefab;   // 범위 표시 이펙트
     public GameObject explosionEffectPrefab;   // 얼음 폭발 이펙트
-    public float indicatorDuration = 1.5f;     // 범위 표시 지속 시간
+    public float indicatorDuration = 0.5f;     // 범위 표시 지속 시간
     public float spawnYMin = -2f;
     public float spawnYMax = -0.4f;
 
@@ -25,6 +25,8 @@ public class Freeze : SpellBase
         if (rangeIndicatorPrefab != null)
         {
             indicator = Instantiate(rangeIndicatorPrefab, transform.position, rangeIndicatorPrefab.transform.rotation);
+            indicator.transform.SetParent(RunManager.Inst.battleManager.cardUseManager.transform);
+
             indicator.transform.localScale = rangeIndicatorPrefab.transform.localScale;
             ApplyDepthScale(indicator, transform.position.y);
             // range에 맞게 스케일 조절 (필요시)
@@ -41,6 +43,8 @@ public class Freeze : SpellBase
         if (explosionEffectPrefab != null)
         {
             var explosion = Instantiate(explosionEffectPrefab, transform.position, explosionEffectPrefab.transform.rotation);
+            indicator.transform.SetParent(RunManager.Inst.battleManager.cardUseManager.transform);
+
             explosion.transform.localScale = explosionEffectPrefab.transform.localScale;
             SetDepthSorting(explosion, transform.position.y);
             ApplyDepthScale(explosion, transform.position.y);

@@ -2,62 +2,48 @@
 ,,
 // [Unit],,
 UNIT_NAME_SWORD,검,Sword
-UNIT_DESC_SWORD,검 설명ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁㄴ ㅇㄹㅁㄴㅇㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁㄴㅇㄹ,
+UNIT_DESC_SWORD,적을 근접 전투를 하는 유닛입니다.
 UNIT_NAME_BOW,활,Bow
-UNIT_DESC_BOW,활 설명ㅁㄴㅇㄹㅁㄴ ㅇㄹㅁㄴ ㅇㄹㅁㄴㅇㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁㄴㅇㄹ,
+UNIT_DESC_BOW,적과 원거리 전투를 하는 유닛입니다.
 UNIT_NAME_SPEAR,창,Spear
-UNIT_DESC_SPEAR,,
+UNIT_DESC_SPEAR,일정 시간을 이동한 후 추가 이동속도와 공격력을 얻는 근접 유닛입니다.,
 UNIT_NAME_CANNON,포,Cannon
-UNIT_DESC_CANNON,,
+UNIT_DESC_CANNON,긴 사거리로 느리게 강한 공격을 하는 원거리 유닛입니다.,
 UNIT_NAME_SHIELD,방패,Shield
-UNIT_DESC_SHIELD,,
+UNIT_DESC_SHIELD,공격력은 낮지만 체력이 높은 근접 전투 유닛입니다.,
 UNIT_NAME_FIRE,불,Fire
-UNIT_DESC_FIRE,,
+UNIT_DESC_FIRE,적에게 공격하면 발화 디버프를 부여하는 원거리 유닛입니다.,
 
 ,,
 // [Spell],,
 SPELL_NAME_LIGHTNING,번개,Lightning
-SPELL_DESC_LIGHTNING,,
+SPELL_DESC_LIGHTNING,적에게 피해를 입히고 짧은 경직을 부여합니다.,
 SPELL_NAME_RAGE,분노,Rage
 SPELL_DESC_RAGE,,
 SPELL_NAME_FREEZE,빙결,Freeze
-SPELL_DESC_FREEZE,빙결 ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁ ㄴㅇㄹㅁㄴㅇㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹㅁㄴㅇㄹ,
+SPELL_DESC_FREEZE,일정 시간 후에 적을 잠시동안 행동불가 상태로 만듭니다.,
 SPELL_NAME_FIREBALL,화염구,Fireball
-SPELL_DESC_FIREBALL,,
+SPELL_DESC_FIREBALL,높은 피해를 입히는 투사체를 여러 개 발사합니다.,
 ,,
 // [Word],,
-WORD_NAME_CLONE,복제된,Clone
-WORD_DESC_CLONE,,
-WORD_NAME_STRONG,강력한,Strong
-WORD_DESC_STRONG,,
-WORD_NAME_HEALTHY,건강한,Healthy
-WORD_DESC_HEALTHY,,
-WORD_NAME_FAST,빠른,Fast
-WORD_DESC_FAST,,
-WORD_NAME_QUICK,성급한,Quick
-WORD_DESC_QUICK,,
 WORD_NAME_IGNITE,발화,Ignite
-WORD_DESC_IGNITE,,
-WORD_NAME_COLD,차가운,Cold
-WORD_DESC_COLD,,
+WORD_DESC_IGNITE,적에게 체력에 비례한 지속 피해를 입힙니다.,
 WORD_NAME_CHILL,냉기,Chill
-WORD_DESC_CHILL,,
+WORD_DESC_CHILL,적의 공격속도를 매우 느리게 만듭니다.,
 WORD_NAME_SPLIT,분열,Split
-WORD_DESC_SPLIT,,
+WORD_DESC_SPLIT,유닛이 죽거나 마법을 사용한 후 능력치를 낮춰 2개로 분열합니다.,
 WORD_NAME_WEAKEN,약화,WeakEN
-WORD_DESC_WEAKEN,,
+WORD_DESC_WEAKEN,대상의 공격력을 감소시킵니다.,
 WORD_NAME_ULTIMATE,궁극,Ultimate
-WORD_DESC_ULTIMATE,,
+WORD_DESC_ULTIMATE,능력치를 매우 강하게 만듭니다.,
 WORD_NAME_COPY,복사,Copy
-WORD_DESC_COPY,,
+WORD_DESC_COPY,카드를 사용하면 비용이 1인 카드로 복사해 가져옵니다.,
 WORD_NAME_EXPLOSION,폭발,Explosion
-WORD_DESC_EXPLOSION,,
+WORD_DESC_EXPLOSION,공격력만큼 주위에 피해를 입힙니다.,
 WORD_NAME_MARK,표식,Mark
-WORD_DESC_MARK,,
+WORD_DESC_MARK,피해를 입힌 유닛이 받는 피해를 증가시킵니다.,
 WORD_NAME_PURITY,순수,Purity
-WORD_DESC_PURITY,,
-WORD_NAME_EXTRAHIT,추가타,Strong
-WORD_DESC_EXTRAHIT,,
+WORD_DESC_PURITY,패를 버리고 사용한 카드로 패를 가득 채웁니다.,
 ,,
 // [Enemy],,
 ENEMY_NAME_LOWER_I,소문자 i,Lower i
