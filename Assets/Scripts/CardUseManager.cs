@@ -126,9 +126,16 @@ public class CardUseManager : MonoBehaviour
         Destroy(checkObj); 
 
         float targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+        int currentFloorCheck = RunManager.Inst.mapManager.floorClimbed;
+
 
         for (int i = 0; i < castCount; i++)
         {
+            if (RunManager.Inst.mapManager.floorClimbed != currentFloorCheck)
+            {   
+                break;
+            }
+            
             GameObject fireSpell = Instantiate(card.unit);
             fireSpell.transform.SetParent(transform);
             
