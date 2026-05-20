@@ -55,6 +55,7 @@ public class Fireball : SpellBase
         GameObject proj = (fireballProjectilePrefab != null)
             ? Instantiate(fireballProjectilePrefab, from, Quaternion.identity)
             : null;
+        proj.transform.SetParent(RunManager.Inst.battleManager.cardUseManager.transform);
 
         // 낙하 방향으로 회전 
         if (proj != null) 
@@ -92,6 +93,8 @@ public class Fireball : SpellBase
         if (explosionEffectPrefab != null)
         {
             var explosion = Instantiate(explosionEffectPrefab, to, explosionEffectPrefab.transform.rotation);
+            proj.transform.SetParent(RunManager.Inst.battleManager.cardUseManager.transform);
+            
             explosion.transform.localScale = explosionEffectPrefab.transform.localScale;
             ApplyDepthScale(explosion, to.y);
             SetDepthSorting(explosion, to.y);
