@@ -13,6 +13,9 @@ public class ShopEvent : MonoBehaviour
 
     [SerializeField] GameObject cardPrefab;
 
+    [SerializeField] GameObject cardDescPanel;
+    [SerializeField] TextMeshProUGUI cardDescText;
+
     [SerializeField] Button deleteButton;
     [SerializeField] TextMeshProUGUI deleteCardCostText;
 
@@ -51,6 +54,8 @@ public class ShopEvent : MonoBehaviour
 
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
             cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(cardCostArray[cardIndex], targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
+            cardUI.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(targetCard, cardUI.transform));
+            cardUI.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
         }
         
         //기존에 있던 단어 카드 오브젝트 삭제.
@@ -73,6 +78,8 @@ public class ShopEvent : MonoBehaviour
 
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
             cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(cardCostArray[cardIndex], targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
+            cardUI.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(targetCard, cardUI.transform));
+            cardUI.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
         }
 
         //단어 카드 표시.
@@ -90,12 +97,28 @@ public class ShopEvent : MonoBehaviour
             
             cardUI.GetComponent<CardRewardCardUI>().Setup(targetCard);
             cardUI.GetComponent<Button>().onClick.AddListener(() => BuyCard(cardCostArray[cardIndex], targetCard, cardUI.GetComponent<CanvasGroup>(), cardIndex));
+            cardUI.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(targetCard, cardUI.transform));
+            cardUI.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
         }
 
         UpdateCostTextColor();
 
         gameObject.SetActive(true);
         cardDeleteDeckView.SetActive(false);
+    }
+
+    void UpdateCardDescPanel(CardContent cardContent = null, Transform cardTransform = null)
+    {
+        if(cardContent != null)
+        {
+            cardDescPanel.SetActive(true);
+            cardDescPanel.GetComponent<RectTransform>().transform.position = cardTransform.position;
+            cardDescText.text = cardContent.description;
+        }
+        else
+        {
+            cardDescPanel.SetActive(false);
+        }
     }
 
     void BuyCard(int cost, CardContent cardData, CanvasGroup cardObject, int index)

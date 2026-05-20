@@ -2,7 +2,7 @@
 ,,
 // [Unit],,
 UNIT_NAME_SWORD,검,Sword
-UNIT_DESC_SWORD,적을 근접 전투를 하는 유닛입니다.
+UNIT_DESC_SWORD,적과 근접 전투를 하는 유닛입니다.
 UNIT_NAME_BOW,활,Bow
 UNIT_DESC_BOW,적과 원거리 전투를 하는 유닛입니다.
 UNIT_NAME_SPEAR,창,Spear
@@ -37,13 +37,13 @@ WORD_DESC_WEAKEN,대상의 공격력을 감소시킵니다.,
 WORD_NAME_ULTIMATE,궁극,Ultimate
 WORD_DESC_ULTIMATE,능력치를 매우 강하게 만듭니다.,
 WORD_NAME_COPY,복사,Copy
-WORD_DESC_COPY,카드를 사용하면 비용이 1인 카드로 복사해 가져옵니다.,
+WORD_DESC_COPY,사용한 카드의 비용을 2로 복사해 손으로 가져옵니다.,
 WORD_NAME_EXPLOSION,폭발,Explosion
 WORD_DESC_EXPLOSION,공격력만큼 주위에 피해를 입힙니다.,
 WORD_NAME_MARK,표식,Mark
 WORD_DESC_MARK,피해를 입힌 유닛이 받는 피해를 증가시킵니다.,
 WORD_NAME_PURITY,순수,Purity
-WORD_DESC_PURITY,패를 버리고 사용한 카드로 패를 가득 채웁니다.,
+WORD_DESC_PURITY,패를 버리고 사용한 카드 3장을 복사해 손으로 가져옵니다.,
 ,,
 // [Enemy],,
 ENEMY_NAME_LOWER_I,소문자 i,Lower i

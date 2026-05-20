@@ -1,9 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
-public class CardRewardCardUI : MonoBehaviour
+public class CardRewardCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public UnityEvent CardHoverEnter;
+    public UnityEvent CardHoverExit;
+
     public CardContent cardContent;
 
     [SerializeField] Image cardImage;
@@ -120,5 +125,14 @@ public class CardRewardCardUI : MonoBehaviour
         GetComponent<CanvasGroup>().alpha = boolean ? 0f : 1f;
         GetComponent<CanvasGroup>().interactable = !boolean;
         GetComponent<CanvasGroup>().blocksRaycasts = !boolean;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        CardHoverEnter.Invoke();
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        CardHoverExit.Invoke();
     }
 }

@@ -10,6 +10,9 @@ public class AddCardEvent : MonoBehaviour
 
     [SerializeField]Transform cardRewardContainer;
 
+    [SerializeField] GameObject cardDescPanel;
+    [SerializeField] TextMeshProUGUI cardDescText;
+
     [SerializeField]Button rerollButton;
     [SerializeField]Button getCardButton;
     [SerializeField]TextMeshProUGUI eventCostText;
@@ -20,6 +23,8 @@ public class AddCardEvent : MonoBehaviour
     {
         rewardCard = null;
 
+        cardDescPanel.SetActive(false);
+
         eventRepeat = 0;
         rerollButton.interactable = CheckEventAvailable();
         getCardButton.interactable = false;
@@ -28,6 +33,7 @@ public class AddCardEvent : MonoBehaviour
     public void GetNewRandomCards()
     {
         cardRewardContainer.gameObject.SetActive(true);
+        cardDescPanel.SetActive(false);
 
         List<CardDataSO> cardRewardList = new List<CardDataSO>();
         List<CardDataSO> allCardRewardPool = new List<CardDataSO>(RunManager.Inst.unitDataManager.GetCardRewardPool());
@@ -133,6 +139,11 @@ public class AddCardEvent : MonoBehaviour
         card.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
 
         rewardCard = card;
+
+        cardDescPanel.SetActive(true);
+        cardDescPanel.GetComponent<RectTransform>().position = card.transform.position;
+        cardDescText.text = rewardCard.cardContent.description;
+
         getCardButton.interactable = true;
     }
 
@@ -157,6 +168,8 @@ public class AddCardEvent : MonoBehaviour
     public void GetCard()
     {
         DeckManager.Inst.AddCardToDeck(rewardCard.cardContent);
+
+        cardDescPanel.SetActive(false);
         getCardButton.interactable = false;
         cardRewardContainer.gameObject.SetActive(false);
 

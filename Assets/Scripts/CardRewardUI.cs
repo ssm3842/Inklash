@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class CardRewardUI : MonoBehaviour
     [SerializeField]GameObject cardPrefab;
 
     [SerializeField]GameObject cardDescPanel;
+    [SerializeField]TextMeshProUGUI cardDescText;
 
     [SerializeField]Button confirmButton;
 
@@ -47,6 +49,7 @@ public class CardRewardUI : MonoBehaviour
             child.gameObject.GetComponent<CardRewardCardUI>().SetCardDark(true);
             cardDescPanel.SetActive(true);
             cardDescPanel.GetComponent<RectTransform>().position = card.transform.position;
+            cardDescText.text = card.cardContent.description;
         }
         card.gameObject.GetComponent<CardRewardCardUI>().SetCardDark(false);
 
