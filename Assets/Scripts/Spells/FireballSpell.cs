@@ -93,7 +93,7 @@ public class Fireball : SpellBase
         if (explosionEffectPrefab != null)
         {
             var explosion = Instantiate(explosionEffectPrefab, to, explosionEffectPrefab.transform.rotation);
-            proj.transform.SetParent(RunManager.Inst.battleManager.cardUseManager.transform);
+            explosion.transform.SetParent(RunManager.Inst.battleManager.cardUseManager.transform);
             
             explosion.transform.localScale = explosionEffectPrefab.transform.localScale;
             ApplyDepthScale(explosion, to.y);
