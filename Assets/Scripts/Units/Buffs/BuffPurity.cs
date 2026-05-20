@@ -8,6 +8,6 @@ public class BuffPurity : Buffs
 
     protected override void ApplyCardSystem(CardManager cardManager)
     {
-        cardManager.ExecutePurityEffect();
+        cardManager.isPurity = true;
     }
 }

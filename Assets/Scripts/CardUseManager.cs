@@ -100,6 +100,7 @@ public class CardUseManager : MonoBehaviour
 
         SealManager.ApplySeals(newUnit, FilterWordCard(card));
 
+        CardManager.Inst.ExecuteCardSpecialEffects();
         //단어카드 리스트 초기화.
         stackedWordCardEffect = new List<SealType>();
     }
@@ -140,6 +141,8 @@ public class CardUseManager : MonoBehaviour
             if (i < castCount - 1) yield return new WaitForSeconds(0.75f);
         }
         
+        CardManager.Inst.ExecuteCardSpecialEffects();
+
         stackedWordCardEffect = new List<SealType>();
     }
 

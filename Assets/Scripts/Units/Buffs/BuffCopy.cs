@@ -8,6 +8,6 @@ public class BuffCopy : Buffs
 
     protected override void ApplyCardSystem(CardManager cardManager)
     {
-        cardManager.ExecuteCopyEffect();
+        cardManager.isCopy = true;
     }
 }

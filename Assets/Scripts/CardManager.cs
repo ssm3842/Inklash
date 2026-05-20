@@ -33,6 +33,20 @@ public class CardManager : MonoBehaviour
     private CanvasGroup draggingCardCanvasGroupComponent;
     public bool isDraggingCard = false;
     bool isStickyMode = false;
+    public bool isPurity = false;
+    public bool isCopy = false;
+    
+    public static CardManager Inst { get; private set; }
+
+    private void Awake()
+    {
+        if (Inst != null && Inst != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Inst = this;
+    }
 
     public void Init() //TODO: 이름 바꾸기
     {
@@ -94,7 +108,7 @@ public class CardManager : MonoBehaviour
 
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
-        card.Setup(this, cardData, card.transform.GetSiblingIndex());
+        card.Setup(this, cardData);
         playerHands.Add(card);
 
         graveCountTMP.text = discardBattleDeck.Count.ToString("D2");
@@ -282,7 +296,9 @@ public class CardManager : MonoBehaviour
         if (card.cardContent.isCopied == true)
         {
             playerHands.Remove(card);
+            card.transform.SetParent(battleUICanvas.transform);
             Destroy(card.gameObject);
+
         }
         else
         {
@@ -375,81 +391,77 @@ public class CardManager : MonoBehaviour
         handLayout.AlignCards();
     }
 
-    public void ExecuteCopyEffect()
+    public void ExecuteCardSpecialEffects()
     {
+        // 둘 다 거짓이면 실행할 필요가 없으므로 예외 처리
+        if (!isPurity && !isCopy) return;
         if (draggingCard == null) return;
 
-        CardContent copyContent = new CardContent(draggingCard.cardContent);
+
+        CardContent baseContent = new CardContent(draggingCard.cardContent);
+        
+        // 단어 카드 스택을 Pop하여 공통 데이터에 결합 (중복 소비 방지)
         List<SealType> stackedSeals = cardUseManager.PopStackedWordEffects();
         foreach (var seal in stackedSeals)
         {
-            if (!copyContent.seals.Contains(seal))
-            {
-                copyContent.seals.Add(seal);
+            if (!baseContent.seals.Contains(seal)) baseContent.seals.Add(seal);
+        }
+
+        if (isPurity)
+        {
+            for (int i = playerHands.Count - 1; i >= 0; i--)
+            {   
+                Card target = playerHands[i];
+                if (target == draggingCard) continue; // 현재 내고 있는 카드는 제외
+
+                if (target.cardContent.isCopied)
+                {
+                    playerHands.Remove(target);
+                    target.transform.SetParent(battleUICanvas.transform);
+                    Destroy(target.gameObject);
+                }
+                else
+                {
+                    MoveCardToDiscardDeck(target);
+                }
             }
         }
 
-        copyContent.cost = 1;
-        SealManager.RemoveSealFromCard(copyContent, SealType.Copy);
+        if (isPurity)
+        {
+            CardContent purityContent = new CardContent(baseContent);
+            SealManager.RemoveSealFromCard(purityContent, SealType.Purity);
 
+            for (int i = 0; i < 5; i++)
+            {
+                CreateAndAddCard(purityContent);
+            }
+        }
+
+
+        if (isCopy)
+        {
+            CardContent copyContent = new CardContent(baseContent);
+            copyContent.cost = 1; 
+            SealManager.RemoveSealFromCard(copyContent, SealType.Copy);
+
+            CreateAndAddCard(copyContent);
+        }
+
+        handLayout.AlignCards();
+        isCopy = false;
+        isPurity = false;
+    }
+
+    private void CreateAndAddCard(CardContent content)
+    {
         var cardObject = Instantiate(cardPrefab, handLayout.transform);
         var card = cardObject.GetComponent<Card>();
 
-        card.Setup(this, copyContent, 0);
-        playerHands.Insert(0, card);
-        cardObject.transform.SetAsLastSibling();
+        // 데이터 주입 후 복사본 플래그 설정 (순서 보장)
+        card.Setup(this, content);
         card.cardContent.isCopied = true;
 
-        handLayout.AlignCards();
+        playerHands.Add(card);
     }
-
-    public void ExecutePurityEffect()
-    {
-        if (draggingCard == null) return;
-
-        CardContent originalContent = new CardContent(draggingCard.cardContent);
-        List<SealType> stackedSeals = cardUseManager.PopStackedWordEffects();
-
-        // 사용된 단어 효과 적용
-        foreach (var seal in stackedSeals)
-        {
-            if (!originalContent.seals.Contains(seal))
-            {
-                originalContent.seals.Add(seal);
-            }
-        }
-
-        SealManager.RemoveSealFromCard(originalContent, SealType.Purity);
-
-
-        for (int i = playerHands.Count - 1; i >= 0; i--)
-        {   
-            Card target = playerHands[i];
-            if (target == draggingCard) continue;
-            if (target.cardContent.isCopied == true)
-            {
-                playerHands.Remove(target);
-                Destroy(target.gameObject);
-            }
-            else
-            {
-                MoveCardToDiscardDeck(target);
-            }
-
-        }
-        
-        // 현재 카드의 복제본 5장 생성
-        for (int i = 0; i < 5; i++)
-        {
-            var cardObject = Instantiate(cardPrefab, handLayout.transform);
-            var card = cardObject.GetComponent<Card>();
-            card.Setup(this, originalContent, i);
-            playerHands.Add(card);
-            
-            card.cardContent.isCopied = true;
-        }   
-
-        handLayout.AlignCards();
-    }
-
 }

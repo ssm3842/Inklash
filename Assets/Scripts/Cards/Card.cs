@@ -100,11 +100,10 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
     }
 
-    public void Setup(CardManager newCardManager, CardContent content, int newIndex)
+    public void Setup(CardManager newCardManager, CardContent content)
     {
         cardManager = newCardManager;
         cardContent = content;
-        originalIndex = newIndex;
 
         if(cardContent.cardImage == null) cardImage.color = new Color(0,0,0,0);
         else cardImage.sprite = cardContent.cardImage;
