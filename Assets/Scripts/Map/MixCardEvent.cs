@@ -69,6 +69,7 @@ public class MixCardEvent : MonoBehaviour
         int spawnedCount = 0;
         foreach(CardContent card in deck)
         {
+            if(card.cardType == CardType.Word) continue;
             //카드가 2장 이상 있을 경우에만 카드UI를 생성.
             if(cardCountDict[card.id] >= 2)
             {
