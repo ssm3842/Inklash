@@ -112,7 +112,7 @@ public class ShopEvent : MonoBehaviour
         if(cardContent != null)
         {
             cardDescPanel.SetActive(true);
-            cardDescPanel.GetComponent<RectTransform>().transform.position = cardTransform.position;
+            cardDescPanel.GetComponent<RectTransform>().position = cardTransform.position;
             cardDescText.text = cardContent.description;
         }
         else

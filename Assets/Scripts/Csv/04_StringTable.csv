@@ -12,7 +12,7 @@ UNIT_DESC_CANNON,긴 사거리로 느리게 강한 공격을 하는 원거리 �
 UNIT_NAME_SHIELD,방패,Shield
 UNIT_DESC_SHIELD,공격력은 낮지만 체력이 높은 근접 전투 유닛입니다.,
 UNIT_NAME_FIRE,불,Fire
-UNIT_DESC_FIRE,적에게 공격하면 발화 디버프를 부여하는 원거리 유닛입니다.,
+UNIT_DESC_FIRE,적을 공격하면 최대 체력에 비례한 지속 피해를 입히는 원거리 유닛입니다.,
 
 ,,
 // [Spell],,
@@ -27,7 +27,7 @@ SPELL_DESC_FIREBALL,높은 피해를 입히는 투사체를 여러 개 발사합
 ,,
 // [Word],,
 WORD_NAME_IGNITE,발화,Ignite
-WORD_DESC_IGNITE,적에게 체력에 비례한 지속 피해를 입힙니다.,
+WORD_DESC_IGNITE,적에게 최대 체력에 비례한 지속 피해를 입힙니다.,
 WORD_NAME_CHILL,냉기,Chill
 WORD_DESC_CHILL,적의 공격속도를 매우 느리게 만듭니다.,
 WORD_NAME_SPLIT,분열,Split

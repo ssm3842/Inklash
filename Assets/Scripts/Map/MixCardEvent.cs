@@ -5,22 +5,30 @@ using UnityEngine.UI;
 
 public class MixCardEvent : MonoBehaviour
 {
-    [SerializeField]EventManager eventManager;
+    [Space(10f)]
     [SerializeField]Transform content;
     [SerializeField]GameObject cardPrefab;
 
+    [Space(10f)]
     [SerializeField]GameObject firstCardSlot;
     [SerializeField]GameObject secondCardSlot;
     [SerializeField]GameObject lastCardSlot;
 
+    [Space(10f)]
     [SerializeField]TextMeshProUGUI atkText;
     [SerializeField]TextMeshProUGUI hpText;
     [SerializeField]TextMeshProUGUI costText;
 
+    [Space(10f)]
+    [SerializeField] GameObject cardDescPanel;
+    [SerializeField] TextMeshProUGUI cardDescText;
+
+    [Space(10f)]
     [SerializeField]Image eventStone;
     [SerializeField]Sprite eventStoneDeactivated;
     [SerializeField]Sprite eventStoneActivated;
 
+    [Space(10f)]
     [SerializeField]Button confirmButton;
     [SerializeField]TextMeshProUGUI eventCostText;
     int eventRepeat;
@@ -36,6 +44,14 @@ public class MixCardEvent : MonoBehaviour
         CheckEventAvailable();
 
         FilterDeckCard();
+
+        cardDescPanel.SetActive(false);
+        firstCardSlot.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(firstCard.cardContent, firstCardSlot.transform));
+        firstCardSlot.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
+        secondCardSlot.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(secondCard.cardContent, secondCardSlot.transform));
+        secondCardSlot.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
+        lastCardSlot.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(firstCard.cardContent, lastCardSlot.transform));
+        lastCardSlot.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
     }
 
     void FilterDeckCard()
@@ -212,6 +228,20 @@ public class MixCardEvent : MonoBehaviour
             eventStone.sprite = eventStoneDeactivated;
 
             lastCardSlot.GetComponent<CardRewardCardUI>().SetTransparent(true);
+        }
+    }
+
+    void UpdateCardDescPanel(CardContent cardContent = null, Transform cardTransform = null)
+    {
+        if(cardContent != null)
+        {
+            cardDescPanel.SetActive(true);
+            cardDescPanel.GetComponent<RectTransform>().position = cardTransform.position;
+            cardDescText.text = cardContent.description;
+        }
+        else
+        {
+            cardDescPanel.SetActive(false);
         }
     }
 

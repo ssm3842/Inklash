@@ -17,6 +17,7 @@ public class AddCardEvent : MonoBehaviour
     [SerializeField]Button getCardButton;
     [SerializeField]TextMeshProUGUI eventCostText;
     int eventRepeat;
+    const int baseCost = 30;
 
     CardRewardCardUI rewardCard;
     public void SetEvent()
@@ -25,9 +26,11 @@ public class AddCardEvent : MonoBehaviour
 
         cardDescPanel.SetActive(false);
 
-        eventRepeat = 0;
+        eventRepeat = -1;
         rerollButton.interactable = CheckEventAvailable();
         getCardButton.interactable = false;
+
+        GetNewRandomCards();
     }
 
     public void GetNewRandomCards()
@@ -123,9 +126,12 @@ public class AddCardEvent : MonoBehaviour
             cardUI.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
             cardUI.GetComponent<CardRewardCardUI>().Setup(cardDataSO.card);
             cardUI.GetComponent<Button>().onClick.AddListener(() => selectCard(cardUI.GetComponent<CardRewardCardUI>()));
+            
+            cardUI.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(cardDataSO.card, cardUI.transform));
+            cardUI.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
         }
 
-        RunManager.Inst.resourceManager.SpendGold(50 * (eventRepeat + 1));
+        RunManager.Inst.resourceManager.SpendGold(baseCost * (eventRepeat + 1));
         eventRepeat++;
         CheckEventAvailable();
     }
@@ -140,19 +146,15 @@ public class AddCardEvent : MonoBehaviour
 
         rewardCard = card;
 
-        cardDescPanel.SetActive(true);
-        cardDescPanel.GetComponent<RectTransform>().position = card.transform.position;
-        cardDescText.text = rewardCard.cardContent.description;
-
         getCardButton.interactable = true;
     }
 
     bool CheckEventAvailable()
     {
-        eventCostText.text = (50 * (eventRepeat + 1)).ToString();
+        eventCostText.text = (baseCost * (eventRepeat + 1)).ToString();
 
         //충분한 골드를 소지하고 있을 경우
-        if(RunManager.Inst.resourceManager.CheckEnoughGold(50 * (eventRepeat + 1)))
+        if(RunManager.Inst.resourceManager.CheckEnoughGold(baseCost * (eventRepeat + 1)))
         {
             eventCostText.color = Color.white;
             return true;
@@ -162,6 +164,20 @@ public class AddCardEvent : MonoBehaviour
             eventCostText.color = Color.red;
             rerollButton.interactable = false;
             return false;
+        }
+    }
+
+    void UpdateCardDescPanel(CardContent cardContent = null, Transform cardTransform = null)
+    {
+        if(cardContent != null)
+        {
+            cardDescPanel.SetActive(true);
+            cardDescPanel.GetComponent<RectTransform>().position = cardTransform.position;
+            cardDescText.text = cardContent.description;
+        }
+        else
+        {
+            cardDescPanel.SetActive(false);
         }
     }
 

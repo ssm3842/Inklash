@@ -5,27 +5,34 @@ using UnityEngine.UI;
 
 public class UpgradeEvent : MonoBehaviour
 {
-    [SerializeField]EventManager eventManager;
-
     [SerializeField]GameObject selectSlot;
 
+    [Space(10f)]
     [SerializeField]CardRewardCardUI cardPreviewBefore;
     [SerializeField]CardRewardCardUI cardPreviewAfter;
     [SerializeField]TextMeshProUGUI atkText;
     [SerializeField]TextMeshProUGUI hpText;
     [SerializeField]TextMeshProUGUI costText;
 
+    [Space(10f)]
+    [SerializeField] GameObject cardDescPanel;
+    [SerializeField] TextMeshProUGUI cardDescText;
+
+    [Space(10f)]
     [SerializeField]Transform content;
     [SerializeField]GameObject cardPrefab;
 
+    [Space(10f)]
     [SerializeField]Image eventStone;
     [SerializeField]Sprite eventStoneDeactivated;
     [SerializeField]Sprite eventStoneActivated;
 
+    [Space(10f)]
     [SerializeField]Image atkButton;
     [SerializeField]Image hpButton;
     [SerializeField]Image costButton;
 
+    [Space(10f)]
     [SerializeField]Button confirmButton;
     [SerializeField]TextMeshProUGUI eventCostText;
     int eventRepeat;
@@ -46,6 +53,12 @@ public class UpgradeEvent : MonoBehaviour
         selectCard = null;
         _OnATKButtonClicked();
 
+        cardDescPanel.SetActive(false);
+        cardPreviewBefore.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(selectCard.cardContent, cardPreviewBefore.transform));
+        cardPreviewBefore.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
+        cardPreviewAfter.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(selectCard.cardContent, cardPreviewAfter.transform));
+        cardPreviewAfter.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
+
         //기존에 있던 카드 오브젝트 삭제.
         foreach (Transform child in content)
         {
@@ -62,6 +75,9 @@ public class UpgradeEvent : MonoBehaviour
                 cardUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 cardUI.GetComponent<CardRewardCardUI>().Setup(card);
                 cardUI.GetComponent<Button>().onClick.AddListener(() => SelectCard(cardUI.GetComponent<CardRewardCardUI>()));
+
+                // cardUI.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(card, cardUI.transform));
+                // cardUI.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
             }
         }
 
@@ -183,6 +199,20 @@ public class UpgradeEvent : MonoBehaviour
         UpdateCards();
 
         // eventManager._OnEventEnd();
+    }
+
+    void UpdateCardDescPanel(CardContent cardContent = null, Transform cardTransform = null)
+    {
+        if(cardContent != null)
+        {
+            cardDescPanel.SetActive(true);
+            cardDescPanel.GetComponent<RectTransform>().position = cardTransform.position;
+            cardDescText.text = cardContent.description;
+        }
+        else
+        {
+            cardDescPanel.SetActive(false);
+        }
     }
 
     bool CheckEventAvailable()

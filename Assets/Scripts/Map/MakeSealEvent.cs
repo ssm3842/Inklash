@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 public class MakeSealEvent : MonoBehaviour
 {
-    [SerializeField]EventManager eventManager;
+    [Space(10f)]
     [SerializeField]GameObject cardPrefab;
 
+    [Space(10f)]
     [SerializeField]Transform useCardcontainer;
     [SerializeField]GameObject useCardScrollView;
     [SerializeField]Transform wordCardcontainer;
@@ -15,6 +16,11 @@ public class MakeSealEvent : MonoBehaviour
     [SerializeField]GameObject selectUseCardSlot;
     [SerializeField]GameObject selectWordCardSlot;
 
+    [Space(10f)]
+    [SerializeField] GameObject cardDescPanel;
+    [SerializeField] TextMeshProUGUI cardDescText;
+
+    [Space(10f)]
     [SerializeField]Image unitEventStone;
     [SerializeField]Sprite unitEventStoneDeactivated;
     [SerializeField]Sprite unitEventStoneActivated;
@@ -22,6 +28,7 @@ public class MakeSealEvent : MonoBehaviour
     [SerializeField]Sprite wordEventStoneDeactivated;
     [SerializeField]Sprite wordEventStoneActivated;
 
+    [Space(10f)]
     [SerializeField]Button confirmButton;
     [SerializeField]TextMeshProUGUI eventCostText;
     int eventRepeat;
@@ -43,6 +50,12 @@ public class MakeSealEvent : MonoBehaviour
 
         selectUseCard = null;
         selectWordCard = null;
+
+        cardDescPanel.SetActive(false);
+        selectUseCardSlot.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(selectUseCard.cardContent, selectUseCardSlot.transform));
+        selectUseCardSlot.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
+        selectWordCardSlot.GetComponent<CardRewardCardUI>().CardHoverEnter.AddListener(() => UpdateCardDescPanel(selectWordCard.cardContent, selectWordCardSlot.transform));
+        selectWordCardSlot.GetComponent<CardRewardCardUI>().CardHoverExit.AddListener(() => UpdateCardDescPanel());
 
         List<CardContent> deck = DeckManager.Inst.GetDeckdata();
         //유닛, 마법 카드를 표시할 캔버스를 먼저 초기화
@@ -173,6 +186,20 @@ public class MakeSealEvent : MonoBehaviour
 
         if(selectUseCard != null && selectWordCard != null && RunManager.Inst.resourceManager.currentGold >= 50) confirmButton.interactable = true;
         else confirmButton.interactable = false;
+    }
+
+    void UpdateCardDescPanel(CardContent cardContent = null, Transform cardTransform = null)
+    {
+        if(cardContent != null)
+        {
+            cardDescPanel.SetActive(true);
+            cardDescPanel.GetComponent<RectTransform>().position = cardTransform.position;
+            cardDescText.text = cardContent.description;
+        }
+        else
+        {
+            cardDescPanel.SetActive(false);
+        }
     }
 
     bool CheckEventAvailable()

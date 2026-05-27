@@ -55,7 +55,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             //골드 획득
-            RunManager.Inst.resourceManager?.EarnGold(UnityEngine.Random.Range(25, 40));
+            RunManager.Inst.resourceManager?.EarnGold(UnityEngine.Random.Range(35, 50));
             //짤랑 사운드 설정
 
             //카드 보상 캔버스 설정
