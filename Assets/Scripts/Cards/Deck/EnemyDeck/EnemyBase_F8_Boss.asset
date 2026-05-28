@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e8b7ec94de4744c8a06c967fe3af30, type: 3}
   m_Name: EnemyBase_F8_Boss
   m_EditorClassIdentifier: 
-  baseSprite: {fileID: 21300000, guid: e32d41f0ea235004f935a40bf7e7a982, type: 3}
+  visualPrefab: {fileID: 7430305797558097153, guid: 979ef5fb7b9d7fc48ba683f4b4eecae4, type: 3}
   maxHP: 800
   isBoss: 1
   initialSpawnDelay: 5

@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Deck", menuName ="Scriptable Object/EnemyBaseData")]
 public class EnemyBaseDataSO : ScriptableObject
 {
-    public Sprite baseSprite;
+    public GameObject visualPrefab;
     public float maxHP;
     public bool isBoss = false;
     

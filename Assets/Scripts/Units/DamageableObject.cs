@@ -15,6 +15,8 @@ public class DamageableObject : MonoBehaviour
     [SerializeField]Slider healthBarSlider;
     [SerializeField]TextMeshProUGUI healthBarText;
 
+    [SerializeField] RectTransform healthBarRoot;
+
     [Header("FX")]
     [SerializeField] protected HitEffectSpawner hitEffectSpawner;
     [SerializeField] protected Vector2 hitEffectOffset = Vector2.zero;
@@ -47,6 +49,23 @@ public class DamageableObject : MonoBehaviour
         float xSign = isPlayers ? -1f : 1f;
         Vector3 localOffset = new Vector3(hitEffectOffset.x * xSign, hitEffectOffset.y, 0f);
         return transform.TransformPoint(localOffset);
+    }
+
+    public void RepositionHealthBar(Vector3 worldPos)
+    {
+        if (healthBarRoot == null) return;
+
+        Canvas canvas = healthBarRoot.GetComponentInParent<Canvas>();
+        if (canvas != null && canvas.renderMode == RenderMode.WorldSpace)
+        {
+            // 월드 스페이스 캔버스: 월드 좌표 그대로
+            healthBarRoot.position = worldPos;
+        }
+        else
+        {
+            // 스크린 스페이스(Overlay): 월드→스크린 변환
+            healthBarRoot.position = Camera.main.WorldToScreenPoint(worldPos);
+        }
     }
 
     //각 베이스의 경우만 이 함수 사용.  

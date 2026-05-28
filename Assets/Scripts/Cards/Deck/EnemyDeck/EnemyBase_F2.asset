@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e8b7ec94de4744c8a06c967fe3af30, type: 3}
   m_Name: EnemyBase_F2
   m_EditorClassIdentifier: 
-  baseSprite: {fileID: 21300000, guid: 329a1f8cca9598f428757648e7a724eb, type: 3}
+  visualPrefab: {fileID: 7430305797558097153, guid: 22c99379247c9d6498436bc1448b8e8e, type: 3}
   maxHP: 240
   isBoss: 0
   initialSpawnDelay: 5
