@@ -25,6 +25,16 @@ public class CardRewardCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [SerializeField] Image[] sealImageComponents;
     [SerializeField] CanvasGroup[] sealBackgroundImageComponents;
 
+    Color defaultCostTextColor;
+    Color defaultATKTextColor;
+    Color defaultHPTextColor;
+    bool defaultTextColorsCached;
+
+    void Awake()
+    {
+        CacheDefaultTextColors();
+    }
+
     public void Setup(CardContent content)
     {
         cardContent = content;
@@ -83,6 +93,50 @@ public class CardRewardCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         ATKText.text = content.stats.baseATK.ToString();
         HPText.text = content.stats.baseMaxHp.ToString();
+
+        ResetStatTextColors();
+        HighlightUpgradedStats(content);
+    }
+
+    public void ResetStatTextColors()
+    {
+        CacheDefaultTextColors();
+
+        costText.color = defaultCostTextColor;
+        ATKText.color = defaultATKTextColor;
+        HPText.color = defaultHPTextColor;
+    }
+
+    public void HighlightATKText(Color color)
+    {
+        ATKText.color = color;
+    }
+
+    public void HighlightHPText(Color color)
+    {
+        HPText.color = color;
+    }
+
+    public void HighlightCostText(Color color)
+    {
+        costText.color = color;
+    }
+
+    public void HighlightUpgradedStats(CardContent content)
+    {
+        if(content.IsCostUpgraded()) HighlightCostText(Color.red);
+        if(content.IsATKUpgraded()) HighlightATKText(Color.red);
+        if(content.IsHPUpgraded()) HighlightHPText(Color.red);
+    }
+
+    void CacheDefaultTextColors()
+    {
+        if(defaultTextColorsCached) return;
+
+        defaultCostTextColor = costText.color;
+        defaultATKTextColor = ATKText.color;
+        defaultHPTextColor = HPText.color;
+        defaultTextColorsCached = true;
     }
 
     public void SetCardDark(bool isTrue)
@@ -112,7 +166,8 @@ public class CardRewardCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
             HPImageUI.color = Color.white;
             TimeImageUI.color = Color.white;
 
-            costText.color = Color.white;
+            ResetStatTextColors();
+            HighlightUpgradedStats(cardContent);
 
             for(int i=0; i<sealImageComponents.Length; i++)
             {

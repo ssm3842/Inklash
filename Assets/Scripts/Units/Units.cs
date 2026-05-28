@@ -240,6 +240,35 @@ public class Units : DamageableObject
         else statController.ChangeCurHp(finalDamage); //아니면 체력 계산.
     }
 
+    override public IEnumerator TakeDamage(float amount, float delayTime, bool isEffectDamage, Color? damageTextColor = null)
+    {
+        if (isDead) yield break;
+
+        float finalDamage = amount;
+
+        if (buffController.buffList.Exists(b => b.buffName == "Marking"))
+        {
+            finalDamage = amount * 1.5f; 
+        }
+
+        yield return new WaitForSeconds(delayTime);
+
+        if (this == null || isDead) yield break;
+
+        PlayHitFlash();
+
+        if (hitEffectSpawner != null)
+        {
+            Vector3 hitPos = GetHitPosition();
+            hitEffectSpawner.Spawn(hitPos, !isPlayers, !isPlayers);
+        }
+
+        DamageTextCanvas.Inst.InstDamageText(finalDamage, transform.position, isPlayers, isEffectDamage, damageTextColor);
+               
+        if (statController.GetCurHp() <= finalDamage) Die();
+        else statController.ChangeCurHp(finalDamage);
+    }
+
     public IEnumerator TakeDamage(float amount, bool isKnockback, float distance, float duration, float delayTime = 0f)
     {
         // 1. 기본 데미지 처리 (위의 함수 재사용)
@@ -252,12 +281,23 @@ public class Units : DamageableObject
         }
     }
 
+    public IEnumerator TakeDamage(float amount, bool isKnockback, float distance, float duration, float delayTime, bool isEffectDamage)
+    {
+        yield return StartCoroutine(this.TakeDamage(amount, delayTime, isEffectDamage));
+
+        if (!isDead && statController.GetCurHp() > 0 && isKnockback)
+        {
+            ApplyKnockback(distance, duration);
+        }
+    }
+
     public virtual void _AttackEnemy() //공격은 애니메이션에서 진행.
     {
         if (target == null) return;
         
         Units targetUnit = target?.GetComponent<Units>();
         float damage = statController.GetStat(StatType.ATK);
+        bool isEffectDamage = IsEffectDamageAttack();
 
         if (HasBuff("DoubleAttack")) 
         {
@@ -279,17 +319,22 @@ public class Units : DamageableObject
 
             if (kb != null)
             {
-                target.StartCoroutine(targetUnit.TakeDamage(damage, true, kb.pushDistance, kb.pushDuration));
+                target.StartCoroutine(targetUnit.TakeDamage(damage, true, kb.pushDistance, kb.pushDuration, 0f, isEffectDamage));
             }
             else
             {
-                target.StartCoroutine(targetUnit.TakeDamage(damage, false, 0, 0));
+                target.StartCoroutine(targetUnit.TakeDamage(damage, false, 0, 0, 0f, isEffectDamage));
             }
         }
         else if (target != null) // 건물이거나 Units 컴포넌트가 없는 경우
         {
-            target.StartCoroutine(target.TakeDamage(damage, 0f));
+            target.StartCoroutine(target.TakeDamage(damage, 0f, isEffectDamage));
         }
+    }
+
+    protected virtual bool IsEffectDamageAttack()
+    {
+        return HasBuff("Burn");
     }
 
     public void _OnAttackStart() //공격 애니메이션 시작 시 관련 변수를 초기화.

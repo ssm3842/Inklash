@@ -28,6 +28,16 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     [SerializeField] Renderer[] subObjectsRenderers;
 
+    Color defaultCostTextColor;
+    Color defaultATKTextColor;
+    Color defaultHPTextColor;
+    bool defaultTextColorsCached;
+
+    void Awake()
+    {
+        CacheDefaultTextColors();
+    }
+
     //좌클릭과 우클릭 시 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -160,6 +170,35 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         ATKText.text = cardContent.stats.baseATK.ToString();
         HPText.text = cardContent.stats.baseMaxHp.ToString();
+
+        ResetStatTextColors();
+        HighlightUpgradedStats();
+    }
+
+    void ResetStatTextColors()
+    {
+        CacheDefaultTextColors();
+
+        costText.color = defaultCostTextColor;
+        ATKText.color = defaultATKTextColor;
+        HPText.color = defaultHPTextColor;
+    }
+
+    void HighlightUpgradedStats()
+    {
+        if(cardContent.IsCostUpgraded()) costText.color = Color.red;
+        if(cardContent.IsATKUpgraded()) ATKText.color = Color.red;
+        if(cardContent.IsHPUpgraded()) HPText.color = Color.red;
+    }
+
+    void CacheDefaultTextColors()
+    {
+        if(defaultTextColorsCached) return;
+
+        defaultCostTextColor = costText.color;
+        defaultATKTextColor = ATKText.color;
+        defaultHPTextColor = HPText.color;
+        defaultTextColorsCached = true;
     }
 
     public int GetOriginalIndex()

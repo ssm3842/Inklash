@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class FireUnit : Units
 {
+    protected override bool IsEffectDamageAttack()
+    {
+        return true;
+    }
+
     protected override void ApplyBurnEffect(DamageableObject hitTarget)
     {
         if (hitTarget == null) return;

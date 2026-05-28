@@ -137,6 +137,8 @@ public class UpgradeEvent : MonoBehaviour
     void ChangePreview()
     {   
         if(selectCard == null) return;
+        cardPreviewAfter.ResetStatTextColors();
+
         if(upgradeType == UpgradeType.CardATK)
         {
             if(selectCard.cardContent.id == "Freeze") atkText.text = (selectCard.cardContent.stats.baseATK + 3).ToString();
@@ -147,6 +149,7 @@ public class UpgradeEvent : MonoBehaviour
             atkText.color = Color.red;
             hpText.color = Color.black;
             costText.color = Color.white;
+            cardPreviewAfter.HighlightATKText(Color.red);
         }
         else if(upgradeType == UpgradeType.CardHP)
         {
@@ -157,6 +160,7 @@ public class UpgradeEvent : MonoBehaviour
             atkText.color = Color.black;
             hpText.color = Color.red;
             costText.color = Color.white;
+            cardPreviewAfter.HighlightHPText(Color.red);
         }
         else if(upgradeType == UpgradeType.CardCost)
         {
@@ -167,6 +171,7 @@ public class UpgradeEvent : MonoBehaviour
             atkText.color = Color.black;
             hpText.color = Color.black;
             costText.color = Color.red;
+            cardPreviewAfter.HighlightCostText(Color.red);
         }
     }
 

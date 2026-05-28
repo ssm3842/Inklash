@@ -21,7 +21,7 @@ public class BurnEffect : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
             elapsed += 0.5f;
-            if (target != null) StartCoroutine(target.TakeDamage(damageAmount, 0f));
+            if (target != null) StartCoroutine(target.TakeDamage(damageAmount, 0f, true));
         }
         Destroy(this);
     }

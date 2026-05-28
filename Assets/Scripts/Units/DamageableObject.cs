@@ -141,4 +141,73 @@ public class DamageableObject : MonoBehaviour
             }
         }
     }
+
+    virtual public IEnumerator TakeDamage(float amount, float delayTime, bool isEffectDamage, Color? damageTextColor = null)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        DamageTextCanvas.Inst.InstDamageText(amount, transform.position, isPlayers, isEffectDamage, damageTextColor);
+
+        if(statController.GetCurHp() <= 0f) yield break;
+
+        statController.ChangeCurHp(amount);
+        if (healthBarSlider)
+        {
+            healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
+            healthBarText.text = statController.GetCurHp().ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
+        }
+
+        if (statController.GetCurHp() <= 0f)
+        {
+            if (healthBarSlider)
+            {
+                healthBarSlider.value = statController.GetCurHp() / statController.GetStat(StatType.MAX_HP);
+                healthBarText.text = 0.ToString() + "/" + statController.GetStat(StatType.MAX_HP).ToString();
+            }
+            
+            transform.DOShakePosition(1.5f, new Vector3(0.25f, 0, 0), 15, 0, false, false).SetUpdate(true);
+            Time.timeScale = 0f;
+            if (!isPlayers)
+            {
+                yield return new WaitForSecondsRealtime(2f);
+                RunManager.Inst.battleManager.OnBattleWin();
+            }
+            else
+            {
+                yield return new WaitForSecondsRealtime(2f);
+                RunManager.Inst.battleManager.OnBattleLose();
+            }
+
+            RunManager.Inst.battleManager.cardUseManager.StopSpawnEnemyCoroutine();
+            gameObject.SetActive(false);
+        }
+
+        if(!isPhase2Triggered)
+        {
+            float currentHp = statController.GetCurHp();
+            float maxHp = statController.GetStat(StatType.MAX_HP);
+
+            if (currentHp <= maxHp * 0.5f)
+            {
+                isPhase2Triggered = true;
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5f);
+                foreach (Collider2D collider in colliders)
+                {
+                    if(collider.gameObject == gameObject) continue;
+
+                    Units units = collider.gameObject.GetComponent<Units>();
+                    if(units.isPlayers == isPlayers) continue;
+
+                    Debug.Log(colliders.Length);
+
+                    units.ApplyKnockback(2f, 0.3f);
+                }
+                
+                if (!isPlayers && currentEnemyData.isBoss)
+                {
+                    RunManager.Inst.battleManager.cardUseManager.ChangePhase(CardUseManager.SpawnPhase.Phase2);
+                }
+            }
+        }
+    }
 }

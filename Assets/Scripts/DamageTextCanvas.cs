@@ -17,9 +17,9 @@ public class DamageTextCanvas : MonoBehaviour
         foreach(Transform child in transform) Destroy(child.gameObject);
     }
 
-    public void InstDamageText(float amount, Vector3 spawnPos, bool isPlayers)
+    public void InstDamageText(float amount, Vector3 spawnPos, bool isPlayers, bool isEffectDamage = false, Color? overrideColor = null)
     {
         GameObject newDamageText = Instantiate(damateTextPrefab.gameObject, transform);
-        newDamageText.GetComponent<DamageText>().Setup(amount, spawnPos, isPlayers);
+        newDamageText.GetComponent<DamageText>().Setup(amount, spawnPos, isPlayers, isEffectDamage, overrideColor);
     }
 }

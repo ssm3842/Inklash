@@ -154,6 +154,7 @@ public class UnitDataManager : MonoBehaviour
                 cardLink.cardContents.card.stats.baseATKSpd = 1f;
                 cardLink.cardContents.card.stats.baseRange = float.Parse(columns[7]);
                 cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[8]);
+                cardLink.cardContents.card.CaptureCurrentValuesAsOriginal();
 
                 //카드 보상 풀에 추가
                 cardRewardPool.Add(cardLink.cardContents);
@@ -210,6 +211,7 @@ public class UnitDataManager : MonoBehaviour
 
                 //사거리를 기록.
                 cardLink.cardContents.card.stats.baseRange = float.Parse(columns[4]);
+                cardLink.cardContents.card.CaptureCurrentValuesAsOriginal();
 
                 // cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[7]);
 
@@ -259,6 +261,7 @@ public class UnitDataManager : MonoBehaviour
 
                 // 코스트 정보
                 cardLink.cardContents.card.cost = int.Parse(columns[2]);
+                cardLink.cardContents.card.CaptureCurrentValuesAsOriginal();
 
                 //카드 보상 풀에 추가
                 cardRewardPool.Add(cardLink.cardContents);
@@ -323,6 +326,7 @@ public class UnitDataManager : MonoBehaviour
                 cardLink.cardContents.card.stats.baseATKSpd = 1f;
                 cardLink.cardContents.card.stats.baseRange = float.Parse(columns[6]);
                 cardLink.cardContents.card.stats.baseSpd = float.Parse(columns[7]);
+                cardLink.cardContents.card.CaptureCurrentValuesAsOriginal();
 
                 break;
             }

@@ -28,6 +28,11 @@ public class CardContent
     public CardUIInfo firstInfo;
     public CardUIInfo secondInfo;
 
+    [NonSerialized] bool hasOriginalValues;
+    [NonSerialized] int originalCost;
+    [NonSerialized] float originalBaseATK;
+    [NonSerialized] float originalBaseMaxHp;
+
     public CardContent(CardContent baseCardContent)
     {
         id = baseCardContent.id;
@@ -46,6 +51,56 @@ public class CardContent
 
         firstInfo = baseCardContent.firstInfo;
         secondInfo = baseCardContent.secondInfo;
+
+        if(baseCardContent.hasOriginalValues)
+        {
+            hasOriginalValues = true;
+            originalCost = baseCardContent.originalCost;
+            originalBaseATK = baseCardContent.originalBaseATK;
+            originalBaseMaxHp = baseCardContent.originalBaseMaxHp;
+        }
+        else
+        {
+            SetOriginalValues(baseCardContent.cost, baseCardContent.stats.baseATK, baseCardContent.stats.baseMaxHp);
+        }
+    }
+
+    public bool IsCostUpgraded()
+    {
+        EnsureOriginalValues();
+        return cost < originalCost;
+    }
+
+    public bool IsATKUpgraded()
+    {
+        EnsureOriginalValues();
+        return stats.baseATK > originalBaseATK && !Mathf.Approximately(stats.baseATK, originalBaseATK);
+    }
+
+    public bool IsHPUpgraded()
+    {
+        EnsureOriginalValues();
+        return stats.baseMaxHp > originalBaseMaxHp && !Mathf.Approximately(stats.baseMaxHp, originalBaseMaxHp);
+    }
+
+    public void CaptureCurrentValuesAsOriginal()
+    {
+        SetOriginalValues(cost, stats.baseATK, stats.baseMaxHp);
+    }
+
+    void EnsureOriginalValues()
+    {
+        if(hasOriginalValues) return;
+
+        SetOriginalValues(cost, stats.baseATK, stats.baseMaxHp);
+    }
+
+    void SetOriginalValues(int newOriginalCost, float newOriginalBaseATK, float newOriginalBaseMaxHp)
+    {
+        originalCost = newOriginalCost;
+        originalBaseATK = newOriginalBaseATK;
+        originalBaseMaxHp = newOriginalBaseMaxHp;
+        hasOriginalValues = true;
     }
 }
 

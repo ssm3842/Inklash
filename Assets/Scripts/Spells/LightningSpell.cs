@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Lightning : SpellBase
 {
+    static readonly Color DamageTextColor = new Color(0.25f, 0.85f, 1f);
+
     public float spawnYMin = -2f;
     public float spawnYMax = -0.4f;
 
@@ -20,7 +22,7 @@ public class Lightning : SpellBase
             var damageable = enemy.GetComponent<DamageableObject>();
             if (damageable == null || damageable.isPlayers) continue;
             enemy.GetComponent<BuffController>()?.GetBuff(new BuffShock());
-            StartCoroutine(damageable.TakeDamage(damage));
+            StartCoroutine(damageable.TakeDamage(damage, 0f, false, DamageTextColor));
             PerformHit(enemy);
         }
 

@@ -13,6 +13,7 @@ public class DamageText : MonoBehaviour
     [Header("Big hit")]
     [SerializeField] float bigDamageThreshold = 15f;
     [SerializeField] Color bigDamageColor = new Color(1f, 0.45f, 0.15f); // 주황빛
+    [SerializeField] Color effectDamageColor = Color.red;
     [SerializeField] float normalFontSize = 36f;
     [SerializeField] float bigFontSize    = 52f;
 
@@ -20,7 +21,7 @@ public class DamageText : MonoBehaviour
     [SerializeField] float popInTime = 0.18f;
     [SerializeField] float driftX    = 0.25f;
 
-    public void Setup(float damage, Vector3 startPos, bool isPlayers)
+    public void Setup(float damage, Vector3 startPos, bool isPlayers, bool isEffectDamage = false, Color? overrideColor = null)
     {
         var tmp = GetComponent<TextMeshProUGUI>();
         tmp.text  = damage.ToString("F0");
@@ -51,6 +52,15 @@ public class DamageText : MonoBehaviour
         {
             tmp.fontStyle = FontStyles.Normal;
             tmp.fontSize  = normalFontSize;
+        }
+
+        if (overrideColor.HasValue)
+        {
+            tmp.color = overrideColor.Value;
+        }
+        else if (isEffectDamage)
+        {
+            tmp.color = effectDamageColor;
         }
 
         transform.position = startPos + new Vector3(Random.Range(-0.3f, 0.3f),

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Fireball : SpellBase
 {
+    static readonly Color DamageTextColor = new Color(1f, 0.45f, 0f);
+
     [Header("Fireball Settings")]
     public GameObject fireballProjectilePrefab; // 낙하하는 화염구 프리팹
     public GameObject explosionEffectPrefab;     // 폭발 이펙트 프리팹
@@ -109,7 +111,7 @@ public class Fireball : SpellBase
 
             var damageable = enemy.GetComponent<DamageableObject>();
             if (damageable == null || damageable.isPlayers) continue;
-            StartCoroutine(damageable.TakeDamage(damage));
+            StartCoroutine(damageable.TakeDamage(damage, 0f, false, DamageTextColor));
             PerformHit(enemy);
         }
     }

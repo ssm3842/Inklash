@@ -15,6 +15,16 @@ public class CardInfo : MonoBehaviour
     [SerializeField]TextMeshProUGUI cardDescription;
     [SerializeField]SealPopupTrigger[] sealImageUI;
 
+    Color defaultCostTextColor;
+    Color defaultATKTextColor;
+    Color defaultHPTextColor;
+    bool defaultTextColorsCached;
+
+    void Awake()
+    {
+        CacheDefaultTextColors();
+    }
+
     public void Setup(CardContent cardContent)
     {
         HideContent(false);
@@ -27,6 +37,8 @@ public class CardInfo : MonoBehaviour
         cardInfoATKTerm.text = cardContent.stats.baseATKTerm.ToString();
         cardInfoSpd.text = cardContent.stats.baseATKSpd.ToString();
         cardDescription.text = cardContent.description;
+        ResetStatTextColors();
+        HighlightUpgradedStats(cardContent);
 
         //인장 이미지 일단 비활성화 후 있으면 활성화
         for(int i=0; i<sealImageUI.Length; i++)
@@ -42,6 +54,32 @@ public class CardInfo : MonoBehaviour
         }
     }
     
+    void ResetStatTextColors()
+    {
+        CacheDefaultTextColors();
+
+        cardInfoCost.color = defaultCostTextColor;
+        cardInfoATK.color = defaultATKTextColor;
+        cardInfoHP.color = defaultHPTextColor;
+    }
+
+    void HighlightUpgradedStats(CardContent cardContent)
+    {
+        if(cardContent.IsCostUpgraded()) cardInfoCost.color = Color.red;
+        if(cardContent.IsATKUpgraded()) cardInfoATK.color = Color.red;
+        if(cardContent.IsHPUpgraded()) cardInfoHP.color = Color.red;
+    }
+
+    void CacheDefaultTextColors()
+    {
+        if(defaultTextColorsCached) return;
+
+        defaultCostTextColor = cardInfoCost.color;
+        defaultATKTextColor = cardInfoATK.color;
+        defaultHPTextColor = cardInfoHP.color;
+        defaultTextColorsCached = true;
+    }
+
     public void HideContent(bool isHide)
     {
         if(isHide)
