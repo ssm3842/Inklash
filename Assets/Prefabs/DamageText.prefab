@@ -58,6 +58,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23148377dba939b49840b865d582ac7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allyOutlineMat: {fileID: 2100000, guid: c98373f239b292140b12ad6b42e197c5, type: 2}
+  enemyOutlineMat: {fileID: 2100000, guid: 64a8ae07de16ad1469331e0d01b3818a, type: 2}
+  bigDamageThreshold: 15
+  bigDamageColor: {r: 1, g: 0.45, b: 0.15, a: 1}
+  normalFontSize: 36
+  bigFontSize: 52
 --- !u!114 &194121077666253411
 MonoBehaviour:
   m_ObjectHideFlags: 0

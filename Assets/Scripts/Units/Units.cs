@@ -234,7 +234,7 @@ public class Units : DamageableObject
             hitEffectSpawner.Spawn(hitPos, !isPlayers, !isPlayers);
         }
 
-        DamageTextCanvas.Inst.InstDamageText(amount, transform.position, isPlayers);
+        DamageTextCanvas.Inst.InstDamageText(finalDamage, transform.position, isPlayers);
                
         if (statController.GetCurHp() <= finalDamage) Die(); //남은 체력보다 데미지가 크면 오브젝트 파괴.
         else statController.ChangeCurHp(finalDamage); //아니면 체력 계산.
