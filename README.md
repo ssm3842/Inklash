@@ -1,4 +1,4 @@
-# FantasyOffense
+# Inklash
 
 ## 작업자
 김예준 / 개발 / dpwns5889@naver.com  
